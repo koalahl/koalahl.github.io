@@ -239,123 +239,51 @@
 <p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
 <p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
 <p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(ElemType arr[], <span class="keyword">int</span> length)</span>  </span><br><span class="line"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> i, j;  </span><br><span class="line">    ElemType guard; <span class="comment">// 哨兵  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; length; ++i)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; arr[i-<span class="number">1</span>]) <span class="comment">// 在无序部分寻找一个元素，使之插入到有序部分后仍然有序  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            guard = arr[i];<span class="comment">// 复制到“哨兵”  </span></span><br><span class="line">          </span><br><span class="line">            <span class="comment">// 将第i个元素之前的元素依次后移一个位置  </span></span><br><span class="line">            <span class="keyword">for</span> (j = i - <span class="number">1</span>; arr[j] &gt; guard; j--)  </span><br><span class="line">            &#123;  </span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j];  </span><br><span class="line">            &#125;  </span><br><span class="line">  </span><br><span class="line">            arr[j + <span class="number">1</span>] = guard; <span class="comment">// 复制到插入位置  </span></span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">``` </span><br><span class="line"> </span><br><span class="line"><span class="comment">/* </span><br><span class="line">  2、折半插入排序 </span><br><span class="line">  使用于排序表为顺序存储的线性表 </span><br><span class="line">  在查找插入位置时，采用折半查找 </span><br><span class="line">  算法思想是： </span><br><span class="line">  1）设置折半查找范围； </span><br><span class="line">  2）折半查找 </span><br><span class="line">  3）移动元素 </span><br><span class="line">  4）插入元素 </span><br><span class="line">  5）继续操作1）、2）、3）、4）步，直到表成有序。 </span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
-<p>void BinaryInsertSort(ElemType arr[], int length)<br>{<br>    int i, j, low, high, mid;<br>    ElemType tmp;  </p>
-<pre><code><span class="keyword">for</span> ( i = <span class="number">1</span>; i &lt; length; ++i )  
-{  
-    tmp = arr[i]; <span class="comment">// 复制到哨兵  </span>
-
-    <span class="comment">// 设置折半查找范围  </span>
-    low = <span class="number">0</span>;        
-    high = i;  
-
-    <span class="keyword">while</span> (low &lt;= high) <span class="comment">// 折半查找  </span>
-    {  
-        mid = (low + high) / <span class="number">2</span>;  
-
-        <span class="keyword">if</span> (arr[mid] &gt; tmp) <span class="comment">// 在左半部分查找  </span>
-        {  
-            high = mid - <span class="number">1</span>;  
-        }  
-        <span class="keyword">else</span>  
-        {  
-            low = mid + <span class="number">1</span>; <span class="comment">// 在右半部分查找  </span>
-        }  
-    }  
-
-    <span class="comment">// 移动元素  </span>
-    <span class="keyword">for</span> ( j = i - <span class="number">1</span>; j &gt;= high + <span class="number">1</span>; --j )  
-    {  
-        arr[j + <span class="number">1</span>] = arr[j];  
-    }  
-
-    arr[j + <span class="number">1</span>] = tmp;  
-}  
-</code></pre><p>}<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">3、希尔(Shell)排序 </span><br><span class="line">   基本思想： </span><br><span class="line">   先将待排序的表分割成若干个形若L[i, i+d, i+2d, ..., i+kd]的“特殊”子表，分别进行直接插入排序， </span><br><span class="line">   当整个表已呈“基本有序”时，再对全体记录进行一次直接插入排序。 </span><br><span class="line">   算法过程： </span><br><span class="line">   1）先取一个小于n的步长d1,把表中全部记录分成d1个组，所有距离为d1的倍数的记录放在同一组中，在各 </span><br><span class="line">      组中进行直接插入排序； </span><br><span class="line">   2）然后取第二个步长d2 &lt; d1, 重复步骤1 </span><br><span class="line">   3）直到dk = 1，再进行最后一次直接插入排序 </span><br><span class="line">*/</span>  </span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(ElemType arr[], <span class="keyword">int</span> length)</span>  </span><br><span class="line"></span>&#123;  </span><br><span class="line">    <span class="keyword">int</span> i, j, dk = length / <span class="number">2</span>;  </span><br><span class="line">    ElemType tmp;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">while</span> (dk &gt;= <span class="number">1</span>)<span class="comment">// 控制步长  </span></span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (i = dk; i &lt; length; ++i)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">if</span> (arr[i] &lt; arr[i - dk])  </span><br><span class="line">            &#123;  </span><br><span class="line">                tmp = arr[i]; <span class="comment">// 暂存  </span></span><br><span class="line">  </span><br><span class="line">                <span class="comment">// 后移  </span></span><br><span class="line">                <span class="keyword">for</span> (j = i - dk; j &gt;= <span class="number">0</span> &amp;&amp; tmp &lt; arr[j]; j -= dk)  </span><br><span class="line">                &#123;  </span><br><span class="line">                    arr[j + dk] = arr[j];  </span><br><span class="line">                &#125;  </span><br><span class="line">  </span><br><span class="line">                arr[j + dk] = tmp;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        dk /= <span class="number">2</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">```  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">4、冒泡排序算法 </span><br><span class="line">   基本思想： </span><br><span class="line">   假设待排序的表长为n， 从后向前或从前向后两两比较相邻元素的值，若为逆序，则交换之，直到序列比较完。 </span><br><span class="line">   这样一回就称为一趟冒泡。这样值较大的元素往下“沉”，而值较小的元素入上“浮”。 </span><br><span class="line">   时间复杂度为O(n^2) </span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>void BubbleSort(ElemType arr[], int length)<br>{<br>    int i, j;<br>    ElemType tmp;  </p>
-<pre><code>for <span class="comment">(i = 0; i &lt; length - 1; ++i)</span><span class="comment">// 趟次  </span>
-{  
-    for <span class="comment">(j = i + 1; j &lt; length; ++j)</span>  
-    {  
-        <span class="keyword">if</span> <span class="comment">(arr[i] &gt; arr[j])</span>  
-        {  
-            tmp = arr[i];  
-            arr[i] = arr[j];  
-            arr[j] = tmp;  
-        }  
-    }  
-}  
-</code></pre><p>}<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">/* </span><br><span class="line"><span class="number">5</span>、快速排序算法 </span><br><span class="line">   基本思想：基于分治法，在待排序的n个元素中任取一个元素pivot作为基准，通过一趟排序将待排序表划分为独立的 </span><br><span class="line">   两部分L<span class="string">[1..k-1]</span>和L<span class="string">[k+1 .. n]</span>,使得第一部分中的所有元素值都小于pivot，而第二部分中的所有元素值都大于pivot， </span><br><span class="line">   则基准元素放在了其最终位置L（K）上，这个过程为一趟快速排序。而后分别递归地对两个子表重复上述过程，直到每 </span><br><span class="line">   部分内只有一个元素或为空为止，即所有元素都放在了其最终位置上。 </span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
-<p>int Partition(ElemType arr[], int left, int right)<br>{<br>    ElemType pivot = arr[left]; // 以当前表中第一个元素为枢轴值  </p>
-<pre><code><span class="keyword">while</span> (<span class="keyword">left</span> &lt; <span class="keyword">right</span>)  
-{  
-    <span class="comment">// 从右向左找一个比枢轴值小的元素的位置  </span>
-    <span class="keyword">while</span> (<span class="keyword">left</span> &lt; <span class="keyword">right</span> &amp;&amp; arr[<span class="keyword">right</span>] &gt;= pivot)   
-    {  
-        --<span class="keyword">right</span>;  
-    }  
-
-    arr[<span class="keyword">left</span>] = arr[<span class="keyword">right</span>]; <span class="comment">// 将比枢轴值小的元素移动到左端  </span>
-
-    <span class="comment">// 从左向右查找比枢轴值大的元素的位置  </span>
-    <span class="keyword">while</span> (<span class="keyword">left</span> &lt; <span class="keyword">right</span> &amp;&amp; arr[<span class="keyword">left</span>] &lt;= pivot)  
-    {  
-        ++<span class="keyword">left</span>;   
-    }  
-
-    arr[<span class="keyword">right</span>] = arr[<span class="keyword">left</span>];<span class="comment">// 将比枢轴值大的元素移动到右端  </span>
-}  
-
-arr[<span class="keyword">left</span>] = pivot; <span class="comment">// 将枢轴元素放在最终位置  </span>
-
-<span class="keyword">return</span> <span class="keyword">left</span>;  
-</code></pre><p>}  </p>
-<p>void QuickSort(ElemType arr[], int left, int right)<br>{<br>    if (left &lt; right)<br>    {<br>        int pivotPos = Partition(arr, left, right); // 划分<br>        QuickSort(arr, left, pivotPos - 1); // 快速排序左半部分<br>        QuickSort(arr, pivotPos + 1, right); // 快速排序右半部分<br>    }<br>}<br><figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">6、简单选择排序算法 </span><br><span class="line">   基本思想： </span><br><span class="line">   假设排序表为L[1...n],第i趟排序从表中选择关键字最小的元素与Li交换，第一趟排序可以确定一个元素的 </span><br><span class="line">   最终位置，这样经过n-1趟排序就可以使得整个排序表有序。 </span><br><span class="line">*/</span>  </span><br><span class="line"></span><br><span class="line"> ``` </span><br><span class="line"><span class="keyword">void</span> SelectSort(ElemType arr[], <span class="keyword">int</span> <span class="built_in">length</span>)  </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">int</span> i, j, <span class="built_in">min</span>;  </span><br><span class="line">    ElemType tmp;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">length</span> - <span class="number">1</span>; ++i) <span class="comment">// 需要n-1趟  </span></span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="built_in">min</span> = i;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; <span class="built_in">length</span>; ++j)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; arr[<span class="built_in">min</span>]) <span class="comment">// 每一趟选择元素值最小的下标  </span></span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="built_in">min</span> = j;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">min</span> != i) <span class="comment">// 如果第i趟的Li元素值该趟找到的最小元素值，则交换，以使Li值最小  </span></span><br><span class="line">        &#123;  </span><br><span class="line">            tmp = arr[i];  </span><br><span class="line">            arr[i] = arr[<span class="built_in">min</span>];  </span><br><span class="line">            arr[<span class="built_in">min</span>] = tmp;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">```  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">7、堆排序算法 </span><br><span class="line">    堆的定义如下：n个关键字序列号L[1..n]称为堆，仅当该序列满足： </span><br><span class="line">    1）L(i) &lt;= L(2i)且L(i) &lt;= L(2i+1) 或 2)L(i) &gt;= L(2i)且L(i) &gt;= L(2i+1) </span><br><span class="line">    满足第一种情况的堆，称为小根堆（小顶堆）； </span><br><span class="line">    满足第二种情况的堆，称为大根堆（大顶堆）。 </span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>void HeapAdjust(ElemType <em>a,int i,int size)  //调整堆<br>{<br>    int lchild = 2 </em> i;       //i的左孩子节点序号<br>    int rchild = 2 * i + 1;     //i的右孩子节点序号<br>    int max = i;            //临时变量   </p>
-<pre><code><span class="keyword">if</span>(i &lt;= size / <span class="number">2</span>)         <span class="comment"> //如果i是叶节点就不用进行调整   </span>
-{  
-    <span class="keyword">if</span> (lchild &lt;= size &amp;&amp; <span class="operator">a</span>[lchild] &gt; <span class="operator">a</span>[<span class="built_in">max</span>])  
-    {  
-        <span class="built_in">max</span> = lchild;<span class="comment"> // 左孩子比双亲值还大，需要调整  </span>
-    }    
-
-    <span class="keyword">if</span> (rchild &lt;= size &amp;&amp; <span class="operator">a</span>[rchild] &gt; <span class="operator">a</span>[<span class="built_in">max</span>])  
-    {  
-        <span class="built_in">max</span> = rchild<span class="comment">;// 右孩子比双亲值还大，需要调整  </span>
-    }  
-
-    <span class="keyword">if</span> (<span class="built_in">max</span> != i)<span class="comment"> // 需要调整  </span>
-    {  
-        ElemType tmp = <span class="operator">a</span>[<span class="built_in">max</span>];  
-        <span class="operator">a</span>[<span class="built_in">max</span>] = <span class="operator">a</span>[i];  
-        <span class="operator">a</span>[i] = tmp;  
-
-        HeapAdjust(<span class="operator">a</span>, <span class="built_in">max</span>, size);   <span class="comment"> //避免调整之后以max为父节点的子树不是堆   </span>
-    }  
-}          
-</code></pre><p>}  </p>
-<p>void BuildHeap(ElemType *a,int size)    //建立堆<br>{<br>    for (int i = size / 2; i &gt;= 0; i–)    //非叶节点最大序号值为size/2<br>    {<br>        HeapAdjust(a, i, size);<br>    }<br>}   </p>
+<p>```<br>void InsertSort(ElemType arr[], int length)<br>{<br>    int i, j;<br>    ElemType guard; // 哨兵  </p>
+<p> for (i = 1; i \&lt; length; ++i)<br> {<br>   if (arr<a href="">i</a> \&lt; arr<a href="">i-1</a>) // 在无序部分寻找一个元素，使之插入到有序部分后仍然有序<br> {<br>guard = arr<a href="">i</a>;// 复制到“哨兵”<br>// 将第i个元素之前的元素依次后移一个位置<br>for (j = i - 1; arr<a href="">j</a> > guard; j–)<br>{<br>arr<a href="">j + 1</a> = arr<a href="">j</a>;<br>}  </p>
+<p>arr<a href="">j + 1</a> = guard; // 复制到插入位置<br>}<br>}<br>} </p>
+<p>``` </p>
+<p>/*<br>  2、折半插入排序<br>  使用于排序表为顺序存储的线性表<br>  在查找插入位置时，采用折半查找<br>  算法思想是：<br>  1）设置折半查找范围；<br>  2）折半查找<br>  3）移动元素<br>  4）插入元素<br>  5）继续操作1）、2）、3）、4）步，直到表成有序。<br>*/  </p>
+<p>```<br>void BinaryInsertSort(ElemType arr[], int length)<br>{<br>    int i, j, low, high, mid;<br>    ElemType tmp;  </p>
+<p>for ( i = 1; i \&lt; length; ++i )<br>{<br>tmp = arr<a href="">i</a>; // 复制到哨兵<br>// 设置折半查找范围<br>low = 0;<br>high = i;  </p>
+<p>while (low \&lt;= high) // 折半查找<br>{<br>mid = (low + high) / 2;  </p>
+<p>if (arr<a href="">mid</a> > tmp) // 在左半部分查找<br>{<br>high = mid - 1;<br>}<br>else<br>{<br>low = mid + 1; // 在右半部分查找<br>}<br>}  </p>
+<p>// 移动元素<br>for ( j = i - 1; j >= high + 1; –j )<br>{<br>arr<a href="">j + 1</a> = arr<a href="">j</a>;<br>}  </p>
+<p>arr<a href="">j + 1</a> = tmp;<br>}<br>}  </p>
+<p>``` </p>
+<p>/*<br>3、希尔(Shell)排序<br>   基本思想：<br>   先将待排序的表分割成若干个形若L[i, i+d, i+2d, …, i+kd]的“特殊”子表，分别进行直接插入排序，<br>   当整个表已呈“基本有序”时，再对全体记录进行一次直接插入排序。<br>   算法过程：<br>   1）先取一个小于n的步长d1,把表中全部记录分成d1个组，所有距离为d1的倍数的记录放在同一组中，在各<br>  组中进行直接插入排序；<br>   2）然后取第二个步长d2 \&lt; d1, 重复步骤1<br>   3）直到dk = 1，再进行最后一次直接插入排序<br>*/  </p>
+<p>```<br>void ShellSort(ElemType arr[], int length)<br>{<br>    int i, j, dk = length / 2;<br>    ElemType tmp;  </p>
+<p> while (dk >= 1)// 控制步长<br>{<br>for (i = dk; i \&lt; length; ++i)<br>{<br>if (arr<a href="">i</a> \&lt; arr<a href="">i - dk</a>)<br> {<br>tmp = arr<a href="">i</a>; // 暂存  </p>
+<p>// 后移<br>for (j = i - dk; j >= 0 &amp;&amp; tmp \&lt; arr<a href="">j</a>; j -= dk)<br>{<br>arr<a href="">j + dk</a> = arr<a href="">j</a>;<br>}  </p>
+<p>arr<a href="">j + dk</a> = tmp;<br>}<br>}  </p>
+<p>dk /= 2;<br>}<br>}<br>```  </p>
+<p>/*<br>4、冒泡排序算法<br>   基本思想：<br>   假设待排序的表长为n， 从后向前或从前向后两两比较相邻元素的值，若为逆序，则交换之，直到序列比较完。<br>   这样一回就称为一趟冒泡。这样值较大的元素往下“沉”，而值较小的元素入上“浮”。<br>   时间复杂度为O(n^2)<br>*/ </p>
+<p>```<br>void BubbleSort(ElemType arr[], int length)<br>{<br>    int i, j;<br>    ElemType tmp;<br>   for (i = 0; i \&lt; length - 1; ++i)// 趟次<br>{<br>for (j = i + 1; j \&lt; length; ++j)<br>{<br>if (arr<a href="">i</a> > arr<a href="">j</a>)<br>   {<br>tmp = arr<a href="">i</a>;<br>arr<a href="">i</a> = arr<a href="">j</a>;<br>arr<a href="">j</a> = tmp;<br>}<br>}<br>}<br>}<br>```  </p>
+<p>/*<br>5、快速排序算法<br>   基本思想：基于分治法，在待排序的n个元素中任取一个元素pivot作为基准，通过一趟排序将待排序表划分为独立的<br>   两部分L[1..k-1]和L[k+1 .. n],使得第一部分中的所有元素值都小于pivot，而第二部分中的所有元素值都大于pivot，<br>   则基准元素放在了其最终位置L（K）上，这个过程为一趟快速排序。而后分别递归地对两个子表重复上述过程，直到每<br>   部分内只有一个元素或为空为止，即所有元素都放在了其最终位置上。<br>*/ </p>
+<p>```<br>int Partition(ElemType arr[], int left, int right)<br>{<br>    ElemType pivot = arr[left]; // 以当前表中第一个元素为枢轴值  </p>
+<p> while (left \&lt; right)<br>{<br>// 从右向左找一个比枢轴值小的元素的位置<br>while (left \&lt; right &amp;&amp; arr<a href="">right</a> >= pivot)<br>{<br>–right;<br>}  </p>
+<p>arr<a href="">left</a> = arr<a href="">right</a>; // 将比枢轴值小的元素移动到左端  </p>
+<p>// 从左向右查找比枢轴值大的元素的位置<br>while (left \&lt; right &amp;&amp; arr<a href="">left</a> \&lt;= pivot)<br>{<br>++left;<br>}  </p>
+<p>   arr<a href="">right</a> = arr<a href="">left</a>;// 将比枢轴值大的元素移动到右端<br>}  </p>
+<p>arr<a href="">left</a> = pivot; // 将枢轴元素放在最终位置  </p>
+<p>return left;<br>}  </p>
+<p>void QuickSort(ElemType arr[], int left, int right)<br>{<br>    if (left \&lt; right)<br>    {<br>        int pivotPos = Partition(arr, left, right); // 划分<br>        QuickSort(arr, left, pivotPos - 1); // 快速排序左半部分<br>        QuickSort(arr, pivotPos + 1, right); // 快速排序右半部分<br>    }<br>}<br>```  </p>
+<p>/*<br>6、简单选择排序算法<br>   基本思想：<br>   假设排序表为L[1…n],第i趟排序从表中选择关键字最小的元素与Li交换，第一趟排序可以确定一个元素的<br>   最终位置，这样经过n-1趟排序就可以使得整个排序表有序。<br>*/  </p>
+<p> ```<br>void SelectSort(ElemType arr[], int length)<br>{<br>    int i, j, min;<br>    ElemType tmp;  </p>
+<p> for (i = 0; i \&lt; length - 1; ++i) // 需要n-1趟<br>{<br>min = i;  </p>
+<p>for (j = i + 1; j \&lt; length; ++j)<br>{<br>if (arr<a href="">j</a> \&lt; arr<a href="">min</a>) // 每一趟选择元素值最小的下标<br>{<br>min = j;<br>}<br>}  </p>
+<p>if (min != i) // 如果第i趟的Li元素值该趟找到的最小元素值，则交换，以使Li值最小       {<br>tmp = arr<a href="">i</a>;<br>arr<a href="">i</a> = arr<a href="">min</a>;<br>arr<a href="">min</a> = tmp;<br>}<br>}<br>}<br>```<br>/*<br>7、堆排序算法<br> 堆的定义如下：n个关键字序列号L<a href="">1..n</a>称为堆，仅当该序列满足：<br>1）L(i) \&lt;= L(2i)且L(i) \&lt;= L(2i+1) 或 2)L(i) >= L(2i)且L(i) >= L(2i+1)<br>满足第一种情况的堆，称为小根堆（小顶堆）；<br>满足第二种情况的堆，称为大根堆（大顶堆）。<br>*/ </p>
+<p>```<br>void HeapAdjust(ElemType *a,int i,int size)  //调整堆<br>{<br>    int lchild = 2 * i;       //i的左孩子节点序号<br>    int rchild = 2 * i + 1;     //i的右孩子节点序号<br>    int max = i;            //临时变量<br>   if(i \&lt;= size / 2)          //如果i是叶节点就不用进行调整<br>{<br>if (lchild \&lt;= size &amp;&amp; a<a href="">lchild</a> > a<a href="">max</a>)<br>{<br>max = lchild; // 左孩子比双亲值还大，需要调整<br>}    </p>
+<p>if (rchild \&lt;= size &amp;&amp; a<a href="">rchild</a> > a<a href="">max</a>)<br>{<br>max = rchild;// 右孩子比双亲值还大，需要调整<br>}  </p>
+<p>if (max != i) // 需要调整<br>{<br>ElemType tmp = a<a href="">max</a>;<br>a<a href="">max</a> = a<a href="">i</a>;<br>a<a href="">i</a> = tmp;  </p>
+<p>HeapAdjust(a, max, size);    //避免调整之后以max为父节点的子树不是堆<br>}<br>}<br>}  </p>
+<p>void BuildHeap(ElemType *a,int size)    //建立堆<br>{<br>    for (int i = size / 2; i >= 0; i–)    //非叶节点最大序号值为size/2<br>    {<br>        HeapAdjust(a, i, size);<br>    }<br>}  </p>
 <p>void HeapSort(ElemType *a, int size)    //堆排序<br>{<br>    BuildHeap(a,size);  </p>
-<pre><code>for<span class="comment">(int i = size - 1; i &gt;= 0; i--)</span>  
-{  
-    swap<span class="comment">(a[0], a[i])</span>;           <span class="comment">//交换堆顶和最后一个元素，即每次将剩余元素中的最大者放到最后面   </span>
-    BuildHeap<span class="comment">(a, i-1)</span>;        <span class="comment">//将余下元素重新建立为大顶堆   </span>
-    HeapAdjust<span class="comment">(a,1,i-1)</span>;      <span class="comment">//重新调整堆顶节点成为大顶堆  </span>
-}  
-</code></pre><p>}   </p>
-<p>void Display(ElemType arr[], int length)<br>{<br>    for ( int i = 0; i &lt; length; ++i )<br>    {<br>        cout &lt;&lt; arr[i] &lt;&lt; “ “;<br>    }  </p>
-<pre><code><span class="built_in">cout</span> &lt;&lt; endl;  
-</code></pre><p>}<br>int main()<br>{<br>    ElemType arr[] = {2, 1, 5, 3, 4, 0, 6, 9, -1, 4, 12};  </p>
-<pre><code>//InsertSort<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-//BinaryInsertSort<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-//ShellSort<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-//BubbleSort<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-//QuickSort<span class="list">(<span class="keyword">arr</span>, <span class="number">0</span>,  sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span> - <span class="number">1</span>)</span><span class="comment">;  </span>
-HeapSort<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-Display<span class="list">(<span class="keyword">arr</span>, sizeof<span class="list">(<span class="keyword">arr</span>)</span> / sizeof<span class="list">(<span class="keyword">ElemType</span>)</span>)</span><span class="comment">;  </span>
-
-return <span class="number">0</span><span class="comment">;  </span>
-</code></pre><p>}<br>```</p>
+<p>for(int i = size - 1; i >= 0; i–)<br>{<br>swap(a<a href="">0</a>, a<a href="">i</a>);           //交换堆顶和最后一个元素，即每次将剩余元素中的最大者放到最后面<br>BuildHeap(a, i-1);        //将余下元素重新建立为大顶堆<br>HeapAdjust(a,1,i-1);      //重新调整堆顶节点成为大顶堆<br>}<br>}  </p>
+<p>void Display(ElemType arr[], int length)<br>{<br>    for ( int i = 0; i \&lt; length; ++i )<br>    {<br>        cout \&lt;\&lt; arr[i] \&lt;\&lt; “ “;<br>    }  </p>
+<p> cout \&lt;\&lt; endl;<br>}<br>int main()<br>{<br>    ElemType arr[] = {2, 1, 5, 3, 4, 0, 6, 9, -1, 4, 12};  </p>
+<p>//InsertSort(arr, sizeof(arr) / sizeof(ElemType));<br>//BinaryInsertSort(arr, sizeof(arr) / sizeof(ElemType));<br>//ShellSort(arr, sizeof(arr) / sizeof(ElemType));<br>//BubbleSort(arr, sizeof(arr) / sizeof(ElemType));<br>//QuickSort(arr, 0,  sizeof(arr) / sizeof(ElemType) - 1);<br>HeapSort(arr, sizeof(arr) / sizeof(ElemType));<br>Display(arr, sizeof(arr) / sizeof(ElemType));  </p>
+<p>return 0;<br>}<br>```</p>
 
       
     </div>
