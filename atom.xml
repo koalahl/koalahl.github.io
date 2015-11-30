@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2015-11-30T07:02:22.000Z</updated>
+  <updated>2015-11-30T06:41:32.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,19 +13,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://koalahl.github.io/2015/11/30/google0d8fc43916c1768f/"/>
-    <id>http://koalahl.github.io/2015/11/30/google0d8fc43916c1768f/</id>
-    <published>2015-11-30T07:03:04.000Z</published>
-    <updated>2015-11-30T07:02:22.000Z</updated>
-    <content type="html"><![CDATA[google-site-verification: google0d8fc43916c1768f.html]]></content>
-    <summary type="html">
-    <![CDATA[google-site-verification: google0d8fc43916c1768f.html]]>
-    </summary>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[Markdown语法参考]]></title>
