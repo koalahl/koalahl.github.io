@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2015-11-30T06:38:20.000Z</updated>
+  <updated>2015-11-30T06:41:32.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://koalahl.github.io/2015/11/30/Markdown%E8%AF%AD%E6%B3%95%E5%8F%82%E8%80%83/"/>
     <id>http://koalahl.github.io/2015/11/30/Markdown语法参考/</id>
     <published>2015-11-30T06:24:12.000Z</published>
-    <updated>2015-11-30T06:38:20.000Z</updated>
+    <updated>2015-11-30T06:41:32.000Z</updated>
     <content type="html"><![CDATA[<p>&lt;&lt; <a href="http://wowubuntu.com" target="_blank" rel="external">访问 Wow!Ubuntu</a></p>
 <p><strong>NOTE:</strong> This is Simplelified  Chinese Edition Document of Markdown Syntax. If you are seeking for English Edition Document. Please refer to <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown: Syntax</a>.</p>
 <p><strong>声明：</strong> 这份文档派生(fork)于<a href="http://markdown.tw/" target="_blank" rel="external">繁体中文版</a>，在此基础上进行了繁体转简体工作，并进行了适当的润色。此文档用 Markdown 语法编写，你可以到这里<a href="http://gitcafe.com/riku/Markdown-Syntax-CN/blob/master/syntax.md" target="_blank" rel="external">查看它的源文件</a>。「繁体中文版的原始文件可以<a href="https://github.com/othree/markdown-syntax-zhtw/blob/master/syntax.md" target="_blank" rel="external">查看这里</a> 。」–By @<a href="http://twitter.com/riku" target="_blank" rel="external">riku</a></p>
@@ -56,6 +56,7 @@
 <li><a href="#editor">Markdown 免费编辑器</a></li>
 </ul>
 <hr>
+<a id="more"></a>
 <h2 id="overview">概述</h2>
 
 <h3 id="philosophy">宗旨</h3>
@@ -538,9 +539,46 @@ _   底线
 <p>*** 如有更好的 Markdown 免费编辑器推荐，请到<a href="https://gitcafe.com/riku/Markdown-Syntax-CN/tickets/1" target="_blank" rel="external">这里反馈</a>，谢谢！</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>&lt;&lt; <a href="http://wowubuntu.com" target="_blank" rel="external">访问 Wow!Ubuntu</a></p>
-<p><strong>NOTE:</strong> This is Simplelifi]]>
+    <![CDATA[<p>&lt;&lt; <a href="http://wowubuntu.com">访问 Wow!Ubuntu</a></p>
+<p><strong>NOTE:</strong> This is Simplelified  Chinese Edition Document of Markdown Syntax. If you are seeking for English Edition Document. Please refer to <a href="http://daringfireball.net/projects/markdown/syntax">Markdown: Syntax</a>.</p>
+<p><strong>声明：</strong> 这份文档派生(fork)于<a href="http://markdown.tw/">繁体中文版</a>，在此基础上进行了繁体转简体工作，并进行了适当的润色。此文档用 Markdown 语法编写，你可以到这里<a href="http://gitcafe.com/riku/Markdown-Syntax-CN/blob/master/syntax.md">查看它的源文件</a>。「繁体中文版的原始文件可以<a href="https://github.com/othree/markdown-syntax-zhtw/blob/master/syntax.md">查看这里</a> 。」–By @<a href="http://twitter.com/riku">riku</a></p>
+<p><strong>注：</strong> 本项目托管于 <a href="http://gitcafe.com/riku/Markdown-Syntax-CN/">GitCafe</a>上，请通过”派生”和”合并请求”来帮忙改进本项目。</p>
+<h1 id="Markdown_语法说明_(简体中文版)_/_(点击查看快速入门)">Markdown 语法说明 (简体中文版) / (<a href="./basic.html">点击查看快速入门</a>)</h1><ul>
+<li><a href="#overview">概述</a><ul>
+<li><a href="#philosophy">宗旨</a></li>
+<li><a href="#html">兼容 HTML</a></li>
+<li><a href="#autoescape">特殊字符自动转换</a></li>
+</ul>
+</li>
+<li><a href="#block">区块元素</a><ul>
+<li><a href="#p">段落和换行</a></li>
+<li><a href="#header">标题</a></li>
+<li><a href="#blockquote">区块引用</a></li>
+<li><a href="#list">列表</a></li>
+<li><a href="#precode">代码区块</a></li>
+<li><a href="#hr">分隔线</a></li>
+</ul>
+</li>
+<li><a href="#span">区段元素</a><ul>
+<li><a href="#link">链接</a></li>
+<li><a href="#em">强调</a></li>
+<li><a href="#code">代码</a></li>
+<li><a href="#img">图片</a></li>
+</ul>
+</li>
+<li><a href="#misc">其它</a><ul>
+<li><a href="#backslash">反斜杠</a></li>
+<li><a href="#autolink">自动链接</a></li>
+</ul>
+</li>
+<li><a href="#acknowledgement">感谢</a></li>
+<li><a href="#editor">Markdown 免费编辑器</a></li>
+</ul>
+<hr>]]>
+    
     </summary>
+    
+      <category term="工具" scheme="http://koalahl.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
