@@ -3,17 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>寒流‘s Blog</title>
+  <title>常用排序算法 | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="寒流‘s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="在此总结一下常用排序算法的代码实现
+#include &amp;lt;iostream&amp;gt;using namespace std;typedef int ElemType;
+/*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 
+就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用排序算法">
+<meta property="og:url" content="http://yoursite.com/2015/11/30/常用排序算法/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description">
+<meta property="og:description" content="在此总结一下常用排序算法的代码实现
+#include &amp;lt;iostream&amp;gt;using namespace std;typedef int ElemType;
+/*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 
+就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素">
+<meta property="og:updated_time" content="2015-11-30T02:07:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寒流‘s Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="常用排序算法">
+<meta name="twitter:description" content="在此总结一下常用排序算法的代码实现
+#include &amp;lt;iostream&amp;gt;using namespace std;typedef int ElemType;
+/*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 
+就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素">
   
     <link rel="alternative" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
   
@@ -206,9 +216,7 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/11/30/常用排序算法/" class="article-date">
@@ -224,12 +232,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/30/常用排序算法/">常用排序算法</a>
+    <h1 class="article-title" itemprop="name">
+      常用排序算法
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -360,30 +379,135 @@ return <span class="number">0</span><span class="comment">;  </span>
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-	</div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<div class="copyright">
+  <p><span>本文标题:</span><a href="/2015/11/30/常用排序算法/">常用排序算法</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Han Liu 的个人博客">Han Liu</a></p>
+  <p><span>发布时间:</span>2015年11月30日 - 10时02分</p>
+  <p><span>最后更新:</span>2015年11月30日 - 10时07分</p>
+  <p>
+    <span>原始链接:</span><a href="/2015/11/30/常用排序算法/" title="常用排序算法">http://yoursite.com/2015/11/30/常用排序算法/</a>
+    <span class="btn" data-clipboard-text="原文: http://yoursite.com/2015/11/30/常用排序算法/　　作者: Han Liu" title="点击复制文章链接">
+        <i class="fa fa-clipboard"></i>
+    </span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。</p>
+  <script src="/js/clipboard.min.js"></script>
+  <script> var clipboard = new Clipboard('.btn'); </script>
+</div>
+<style type="text/css">
+  .copyright p .btn {
+    margin-left: 1em;
+  }
+  .copyright:hover p .btn::after {
+    content: "复制"
+  }
+  .copyright p .btn:hover {
+      color: gray;
+      cursor: pointer;
+    };
+</style>
+
+
+
+<nav id="article-nav">
+  
+  
+    <div id="article-nav-older" class="article-nav-title">
+      <a href="/2015/11/29/hello-world/">
+        Hello World
+      </a>
+    </div>
+  
+</nav>
+
   
 </article>
 
+<!-- 默认显示文章目录，在文章---前输入toc: false关闭目录 -->
+<!-- Show TOC and tocButton in default, Hide TOC via putting "toc: false" before "---" at [post].md -->
+<div id="toc" class="toc-article">
+<strong class="toc-title">文章目录</strong>
+
+</div>
+<style type="text/css">
+  .left-col .switch-btn {
+    display: none;
+  }
+  .left-col .switch-area {
+    display: none;
+  }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script type="text/javascript">
+  var toc_button= document.getElementById("tocButton");
+  var toc_div= document.getElementById("toc");
+  /* Show or hide toc when click on tocButton.
+  通过点击设置的按钮显示或者隐藏文章目录.*/
+  toc_button.onclick=function(){
+  if(toc_div.style.display=="none"){
+  toc_div.style.display="block";
+  toc_button.value="隐藏目录";
+  document.getElementById("switch-btn").style.display="none";
+  document.getElementById("switch-area").style.display="none";
+  }
+  else{
+  toc_div.style.display="none";
+  toc_button.value="显示目录";
+  document.getElementById("switch-btn").style.display="block";
+  document.getElementById("switch-area").style.display="block";
+  }
+  }
+</script>
 
 
 
 
 
 
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'hanangellove'; // required: replace example with your forum shortname
 
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+    <style type="text/css">
+    #scroll {
+      display: none;
+    }
+    </style>
+    <div class="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#ds-thread" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    </div>
+
+
+  
+  
+    <div  class="post-nav-button">
+    <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+    <a href="/2015/11/29/hello-world/" title="下一篇: Hello World">
+    <i class="fa fa-angle-right"></i>
+    </a>
+    </div>
+  
+    
 
 
 
@@ -394,8 +518,8 @@ return <span class="number">0</span><span class="comment">;  </span>
         fancybox: true,
         mathjax: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -403,90 +527,6 @@ return <span class="number">0</span><span class="comment">;  </span>
         }
         </script>
         
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/11/29/hello-world/" class="article-date">
-  	<time datetime="2015-11-29T14:07:27.000Z" itemprop="datePublished">2015-11-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-    
-        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-        <script>
-        var yiliaConfig = {
-        fancybox: true,
-        mathjax: true,
-        animate: true,
-        isHome: true,
-        isPost: false,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        open_in_new: false
-        }
-        </script>
-        
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -514,20 +554,6 @@ return <span class="number">0</span><span class="comment">;  </span>
 </footer>
     </div>
     
-	<script>
-		var yiliaConfig = {
-			fancybox: false,
-			mathjax: true,
-			animate: true,
-			isHome: true,
-			isPost: false,
-			isArchive: false,
-			isTag: false,
-			isCategory: false,
-			open_in_new: false
-		}
-	</script>
-
 
 <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/js/main.js" type="text/javascript"></script>
