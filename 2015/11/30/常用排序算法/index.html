@@ -17,7 +17,7 @@
 #include &amp;lt;iostream&amp;gt;using namespace std;typedef int ElemType;
 /*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 
 就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素">
-<meta property="og:updated_time" content="2015-11-30T02:23:39.000Z">
+<meta property="og:updated_time" content="2015-11-30T03:13:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用排序算法">
 <meta name="twitter:description" content="在此总结一下常用排序算法的代码实现
@@ -120,13 +120,11 @@
       <table class="contact-list">
         <tr>
           
-          <td><a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+          <td><a href="http://github.com/koalahl/" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
           
           <td><a href="/#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
           
-          <td><a href="/#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
-          
-          <td><a href="/#" target="_blank" title="dribbble"><i class="fa fa-dribbble"></i></a></td>
+          <td><a href="http://weibo.com/1619592223/" target="_blank" title="新浪微博"><i class="fa fa-新浪微博"></i></a></td>
           
           <td><a href="/atom.xml" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
           
@@ -141,6 +139,14 @@
       
       <section id="main"><article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      
+	
+		<img src="http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg" class="article-banner">
+	
+
+
+
     
     
     
@@ -174,6 +180,7 @@
 <p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
 <p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>2、折半插入排序<br>  使用于排序表为顺序存储的线性表<br>  在查找插入位置时，采用折半查找<br>  算法思想是：<br>  1）设置折半查找范围；<br>  2）折半查找<br>  3）移动元素<br>  4）插入元素<br>  5）继续操作1）、2）、3）、4）步，直到表成有序。 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void BinaryInsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j, low, high, mid;  &#10;    ElemType tmp;  &#10;  &#10;for ( i = 1; i \&#60; length; ++i )  &#10;&#123;  &#10;tmp = arr[i](); // &#22797;&#21046;&#21040;&#21736;&#20853;  &#10;// &#35774;&#32622;&#25240;&#21322;&#26597;&#25214;&#33539;&#22260;  &#10;low = 0;        &#10;high = i;  &#10;&#10;while (low \&#60;= high) // &#25240;&#21322;&#26597;&#25214;  &#10;&#123;  &#10;mid = (low + high) / 2;  &#10;&#10;if (arr[mid]() \&#62; tmp) // &#22312;&#24038;&#21322;&#37096;&#20998;&#26597;&#25214;  &#10;&#123;  &#10;high = mid - 1;  &#10;&#125;  &#10;else  &#10;&#123;  &#10;low = mid + 1; // &#22312;&#21491;&#21322;&#37096;&#20998;&#26597;&#25214;  &#10;&#125;  &#10;&#125;  &#10;&#10;// &#31227;&#21160;&#20803;&#32032;  &#10;for ( j = i - 1; j \&#62;= high + 1; --j )  &#10;&#123;  &#10;arr[j + 1]() = arr[j]();  &#10;&#125;  &#10;&#10;arr[j + 1]() = tmp;  &#10;&#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>/*<br>3、希尔(Shell)排序<br>   基本思想：<br>   先将待排序的表分割成若干个形若L[i, i+d, i+2d, …, i+kd]的“特殊”子表，分别进行直接插入排序，<br>   当整个表已呈“基本有序”时，再对全体记录进行一次直接插入排序。<br>   算法过程：<br>   1）先取一个小于n的步长d1,把表中全部记录分成d1个组，所有距离为d1的倍数的记录放在同一组中，在各<br>  组中进行直接插入排序；<br>   2）然后取第二个步长d2 \&lt; d1, 重复步骤1<br>   3）直到dk = 1，再进行最后一次直接插入排序<br>*/  </p>
@@ -190,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/30/常用排序算法/" data-id="cihld3mk70004zw9kso743tqp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/30/常用排序算法/" data-id="cihldsljq00041p9kgtqdyvy7" class="article-share-link">Share</a>
       
         <a href="http://yoursite.com/2015/11/30/常用排序算法/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -203,11 +210,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="/2015/11/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2015/11/30/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -235,9 +246,26 @@
           <li>
             
             <div class="item-thumbnail">
-              <a href="/2015/11/30/常用排序算法/" class="thumbnail">
+              <a href="/2015/11/30/hello-world/" class="thumbnail">
   
     <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2015/11/30/hello-world/" class="title">Hello World</a></p>
+              <p class="item-date"><time datetime="2015-11-30T03:11:26.000Z" itemprop="datePublished">2015-11-30</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2015/11/30/常用排序算法/" class="thumbnail">
+  
+    <span style="background-image:url(http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg)" alt="常用排序算法" class="thumbnail-image"></span>
   
 </a>
             </div>
@@ -246,23 +274,6 @@
               <p class="item-category"></p>
               <p class="item-title"><a href="/2015/11/30/常用排序算法/" class="title">常用排序算法</a></p>
               <p class="item-date"><time datetime="2015-11-30T02:02:57.000Z" itemprop="datePublished">2015-11-30</time></p>
-            </div>
-          </li>
-        
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2015/11/29/hello-world/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"></p>
-              <p class="item-title"><a href="/2015/11/29/hello-world/" class="title">Hello World</a></p>
-              <p class="item-date"><time datetime="2015-11-29T14:07:27.000Z" itemprop="datePublished">2015-11-29</time></p>
             </div>
           </li>
         

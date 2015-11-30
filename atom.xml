@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-11-30T02:23:39.000Z</updated>
+  <updated>2015-11-30T03:11:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,16 +15,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://yoursite.com/2015/11/30/hello-world/"/>
+    <id>http://yoursite.com/2015/11/30/hello-world/</id>
+    <published>2015-11-30T03:11:26.000Z</published>
+    <updated>2015-11-30T03:11:26.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[常用排序算法]]></title>
     <link href="http://yoursite.com/2015/11/30/%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://yoursite.com/2015/11/30/常用排序算法/</id>
     <published>2015-11-30T02:02:57.000Z</published>
-    <updated>2015-11-30T02:23:39.000Z</updated>
+    <updated>2015-11-30T03:13:24.000Z</updated>
     <content type="html"><![CDATA[<p>在此总结一下常用排序算法的代码实现</p>
 <p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
 <p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
 <p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>2、折半插入排序<br>  使用于排序表为顺序存储的线性表<br>  在查找插入位置时，采用折半查找<br>  算法思想是：<br>  1）设置折半查找范围；<br>  2）折半查找<br>  3）移动元素<br>  4）插入元素<br>  5）继续操作1）、2）、3）、4）步，直到表成有序。 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void BinaryInsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j, low, high, mid;  &#10;    ElemType tmp;  &#10;  &#10;for ( i = 1; i \&#60; length; ++i )  &#10;&#123;  &#10;tmp = arr[i](); // &#22797;&#21046;&#21040;&#21736;&#20853;  &#10;// &#35774;&#32622;&#25240;&#21322;&#26597;&#25214;&#33539;&#22260;  &#10;low = 0;        &#10;high = i;  &#10;&#10;while (low \&#60;= high) // &#25240;&#21322;&#26597;&#25214;  &#10;&#123;  &#10;mid = (low + high) / 2;  &#10;&#10;if (arr[mid]() \&#62; tmp) // &#22312;&#24038;&#21322;&#37096;&#20998;&#26597;&#25214;  &#10;&#123;  &#10;high = mid - 1;  &#10;&#125;  &#10;else  &#10;&#123;  &#10;low = mid + 1; // &#22312;&#21491;&#21322;&#37096;&#20998;&#26597;&#25214;  &#10;&#125;  &#10;&#125;  &#10;&#10;// &#31227;&#21160;&#20803;&#32032;  &#10;for ( j = i - 1; j \&#62;= high + 1; --j )  &#10;&#123;  &#10;arr[j + 1]() = arr[j]();  &#10;&#125;  &#10;&#10;arr[j + 1]() = tmp;  &#10;&#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
 <p>/*<br>3、希尔(Shell)排序<br>   基本思想：<br>   先将待排序的表分割成若干个形若L[i, i+d, i+2d, …, i+kd]的“特殊”子表，分别进行直接插入排序，<br>   当整个表已呈“基本有序”时，再对全体记录进行一次直接插入排序。<br>   算法过程：<br>   1）先取一个小于n的步长d1,把表中全部记录分成d1个组，所有距离为d1的倍数的记录放在同一组中，在各<br>  组中进行直接插入排序；<br>   2）然后取第二个步长d2 \&lt; d1, 重复步骤1<br>   3）直到dk = 1，再进行最后一次直接插入排序<br>*/  </p>
@@ -40,32 +65,14 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>在此总结一下常用排序算法的代码实现</p>
-<p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code]]>
+<p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
+<p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
+<p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>]]>
+    
     </summary>
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://yoursite.com/2015/11/29/hello-world/"/>
-    <id>http://yoursite.com/2015/11/29/hello-world/</id>
-    <published>2015-11-29T14:07:27.000Z</published>
-    <updated>2015-11-29T14:07:27.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io]]>
-    </summary>
     
   </entry>
   
