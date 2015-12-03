@@ -157,7 +157,6 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-                
         <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
 <p>Category：分类、类别</p>
 <ul>
@@ -171,22 +170,15 @@
 <li>Extension可以理解为匿名类别。</li>
 <li>定义的方法必须在implementation中实现。</li>
 </ul>
-<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@interface UITableViewCell (AccessoryView)&#10;&#10;///&#22312;Cell&#21491;&#20391;&#28155;&#21152;&#30340;&#19968;&#20010;&#33258;&#23450;&#20041;label&#10;@property (nonatomic,strong,readonly)UILabel *accessoryLabel;&#10;@property (nonatomic,strong,readonly)UIImageView *accessoryImageView;&#10;@end</span><br></pre></td></tr></table></figure>
-<p>.m文件中重写getter方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@implementation UITableViewCell (AccessoryView)&#10;&#10;- (UILabel *)accessoryLabel&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UILabel class]) &#123;&#10;            [obj removeFromSuperview];//&#22240;&#20026;accessoryLabel&#26159;&#28155;&#21152;&#22312;cell&#19978;&#30340;&#65292;&#32780;&#27809;&#26377;&#22312;cell.contentView&#19978;&#12290;&#10;        &#125;&#10;&#10;    &#125;&#10;    UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-200, 0, 160, CGRectGetHeight(self.frame))];&#10;    accessoryLabel.textColor = [UIColor lightGrayColor];&#10;    accessoryLabel.font      = [UIFont systemFontOfSize:12];&#10;    accessoryLabel.textAlignment = NSTextAlignmentRight;&#10;    [self addSubview:accessoryLabel];&#10;    return  accessoryLabel;&#10;&#125;&#10;&#10;- (UIImageView *)accessoryImageView&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UIImageView class]) &#123;&#10;            [obj removeFromSuperview];&#10;        &#125;&#10;    &#125;&#10;    UIImageView *accessoryImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWidth-100, 10, 60, 60)];&#10;    accessoryImageView.layer.cornerRadius = 30;&#10;    accessoryImageView.layer.masksToBounds = YES;&#10;    [self addSubview:accessoryImageView];&#10;    return accessoryImageView;&#10;    &#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
-<p><img src="/img/category_1" alt="category"></p>
-<p>2.运行时添加属性：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface NSError (Message)&#10;&#10;@property (nonatomic,copy)NSString * errorMsg;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-<p>.m</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;static void * strKey = &#38;strKey;&#10;&#10;@implementation NSError (Message)&#10;&#10;- (void)setErrorMsg:(NSString *)errorMsg&#123;&#10;    objc_setAssociatedObject(self, &#38; strKey, errorMsg, OBJC_ASSOCIATION_COPY_NONATOMIC);&#10;&#125;&#10;&#10;- (NSString *)errorMsg&#123;&#10;    return objc_getAssociatedObject(self, &#38;strKey);&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
-<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2015/12/03/Category添加属性所想到的/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdpeev0000v59k1ztc6hd5" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdyhsa0000vq9k1salixco" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -279,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cihqdpefj000cv59kafdk9kxg" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cihqdyhsy000cvq9kde0avs56" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/Markdown语法参考/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -342,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="cihqdpeff0006v59k9dnqjl21" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="cihqdyhst0006vq9kchydpshv" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/常用排序算法/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -403,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/hello-world/" data-id="cihqdpefh0009v59k5p44kmoq" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/hello-world/" data-id="cihqdyhsv0009vq9konu3tw9s" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -432,7 +424,7 @@
             <div class="item-thumbnail">
               <a href="/2015/12/03/Category添加属性所想到的/" class="thumbnail">
   
-    <span style="background-image:url(/img/category_1
+    <span style="background-image:url(/img/category_1.png
 )" alt="Category添加属性所想到的" class="thumbnail-image"></span>
   
 </a>

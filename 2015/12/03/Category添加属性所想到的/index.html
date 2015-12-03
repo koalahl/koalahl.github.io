@@ -29,8 +29,8 @@ category不能添加实例变量（这个并不是属性），可以添加readon
 Extension：扩展
 
 可以增加">
-<meta property="og:image" content="http://koalahl.github.io/img/category_1">
-<meta property="og:updated_time" content="2015-12-03T15:09:48.000Z">
+<meta property="og:image" content="http://koalahl.github.io/img/category_1.png">
+<meta property="og:updated_time" content="2015-12-03T15:16:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Category添加属性所想到的">
 <meta name="twitter:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
@@ -199,12 +199,13 @@ Extension：扩展
 <li>Extension可以理解为匿名类别。</li>
 <li>定义的方法必须在implementation中实现。</li>
 </ul>
+<a id="more"></a>
 <p>下面主要看看category的使用：<br>1.添加readonly属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@interface UITableViewCell (AccessoryView)&#10;&#10;///&#22312;Cell&#21491;&#20391;&#28155;&#21152;&#30340;&#19968;&#20010;&#33258;&#23450;&#20041;label&#10;@property (nonatomic,strong,readonly)UILabel *accessoryLabel;&#10;@property (nonatomic,strong,readonly)UIImageView *accessoryImageView;&#10;@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@interface UITableViewCell (AccessoryView)&#10;&#10;///&#22312;Cell&#21491;&#20391;&#28155;&#21152;&#30340;&#19968;&#20010;&#33258;&#23450;&#20041;label&#10;@property (nonatomic,strong,readonly)UILabel *accessoryLabel;&#10;@property (nonatomic,strong,readonly)UIImageView *accessoryImageView;&#10;@end</span><br></pre></td></tr></table></figure>
 <p>.m文件中重写getter方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@implementation UITableViewCell (AccessoryView)&#10;&#10;- (UILabel *)accessoryLabel&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UILabel class]) &#123;&#10;            [obj removeFromSuperview];//&#22240;&#20026;accessoryLabel&#26159;&#28155;&#21152;&#22312;cell&#19978;&#30340;&#65292;&#32780;&#27809;&#26377;&#22312;cell.contentView&#19978;&#12290;&#10;        &#125;&#10;&#10;    &#125;&#10;    UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-200, 0, 160, CGRectGetHeight(self.frame))];&#10;    accessoryLabel.textColor = [UIColor lightGrayColor];&#10;    accessoryLabel.font      = [UIFont systemFontOfSize:12];&#10;    accessoryLabel.textAlignment = NSTextAlignmentRight;&#10;    [self addSubview:accessoryLabel];&#10;    return  accessoryLabel;&#10;&#125;&#10;&#10;- (UIImageView *)accessoryImageView&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UIImageView class]) &#123;&#10;            [obj removeFromSuperview];&#10;        &#125;&#10;    &#125;&#10;    UIImageView *accessoryImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWidth-100, 10, 60, 60)];&#10;    accessoryImageView.layer.cornerRadius = 30;&#10;    accessoryImageView.layer.masksToBounds = YES;&#10;    [self addSubview:accessoryImageView];&#10;    return accessoryImageView;&#10;    &#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
 <p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
-<p><img src="/img/category_1" alt="category"></p>
+<p><img src="/img/category_1.png" alt="category"></p>
 <p>2.运行时添加属性：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface NSError (Message)&#10;&#10;@property (nonatomic,copy)NSString * errorMsg;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
 <p>.m</p>
@@ -214,7 +215,7 @@ Extension：扩展
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdpeev0000v59k1ztc6hd5" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdyhsa0000vq9k1salixco" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -261,7 +262,7 @@ Extension：扩展
             <div class="item-thumbnail">
               <a href="/2015/12/03/Category添加属性所想到的/" class="thumbnail">
   
-    <span style="background-image:url(/img/category_1
+    <span style="background-image:url(/img/category_1.png
 )" alt="Category添加属性所想到的" class="thumbnail-image"></span>
   
 </a>
