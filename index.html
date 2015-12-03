@@ -97,11 +97,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        3
+        4
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        2
+        3
         <span>tags</span>
       </div>
     </div>
@@ -128,6 +128,79 @@
 
       
       <section id="main">
+      <article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/03/Category添加属性所想到的/">Category添加属性所想到的</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/12/03/Category添加属性所想到的/">
+      <time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015-12-03</time>
+    </a>
+  </div>
+
+
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
+<p>Category：分类、类别</p>
+<ul>
+<li>category主要用来增加类的方法，并且适用于子类。</li>
+<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
+<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
+</ul>
+<p>Extension：扩展</p>
+<ul>
+<li>可以增加被扩展类的属性和方法。</li>
+<li>Extension可以理解为匿名类别。</li>
+<li>定义的方法必须在implementation中实现。</li>
+</ul>
+<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@interface UITableViewCell (AccessoryView)&#10;&#10;///&#22312;Cell&#21491;&#20391;&#28155;&#21152;&#30340;&#19968;&#20010;&#33258;&#23450;&#20041;label&#10;@property (nonatomic,strong,readonly)UILabel *accessoryLabel;&#10;@property (nonatomic,strong,readonly)UIImageView *accessoryImageView;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>.m文件中重写getter方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@implementation UITableViewCell (AccessoryView)&#10;&#10;- (UILabel *)accessoryLabel&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UILabel class]) &#123;&#10;            [obj removeFromSuperview];//&#22240;&#20026;accessoryLabel&#26159;&#28155;&#21152;&#22312;cell&#19978;&#30340;&#65292;&#32780;&#27809;&#26377;&#22312;cell.contentView&#19978;&#12290;&#10;        &#125;&#10;&#10;    &#125;&#10;    UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-200, 0, 160, CGRectGetHeight(self.frame))];&#10;    accessoryLabel.textColor = [UIColor lightGrayColor];&#10;    accessoryLabel.font      = [UIFont systemFontOfSize:12];&#10;    accessoryLabel.textAlignment = NSTextAlignmentRight;&#10;    [self addSubview:accessoryLabel];&#10;    return  accessoryLabel;&#10;&#125;&#10;&#10;- (UIImageView *)accessoryImageView&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UIImageView class]) &#123;&#10;            [obj removeFromSuperview];&#10;        &#125;&#10;    &#125;&#10;    UIImageView *accessoryImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWidth-100, 10, 60, 60)];&#10;    accessoryImageView.layer.cornerRadius = 30;&#10;    accessoryImageView.layer.masksToBounds = YES;&#10;    [self addSubview:accessoryImageView];&#10;    return accessoryImageView;&#10;    &#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
+<p><img src="/img/category_1" alt="category"></p>
+<p>2.运行时添加属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface NSError (Message)&#10;&#10;@property (nonatomic,copy)NSString * errorMsg;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;static void * strKey = &#38;strKey;&#10;&#10;@implementation NSError (Message)&#10;&#10;- (void)setErrorMsg:(NSString *)errorMsg&#123;&#10;    objc_setAssociatedObject(self, &#38; strKey, errorMsg, OBJC_ASSOCIATION_COPY_NONATOMIC);&#10;&#125;&#10;&#10;- (NSString *)errorMsg&#123;&#10;    return objc_getAssociatedObject(self, &#38;strKey);&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdpeev0000v59k1ztc6hd5" class="article-share-link">Share</a>
+      
+        <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-Markdown语法参考" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -206,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cihqdotkh0009uo9khkud6u4h" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cihqdpefj000cv59kafdk9kxg" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/Markdown语法参考/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -269,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="cihqdotk70003uo9k0k7xbfb0" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="cihqdpeff0006v59k9dnqjl21" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/常用排序算法/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -330,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/hello-world/" data-id="cihqdotke0006uo9ky5o0153a" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/hello-world/" data-id="cihqdpefh0009v59k5p44kmoq" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -353,6 +426,24 @@
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2015/12/03/Category添加属性所想到的/" class="thumbnail">
+  
+    <span style="background-image:url(/img/category_1
+)" alt="Category添加属性所想到的" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2015/12/03/Category添加属性所想到的/" class="title">Category添加属性所想到的</a></p>
+              <p class="item-date"><time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015-12-03</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -423,7 +514,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -432,7 +523,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/ios/" style="font-size: 10px;">ios</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
   </div>
 
@@ -441,7 +532,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 

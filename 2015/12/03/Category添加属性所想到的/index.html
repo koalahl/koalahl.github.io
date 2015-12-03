@@ -3,18 +3,46 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Categories | 寒流‘s Blog</title>
+  <title>Category添加属性所想到的 | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Think in Different">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Categories">
-<meta property="og:url" content="http://koalahl.github.io/categories/index.html">
+  <meta name="description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Category添加属性所想到的">
+<meta property="og:url" content="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="Think in Different">
-<meta property="og:updated_time" content="2015-11-30T02:35:23.000Z">
+<meta property="og:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
+<meta property="og:image" content="http://koalahl.github.io/img/category_1">
+<meta property="og:updated_time" content="2015-12-03T15:09:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Categories">
-<meta name="twitter:description" content="Think in Different">
+<meta name="twitter:title" content="Category添加属性所想到的">
+<meta name="twitter:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
   
   
     <link rel="icon" href="favicon.png">
@@ -128,16 +156,97 @@
 </aside>
 
       
-      <section id="main"><section class="layout-wrap">
-  <div class="layout-title">
-    <span>Categories</span>
-  </div>
-  <div class="layout-wrap-inner list-categories">
+      <section id="main"><article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">1</span></li></ul>
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Category添加属性所想到的
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/12/03/Category添加属性所想到的/">
+      <time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015-12-03</time>
+    </a>
   </div>
-</section></section>
+
+
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+                
+        <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
+<p>Category：分类、类别</p>
+<ul>
+<li>category主要用来增加类的方法，并且适用于子类。</li>
+<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
+<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
+</ul>
+<p>Extension：扩展</p>
+<ul>
+<li>可以增加被扩展类的属性和方法。</li>
+<li>Extension可以理解为匿名类别。</li>
+<li>定义的方法必须在implementation中实现。</li>
+</ul>
+<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@interface UITableViewCell (AccessoryView)&#10;&#10;///&#22312;Cell&#21491;&#20391;&#28155;&#21152;&#30340;&#19968;&#20010;&#33258;&#23450;&#20041;label&#10;@property (nonatomic,strong,readonly)UILabel *accessoryLabel;&#10;@property (nonatomic,strong,readonly)UIImageView *accessoryImageView;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>.m文件中重写getter方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@implementation UITableViewCell (AccessoryView)&#10;&#10;- (UILabel *)accessoryLabel&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UILabel class]) &#123;&#10;            [obj removeFromSuperview];//&#22240;&#20026;accessoryLabel&#26159;&#28155;&#21152;&#22312;cell&#19978;&#30340;&#65292;&#32780;&#27809;&#26377;&#22312;cell.contentView&#19978;&#12290;&#10;        &#125;&#10;&#10;    &#125;&#10;    UILabel * accessoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth-200, 0, 160, CGRectGetHeight(self.frame))];&#10;    accessoryLabel.textColor = [UIColor lightGrayColor];&#10;    accessoryLabel.font      = [UIFont systemFontOfSize:12];&#10;    accessoryLabel.textAlignment = NSTextAlignmentRight;&#10;    [self addSubview:accessoryLabel];&#10;    return  accessoryLabel;&#10;&#125;&#10;&#10;- (UIImageView *)accessoryImageView&#123;&#10;    for (id obj in self.subviews) &#123;&#10;        if ([obj class] == [UIImageView class]) &#123;&#10;            [obj removeFromSuperview];&#10;        &#125;&#10;    &#125;&#10;    UIImageView *accessoryImageView = [[UIImageView alloc]initWithFrame:CGRectMake(kWidth-100, 10, 60, 60)];&#10;    accessoryImageView.layer.cornerRadius = 30;&#10;    accessoryImageView.layer.masksToBounds = YES;&#10;    [self addSubview:accessoryImageView];&#10;    return accessoryImageView;&#10;    &#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
+<p><img src="/img/category_1" alt="category"></p>
+<p>2.运行时添加属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@interface NSError (Message)&#10;&#10;@property (nonatomic,copy)NSString * errorMsg;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;static void * strKey = &#38;strKey;&#10;&#10;@implementation NSError (Message)&#10;&#10;- (void)setErrorMsg:(NSString *)errorMsg&#123;&#10;    objc_setAssociatedObject(self, &#38; strKey, errorMsg, OBJC_ASSOCIATION_COPY_NONATOMIC);&#10;&#125;&#10;&#10;- (NSString *)errorMsg&#123;&#10;    return objc_getAssociatedObject(self, &#38;strKey);&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cihqdpeev0000v59k1ztc6hd5" class="article-share-link">Share</a>
+      
+        <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/30/Markdown语法参考/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Markdown语法参考</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
       
         <aside id="sidebar">
   
