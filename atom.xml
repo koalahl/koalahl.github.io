@@ -20,18 +20,22 @@
     <id>http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/</id>
     <published>2015-12-12T11:15:32.000Z</published>
     <updated>2015-12-12T11:15:32.000Z</updated>
-    <content type="html"><![CDATA[<p>###ARC<br>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
+    <content type="html"><![CDATA[<p>###ARC</p>
+<p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br><a id="more"></a></p>
-<p>###Core Foundation对象的内存管理<br>底层的Core Foundation对象的创建，大多数以XxxCreateWithXxx这样的方式创建，例如：</p>
+<p>###Core Foundation对象的内存管理</p>
+<p>底层的Core Foundation对象的创建，大多数以XxxCreateWithXxx这样的方式创建，例如：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个CFStringRef对象</span></span><br><span class="line">	<span class="built_in">CFStringRef</span> str = <span class="built_in">CFStringCreateWithCString</span>(k<span class="built_in">CFAllocatorDefault</span>,<span class="string">"hello world"</span>,k<span class="built_in">CFStringEncodingUTF8</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置字间距</span></span><br><span class="line">+ (<span class="built_in">NSAttributedString</span> *)setLabelAttributeString:(<span class="built_in">NSString</span>*)labelText withCharactorSpace:(<span class="built_in">CGFloat</span>)charactorSpace&#123;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *string =[[<span class="built_in">NSMutableAttributedString</span> alloc]initWithString:labelText];</span><br><span class="line">    <span class="keyword">long</span> number = charactorSpace;</span><br><span class="line">    <span class="built_in">CFNumberRef</span> num = <span class="built_in">CFNumberCreate</span>(k<span class="built_in">CFAllocatorDefault</span>,k<span class="built_in">CFNumberSInt8Type</span>,&amp;number);</span><br><span class="line">    [string addAttribute:(<span class="keyword">id</span>)kCTKernAttributeName value:(__bridge <span class="keyword">id</span>)num range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>,[string length])];</span><br><span class="line">    <span class="built_in">CFRelease</span>(num);</span><br><span class="line">    <span class="keyword">return</span> string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于这种对象的修改和释放，需要相应的使用CFRetain和CFRelease。<br>除此之外，还有另外一个问题需要解决。在ARC下，我们有时需要将一个Core Foundation对象转换成Objective-C对象，这个时候我们需要告诉编译器，转换过程中的引用计数如何调整。这就引入了与bridge相关的关键字：</p>
-<pre><code>-<span class="ruby"> <span class="symbol">__bridge:</span>只做类型转换，不修改相关对象的引用计数，原来的<span class="constant">Core</span> <span class="constant">Foundation</span>对象在不用时，需要调用<span class="constant">CFRelease</span>方法。
-</span>-<span class="ruby"> <span class="symbol">__bridge_retained:</span>类型转换后，将相关对象的引用计数+<span class="number">1</span>，原来的<span class="constant">Core</span> <span class="constant">Foundation</span>对象在不用时，需要调用<span class="constant">CFRelease</span>方法。
-</span>-<span class="ruby"> <span class="symbol">__bridge_transfer:</span>类型转换后，将该对象的引用计数交给<span class="constant">ARC</span>管理，<span class="constant">Core</span> <span class="constant">Foundation</span>对象在不用时，不再需要调用<span class="constant">CFRelease</span>方法。</span>
+<pre><code><span class="label">__bridge:</span>只做类型转换，不修改相关对象的引用计数，原来的Core Foundation对象在不用时，需要调用CFRelease方法。
+<span class="label">__bridge_retained:</span>类型转换后，将相关对象的引用计数+<span class="number">1</span>，原来的Core Foundation对象在不用时，需要调用CFRelease方法。
+<span class="label">__bridge_transfer:</span>类型转换后，将该对象的引用计数交给ARC管理，Core Foundation对象在不用时，不再需要调用CFRelease方法。
 </code></pre><p>我们根据业务逻辑，合理使用上面三种转换关键字，就可以解决Core Foundation对象与Objc对象相互转换的问题了。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>###ARC<br>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
+    <![CDATA[<p>###ARC</p>
+<p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br>]]>
     
     </summary>
