@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title><![CDATA[《iOS开发进阶》阅读笔记（二）——开发技巧]]></title>
+      <url>http://koalahl.github.io/2015/12/13/%E3%80%8AiOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</url>
+      <content type="html"><![CDATA[<p>##收起键盘</p>
+<p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
+<ul>
+<li>重载UIViewController的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>,这样单击UIViewController的任意地方，就可以收起键盘；</li>
+<li>直接执行<code>[[UIApplicatoin sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];</code>,用于在获得当前UIViewController比较困难的时候使用。</li>
+<li>直接执行<code>[[[UIApplicatoin sharedApplication] keyWindow] endEditing:YES];</code>。</li>
+</ul>
+<a id="more"></a>
+<p>##NSJSONSerialization比NSKeyedArchiver更好</p>
+<p>在选择持久化方案时，系统提供的<code>NSJSONSerialization</code>比<code>NSKeyedArchiver</code>在效率和体积上都更优，更详细的测试参考：<a href="https://github.com/randomsequence/NSSerialisationTests" target="_blank" rel="external">https://github.com/randomsequence/NSSerialisationTests</a>;</p>
+<p>##设置应用内的系统控件语言</p>
+<p>在工程的info.plist文件中增加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;key&#62;CFBundleLocalizations&#60;/key&#62;&#10;&#60;array&#62;&#10;&#9;&#60;string&#62;zh_CN&#60;/string&#62;&#10;&#9;&#60;string&#62;en&#60;/string&#62;&#10;&#60;/array&#62;</span><br></pre></td></tr></table></figure></p>
+<p>##巧用系统的截屏功能</p>
+<p>iOS7以后，apple提供的系统的截屏API：<code>- (UIView *)snapshotViewAfterScreenUpdates:(BOOL)afterUpdates</code>来实现截屏功能。而对于iOS7以前的系统，可以用过代码来实现截屏功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (UIImage *)captureImageFromView:(UIView *)view&#123;&#10;&#9;CGRect screenRect = [view bounds];&#10;&#9;UIGraphicsBeginImageContext(screenRect.size);&#10;&#9;CGContextRef ctx = UIGraphicsGetCurrentContext();&#10;&#9;[view.layer renderInContext:ctx];&#10;&#9;UIImage *image = UIGraphicsGetImageFromCurrentImageContext();&#10;&#9;UIGraphicsEndImageContext();&#10;&#9;return image;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>##Javascript文件设置调整</p>
+<p>Javascript的js后缀的文件默认被拖动到工程中后，是在编译列表中，而不是资源列表中。需要手动调整期位置，否则它就不能打包到ipa文件中。</p>
+<p>注：xcode7已经修改此问题，如下图：<br><img src="/img/xcode7_js.png" alt="xcode7_js"></p>
+<p>##忽略编译警告</p>
+<p>在Build Phase中对应的文件中添加 <code>-w</code>参数。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[《iOS开发进阶》阅读笔记（一）内存管理释疑]]></title>
       <url>http://koalahl.github.io/2015/12/12/%E3%80%8AiOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E9%87%8A%E7%96%91/</url>
       <content type="html"><![CDATA[<p>###ARC</p>

@@ -106,7 +106,7 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        7
+        8
         <span>posts</span>
       </div>
       <div class="article-info-block">
@@ -137,6 +137,70 @@
 
       
       <section id="main">
+      <article id="post-《iOS开发进阶》阅读笔记（二）——开发技巧" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/">《iOS开发进阶》阅读笔记（二）——开发技巧</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/">
+      <time datetime="2015-12-13T11:24:48.000Z" itemprop="datePublished">2015-12-13</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##收起键盘</p>
+<p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
+<ul>
+<li>重载UIViewController的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>,这样单击UIViewController的任意地方，就可以收起键盘；</li>
+<li>直接执行<code>[[UIApplicatoin sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];</code>,用于在获得当前UIViewController比较困难的时候使用。</li>
+<li>直接执行<code>[[[UIApplicatoin sharedApplication] keyWindow] endEditing:YES];</code>。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" data-id="cii4kpcfs000cea9kqr8iet30" class="article-share-link">Share</a>
+      
+        <a href="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-《iOS开发进阶》阅读笔记（一）内存管理释疑" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -182,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" data-id="cii310vdl000cet9kzzlyrk1t" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" data-id="cii4kpcfu000gea9k1osiy0j0" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -241,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS开发技术栈/" data-id="cii310vdp000get9kv2td4gb1" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/05/iOS开发技术栈/" data-id="cii4kpcfx000jea9k4kxcchob" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/05/iOS开发技术栈/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -300,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/" data-id="cii310vdr000jet9kmpjwr5gc" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/" data-id="cii4kpcg0000mea9kkrpdwa1l" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -370,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cii310vcu0000et9kk8iv16kg" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cii4kpcez0000ea9k13l4iloq" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -463,76 +527,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cii310vdw000pet9kzwfiflpl" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/Markdown语法参考/" data-id="cii4kpcg5000sea9kv1hgezzd" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/11/30/Markdown语法参考/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      
-	
-		<a href="/2015/11/30/常用排序算法/" itemprop="url"><img src="http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg" class="article-banner"></a>
-	
-
-
-
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/30/常用排序算法/">常用排序算法</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2015/11/30/常用排序算法/">
-      <time datetime="2015-11-30T02:02:57.000Z" itemprop="datePublished">2015-11-30</time>
-    </a>
-  </div>
-
-
-          
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在此总结一下常用排序算法的代码实现</p>
-<p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
-<p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
-<p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2015/11/30/常用排序算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="cii310vdj0009et9kx235k574" class="article-share-link">Share</a>
-      
-        <a href="http://koalahl.github.io/2015/11/30/常用排序算法/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
     </footer>
   </div>
   
@@ -553,6 +552,24 @@
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" class="thumbnail">
+  
+    <span style="background-image:url(/img/xcode7_js.png
+)" alt="《iOS开发进阶》阅读笔记（二）——开发技巧" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/iOS开发/">iOS开发</a></p>
+              <p class="item-title"><a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" class="title">《iOS开发进阶》阅读笔记（二）——开发技巧</a></p>
+              <p class="item-date"><time datetime="2015-12-13T11:24:48.000Z" itemprop="datePublished">2015-12-13</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -623,23 +640,6 @@
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2015/11/30/Markdown语法参考/" class="thumbnail">
-  
-    <span class="thumbnail-image thumbnail-none"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/工具/">工具</a></p>
-              <p class="item-title"><a href="/2015/11/30/Markdown语法参考/" class="title">Markdown语法参考</a></p>
-              <p class="item-date"><time datetime="2015-11-30T06:24:12.000Z" itemprop="datePublished">2015-11-30</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -649,7 +649,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS开发/">iOS开发</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS开发/">iOS开发</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -658,7 +658,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -667,7 +667,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/《iOS开发进阶》阅读笔记/" style="font-size: 10px;">《iOS开发进阶》阅读笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/《iOS开发进阶》阅读笔记/" style="font-size: 15px;">《iOS开发进阶》阅读笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
   </div>
 
@@ -676,7 +676,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
