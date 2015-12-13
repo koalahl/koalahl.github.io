@@ -20,7 +20,7 @@
     <id>http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/</id>
     <published>2015-12-13T11:24:48.000Z</published>
     <updated>2015-12-13T11:24:48.000Z</updated>
-    <content type="html"><![CDATA[<h3>收起键盘</h3>
+    <content type="html"><![CDATA[<h3>1.收起键盘</h3>
 
 <p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
 <ul>
@@ -32,23 +32,23 @@
 <h3>NSJSONSerialization比NSKeyedArchiver更好</h3>
 
 <p>在选择持久化方案时，系统提供的<code>NSJSONSerialization</code>比<code>NSKeyedArchiver</code>在效率和体积上都更优，更详细的测试参考：<a href="https://github.com/randomsequence/NSSerialisationTests" target="_blank" rel="external">https://github.com/randomsequence/NSSerialisationTests</a>;</p>
-<h3>设置应用内的系统控件语言</h3>
+<h3>2.设置应用内的系统控件语言</h3>
 
 <p>在工程的info.plist文件中增加如下内容：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>CFBundleLocalizations<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">string</span>&gt;</span>zh_CN<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">string</span>&gt;</span>en<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3>巧用系统的截屏功能</h3>
+<h3>3.巧用系统的截屏功能</h3>
 
 <p>iOS7以后，apple提供的系统的截屏API：<code>- (UIView *)snapshotViewAfterScreenUpdates:(BOOL)afterUpdates</code>来实现截屏功能。而对于iOS7以前的系统，可以用过代码来实现截屏功能：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)captureImageFromView:(<span class="built_in">UIView</span> *)view&#123;</span><br><span class="line">	<span class="built_in">CGRect</span> screenRect = [view bounds];</span><br><span class="line">	<span class="built_in">UIGraphicsBeginImageContext</span>(screenRect<span class="variable">.size</span>);</span><br><span class="line">	<span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">	[view<span class="variable">.layer</span> renderInContext:ctx];</span><br><span class="line">	<span class="built_in">UIImage</span> *image = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">	<span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">	<span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3>Javascript文件设置调整</h3>
+<h3>4.Javascript文件设置调整</h3>
 
 <p>Javascript的js后缀的文件默认被拖动到工程中后，是在编译列表中，而不是资源列表中。需要手动调整期位置，否则它就不能打包到ipa文件中。</p>
 <p>注：xcode7已经修改此问题，如下图：<br><img src="/img/xcode7_js.png" alt="xcode7_js"></p>
-<h3>忽略编译警告</h3>
+<h3>5.忽略编译警告</h3>
 
 <p>在Build Phase中对应的文件中添加 <code>-w</code>参数。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h3>收起键盘</h3>
+    <![CDATA[<h3>1.收起键盘</h3>
 
 <p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
 <ul>
