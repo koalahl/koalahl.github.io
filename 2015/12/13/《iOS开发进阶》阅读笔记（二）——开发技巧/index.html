@@ -5,29 +5,32 @@
   
   <title>《iOS开发进阶》阅读笔记（二）——开发技巧 | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##收起键盘
+  <meta name="description" content="收起键盘
+
 在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：
 
 重载UIViewController的touchBegin方法，然后在里面执行[self.view endEditing:YES];,这样单击UIViewController的任意地方，就可以收起键盘；
-直接执行[[UIApplicatoin shar">
+直接执行[[UIApplicatoin share">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《iOS开发进阶》阅读笔记（二）——开发技巧">
 <meta property="og:url" content="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="##收起键盘
+<meta property="og:description" content="收起键盘
+
 在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：
 
 重载UIViewController的touchBegin方法，然后在里面执行[self.view endEditing:YES];,这样单击UIViewController的任意地方，就可以收起键盘；
-直接执行[[UIApplicatoin shar">
+直接执行[[UIApplicatoin share">
 <meta property="og:image" content="http://koalahl.github.io/img/xcode7_js.png">
 <meta property="og:updated_time" content="2015-12-13T11:24:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《iOS开发进阶》阅读笔记（二）——开发技巧">
-<meta name="twitter:description" content="##收起键盘
+<meta name="twitter:description" content="收起键盘
+
 在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：
 
 重载UIViewController的touchBegin方法，然后在里面执行[self.view endEditing:YES];,这样单击UIViewController的任意地方，就可以收起键盘；
-直接执行[[UIApplicatoin shar">
+直接执行[[UIApplicatoin share">
   
   
     <link rel="icon" href="favicon.png">
@@ -185,7 +188,8 @@
     <div class="article-entry" itemprop="articleBody">
       
                 
-        <p>##收起键盘</p>
+        <h3>收起键盘</h3>
+
 <p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
 <ul>
 <li>重载UIViewController的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>,这样单击UIViewController的任意地方，就可以收起键盘；</li>

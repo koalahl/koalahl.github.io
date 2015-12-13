@@ -6,7 +6,8 @@
     <entry>
       <title><![CDATA[《iOS开发进阶》阅读笔记（二）——开发技巧]]></title>
       <url>http://koalahl.github.io/2015/12/13/%E3%80%8AiOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</url>
-      <content type="html"><![CDATA[<p>##收起键盘</p>
+      <content type="html"><![CDATA[<h3>收起键盘</h3>
+
 <p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
 <ul>
 <li>重载UIViewController的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>,这样单击UIViewController的任意地方，就可以收起键盘；</li>
