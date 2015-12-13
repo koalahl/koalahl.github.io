@@ -15,17 +15,22 @@
 <li>直接执行<code>[[[UIApplicatoin sharedApplication] keyWindow] endEditing:YES];</code>。</li>
 </ul>
 <a id="more"></a>
-<p>##NSJSONSerialization比NSKeyedArchiver更好</p>
+<h3>NSJSONSerialization比NSKeyedArchiver更好</h3>
+
 <p>在选择持久化方案时，系统提供的<code>NSJSONSerialization</code>比<code>NSKeyedArchiver</code>在效率和体积上都更优，更详细的测试参考：<a href="https://github.com/randomsequence/NSSerialisationTests" target="_blank" rel="external">https://github.com/randomsequence/NSSerialisationTests</a>;</p>
-<p>##设置应用内的系统控件语言</p>
+<h3>设置应用内的系统控件语言</h3>
+
 <p>在工程的info.plist文件中增加如下内容：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">key</span>&gt;</span>CFBundleLocalizations<span class="tag">&lt;/<span class="title">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">array</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">string</span>&gt;</span>zh_CN<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">string</span>&gt;</span>en<span class="tag">&lt;/<span class="title">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">array</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>##巧用系统的截屏功能</p>
+<h3>巧用系统的截屏功能</h3>
+
 <p>iOS7以后，apple提供的系统的截屏API：<code>- (UIView *)snapshotViewAfterScreenUpdates:(BOOL)afterUpdates</code>来实现截屏功能。而对于iOS7以前的系统，可以用过代码来实现截屏功能：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)captureImageFromView:(<span class="built_in">UIView</span> *)view&#123;</span><br><span class="line">	<span class="built_in">CGRect</span> screenRect = [view bounds];</span><br><span class="line">	<span class="built_in">UIGraphicsBeginImageContext</span>(screenRect<span class="variable">.size</span>);</span><br><span class="line">	<span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">	[view<span class="variable">.layer</span> renderInContext:ctx];</span><br><span class="line">	<span class="built_in">UIImage</span> *image = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">	<span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">	<span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##Javascript文件设置调整</p>
+<h3>Javascript文件设置调整</h3>
+
 <p>Javascript的js后缀的文件默认被拖动到工程中后，是在编译列表中，而不是资源列表中。需要手动调整期位置，否则它就不能打包到ipa文件中。</p>
 <p>注：xcode7已经修改此问题，如下图：<br><img src="/img/xcode7_js.png" alt="xcode7_js"></p>
-<p>##忽略编译警告</p>
+<h3>忽略编译警告</h3>
+
 <p>在Build Phase中对应的文件中添加 <code>-w</code>参数。</p>
 ]]></content>
     </entry>
@@ -33,10 +38,12 @@
     <entry>
       <title><![CDATA[《iOS开发进阶》阅读笔记（一）内存管理释疑]]></title>
       <url>http://koalahl.github.io/2015/12/12/%E3%80%8AiOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E9%87%8A%E7%96%91/</url>
-      <content type="html"><![CDATA[<p>###ARC</p>
+      <content type="html"><![CDATA[<h3>ARC</h3>
+
 <p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br><a id="more"></a></p>
-<p>###Core Foundation对象的内存管理</p>
+<h3>Core Foundation对象的内存管理</h3>
+
 <p>底层的Core Foundation对象的创建，大多数以XxxCreateWithXxx这样的方式创建，例如：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个CFStringRef对象</span></span><br><span class="line">	<span class="built_in">CFStringRef</span> str = <span class="built_in">CFStringCreateWithCString</span>(k<span class="built_in">CFAllocatorDefault</span>,<span class="string">"hello world"</span>,k<span class="built_in">CFStringEncodingUTF8</span>);</span><br></pre></td></tr></table></figure>
 <p>或者<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置字间距</span></span><br><span class="line">+ (<span class="built_in">NSAttributedString</span> *)setLabelAttributeString:(<span class="built_in">NSString</span>*)labelText withCharactorSpace:(<span class="built_in">CGFloat</span>)charactorSpace&#123;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *string =[[<span class="built_in">NSMutableAttributedString</span> alloc]initWithString:labelText];</span><br><span class="line">    <span class="keyword">long</span> number = charactorSpace;</span><br><span class="line">    <span class="built_in">CFNumberRef</span> num = <span class="built_in">CFNumberCreate</span>(k<span class="built_in">CFAllocatorDefault</span>,k<span class="built_in">CFNumberSInt8Type</span>,&amp;number);</span><br><span class="line">    [string addAttribute:(<span class="keyword">id</span>)kCTKernAttributeName value:(__bridge <span class="keyword">id</span>)num range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>,[string length])];</span><br><span class="line">    <span class="built_in">CFRelease</span>(num);</span><br><span class="line">    <span class="keyword">return</span> string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
