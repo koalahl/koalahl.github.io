@@ -56,7 +56,9 @@
     
     </summary>
     
-      <category term="CoreData,SQLite" scheme="http://koalahl.github.io/tags/CoreData-SQLite/"/>
+      <category term="CoreData" scheme="http://koalahl.github.io/tags/CoreData/"/>
+    
+      <category term="SQLite" scheme="http://koalahl.github.io/tags/SQLite/"/>
     
       <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
