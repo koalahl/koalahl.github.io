@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS中处理四舍五入的问题 | 寒流‘s Blog</title>
+  <title>Tag: CoreData,SQLite | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="处理四舍五入主要使用下面这个方法：12345678910-(NSString *)notRounding:(float)price afterPoint:(int)position&amp;#123;    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingM">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS中处理四舍五入的问题">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/index.html">
+  <meta name="description" content="Think in Different">
+<meta property="og:type" content="website">
+<meta property="og:title" content="寒流‘s Blog">
+<meta property="og:url" content="http://koalahl.github.io/tags/CoreData-SQLite/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="处理四舍五入主要使用下面这个方法：12345678910-(NSString *)notRounding:(float)price afterPoint:(int)position&amp;#123;    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingM">
-<meta property="og:updated_time" content="2015-12-05T14:45:34.000Z">
+<meta property="og:description" content="Think in Different">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS中处理四舍五入的问题">
-<meta name="twitter:description" content="处理四舍五入主要使用下面这个方法：12345678910-(NSString *)notRounding:(float)price afterPoint:(int)position&amp;#123;    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingM">
+<meta name="twitter:title" content="寒流‘s Blog">
+<meta name="twitter:description" content="Think in Different">
   
   
     <link rel="icon" href="favicon.png">
@@ -137,89 +136,49 @@
 </aside>
 
       
-      <section id="main"><article id="post-iOS中处理四舍五入的问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
+      <section id="main">
+    <section class="archives-wrap">
+    <div class="archive-tag-wrap">
+      <span class="archive-tag">#CoreData,SQLite</span>
+    </div>
+    <div class="archives">
     
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
     
-    
-      <header class="article-header">
-        
+    <div class="archive-article-thumbnail">
+      <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" class="thumbnail">
   
-    <h1 class="article-title" itemprop="name">
-      iOS中处理四舍五入的问题
+    <span class="thumbnail-image thumbnail-none"></span>
+  
+</a>
+    </div>
+    
+    <header class="archive-article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/">关于CoreData和SQLite多线程访问时的线程安全问题</a>
     </h1>
   
 
-        <div class="article-meta">
-          
-  <div class="article-date">
+      
+        
+  <div class="archive-article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/05/iOS中处理四舍五入的问题/">
-      <time datetime="2015-12-05T14:45:34.000Z" itemprop="datePublished">2015-12-05</time>
+    <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/">
+      <time datetime="2015-12-14T10:51:37.000Z" itemprop="datePublished">2015 Dec 14</time>
     </a>
   </div>
 
 
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+      
+    </header>
   </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <p>处理四舍五入主要使用下面这个方法：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSString</span> *)notRounding:(<span class="keyword">float</span>)price afterPoint:(<span class="keyword">int</span>)position&#123;</span><br><span class="line">    <span class="built_in">NSDecimalNumberHandler</span>* roundingBehavior = [<span class="built_in">NSDecimalNumberHandler</span> decimalNumberHandlerWithRoundingMode:<span class="built_in">NSRoundDown</span> scale:position raiseOnExactness:<span class="literal">NO</span> raiseOnOverflow:<span class="literal">NO</span> raiseOnUnderflow:<span class="literal">NO</span> raiseOnDivideByZero:<span class="literal">NO</span>];</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *ouncesDecimal;</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *roundedOunces;</span><br><span class="line">    </span><br><span class="line">    ouncesDecimal = [[<span class="built_in">NSDecimalNumber</span> alloc] initWithFloat:price];</span><br><span class="line">    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];</span><br><span class="line">    [ouncesDecimal release];</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,roundedOunces];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>介绍一下参数：<br><code>price</code>:需要处理的数字，<br><code>position</code>：保留小数点第几位，<br>然后调用<br><blockquote><p>float s =0.126;<br>    NSString *sb = [self notRounding:s afterPoint:2];<br>    NSLog(@”sb = %@”,sb);<br>输出结果为：sb = 0.12</p>
-</blockquote><br>接下来介绍NSDecimalNumberHandler初始化时的关键参数：decimalNumberHandlerWithRoundingMode：NSRoundDown，<br><code>NSRoundDown</code>代表的就是 只舍不入。<br>scale的参数<code>position</code>代表保留小数点后几位。</p>
-<a id="more"></a>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/" data-id="cii5ufas0000rw69kxqu9sbul" class="article-share-link">Share</a>
-      
-        <a href="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/12/05/iOS开发技术栈/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          iOS开发技术栈
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/12/03/Category添加属性所想到的/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Category添加属性所想到的</div>
-    </a>
-  
-</nav>
-
-
-  
 </article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-</section>
+    
+    </div></section>
+    </section>
       
         <aside id="sidebar">
   
@@ -402,7 +361,7 @@
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
