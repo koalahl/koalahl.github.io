@@ -3,27 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>《iOS开发进阶》阅读笔记（一）内存管理释疑 | 寒流‘s Blog</title>
+  <title>Category: iOS开发 | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ARC
-
-ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。
-使用ARC需要额外注意的两个问题：    1.过度使用block产生的循环引用问题。    2.底层Core Foundation对象需要手动进行内存管理。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="《iOS开发进阶》阅读笔记（一）内存管理释疑">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/index.html">
+  <meta name="description" content="Think in Different">
+<meta property="og:type" content="website">
+<meta property="og:title" content="寒流‘s Blog">
+<meta property="og:url" content="http://koalahl.github.io/categories/iOS开发/page/2/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="ARC
-
-ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。
-使用ARC需要额外注意的两个问题：    1.过度使用block产生的循环引用问题。    2.底层Core Foundation对象需要手动进行内存管理。">
-<meta property="og:updated_time" content="2015-12-12T11:15:32.000Z">
+<meta property="og:description" content="Think in Different">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《iOS开发进阶》阅读笔记（一）内存管理释疑">
-<meta name="twitter:description" content="ARC
-
-ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。
-使用ARC需要额外注意的两个问题：    1.过度使用block产生的循环引用问题。    2.底层Core Foundation对象需要手动进行内存管理。">
+<meta name="twitter:title" content="寒流‘s Blog">
+<meta name="twitter:description" content="Think in Different">
   
   
     <link rel="icon" href="favicon.png">
@@ -155,103 +145,54 @@ ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的�
 </aside>
 
       
-      <section id="main"><article id="post-《iOS开发进阶》阅读笔记（一）内存管理释疑" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
+      <section id="main">
+    <section class="archives-wrap">
+    <div class="archive-category-wrap">
+      <span class="archive-category">iOS开发</span>
+    </div>
+    <div class="archives">
     
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
     
-    
-      <header class="article-header">
-        
+    <div class="archive-article-thumbnail">
+      <a href="/2015/12/03/Category添加属性所想到的/" class="thumbnail">
   
-    <h1 class="article-title" itemprop="name">
-      《iOS开发进阶》阅读笔记（一）内存管理释疑
+    <span style="background-image:url(/img/category_1.png
+)" alt="Category添加属性所想到的" class="thumbnail-image"></span>
+  
+</a>
+    </div>
+    
+    <header class="archive-article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/12/03/Category添加属性所想到的/">Category添加属性所想到的</a>
     </h1>
   
 
-        <div class="article-meta">
-          
-  <div class="article-date">
+      
+        
+  <div class="archive-article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/">
-      <time datetime="2015-12-12T11:15:32.000Z" itemprop="datePublished">2015-12-12</time>
+    <a href="/2015/12/03/Category添加属性所想到的/">
+      <time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015 Dec 3</time>
     </a>
   </div>
 
 
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+      
+    </header>
   </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-                
-        <h3>ARC</h3>
-
-<p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
-<p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br><a id="more"></a></p>
-<h3>Core Foundation对象的内存管理</h3>
-
-<p>底层的Core Foundation对象的创建，大多数以XxxCreateWithXxx这样的方式创建，例如：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个CFStringRef对象</span></span><br><span class="line">	<span class="built_in">CFStringRef</span> str = <span class="built_in">CFStringCreateWithCString</span>(k<span class="built_in">CFAllocatorDefault</span>,<span class="string">"hello world"</span>,k<span class="built_in">CFStringEncodingUTF8</span>);</span><br></pre></td></tr></table></figure>
-<p>或者<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置字间距</span></span><br><span class="line">+ (<span class="built_in">NSAttributedString</span> *)setLabelAttributeString:(<span class="built_in">NSString</span>*)labelText withCharactorSpace:(<span class="built_in">CGFloat</span>)charactorSpace&#123;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *string =[[<span class="built_in">NSMutableAttributedString</span> alloc]initWithString:labelText];</span><br><span class="line">    <span class="keyword">long</span> number = charactorSpace;</span><br><span class="line">    <span class="built_in">CFNumberRef</span> num = <span class="built_in">CFNumberCreate</span>(k<span class="built_in">CFAllocatorDefault</span>,k<span class="built_in">CFNumberSInt8Type</span>,&amp;number);</span><br><span class="line">    [string addAttribute:(<span class="keyword">id</span>)kCTKernAttributeName value:(__bridge <span class="keyword">id</span>)num range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>,[string length])];</span><br><span class="line">    <span class="built_in">CFRelease</span>(num);</span><br><span class="line">    <span class="keyword">return</span> string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对于这种对象的修改和释放，需要相应的使用CFRetain和CFRelease。<br>除此之外，还有另外一个问题需要解决。在ARC下，我们有时需要将一个Core Foundation对象转换成Objective-C对象，这个时候我们需要告诉编译器，转换过程中的引用计数如何调整。这就引入了与bridge相关的关键字：</p>
-<ul>
-<li><code>__bridge</code>:只做类型转换，不修改相关对象的引用计数，原来的Core Foundation对象在不用时，需要调用CFRelease方法。</li>
-<li><code>__bridge_retained</code>:类型转换后，将相关对象的引用计数+1，原来的Core Foundation对象在不用时，需要调用CFRelease方法。</li>
-<li><code>__bridge_transfer</code>:类型转换后，将该对象的引用计数交给ARC管理，Core Foundation对象在不用时，不再需要调用CFRelease方法。</li>
-</ul>
-<p>我们根据业务逻辑，合理使用上面三种转换关键字，就可以解决Core Foundation对象与Objc对象相互转换的问题了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" data-id="cii8t1qcq000tza9kbb9ovqcy" class="article-share-link">Share</a>
-      
-        <a href="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《iOS开发进阶》阅读笔记（二）——开发技巧
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/12/05/iOS开发技术栈/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">iOS开发技术栈</div>
-    </a>
-  
-</nav>
-
-
-  
 </article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-</section>
+    
+    </div></section>
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/categories/iOS开发/">&laquo; Prev</a><a class="page-number" href="/categories/iOS开发/">1</a><span class="page-number current">2</span>
+      </nav>
+    </section>
       
         <aside id="sidebar">
   
@@ -425,7 +366,7 @@ ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的�
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
