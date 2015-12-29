@@ -3,46 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category添加属性所想到的 | 寒流‘s Blog</title>
+  <title>寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Category添加属性所想到的">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/index.html">
+  <meta name="description" content="Think in Different">
+<meta property="og:type" content="website">
+<meta property="og:title" content="寒流‘s Blog">
+<meta property="og:url" content="http://koalahl.github.io/page/3/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
-<meta property="og:image" content="http://koalahl.github.io/img/category_1.png">
-<meta property="og:updated_time" content="2015-12-14T00:31:17.000Z">
+<meta property="og:description" content="Think in Different">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Category添加属性所想到的">
-<meta name="twitter:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
+<meta name="twitter:title" content="寒流‘s Blog">
+<meta name="twitter:description" content="Think in Different">
   
   
     <link rel="icon" href="favicon.png">
@@ -174,16 +145,25 @@ Extension：扩展
 </aside>
 
       
-      <section id="main"><article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main">
+      <article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      
+	
+		<a href="/2015/11/30/常用排序算法/" itemprop="url"><img src="http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg" class="article-banner"></a>
+	
+
+
+
     
     
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Category添加属性所想到的
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/常用排序算法/">常用排序算法</a>
     </h1>
   
 
@@ -191,95 +171,50 @@ Extension：扩展
           
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/03/Category添加属性所想到的/">
-      <time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015-12-03</time>
+    <a href="/2015/11/30/常用排序算法/">
+      <time datetime="2015-11-30T02:02:57.000Z" itemprop="datePublished">2015-11-30</time>
     </a>
   </div>
 
 
           
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-  </div>
-
         </div>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-                
-        <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
-<p>Category：分类、类别</p>
-<ul>
-<li>category主要用来增加类的方法，并且适用于子类。</li>
-<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
-<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
-</ul>
-<p>Extension：扩展</p>
-<ul>
-<li>可以增加被扩展类的属性和方法。</li>
-<li>Extension可以理解为匿名类别。</li>
-<li>定义的方法必须在implementation中实现。</li>
-</ul>
-<a id="more"></a>
-<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">///在Cell右侧添加的一个自定义label</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UILabel</span> *accessoryLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UIImageView</span> *accessoryImageView;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>.m文件中重写getter方法</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UILabel</span> *)accessoryLabel&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UILabel</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];<span class="comment">//因为accessoryLabel是添加在cell上的，而没有在cell.contentView上。</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UILabel</span> * accessoryLabel = [[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">200</span>, <span class="number">0</span>, <span class="number">160</span>, <span class="built_in">CGRectGetHeight</span>(<span class="keyword">self</span><span class="variable">.frame</span>))];</span><br><span class="line">    accessoryLabel<span class="variable">.textColor</span> = [<span class="built_in">UIColor</span> lightGrayColor];</span><br><span class="line">    accessoryLabel<span class="variable">.font</span>      = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12</span>];</span><br><span class="line">    accessoryLabel<span class="variable">.textAlignment</span> = <span class="built_in">NSTextAlignmentRight</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryLabel];</span><br><span class="line">    <span class="keyword">return</span>  accessoryLabel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImageView</span> *)accessoryImageView&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UIImageView</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIImageView</span> *accessoryImageView = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">100</span>, <span class="number">10</span>, <span class="number">60</span>, <span class="number">60</span>)];</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">30</span>;</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryImageView];</span><br><span class="line">    <span class="keyword">return</span> accessoryImageView;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
-<p><img src="/img/category_1.png" alt="category"></p>
-<p>2.运行时添加属性：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)<span class="built_in">NSString</span> * errorMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>.m</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> * strKey = &amp;strKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setErrorMsg:(<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp; strKey, errorMsg, OBJC_ASSO<span class="built_in">CIATION_COPY_NONATOMIC</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;strKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
-
+        <p>在此总结一下常用排序算法的代码实现</p>
+<p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
+<p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
+<p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2015/11/30/常用排序算法/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="ciir1rtgc001fci9k0tszpxxg" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/11/30/常用排序算法/" data-id="ciir1rtfj000gci9kaxqitu1l" class="article-share-link">Share</a>
       
-        <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://koalahl.github.io/2015/11/30/常用排序算法/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2015/12/05/iOS中处理四舍五入的问题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          iOS中处理四舍五入的问题
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/11/30/Markdown语法参考/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Markdown语法参考</div>
-    </a>
-  
-</nav>
-
-
-  
 </article>
 
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
-</section>
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      </nav>
+    </section>
       
         <aside id="sidebar">
   
@@ -453,7 +388,7 @@ Extension：扩展
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
