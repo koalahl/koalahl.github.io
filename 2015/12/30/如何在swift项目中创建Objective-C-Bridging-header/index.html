@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS开发技术栈 | 寒流‘s Blog</title>
+  <title>如何在swift项目中创建Objective-C Bridging header | 寒流‘s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="提醒自己：
-Objective-C• objective-c语言基础• library,framework的制作• Runtime编程• LLVM原理和调优操作系统• iOS内存管理和调优• iOS的文件系统和沙盒机制• iOS多线程编程（Thread,GCD,NSOperation）• iOS网络和服务器编程（NSURLConnection,NSURLSession）• iOS系统的各种安全机制">
+  <meta name="description" content="在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。现在有两种方法创建Objective-C Bridging Header:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS开发技术栈">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/05/iOS开发技术栈/index.html">
+<meta property="og:title" content="如何在swift项目中创建Objective-C Bridging header">
+<meta property="og:url" content="http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="提醒自己：
-Objective-C• objective-c语言基础• library,framework的制作• Runtime编程• LLVM原理和调优操作系统• iOS内存管理和调优• iOS的文件系统和沙盒机制• iOS多线程编程（Thread,GCD,NSOperation）• iOS网络和服务器编程（NSURLConnection,NSURLSession）• iOS系统的各种安全机制">
-<meta property="og:updated_time" content="2015-12-05T15:04:57.000Z">
+<meta property="og:description" content="在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。现在有两种方法创建Objective-C Bridging Header:">
+<meta property="og:image" content="http://koalahl.github.io/img/Swift-Create-Objective-C-Bridging-Header.png">
+<meta property="og:image" content="http://koalahl.github.io/img/create-objective-c-bridging-header-question.png">
+<meta property="og:image" content="http://koalahl.github.io/img/Xcode-Choose-Header-File.png">
+<meta property="og:updated_time" content="2015-12-30T08:24:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS开发技术栈">
-<meta name="twitter:description" content="提醒自己：
-Objective-C• objective-c语言基础• library,framework的制作• Runtime编程• LLVM原理和调优操作系统• iOS内存管理和调优• iOS的文件系统和沙盒机制• iOS多线程编程（Thread,GCD,NSOperation）• iOS网络和服务器编程（NSURLConnection,NSURLSession）• iOS系统的各种安全机制">
+<meta name="twitter:title" content="如何在swift项目中创建Objective-C Bridging header">
+<meta name="twitter:description" content="在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。现在有两种方法创建Objective-C Bridging Header:">
   
   
     <link rel="icon" href="favicon.png">
@@ -149,7 +149,7 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
 </aside>
 
       
-      <section id="main"><article id="post-iOS开发技术栈" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-如何在swift项目中创建Objective-C-Bridging-header" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     
@@ -158,7 +158,7 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
         
   
     <h1 class="article-title" itemprop="name">
-      iOS开发技术栈
+      如何在swift项目中创建Objective-C Bridging header
     </h1>
   
 
@@ -166,8 +166,8 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
           
   <div class="article-date">
     <i class="fa fa-calendar"></i>
-    <a href="/2015/12/05/iOS开发技术栈/">
-      <time datetime="2015-12-05T15:04:57.000Z" itemprop="datePublished">2015-12-05</time>
+    <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/">
+      <time datetime="2015-12-30T08:24:16.000Z" itemprop="datePublished">2015-12-30</time>
     </a>
   </div>
 
@@ -184,18 +184,20 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
     <div class="article-entry" itemprop="articleBody">
       
                 
-        <p>提醒自己：</p>
-<p>Objective-C<br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优<br>操作系统<br>• iOS内存管理和调优<br>• iOS的文件系统和沙盒机制<br>• iOS多线程编程（Thread,GCD,NSOperation）<br>• iOS网络和服务器编程（NSURLConnection,NSURLSession）<br>• iOS系统的各种安全机制<br>网络编程<br>• iOS网络发送机制调整和优化（NSURLSession）<br>• Socket编程<br>•网络传输中的各种保障<br>•对传输协议的调整优化<br>数据库&amp;持久化方案<br>• 常规持久化方案（Keychain,NSUserDefaults,Sqlite,CoreData）<br>•数据库的使用和设计（Sqlite）<br>•数据结构优化，Sql调优<br>图形图像编程<br>• UIKit,Core Animation和Core Text的绘制<br>• Core Graphics, Quartz 2D, Media Player, AV Foundation<br>• OpenGL ES, GLKit, SpriteKit, SceneKit, Metal<br>数据结构 &amp; 算法<br>•基本的算法和数据结构（排序搜索算法, 数组, 队列）<br>•较复杂数据结构的灵活应用（二叉树, 图等）<br>•复杂的专项算法（图像识别算法, 拓扑定位等等）<br>安全方案<br>• 本地数据存储安全（Keychain）<br>•授权和身份验证<br>•传输安全（对称, 非对称, SSL）<br>• App代码安全<br>业务能力<br>•一般性业务功能需求分析及实现<br>•重要业务模块的需求分析及实现<br>•中小规模产品的架构，系统设计和实现<br>•大规模产品或产品线的架构，系统设计和实现<br>•平台级产品的架构，系统设计和实现</p>
-<a id="more"></a>
+        <p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
+<p></p><h3>1.Create Objective-C File as Header</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C:<br><img src="/img/Swift-Create-Objective-C-Bridging-Header.png" alt="Create Objective-C File as Header"><br>然后一直next，最后出现如下图时，点击yes：<br><img src="/img/create-objective-c-bridging-header-question.png" alt=""><p></p>
+<p></p><h3>2. Create Objective-C Header File Directly</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C Header File:<br><img src="/img/Xcode-Choose-Header-File.png" alt="Create Objective-C Header File Directly"><p></p>
+<p>最后，两种方法创建的.h文件中import你将使用的类。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"xxxx"</span></span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS开发技术栈/" data-id="ciiskg81h0010l29kfjn6xv82" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/" data-id="ciiskhbq90000lo9kml9x8kj1" class="article-share-link">Share</a>
       
-        <a href="http://koalahl.github.io/2015/12/05/iOS开发技术栈/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
 
     </footer>
   </div>
@@ -203,19 +205,10 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
     
 <nav id="article-nav">
   
-    <a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          《iOS开发进阶》阅读笔记（一）内存管理释疑
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/12/05/iOS中处理四舍五入的问题/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">iOS中处理四舍五入的问题</div>
+      <div class="article-nav-title">修改UIBarButtonItem标题文字大小、颜色、阴影等</div>
     </a>
   
 </nav>

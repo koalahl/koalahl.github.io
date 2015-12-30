@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2015-12-29T06:57:36.000Z</updated>
+  <updated>2015-12-30T08:24:16.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[如何在swift项目中创建Objective-C Bridging header]]></title>
+    <link href="http://koalahl.github.io/2015/12/30/%E5%A6%82%E4%BD%95%E5%9C%A8swift%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%88%9B%E5%BB%BAObjective-C-Bridging-header/"/>
+    <id>http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/</id>
+    <published>2015-12-30T08:24:16.000Z</published>
+    <updated>2015-12-30T08:24:16.000Z</updated>
+    <content type="html"><![CDATA[<p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
+<p></p><h3>1.Create Objective-C File as Header</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C:<br><img src="/img/Swift-Create-Objective-C-Bridging-Header.png" alt="Create Objective-C File as Header"><br>然后一直next，最后出现如下图时，点击yes：<br><img src="/img/create-objective-c-bridging-header-question.png" alt=""><p></p>
+<p></p><h3>2. Create Objective-C Header File Directly</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C Header File:<br><img src="/img/Xcode-Choose-Header-File.png" alt="Create Objective-C Header File Directly"><p></p>
+<p>最后，两种方法创建的.h文件中import你将使用的类。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"xxxx"</span></span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br>]]>
+    
+    </summary>
+    
+      <category term="Objc Bridging Header" scheme="http://koalahl.github.io/tags/Objc-Bridging-Header/"/>
+    
+      <category term="swift" scheme="http://koalahl.github.io/tags/swift/"/>
+    
+      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[修改UIBarButtonItem标题文字大小、颜色、阴影等]]></title>

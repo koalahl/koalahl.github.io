@@ -4,6 +4,16 @@
   
     
     <entry>
+      <title><![CDATA[如何在swift项目中创建Objective-C Bridging header]]></title>
+      <url>http://koalahl.github.io/2015/12/30/%E5%A6%82%E4%BD%95%E5%9C%A8swift%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%88%9B%E5%BB%BAObjective-C-Bridging-header/</url>
+      <content type="html"><![CDATA[<p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
+<p></p><h3>1.Create Objective-C File as Header</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C:<br><img src="/img/Swift-Create-Objective-C-Bridging-Header.png" alt="Create Objective-C File as Header"><br>然后一直next，最后出现如下图时，点击yes：<br><img src="/img/create-objective-c-bridging-header-question.png" alt=""><p></p>
+<p></p><h3>2. Create Objective-C Header File Directly</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C Header File:<br><img src="/img/Xcode-Choose-Header-File.png" alt="Create Objective-C Header File Directly"><p></p>
+<p>最后，两种方法创建的.h文件中import你将使用的类。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"xxxx"</span></span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[修改UIBarButtonItem标题文字大小、颜色、阴影等]]></title>
       <url>http://koalahl.github.io/2015/12/29/%E4%BF%AE%E6%94%B9UIBarButtonItem%E6%A0%87%E9%A2%98%E6%96%87%E5%AD%97%E5%A4%A7%E5%B0%8F%E3%80%81%E9%A2%9C%E8%89%B2%E3%80%81%E9%98%B4%E5%BD%B1%E7%AD%89/</url>
       <content type="html"><![CDATA[<p></p><h3>修改UIBarButtonItem的标题文字大小、颜色、阴影等</h3><br>有时候我们需要设置一下导航栏右侧按钮标题的大小、颜色等等，但是UIBarButtonItem没有直接提供相关方法。通过查看UIbarButtonItem官方文档，总结出有以下两种方法<br>第一种：使用<code>initWithCustomView</code>方法创建UIBarButtonItem。<br>第二种：通过KVC来修改相关属性。<p></p>
