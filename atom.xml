@@ -32,6 +32,8 @@
     
     </summary>
     
+      <category term="NSString" scheme="http://koalahl.github.io/tags/NSString/"/>
+    
       <category term="NS_ENUM" scheme="http://koalahl.github.io/tags/NS-ENUM/"/>
     
       <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
