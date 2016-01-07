@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2015-12-30T08:24:16.000Z</updated>
+  <updated>2016-01-07T09:39:07.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[NS_ENUM与NSString]]></title>
+    <link href="http://koalahl.github.io/2016/01/07/NS-ENUM%E4%B8%8ENSString/"/>
+    <id>http://koalahl.github.io/2016/01/07/NS-ENUM与NSString/</id>
+    <published>2016-01-07T09:39:07.000Z</published>
+    <updated>2016-01-07T09:39:07.000Z</updated>
+    <content type="html"><![CDATA[<h3>NS_ENUM与NSString</h3>
+
+<p>在项目中经常会使用到枚举类型：<code>NS_ENUM</code>,<code>enum</code>,但是系统提供的枚举类型只能设置为NSInteger类型，不能保存对象类型入<code>NSString</code>。<br>传统的用<code>#define</code> 方式，<code>Switch case</code> 转换方式，另外还发现了如下几种方式：</p>
+<a id="more"></a>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3>NS_ENUM与NSString</h3>
+
+<p>在项目中经常会使用到枚举类型：<code>NS_ENUM</code>,<code>enum</code>,但是系统提供的枚举类型只能设置为NSInteger类型，不能保存对象类型入<code>NSString</code>。<br>传统的用<code>#define</code> 方式，<code>Switch case</code> 转换方式，另外还发现了如下几种方式：</p>]]>
+    
+    </summary>
+    
+      <category term="NS_ENUM" scheme="http://koalahl.github.io/tags/NS-ENUM/"/>
+    
+      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[如何在swift项目中创建Objective-C Bridging header]]></title>

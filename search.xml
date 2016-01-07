@@ -4,6 +4,16 @@
   
     
     <entry>
+      <title><![CDATA[NS_ENUM与NSString]]></title>
+      <url>http://koalahl.github.io/2016/01/07/NS-ENUM%E4%B8%8ENSString/</url>
+      <content type="html"><![CDATA[<h3>NS_ENUM与NSString</h3>
+
+<p>在项目中经常会使用到枚举类型：<code>NS_ENUM</code>,<code>enum</code>,但是系统提供的枚举类型只能设置为NSInteger类型，不能保存对象类型入<code>NSString</code>。<br>传统的用<code>#define</code> 方式，<code>Switch case</code> 转换方式，另外还发现了如下几种方式：</p>
+<a id="more"></a>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[如何在swift项目中创建Objective-C Bridging header]]></title>
       <url>http://koalahl.github.io/2015/12/30/%E5%A6%82%E4%BD%95%E5%9C%A8swift%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%88%9B%E5%BB%BAObjective-C-Bridging-header/</url>
       <content type="html"><![CDATA[<p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
