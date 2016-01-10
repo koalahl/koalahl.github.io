@@ -115,11 +115,11 @@
     </div>
     <div class="article-info profile-block">
       <div class="article-info-block">
-        15
+        16
         <span>posts</span>
       </div>
       <div class="article-info-block">
-        13
+        14
         <span>tags</span>
       </div>
     </div>
@@ -146,6 +146,69 @@
 
       
       <section id="main">
+      <article id="post-理解Objective-C中的消息发送" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/16/理解Objective-C中的消息发送/">理解Objective-C中的消息发送</a>
+    </h1>
+  
+
+        <div class="article-meta">
+          
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2015/12/16/理解Objective-C中的消息发送/">
+      <time datetime="2015-12-16T12:32:25.000Z" itemprop="datePublished">2015-12-16</time>
+    </a>
+  </div>
+
+
+          
+  <div class="article-category">
+  	<i class="fa fa-folder"></i>
+    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
+  </div>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先来看看怎么理解发送消息的含义：</p>
+<p>曾经觉得Objc特别方便上手，面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。</p>
+<p>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。</p>
+<p>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。</p>
+<p>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。</p>
+<h3>顺便附上OC中一个类的底层数据结构</h3><br>mac电脑上的路径/usr/include/objc/runtime.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">	Class isa OBJC_ISA_<span class="built_in">AVAILABILITY</span>; <span class="comment">//isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r		untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</span></span><br><span class="line"></span><br><span class="line">	<span class="preprocessor">#if !__OBJC2__</span></span><br><span class="line">	Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span></span><br><span class="line">	<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">	<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">	<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">	<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method		Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span></span><br><span class="line">	<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span></span><br><span class="line">	<span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UN<span class="built_in">AVAILABLE</span>;</span><br></pre></td></tr></table></figure><br><br>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/16/理解Objective-C中的消息发送/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://koalahl.github.io/2015/12/16/理解Objective-C中的消息发送/" data-id="cij8pat32000cnf9krzqzpw33" class="article-share-link">Share</a>
+      
+        <a href="http://koalahl.github.io/2015/12/16/理解Objective-C中的消息发送/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
       <article id="post-关于CoreData和SQLite多线程访问时的线程安全问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -189,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" data-id="cij42ski0000pru9kudg80dmq" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" data-id="cij8pat3a000pnf9kdcppn8a9" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -254,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" data-id="cij42ski6000zru9kj81vrab7" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" data-id="cij8pat3h000znf9kl3537ytt" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -315,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" data-id="cij42ski90013ru9kh7kril3f" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" data-id="cij8pat3j0013nf9kwmbscxpj" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -374,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS开发技术栈/" data-id="cij42skib0016ru9k5lycoex4" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/05/iOS开发技术栈/" data-id="cij8pat3m0016nf9kjdxvx51v" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/05/iOS开发技术栈/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -433,79 +496,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/" data-id="cij42skif001aru9k3m425pyv" class="article-share-link">Share</a>
+      <a data-url="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/" data-id="cij8pat3p001anf9k0g6d8vpg" class="article-share-link">Share</a>
       
         <a href="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-      <article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/03/Category添加属性所想到的/">Category添加属性所想到的</a>
-    </h1>
-  
-
-        <div class="article-meta">
-          
-  <div class="article-date">
-    <i class="fa fa-calendar"></i>
-    <a href="/2015/12/03/Category添加属性所想到的/">
-      <time datetime="2015-12-03T14:34:41.000Z" itemprop="datePublished">2015-12-03</time>
-    </a>
-  </div>
-
-
-          
-  <div class="article-category">
-  	<i class="fa fa-folder"></i>
-    <a class="article-category-link" href="/categories/iOS开发/">iOS开发</a>
-  </div>
-
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
-<p>Category：分类、类别</p>
-<ul>
-<li>category主要用来增加类的方法，并且适用于子类。</li>
-<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
-<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
-</ul>
-<p>Extension：扩展</p>
-<ul>
-<li>可以增加被扩展类的属性和方法。</li>
-<li>Extension可以理解为匿名类别。</li>
-<li>定义的方法必须在implementation中实现。</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2015/12/03/Category添加属性所想到的/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/" data-id="cij42skiq001rru9ki6jtamcq" class="article-share-link">Share</a>
-      
-        <a href="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
@@ -530,6 +523,24 @@
     <h3 class="widget-title">recents</h3>
     <div class="widget">
       <ul id="recent-post" class="">
+        
+          <li>
+            
+            <div class="item-thumbnail">
+              <a href="/2016/01/10/NSURLSession初探/" class="thumbnail">
+  
+    <span style="background-image:url(/developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class/index.html
+)" alt="NSURLSession初探" class="thumbnail-image"></span>
+  
+</a>
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category"><a class="article-category-link" href="/categories/iOS开发/">iOS开发</a></p>
+              <p class="item-title"><a href="/2016/01/10/NSURLSession初探/" class="title">NSURLSession初探</a></p>
+              <p class="item-date"><time datetime="2016-01-10T14:04:06.000Z" itemprop="datePublished">2016-01-10</time></p>
+            </div>
+          </li>
         
           <li>
             
@@ -600,24 +611,6 @@
             </div>
           </li>
         
-          <li>
-            
-            <div class="item-thumbnail">
-              <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" class="thumbnail">
-  
-    <span style="background-image:url(/img/self
-)" alt="TableViewCell根据内容自适应高度的方法" class="thumbnail-image"></span>
-  
-</a>
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category"><a class="article-category-link" href="/categories/iOS开发/">iOS开发</a></p>
-              <p class="item-title"><a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" class="title">TableViewCell根据内容自适应高度的方法</a></p>
-              <p class="item-date"><time datetime="2015-12-16T12:49:20.000Z" itemprop="datePublished">2015-12-16</time></p>
-            </div>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -627,7 +620,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS开发/">iOS开发</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS开发/">iOS开发</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -636,7 +629,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoreData/">CoreData</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSString/">NSString</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NS-ENUM/">NS_ENUM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Runtime/">Runtime</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLite/">SQLite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIBarButtonItem/">UIBarButtonItem</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/block/">block</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoreData/">CoreData</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSString/">NSString</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSURLSession/">NSURLSession</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NS-ENUM/">NS_ENUM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Runtime/">Runtime</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQLite/">SQLite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIBarButtonItem/">UIBarButtonItem</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/block/">block</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -645,7 +638,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">tag cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CoreData/" style="font-size: 10px;">CoreData</a> <a href="/tags/NSString/" style="font-size: 10px;">NSString</a> <a href="/tags/NS-ENUM/" style="font-size: 10px;">NS_ENUM</a> <a href="/tags/Objc-Bridging-Header/" style="font-size: 10px;">Objc Bridging Header</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/UIBarButtonItem/" style="font-size: 10px;">UIBarButtonItem</a> <a href="/tags/block/" style="font-size: 10px;">block</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/《iOS开发进阶》阅读笔记/" style="font-size: 15px;">《iOS开发进阶》阅读笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+      <a href="/tags/CoreData/" style="font-size: 10px;">CoreData</a> <a href="/tags/NSString/" style="font-size: 10px;">NSString</a> <a href="/tags/NSURLSession/" style="font-size: 10px;">NSURLSession</a> <a href="/tags/NS-ENUM/" style="font-size: 10px;">NS_ENUM</a> <a href="/tags/Objc-Bridging-Header/" style="font-size: 10px;">Objc Bridging Header</a> <a href="/tags/Runtime/" style="font-size: 10px;">Runtime</a> <a href="/tags/SQLite/" style="font-size: 10px;">SQLite</a> <a href="/tags/UIBarButtonItem/" style="font-size: 10px;">UIBarButtonItem</a> <a href="/tags/block/" style="font-size: 10px;">block</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/swift/" style="font-size: 10px;">swift</a> <a href="/tags/《iOS开发进阶》阅读笔记/" style="font-size: 15px;">《iOS开发进阶》阅读笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
   </div>
 
@@ -654,7 +647,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
