@@ -198,6 +198,7 @@
 <h3>5.忽略编译警告</h3>
 
 <p>在Build Phase中对应的文件中添加 <code>-w</code>参数。</p>
+<p></p><h3>6.定制NSLog</h3><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#ifdef DEBUG</span></span><br><span class="line"><span class="preprocessor">#define NSLog(args,...) NSLog(@<span class="title">"-%d%s:%@"</span>,__LINE__,__FUNCTION__,[NSString stringWithFormat:(args), ##__VA_ARGS__])</span></span><br><span class="line"><span class="preprocessor">#else</span></span><br><span class="line"><span class="preprocessor">#define NSLog(...)</span></span><br><span class="line"><span class="preprocessor">#endif</span></span><br></pre></td></tr></table></figure><p></p>
 ]]></content>
     </entry>
     
