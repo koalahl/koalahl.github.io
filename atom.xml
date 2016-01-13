@@ -362,11 +362,11 @@
     <id>http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/</id>
     <published>2015-12-12T11:15:32.000Z</published>
     <updated>2015-12-12T11:15:32.000Z</updated>
-    <content type="html"><![CDATA[<h3>ARC</h3>
+    <content type="html"><![CDATA[<h3 id="arc">ARC</h3>
 
 <p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br><a id="more"></a></p>
-<h3>Core Foundation对象的内存管理</h3>
+<h3 id="corefoundation">Core Foundation对象的内存管理</h3>
 
 <p>底层的Core Foundation对象的创建，大多数以XxxCreateWithXxx这样的方式创建，例如：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个CFStringRef对象</span></span><br><span class="line">	<span class="built_in">CFStringRef</span> str = <span class="built_in">CFStringCreateWithCString</span>(k<span class="built_in">CFAllocatorDefault</span>,<span class="string">"hello world"</span>,k<span class="built_in">CFStringEncodingUTF8</span>);</span><br></pre></td></tr></table></figure>
@@ -380,7 +380,7 @@
 <p>我们根据业务逻辑，合理使用上面三种转换关键字，就可以解决Core Foundation对象与Objc对象相互转换的问题了。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h3>ARC</h3>
+    <![CDATA[<h3 id="arc">ARC</h3>
 
 <p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br>]]>
