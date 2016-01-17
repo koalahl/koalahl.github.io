@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="category," />
+  <meta name="keywords" content="swift," />
 
 
 
@@ -53,44 +53,23 @@
 
 
 
-<meta name="description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
+<meta name="description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面
+这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，
+总体上比较简单，我把它又重新实践了一遍，最后得出了一下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Category添加属性所想到的">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/index.html">
+<meta property="og:title" content="如何做一个圆形的音量旋钮">
+<meta property="og:url" content="http://koalahl.github.io/2016/01/17/如何做一个圆形的音量旋钮/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
-<meta property="og:image" content="http://koalahl.github.io/img/category_1.png">
-<meta property="og:updated_time" content="2016-01-17T13:49:20.000Z">
+<meta property="og:description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面
+这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，
+总体上比较简单，我把它又重新实践了一遍，最后得出了一下">
+<meta property="og:image" content="http://koalahl.github.io/img/circle seek bar.gif">
+<meta property="og:updated_time" content="2016-01-17T13:47:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Category添加属性所想到的">
-<meta name="twitter:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
-Category：分类、类别
-
-category主要用来增加类的方法，并且适用于子类。
-category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
-如果要添加readwrite的属性的话，需要用到runtime方法。
-
-Extension：扩展
-
-可以增加">
+<meta name="twitter:title" content="如何做一个圆形的音量旋钮">
+<meta name="twitter:description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面
+这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，
+总体上比较简单，我把它又重新实践了一遍，最后得出了一下">
 
 
 
@@ -102,7 +81,7 @@ Extension：扩展
   };
 </script>
 
-  <title> Category添加属性所想到的 | 寒流‘s Blog </title>
+  <title> 如何做一个圆形的音量旋钮 | 寒流‘s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -242,7 +221,7 @@ Extension：扩展
             
             
               
-                Category添加属性所想到的
+                如何做一个圆形的音量旋钮
               
             
           </h1>
@@ -251,8 +230,8 @@ Extension：扩展
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2015-12-03T22:34:41+08:00" content="2015-12-03">
-              2015-12-03
+            <time itemprop="dateCreated" datetime="2016-01-17T21:47:14+08:00" content="2016-01-17">
+              2016-01-17
             </time>
           </span>
 
@@ -277,8 +256,8 @@ Extension：扩展
             
               <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/03/Category添加属性所想到的/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/03/Category添加属性所想到的/" itemprop="commentsCount"></span>
+              <a href="/2016/01/17/如何做一个圆形的音量旋钮/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/17/如何做一个圆形的音量旋钮/" itemprop="commentsCount"></span>
               </a>
             </span>
             
@@ -297,31 +276,11 @@ Extension：扩展
       
 
       
-        <span itemprop="articleBody"><p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
-<p>Category：分类、类别</p>
-<ul>
-<li>category主要用来增加类的方法，并且适用于子类。</li>
-<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
-<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
-</ul>
-<p>Extension：扩展</p>
-<ul>
-<li>可以增加被扩展类的属性和方法。</li>
-<li>Extension可以理解为匿名类别。</li>
-<li>定义的方法必须在implementation中实现。</li>
-</ul>
+        <span itemprop="articleBody"><p>最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面</p>
+<p>这篇文章来自<a href="https://medium.com/@karthikkeyan" target="_blank" rel="external">Karthik Keyan Balan</a>的<a href="https://medium.com/@karthikkeyan/how-to-create-a-circular-seek-bar-in-ios-edc6e2871cd0#.yqla9v503" target="_blank" rel="external">How to create a circular seek bar in iOS</a><br>主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，<br><img src="/img/circle seek bar.gif" alt="circle seek bar"></p>
+<p>总体上比较简单，我把它又重新实践了一遍，最后得出了一下几个技术点：</p>
+<p>1.贝塞尔曲线的使用 - 画出UI和按钮遵循的移动路径。<br>2.根据角度计算弧度，并导出按钮的坐标点。<br>3.touch事件的处理。</p>
 <a id="more"></a>
-<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">///在Cell右侧添加的一个自定义label</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UILabel</span> *accessoryLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UIImageView</span> *accessoryImageView;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>.m文件中重写getter方法</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UILabel</span> *)accessoryLabel&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UILabel</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];<span class="comment">//因为accessoryLabel是添加在cell上的，而没有在cell.contentView上。</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UILabel</span> * accessoryLabel = [[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">200</span>, <span class="number">0</span>, <span class="number">160</span>, <span class="built_in">CGRectGetHeight</span>(<span class="keyword">self</span><span class="variable">.frame</span>))];</span><br><span class="line">    accessoryLabel<span class="variable">.textColor</span> = [<span class="built_in">UIColor</span> lightGrayColor];</span><br><span class="line">    accessoryLabel<span class="variable">.font</span>      = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12</span>];</span><br><span class="line">    accessoryLabel<span class="variable">.textAlignment</span> = <span class="built_in">NSTextAlignmentRight</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryLabel];</span><br><span class="line">    <span class="keyword">return</span>  accessoryLabel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImageView</span> *)accessoryImageView&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UIImageView</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIImageView</span> *accessoryImageView = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">100</span>, <span class="number">10</span>, <span class="number">60</span>, <span class="number">60</span>)];</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">30</span>;</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryImageView];</span><br><span class="line">    <span class="keyword">return</span> accessoryImageView;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
-<p><img src="/img/category_1.png" alt="category"></p>
-<p>2.运行时添加属性：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)<span class="built_in">NSString</span> * errorMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>.m</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> * strKey = &amp;strKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setErrorMsg:(<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp; strKey, errorMsg, OBJC_ASSO<span class="built_in">CIATION_COPY_NONATOMIC</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;strKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
 </span>
       
     </div>
@@ -330,7 +289,7 @@ Extension：扩展
       
         <div class="post-tags">
           
-            <a href="/tags/category/" rel="tag">#category</a>
+            <a href="/tags/swift/" rel="tag">#swift</a>
           
         </div>
       
@@ -339,17 +298,13 @@ Extension：扩展
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/30/Markdown语法参考/" rel="next" title="Markdown语法参考">
-                <i class="fa fa-chevron-left"></i> Markdown语法参考
+              <a href="/2016/01/10/NSURLSession初探/" rel="next" title="NSURLSession初探">
+                <i class="fa fa-chevron-left"></i> NSURLSession初探
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/05/iOS中处理四舍五入的问题/" rel="prev" title="iOS中处理四舍五入的问题">
-                iOS中处理四舍五入的问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -575,9 +530,9 @@ Extension：扩展
 
     <script type="text/javascript">
       var disqus_shortname = 'hanangellove';
-      var disqus_identifier = '2015/12/03/Category添加属性所想到的/';
-      var disqus_title = 'Category添加属性所想到的';
-      var disqus_url = 'http://koalahl.github.io/2015/12/03/Category添加属性所想到的/';
+      var disqus_identifier = '2016/01/17/如何做一个圆形的音量旋钮/';
+      var disqus_title = '如何做一个圆形的音量旋钮';
+      var disqus_url = 'http://koalahl.github.io/2016/01/17/如何做一个圆形的音量旋钮/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

@@ -222,6 +222,112 @@
             
               
                 
+                <a class="post-title-link" href="/2016/01/17/如何做一个圆形的音量旋钮/" itemprop="url">
+                  如何做一个圆形的音量旋钮
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-01-17T21:47:14+08:00" content="2016-01-17">
+              2016-01-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/17/如何做一个圆形的音量旋钮/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/17/如何做一个圆形的音量旋钮/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面</p>
+<p>这篇文章来自<a href="https://medium.com/@karthikkeyan">Karthik Keyan Balan</a>的<a href="https://medium.com/@karthikkeyan/how-to-create-a-circular-seek-bar-in-ios-edc6e2871cd0#.yqla9v503">How to create a circular seek bar in iOS</a><br>主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，<br><img src="/img/circle seek bar.gif" alt="circle seek bar"></p>
+<p>总体上比较简单，我把它又重新实践了一遍，最后得出了一下几个技术点：</p>
+<p>1.贝塞尔曲线的使用 - 画出UI和按钮遵循的移动路径。<br>2.根据角度计算弧度，并导出按钮的坐标点。<br>3.touch事件的处理。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/17/如何做一个圆形的音量旋钮/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/01/10/NSURLSession初探/" itemprop="url">
                   NSURLSession初探
                 </a>
@@ -721,119 +827,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="url">
-                  TableViewCell根据内容自适应高度的方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2015-12-16T20:49:20+08:00" content="2015-12-16">
-              2015-12-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; In
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>本文同时参考 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/</a> </p>
-<h2>一：根据cell内容手动计算cell高度</h2>
-
-<p>无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。<br>1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。<br>2.如果是xib，去掉autolayout<br>3.在cellForRowAtIndexPath方法中填充cell数据的时候，根据内容高度，设置控件高度<br>4.在heightForRowAtIndexpath方法中，设置每一个cell 的高度</p>
-<h2>二：Self sizing cell + autolayout</h2>
-
-<p>Self sizing cell 是iOS8中添加一个新特性，用来自适应cell高度。<br><img src="/img/self sizing cell.jpg" alt="Self Sizing Cell"><br>同时打开以下参数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.estimatedRowHeight</span> = <span class="number">213</span>;<span class="comment">//添加估算高度，要不然自动算高失效？</span></span><br><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.rowHeight</span> = <span class="built_in">UITableViewAutomaticDimension</span>;</span><br></pre></td></tr></table></figure></p>
-<h2>三：UITableView+FDTemplateLayoutCell</h2>
-
-<p>使用的API:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UITableView+FDTemplateLayoutCell.h&gt;</span> </span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123; </span><br><span class="line">	<span class="keyword">return</span> [tableView fd_heightForCellWithIdentifier:<span class="string">@"identifer"</span> cacheByIndexPath:indexPath configuration:^(<span class="keyword">id</span> cell)</span><br><span class="line"> 			&#123;</span><br><span class="line">  			<span class="comment">// 配置 cell 的数据源，和 "cellForRow" 干的事一致，比如： </span></span><br><span class="line">			  cell<span class="variable">.entity</span> = <span class="keyword">self</span><span class="variable">.feedEntities</span>[indexPath<span class="variable">.row</span>]; </span><br><span class="line">  			&#125;]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -880,7 +873,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
