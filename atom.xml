@@ -61,7 +61,7 @@
     
       <category term="NSURLSession" scheme="http://koalahl.github.io/tags/NSURLSession/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -121,7 +121,7 @@
     
       <category term="swift" scheme="http://koalahl.github.io/tags/swift/"/>
     
-      <category term="Swift" scheme="http://koalahl.github.io/categories/Swift/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -147,7 +147,7 @@
     
       <category term="UIBarButtonItem" scheme="http://koalahl.github.io/tags/UIBarButtonItem/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -175,7 +175,7 @@
     
       <category term="block" scheme="http://koalahl.github.io/tags/block/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -221,7 +221,7 @@
     
       <category term="tableViewCell" scheme="http://koalahl.github.io/tags/tableViewCell/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -255,7 +255,7 @@
     
       <category term="Runtime" scheme="http://koalahl.github.io/tags/Runtime/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -300,7 +300,7 @@
     
       <category term="SQLite" scheme="http://koalahl.github.io/tags/SQLite/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -408,9 +408,9 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://koalahl.github.io/tags/iOS/"/>
+      <category term="skills" scheme="http://koalahl.github.io/tags/skills/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -429,9 +429,9 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://koalahl.github.io/tags/iOS/"/>
+      <category term="skills" scheme="http://koalahl.github.io/tags/skills/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
@@ -440,7 +440,7 @@
     <link href="http://koalahl.github.io/2015/12/03/Category%E6%B7%BB%E5%8A%A0%E5%B1%9E%E6%80%A7%E6%89%80%E6%83%B3%E5%88%B0%E7%9A%84/"/>
     <id>http://koalahl.github.io/2015/12/03/Category添加属性所想到的/</id>
     <published>2015-12-03T14:34:41.000Z</published>
-    <updated>2015-12-14T00:31:17.000Z</updated>
+    <updated>2016-01-17T13:49:20.000Z</updated>
     <content type="html"><![CDATA[<p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
 <p>Category：分类、类别</p>
 <ul>
@@ -484,9 +484,9 @@
     
     </summary>
     
-      <category term="iOS" scheme="http://koalahl.github.io/tags/iOS/"/>
+      <category term="category" scheme="http://koalahl.github.io/tags/category/"/>
     
-      <category term="iOS开发" scheme="http://koalahl.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
