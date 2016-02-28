@@ -103,6 +103,8 @@
     
     </summary>
     
+      <category term="IM" scheme="http://koalahl.github.io/tags/IM/"/>
+    
       <category term="xmpp" scheme="http://koalahl.github.io/tags/xmpp/"/>
     
       <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
