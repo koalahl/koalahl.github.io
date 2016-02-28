@@ -35,7 +35,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> PackHeader</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int32_t</span>     length_;    <span class="comment">//包长度</span></span><br><span class="line">    <span class="keyword">int32_t</span>     serial_;    <span class="comment">//包序列号</span></span><br><span class="line">    <span class="keyword">int32_t</span>     command_;   <span class="comment">//包请求类型</span></span><br><span class="line">    <span class="keyword">int32_t</span>     code_;      <span class="comment">//返回码</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>以心跳包为例，假设当前的serial为1，心跳包的command为10，那么使用MessagePack做序列化时:length=4，serial=1，command=10，code=0，每个字段各占一个字节，包体为空，仅需要4个字节。</p>
 <p>当然这是最简单的一个例子，面对真正的业务逻辑时，包体里面会需要塞入更多地信息，这个需要开发根据自己的业务逻辑总结公共部分,如为了兼容加入的协议版本号,为了负载均衡加入的模块id等。</p>
-<p></p><h2>其他问题<h2><br>上面就是一个IM系统大致的选型过程:通讯方式，连接方式，协议选择，协议设计。但是实际开发过程中还有大量的问题需要处理。<p></p>
+<p></p><h2>其他问题</h2><br>上面就是一个IM系统大致的选型过程:通讯方式，连接方式，协议选择，协议设计。但是实际开发过程中还有大量的问题需要处理。<p></p>
 <p></p><h3>协议加密</h3><br>为了保证协议不容易被破解，市面上几乎所有主流IM都会对协议进行加密传输。常见的流程和HTTPS加密相似:建立连接后，客户端和服务器进行进行协商，最终客户端获得一个当前Sessino的秘钥，后续的数据传输都通过这个秘钥进行加解密。一般出于效率的考虑都会采用流式加密，如RC4。而前期协商过程则推荐使用RSA等非对称加密以增加破解难度。<p></p>
 <p></p><h3>快速连接(登录)</h3><br>对iOS APP而言，因为没有真后台的存在，APP每次启动基本都需要一次重连登录(短时间内切换除外)，所以如何快速重连重登就非常重要。常见的优化思路如下:<p></p>
 <ul>
@@ -68,7 +68,7 @@
 <li>支持断点续传</li>
 </ul>
 <p></p><h2>总结</h2><br>此处是软文，请全选阅读:<font color="white">一个大型IM系统涉及到东西实在太多，如果IM模块只是APP的附属功能，并不推荐自己去从头实现IM模块或者使用XMPP这种有天坑的开源实现，直接使用市面上的第三方SDK即可，比如我们的<a href="http://netease.im" target="_blank" rel="external">云信</a>。毕竟，我们，是，专业的！~~~~</font><p></p>
-</h2></h2>]]></content>
+]]></content>
     </entry>
     
     <entry>
