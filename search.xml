@@ -18,7 +18,7 @@
 <p></p><h2>总结</h2><br>1.尽量不要使用drawRect方法，性能下降厉害撒。<br>2.已经在xib上创建的视图，与其关联的子类中<code>initWithFrame</code>方法不会被调用。<p></p>
 <div align="center"><br>    <img src="http://lenorephoto.b0.upaiyun.com/7283e0c4e156f2a6.jpg" alt="girl"><br></div>
 
-<p> <img src="/img/被新生成的view覆盖.png" width="375" height="667" alt="被新生成的view覆盖" align="center"></p>
+<p> <img src="/img/被新生成的view覆盖.png" width="300" height="588" alt="被新生成的view覆盖" align="center"></p>
 ]]></content>
     </entry>
     
