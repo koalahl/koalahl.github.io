@@ -4,6 +4,16 @@
   
     
     <entry>
+      <title><![CDATA[Xib与之关联的自定义Class]]></title>
+      <url>http://koalahl.github.io/2016/03/04/Xib%E4%B8%8E%E4%B9%8B%E5%85%B3%E8%81%94%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89Class/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)drawRect:(CGRect)rect &#123;&#10;&#10;    [self initSubViews];&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithFrame:(CGRect)frame&#123;&#10;    self = [super initWithFrame:frame];&#10;    if (self) &#123;&#10;        [self initSubViews];&#10;    &#125;&#10;    &#10;    return self;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithCoder:(NSCoder *)aDecoder&#123;&#10;    self = [super initWithCoder:aDecoder];&#10;    if (self) &#123;&#10;        [self initSubViews];&#10;    &#125;&#10;    &#10;    return self;&#10;&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[移动IM开发要点]]></title>
       <url>http://koalahl.github.io/2016/02/28/%E7%A7%BB%E5%8A%A8IM%E5%BC%80%E5%8F%91%E8%A6%81%E7%82%B9/</url>
       <content type="html"><![CDATA[<p>个人对于IM开发中客户端与服务器之间的连接比较感兴趣，网搜一篇好文，记录下来。<br>转载于 <a href="http://xiangwangfeng.com/2015/05/20/%E7%A7%BB%E5%8A%A8IM%E5%BC%80%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_blank" rel="external">移动IM开发那些事</a></p>

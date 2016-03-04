@@ -62,7 +62,7 @@
 <meta name="description" content="Think in Different">
 <meta property="og:type" content="website">
 <meta property="og:title" content="寒流‘s Blog">
-<meta property="og:url" content="http://koalahl.github.io/archives/index.html">
+<meta property="og:url" content="http://koalahl.github.io/page/4/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
 <meta property="og:description" content="Think in Different">
 <meta name="twitter:card" content="summary">
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title> Archive | 寒流‘s Blog </title>
+  <title> 寒流‘s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -104,7 +104,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -223,397 +225,113 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Um..! 19 posts in total. Keep on posting.
-    </span>
+  <section id="posts" class="posts-expand">
 
     
 
-      
-      
+    
+    
+
+    
       
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/30/常用排序算法/" itemprop="url">
+                  常用排序算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2015-11-30T10:02:57+08:00" content="2015-11-30">
+              2015-11-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/30/常用排序算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/11/30/常用排序算法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
         </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/03/04/Xib与之关联的自定义Class/" itemprop="url">
-              
-                <span itemprop="name">Xib与之关联的自定义Class</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-04T09:37:46+08:00"
-              content="2016-03-04" >
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+      </header>
     
 
-      
-      
-      
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
         
-            <a class="post-title-link" href="/2016/02/28/移动IM开发要点/" itemprop="url">
-              
-                <span itemprop="name">移动IM开发要点</span>
-              
+          <p>在此总结一下常用排序算法的代码实现</p>
+<p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
+<p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后 </p>
+<p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void InsertSort(ElemType arr[], int length)  &#10;&#123;  &#10;    int i, j;  &#10;    ElemType guard; // &#21736;&#20853;  &#10;  &#10; for (i = 1; i \&#60; length; ++i)  &#10; &#123;  &#10;   if (arr[i]() \&#60; arr[i-1]()) // &#22312;&#26080;&#24207;&#37096;&#20998;&#23547;&#25214;&#19968;&#20010;&#20803;&#32032;&#65292;&#20351;&#20043;&#25554;&#20837;&#21040;&#26377;&#24207;&#37096;&#20998;&#21518;&#20173;&#28982;&#26377;&#24207;  &#10; &#9;&#123;  &#10;&#9;guard = arr[i]();// &#22797;&#21046;&#21040;&#8220;&#21736;&#20853;&#8221;  &#10;&#9;// &#23558;&#31532;i&#20010;&#20803;&#32032;&#20043;&#21069;&#30340;&#20803;&#32032;&#20381;&#27425;&#21518;&#31227;&#19968;&#20010;&#20301;&#32622;  &#10;&#9;for (j = i - 1; arr[j]() \&#62; guard; j--)  &#10;&#9;&#123;  &#10;&#9;&#9;arr[j + 1]() = arr[j]();  &#10;&#9;&#125;  &#10;&#10;&#9;arr[j + 1]() = guard; // &#22797;&#21046;&#21040;&#25554;&#20837;&#20301;&#32622;  &#10;&#9;&#125;  &#10;  &#125;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/30/常用排序算法/#more" rel="contents">
+              Read more &raquo;
             </a>
+          </div>
         
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-02-28T22:10:56+08:00"
-              content="2016-02-28" >
-          02-28
-        </time>
-      </div>
+    <div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/17/如何做一个圆形的音量旋钮/" itemprop="url">
-              
-                <span itemprop="name">如何做一个圆形的音量旋钮</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-17T21:47:14+08:00"
-              content="2016-01-17" >
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/10/NSURLSession初探/" itemprop="url">
-              
-                <span itemprop="name">NSURLSession初探</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-10T22:04:06+08:00"
-              content="2016-01-10" >
-          01-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/07/NS-ENUM与NSString/" itemprop="url">
-              
-                <span itemprop="name">NS_ENUM与NSString</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-07T17:39:07+08:00"
-              content="2016-01-07" >
-          01-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/" itemprop="url">
-              
-                <span itemprop="name">如何在swift项目中创建Objective-C Bridging header</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-30T16:24:16+08:00"
-              content="2015-12-30" >
-          12-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/" itemprop="url">
-              
-                <span itemprop="name">修改UIBarButtonItem标题文字大小、颜色、阴影等</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-29T14:57:36+08:00"
-              content="2015-12-29" >
-          12-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/12/16/Block实现原理/" itemprop="url">
-              
-                <span itemprop="name">Block实现原理</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-16T21:11:51+08:00"
-              content="2015-12-16" >
-          12-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="url">
-              
-                <span itemprop="name">TableViewCell根据内容自适应高度的方法</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-16T20:49:20+08:00"
-              content="2015-12-16" >
-          12-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/12/16/理解Objective-C中的消息发送/" itemprop="url">
-              
-                <span itemprop="name">理解Objective-C中的消息发送</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-12-16T20:32:25+08:00"
-              content="2015-12-16" >
-          12-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
 
 
     
@@ -622,9 +340,8 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
-
 
 
 
@@ -826,12 +543,6 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   
 
@@ -848,7 +559,7 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'hanangellove';
-      var disqus_identifier = 'archives/index.html';
+      var disqus_identifier = 'page/4/index.html';
       var disqus_title = '';
       var disqus_url = '';
 
