@@ -59,20 +59,19 @@
 
 
 
-<meta name="description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
+<meta name="description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。 打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xib与之关联的自定义Class">
 <meta property="og:url" content="http://koalahl.github.io/2016/03/04/Xib与之关联的自定义Class/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
+<meta property="og:description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。 打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
 <meta property="og:image" content="http://koalahl.github.io/img/被新生成的view覆盖.png">
 <meta property="og:image" content="http://koalahl.github.io/img/reveal view UI hierarchy.png">
 <meta property="og:image" content="http://lenorephoto.b0.upaiyun.com/7283e0c4e156f2a6.jpg">
-<meta property="og:image" content="http://koalahl.github.io/img/被新生成的view覆盖.png">
-<meta property="og:updated_time" content="2016-03-04T12:25:34.000Z">
+<meta property="og:updated_time" content="2016-03-04T12:26:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xib与之关联的自定义Class">
-<meta name="twitter:description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
+<meta name="twitter:description" content="最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。 打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！">
 
 
 
@@ -315,7 +314,7 @@
       
 
       
-        <p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。<br><img src="/img/被新生成的view覆盖.png" class="[被新生成的view覆盖]" title="[200] [400] [title text [alt text]]"><br>打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！<br><img src="/img/reveal view UI hierarchy.png" alt="reveal view UI hierarchy"><br><a id="more"></a></p>
+        <p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。<br> <img src="/img/被新生成的view覆盖.png" width="300" height="588" alt="被新生成的view覆盖" align="center"><br>打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！<br><img src="/img/reveal view UI hierarchy.png" alt="reveal view UI hierarchy"><br><a id="more"></a></p>
 <p></p><h2><code>drawRect</code>方法</h2><br>好吧，修改代码吧。因为这些视图都是在xib上创建好了，另外新建了与之对应的自定义类，所以都直接用的<code>drawRect</code>方法去初始化UI元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)drawRect:(CGRect)rect &#123;&#10;&#10;    [self initSubViews];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
 <blockquote><p>The default implementation of this method does nothing. Subclasses that use technologies such as Core Graphics and UIKit to draw their view’s content should override this method and implement their drawing code there. You do not need to override this method if your view sets its content in other ways. For example, you do not need to override this method if your view just displays a background color or if your view sets its content directly using the underlying layer object.</p>
 <p>If you subclass UIView directly, your implementation of this method does not need to call super. However, if you are subclassing a different view class, you should call super at some point in your implementation.<br>This method is called when a view is first displayed or when an event occurs that invalidates a visible part of the view. You should never call this method directly yourself. To invalidate part of your view, and thus cause that portion to be redrawn, call the setNeedsDisplay or setNeedsDisplayInRect: method instead.</p>
@@ -327,7 +326,7 @@
 <p></p><h2>总结</h2><br>1.尽量不要使用drawRect方法，性能下降厉害撒。<br>2.已经在xib上创建的视图，与其关联的子类中<code>initWithFrame</code>方法不会被调用。<p></p>
 <div align="center"><br>    <img src="http://lenorephoto.b0.upaiyun.com/7283e0c4e156f2a6.jpg" alt="girl"><br></div>
 
-<p> <img src="/img/被新生成的view覆盖.png" width="300" height="588" alt="被新生成的view覆盖" align="center"></p>
+
 
       
     </div>
