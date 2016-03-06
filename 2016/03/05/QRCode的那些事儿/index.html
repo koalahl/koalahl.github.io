@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="cell高度,tableViewCell," />
+  <meta name="keywords" content="AVFoundation,CoreImage,QRCode," />
 
 
 
@@ -59,26 +59,24 @@
 
 
 
-<meta name="description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
-一：根据cell内容手动计算cell高度
-
-无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
+<meta name="description" content="网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！
+要讨论的问题在参考这篇文章，完成了二维码生成的栗子。二维码的扫描则是用了AVFoundation框架来编写的。最后想把生成的二维码图片保存到相册中却没有成功。参考了网上的代码，使用了CIImag-&amp;gt;CGImage-&amp;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TableViewCell根据内容自适应高度的方法">
-<meta property="og:url" content="http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/index.html">
+<meta property="og:title" content="QRCode的那些事儿">
+<meta property="og:url" content="http://koalahl.github.io/2016/03/05/QRCode的那些事儿/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
-一：根据cell内容手动计算cell高度
-
-无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
-<meta property="og:image" content="http://koalahl.github.io/img/self sizing cell.jpg">
-<meta property="og:updated_time" content="2015-12-16T12:49:20.000Z">
+<meta property="og:description" content="网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！
+要讨论的问题在参考这篇文章，完成了二维码生成的栗子。二维码的扫描则是用了AVFoundation框架来编写的。最后想把生成的二维码图片保存到相册中却没有成功。参考了网上的代码，使用了CIImag-&amp;gt;CGImage-&amp;g">
+<meta property="og:image" content="http://www.appcoda.com/qr-code-generator-tutorial/">
+<meta property="og:image" content="https://github.com/koalahl/HLQRCode">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/doc/constant_group/Context_Options">
+<meta property="og:image" content="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185">
+<meta property="og:image" content="http://stackoverflow.com/questions/26065808/bsxpcmessage-received-error-for-message-connection-interrupted/29872829#29872829">
+<meta property="og:updated_time" content="2016-03-05T14:31:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TableViewCell根据内容自适应高度的方法">
-<meta name="twitter:description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
-一：根据cell内容手动计算cell高度
-
-无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
+<meta name="twitter:title" content="QRCode的那些事儿">
+<meta name="twitter:description" content="网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！
+要讨论的问题在参考这篇文章，完成了二维码生成的栗子。二维码的扫描则是用了AVFoundation框架来编写的。最后想把生成的二维码图片保存到相册中却没有成功。参考了网上的代码，使用了CIImag-&amp;gt;CGImage-&amp;g">
 
 
 
@@ -96,7 +94,7 @@
   };
 </script>
 
-  <title> TableViewCell根据内容自适应高度的方法 | 寒流‘s Blog </title>
+  <title> QRCode的那些事儿 | 寒流‘s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -266,7 +264,7 @@
             
             
               
-                TableViewCell根据内容自适应高度的方法
+                QRCode的那些事儿
               
             
           </h1>
@@ -278,8 +276,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2015-12-16T20:49:20+08:00" content="2015-12-16">
-              2015-12-16
+            <time itemprop="dateCreated" datetime="2016-03-05T22:31:06+08:00" content="2016-03-05">
+              2016-03-05
             </time>
           </span>
 
@@ -308,8 +306,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="commentsCount"></span>
+                <a href="/2016/03/05/QRCode的那些事儿/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/05/QRCode的那些事儿/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -331,22 +329,22 @@
       
 
       
-        <p>本文同时参考 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/</a> </p>
-<h2>一：根据cell内容手动计算cell高度</h2>
+        <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
+<h2>要讨论的问题</h2><br>在参考<img src="http://www.appcoda.com/qr-code-generator-tutorial/" alt="Building a QR Code Generator with Core Image Filters">这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<img src="https://github.com/koalahl/HLQRCode" alt="Github·HLQRCode">。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br><a id="more"></a><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CIContext * context = [CIContext contextWithOptions:nil];&#10;CGImageRef cgimg = [context createCGImage:self.qrcodeImg fromRect:[self.qrcodeImg extent] ];&#10;&#10;ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];&#10;[library writeImageToSavedPhotosAlbum:cgimg metadata:[self.qrcodeImg properties] completionBlock:^(NSURL *assetURL, NSError *error) &#123;&#10;&#10;    if(error != NULL)&#123;&#10;        msg = @&#34;&#20445;&#23384;&#22270;&#29255;&#22833;&#36133;&#34; ;&#10;    &#125;else&#123;&#10;        NSLog(@&#34;%@&#34;,assetURL);&#10;        msg = @&#34;&#20445;&#23384;&#22270;&#29255;&#25104;&#21151;&#34; ;&#10;    &#125;&#10;    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil&#10;                                                    message:msg&#10;                                                   delegate:self&#10;                                          cancelButtonTitle:@&#34;&#30830;&#23450;&#34;&#10;                                          otherButtonTitles:nil];&#10;    &#10;    [alert show];&#10;&#125;];</span><br></pre></td></tr></table></figure><br><br>但是这样无论怎么样都无法在相册中看到保存的二维码图片。还报错<code>message &quot;BSXPCMessage received error for message: Connection interrupted&quot;</code>。对比参考的代码都是一样的，却找不出原因。我就在文章评论中留言问了这个问题，后来一个朋友提出了解决方案，仔细一看顿时恍然大悟。<br><br><h2>解决方式及要点</h2>
 
-<p>无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。<br>1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。<br>2.如果是xib，去掉autolayout<br>3.在cellForRowAtIndexPath方法中填充cell数据的时候，根据内容高度，设置控件高度<br>4.在heightForRowAtIndexpath方法中，设置每一个cell 的高度</p>
-<h2>二：Self sizing cell + autolayout</h2>
-
-<p>Self sizing cell 是iOS8中添加一个新特性，用来自适应cell高度。<br><img src="/img/self sizing cell.jpg" alt="Self Sizing Cell"><br>同时打开以下参数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.estimatedRowHeight</span> = <span class="number">213</span>;<span class="comment">//添加估算高度，要不然自动算高失效？</span></span><br><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.rowHeight</span> = <span class="built_in">UITableViewAutomaticDimension</span>;</span><br></pre></td></tr></table></figure></p>
-<h2>三：UITableView+FDTemplateLayoutCell</h2>
-
-<p>使用的API:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UITableView+FDTemplateLayoutCell.h&gt;</span> </span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123; </span><br><span class="line">	<span class="keyword">return</span> [tableView fd_heightForCellWithIdentifier:<span class="string">@"identifer"</span> cacheByIndexPath:indexPath configuration:^(<span class="keyword">id</span> cell)</span><br><span class="line"> 			&#123;</span><br><span class="line">  			<span class="comment">// 配置 cell 的数据源，和 "cellForRow" 干的事一致，比如： </span></span><br><span class="line">			  cell<span class="variable">.entity</span> = <span class="keyword">self</span><span class="variable">.feedEntities</span>[indexPath<span class="variable">.row</span>]; </span><br><span class="line">  			&#125;]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="external">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell</a><br><a id="more"></a></p>
-<p>下面给出第一种手动计算高度的代码思路：<br>详细步骤：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HLComment *comment = [HLComment new];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.floor</span> = obj[<span class="string">@"floor"</span>];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.commentId</span> = obj[<span class="string">@"id"</span>];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.content</span> = obj[<span class="string">@"content"</span>];</span><br></pre></td></tr></table></figure>
-<p> //计算content内容高度<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">NSDictionary</span> *atrri = @&#123;<span class="built_in">NSFontAttributeName</span>: [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>]&#125;;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">CGRect</span> rect = [comment<span class="variable">.content</span> boundingRectWithSize:<span class="built_in">CGSizeMake</span>(<span class="number">220</span>, <span class="number">1000</span>) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:atrri context:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">comment<span class="variable">.size</span> = rect<span class="variable">.size</span>;<span class="comment">//保存这个高度</span></span><br></pre></td></tr></table></figure></p>
-<p>//填充cell内容时，根据content高度来设置label高度<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)fillCellWithModel:(HLItem *)item&#123;</span><br><span class="line"></span><br><span class="line">	….</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGRect</span> frame = _content<span class="variable">.frame</span>;<span class="comment">//_content 是内容label</span></span><br><span class="line"></span><br><span class="line">    frame<span class="variable">.size</span> = item<span class="variable">.size</span>;</span><br><span class="line"></span><br><span class="line">    _content<span class="variable">.frame</span> = frame;</span><br><span class="line"></span><br><span class="line">	…..</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>另外在heightForRowAtIndexPath 中添加一定的余量。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自适应cell高度</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//NSLog(@"计算cell高度");;</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (indexPath<span class="variable">.row</span> == <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">self</span><span class="variable">.item</span><span class="variable">.size</span><span class="variable">.height</span>+<span class="number">140</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    HLComment *item = _dataSource[indexPath<span class="variable">.row</span>-<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> item<span class="variable">.size</span><span class="variable">.height</span>+<span class="number">60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CIContext * context = [CIContext contextWithOptions:@&#123;kCIContextUseSoftwareRenderer:@YES&#125;];</span><br></pre></td></tr></table></figure>
+<p>看到区别了吗？是的，多了一个option参数<code>kCIContextUseSoftwareRenderer</code>.然后在development doc中查看了关于<code>contextWithOptions</code>方法的描述：</p>
+<blockquote><p>You can create a CPU-based context by providing the key kCIContextUseSoftwareRenderer. A CPU-based context supports larger input and output images than a GPU-based context. It also allows your app to perform processing in the background, such as when saving the rendered output to the Photo Library.</p>
+<p>GPU rendering is faster than CPU rendering, but the resulting image is not displayed on the device until after is it copied to CPU memory and converted to another image type, such as a UIImage object.</p>
+<footer><strong>@Apple Development Doc</strong><cite><a href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/occ/clm/CIContext/contextWithOptions:" target="_blank" rel="external">developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/occ/clm/CIContext/contextWithOptions:</a></cite></footer></blockquote>
+<p>顿时觉得自己当时好笨，都没有想到去查一下开发文档。o(╯□╰)o</p>
+<blockquote><p>NSString <em>kCIContextOutputColorSpace;       - A key for the color space to use for images before they are rendered to the context. 使用OpenGLES<br>NSString </em>kCIContextWorkingColorSpace;      - A key for the color space to use for image operations. 使用OpenGLES<br>NSString <em>kCIContextUseSoftwareRenderer;    - A key for enabling software renderer use. If the associated NSNumber object is YES, then the software renderer is required. 使用CPU<br>NSString </em>kCIContextPriorityRequestLow;     - A key for enabling low-priority GPU use.<br>NSString *kCIContextWorkingFormat;          - An option for the color format to use for intermediate results when rendering with the context.</p>
+</blockquote>
+<p><code>contextWithOptions</code>方法默认是在GPU上处理图像。根据不同的参数设置不同的处理方式。<br>以上这些其实不是很理解，囧。具体参考<img src="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/doc/constant_group/Context_Options" alt="Context Options"></p>
+<p></p><h2>二维码的历史</h2><br>在iOS7以前，iOS开发使用二维码都是使用第三方库。比较流行的就是<code>ZXing</code>和<code>Zbar</code>了。<br>不说它们的实现原理了，遇到最多的问题就是与其他第三方库（比如支付宝SDK，百度地图SDK）继承在一起时出现duplicate symbol了。解决方法也很麻烦：修改源码，重新编译静态库.a文件。<p></p>
+<p>不过现在很少用到二维码了，要用也要用系统自带的框架哟~！</p>
+<p></p><h2>总结</h2><br>1.遇到问题先查看开发文档，再Google！<br>2.研究问题要深入！<br>后面学习一下Core Image的东西，还有与之的GPUImage库！<p></p>
+<p></p><h2>参考文章</h2><br><img src="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185" alt="Core Image Programming Guide"><br><img src="http://stackoverflow.com/questions/26065808/bsxpcmessage-received-error-for-message-connection-interrupted/29872829#29872829" alt="BSXPCMessage received error for message: Connection interrupted"><p></p>
 
       
     </div>
@@ -361,9 +359,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/cell高度/" rel="tag">#cell高度</a>
+            <a href="/tags/AVFoundation/" rel="tag">#AVFoundation</a>
           
-            <a href="/tags/tableViewCell/" rel="tag">#tableViewCell</a>
+            <a href="/tags/CoreImage/" rel="tag">#CoreImage</a>
+          
+            <a href="/tags/QRCode/" rel="tag">#QRCode</a>
           
         </div>
       
@@ -372,17 +372,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/16/理解Objective-C中的消息发送/" rel="next" title="理解Objective-C中的消息发送">
-                <i class="fa fa-chevron-left"></i> 理解Objective-C中的消息发送
+              <a href="/2016/03/04/Xib与之关联的自定义Class/" rel="next" title="Xib与之关联的自定义Class">
+                <i class="fa fa-chevron-left"></i> Xib与之关联的自定义Class
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/16/Block实现原理/" rel="prev" title="Block实现原理">
-                Block实现原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -559,7 +555,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">一：根据cell内容手动计算cell高度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">二：Self sizing cell + autolayout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">三：UITableView+FDTemplateLayoutCell</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">要讨论的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">解决方式及要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">二维码的历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -817,9 +813,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'hanangellove';
-      var disqus_identifier = '2015/12/16/TableViewCell根据内容自适应高度的方法/';
-      var disqus_title = 'TableViewCell根据内容自适应高度的方法';
-      var disqus_url = 'http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/';
+      var disqus_identifier = '2016/03/05/QRCode的那些事儿/';
+      var disqus_title = 'QRCode的那些事儿';
+      var disqus_url = 'http://koalahl.github.io/2016/03/05/QRCode的那些事儿/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2016-03-04T12:30:01.000Z</updated>
+  <updated>2016-03-05T14:31:06.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[QRCode的那些事儿]]></title>
+    <link href="http://koalahl.github.io/2016/03/05/QRCode%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"/>
+    <id>http://koalahl.github.io/2016/03/05/QRCode的那些事儿/</id>
+    <published>2016-03-05T14:31:06.000Z</published>
+    <updated>2016-03-05T14:31:06.000Z</updated>
+    <content type="html"><![CDATA[<p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
+<h2>要讨论的问题</h2><br>在参考<img src="http://www.appcoda.com/qr-code-generator-tutorial/" alt="Building a QR Code Generator with Core Image Filters">这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<img src="https://github.com/koalahl/HLQRCode" alt="Github·HLQRCode">。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br><a id="more"></a><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CIContext * context = [CIContext contextWithOptions:nil];&#10;CGImageRef cgimg = [context createCGImage:self.qrcodeImg fromRect:[self.qrcodeImg extent] ];&#10;&#10;ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];&#10;[library writeImageToSavedPhotosAlbum:cgimg metadata:[self.qrcodeImg properties] completionBlock:^(NSURL *assetURL, NSError *error) &#123;&#10;&#10;    if(error != NULL)&#123;&#10;        msg = @&#34;&#20445;&#23384;&#22270;&#29255;&#22833;&#36133;&#34; ;&#10;    &#125;else&#123;&#10;        NSLog(@&#34;%@&#34;,assetURL);&#10;        msg = @&#34;&#20445;&#23384;&#22270;&#29255;&#25104;&#21151;&#34; ;&#10;    &#125;&#10;    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil&#10;                                                    message:msg&#10;                                                   delegate:self&#10;                                          cancelButtonTitle:@&#34;&#30830;&#23450;&#34;&#10;                                          otherButtonTitles:nil];&#10;    &#10;    [alert show];&#10;&#125;];</span><br></pre></td></tr></table></figure><br><br>但是这样无论怎么样都无法在相册中看到保存的二维码图片。还报错<code>message &quot;BSXPCMessage received error for message: Connection interrupted&quot;</code>。对比参考的代码都是一样的，却找不出原因。我就在文章评论中留言问了这个问题，后来一个朋友提出了解决方案，仔细一看顿时恍然大悟。<br><br><h2>解决方式及要点</h2>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CIContext * context = [CIContext contextWithOptions:@&#123;kCIContextUseSoftwareRenderer:@YES&#125;];</span><br></pre></td></tr></table></figure>
+<p>看到区别了吗？是的，多了一个option参数<code>kCIContextUseSoftwareRenderer</code>.然后在development doc中查看了关于<code>contextWithOptions</code>方法的描述：</p>
+<blockquote><p>You can create a CPU-based context by providing the key kCIContextUseSoftwareRenderer. A CPU-based context supports larger input and output images than a GPU-based context. It also allows your app to perform processing in the background, such as when saving the rendered output to the Photo Library.</p>
+<p>GPU rendering is faster than CPU rendering, but the resulting image is not displayed on the device until after is it copied to CPU memory and converted to another image type, such as a UIImage object.</p>
+<footer><strong>@Apple Development Doc</strong><cite><a href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/occ/clm/CIContext/contextWithOptions:" target="_blank" rel="external">developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/occ/clm/CIContext/contextWithOptions:</a></cite></footer></blockquote>
+<p>顿时觉得自己当时好笨，都没有想到去查一下开发文档。o(╯□╰)o</p>
+<blockquote><p>NSString <em>kCIContextOutputColorSpace;       - A key for the color space to use for images before they are rendered to the context. 使用OpenGLES<br>NSString </em>kCIContextWorkingColorSpace;      - A key for the color space to use for image operations. 使用OpenGLES<br>NSString <em>kCIContextUseSoftwareRenderer;    - A key for enabling software renderer use. If the associated NSNumber object is YES, then the software renderer is required. 使用CPU<br>NSString </em>kCIContextPriorityRequestLow;     - A key for enabling low-priority GPU use.<br>NSString *kCIContextWorkingFormat;          - An option for the color format to use for intermediate results when rendering with the context.</p>
+</blockquote>
+<p><code>contextWithOptions</code>方法默认是在GPU上处理图像。根据不同的参数设置不同的处理方式。<br>以上这些其实不是很理解，囧。具体参考<img src="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/QuartzCoreFramework/Classes/CIContext_Class/index.html#//apple_ref/doc/constant_group/Context_Options" alt="Context Options"></p>
+<p></p><h2>二维码的历史</h2><br>在iOS7以前，iOS开发使用二维码都是使用第三方库。比较流行的就是<code>ZXing</code>和<code>Zbar</code>了。<br>不说它们的实现原理了，遇到最多的问题就是与其他第三方库（比如支付宝SDK，百度地图SDK）继承在一起时出现duplicate symbol了。解决方法也很麻烦：修改源码，重新编译静态库.a文件。<p></p>
+<p>不过现在很少用到二维码了，要用也要用系统自带的框架哟~！</p>
+<p></p><h2>总结</h2><br>1.遇到问题先查看开发文档，再Google！<br>2.研究问题要深入！<br>后面学习一下Core Image的东西，还有与之的GPUImage库！<p></p>
+<p></p><h2>参考文章</h2><br><img src="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185" alt="Core Image Programming Guide"><br><img src="http://stackoverflow.com/questions/26065808/bsxpcmessage-received-error-for-message-connection-interrupted/29872829#29872829" alt="BSXPCMessage received error for message: Connection interrupted"><p></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
+<h2>要讨论的问题</h2><br>在参考<img src="http://www.appcoda.com/qr-code-generator-tutorial/" alt="Building a QR Code Generator with Core Image Filters">这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<img src="https://github.com/koalahl/HLQRCode" alt="Github·HLQRCode">。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br>]]>
+    
+    </summary>
+    
+      <category term="AVFoundation" scheme="http://koalahl.github.io/tags/AVFoundation/"/>
+    
+      <category term="CoreImage" scheme="http://koalahl.github.io/tags/CoreImage/"/>
+    
+      <category term="QRCode" scheme="http://koalahl.github.io/tags/QRCode/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Xib与之关联的自定义Class]]></title>
