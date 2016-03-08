@@ -264,6 +264,128 @@
             
               
                 
+                <a class="post-title-link" href="/2015/12/16/理解Objective-C中的消息发送/" itemprop="url">
+                  理解Objective-C中的消息发送
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2015-12-16T20:32:25+08:00" content="2015-12-16">
+              2015-12-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/12/16/理解Objective-C中的消息发送/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/16/理解Objective-C中的消息发送/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>首先来看看怎么理解发送消息的含义：</p>
+<p>曾经觉得Objc特别方便上手，面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。</p>
+<p>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。</p>
+<p>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。</p>
+<p>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。</p>
+<h3>顺便附上OC中一个类的底层数据结构</h3><br>mac电脑上的路径/usr/include/objc/runtime.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">	Class isa OBJC_ISA_<span class="built_in">AVAILABILITY</span>; <span class="comment">//isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r		untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</span></span><br><span class="line"></span><br><span class="line">	<span class="preprocessor">#if !__OBJC2__</span></span><br><span class="line">	Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span></span><br><span class="line">	<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">	<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">	<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">	<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method		Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span></span><br><span class="line">	<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span></span><br><span class="line">	<span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UN<span class="built_in">AVAILABLE</span>;</span><br></pre></td></tr></table></figure><br><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/16/理解Objective-C中的消息发送/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" itemprop="url">
                   关于CoreData和SQLite多线程访问时的线程安全问题
                 </a>
@@ -840,135 +962,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/12/03/Category添加属性所想到的/" itemprop="url">
-                  Category添加属性所想到的
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2015-12-03T22:34:41+08:00" content="2015-12-03">
-              2015-12-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/12/03/Category添加属性所想到的/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/03/Category添加属性所想到的/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
-<p>Category：分类、类别</p>
-<ul>
-<li>category主要用来增加类的方法，并且适用于子类。</li>
-<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
-<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
-</ul>
-<p>Extension：扩展</p>
-<ul>
-<li>可以增加被扩展类的属性和方法。</li>
-<li>Extension可以理解为匿名类别。</li>
-<li>定义的方法必须在implementation中实现。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Category添加属性所想到的/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1015,7 +1008,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1032,7 +1025,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

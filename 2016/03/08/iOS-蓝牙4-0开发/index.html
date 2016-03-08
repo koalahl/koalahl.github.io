@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="swift," />
+  <meta name="keywords" content="CoreBluetooth,蓝牙," />
 
 
 
@@ -59,20 +59,19 @@
 
 
 
-<meta name="description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面。
-这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，">
+<meta name="description" content="iOS 蓝牙4.0开发
+背景：1.iOS的蓝牙不能用来传输文件。2.iOS与iOS设备之间进行数据通信，使用gameKit.framework3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何做一个圆形的音量旋钮">
-<meta property="og:url" content="http://koalahl.github.io/2016/01/17/如何做一个圆形的音量旋钮/index.html">
+<meta property="og:title" content="iOS 蓝牙4.0开发">
+<meta property="og:url" content="http://koalahl.github.io/2016/03/08/iOS-蓝牙4-0开发/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面。
-这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，">
-<meta property="og:image" content="http://koalahl.github.io/img/circle seek bar.gif">
-<meta property="og:updated_time" content="2016-01-17T13:47:14.000Z">
+<meta property="og:description" content="iOS 蓝牙4.0开发
+背景：1.iOS的蓝牙不能用来传输文件。2.iOS与iOS设备之间进行数据通信，使用gameKit.framework3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework">
+<meta property="og:updated_time" content="2016-03-08T12:19:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何做一个圆形的音量旋钮">
-<meta name="twitter:description" content="最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面。
-这篇文章来自Karthik Keyan Balan的How to create a circular seek bar in iOS主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，">
+<meta name="twitter:title" content="iOS 蓝牙4.0开发">
+<meta name="twitter:description" content="iOS 蓝牙4.0开发
+背景：1.iOS的蓝牙不能用来传输文件。2.iOS与iOS设备之间进行数据通信，使用gameKit.framework3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework">
 
 
 
@@ -90,7 +89,7 @@
   };
 </script>
 
-  <title> 如何做一个圆形的音量旋钮 | 寒流‘s Blog </title>
+  <title> iOS 蓝牙4.0开发 | 寒流‘s Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -260,7 +259,7 @@
             
             
               
-                如何做一个圆形的音量旋钮
+                iOS 蓝牙4.0开发
               
             
           </h1>
@@ -272,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-01-17T21:47:14+08:00" content="2016-01-17">
-              2016-01-17
+            <time itemprop="dateCreated" datetime="2016-03-08T20:19:39+08:00" content="2016-03-08">
+              2016-03-08
             </time>
           </span>
 
@@ -302,8 +301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/17/如何做一个圆形的音量旋钮/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/17/如何做一个圆形的音量旋钮/" itemprop="commentsCount"></span>
+                <a href="/2016/03/08/iOS-蓝牙4-0开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/08/iOS-蓝牙4-0开发/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -325,36 +324,24 @@
       
 
       
-        <p>最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面。</p>
-<p>这篇文章来自<a href="https://medium.com/@karthikkeyan" target="_blank" rel="external">Karthik Keyan Balan</a>的<a href="https://medium.com/@karthikkeyan/how-to-create-a-circular-seek-bar-in-ios-edc6e2871cd0#.yqla9v503" target="_blank" rel="external">How to create a circular seek bar in iOS</a><br>主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，<br><img src="/img/circle seek bar.gif" alt="circle seek bar"></p>
-<a id="more"></a>
-<h2 id="strokeUI">如何画出圆形旋钮</h2>
+        <p>iOS 蓝牙4.0开发</p>
+<h2>背景：</h2><br>1.iOS的蓝牙不能用来传输文件。<br>2.iOS与iOS设备之间进行数据通信，使用gameKit.framework<br>3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework<br><br><a id="more"></a><br><h2>iOS中蓝牙的实现方案</h2>
 
-<p>使用CAShapeLayer，并将其path设置为自定义的贝塞尔曲线的path。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> seekerBarLayer = <span class="type">CAShapeLayer</span>()</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="func"><span class="keyword">func</span> <span class="title">addSeekerBar</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> center = <span class="type">CGPointMake</span>(<span class="keyword">self</span>.bounds.size.width/<span class="number">2</span>, <span class="keyword">self</span>.bounds.size.height/<span class="number">2</span>)</span><br><span class="line">    <span class="comment">//弧度</span></span><br><span class="line">    <span class="keyword">let</span> sAngle = degreeToRadian(<span class="type">Double</span>(startAngle))</span><br><span class="line">    <span class="keyword">let</span> eAngle = degreeToRadian(<span class="type">Double</span>(endAngle))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> path = <span class="type">UIBezierPath</span>(arcCenter: center, radius: (<span class="keyword">self</span>.bounds.size.width - <span class="number">18</span>)/<span class="number">2</span>, startAngle:<span class="type">CGFloat</span>(sAngle) , endAngle:<span class="type">CGFloat</span>(eAngle) , clockwise: <span class="literal">true</span>)</span><br><span class="line">    </span><br><span class="line">    seekerBarLayer.path = path.<span class="type">CGPath</span>;</span><br><span class="line">    seekerBarLayer.lineWidth = <span class="number">4.0</span></span><br><span class="line">    seekerBarLayer.lineCap   = kCALineCapRound</span><br><span class="line">    seekerBarLayer.strokeColor = seekBarColor.<span class="type">CGColor</span></span><br><span class="line">    seekerBarLayer.fillColor = <span class="type">UIColor</span>.clearColor().<span class="type">CGColor</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> seekerBarLayer.superlayer == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.layer.addSublayer(seekerBarLayer)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="touch">根据touch位置移动旋钮位置</h2>
 
-<p>重载touch相关的三个方法，重点是在<code>continueTrackingWithTouch</code>方法中，根据touch的坐标计算按钮需要移动的位置的<code>moveToPoint</code>方法。</p>
-<ul>
-<li><a href="#touchLocation">获取touch位置</a></li>
-<li><a href="#buttonPoint">计算旋钮对应的坐标</a></li>
-</ul>
-<h3 id="touchLocation">获取touch位置</h3>
-
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MARK: Touch Event</span></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">beginTrackingWithTouch</span><span class="params">(touch: UITouch, withEvent event: UIEvent?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> point = touch.locationInView(<span class="keyword">self</span>)</span><br><span class="line">    <span class="keyword">let</span> rect  = <span class="type">CGRectInset</span>(<span class="keyword">self</span>.thumbButton.frame, -<span class="number">20</span>, -<span class="number">20</span>)</span><br><span class="line">    <span class="keyword">let</span> canBegin = <span class="type">CGRectContainsPoint</span>(rect, point)</span><br><span class="line">    <span class="keyword">if</span> canBegin &#123;</span><br><span class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">0.2</span>, delay: <span class="number">0.0</span>, options: .<span class="type">CurveEaseIn</span>, animations: &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">self</span>.thumbButton.transform = <span class="type">CGAffineTransformMakeScale</span>(<span class="number">1.2</span>, <span class="number">1.2</span>)</span><br><span class="line">            &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> canBegin</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">continueTrackingWithTouch</span><span class="params">(touch: UITouch, withEvent event: UIEvent?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> #available(iOS <span class="number">9</span>,*)&#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> coalescedTouches = event?.coalescedTouchesForTouch(touch) <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> moveToPoint(touch.locationInView(<span class="keyword">self</span>))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">for</span> cTouch <span class="keyword">in</span> coalescedTouches&#123;</span><br><span class="line">            <span class="keyword">let</span> result = moveToPoint(cTouch.locationInView(<span class="keyword">self</span>))</span><br><span class="line">            <span class="keyword">if</span> result == <span class="literal">false</span> &#123;<span class="keyword">break</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">endTrackingWithTouch</span><span class="params">(touch: UITouch?, withEvent event: UIEvent?)</span></span> &#123;</span><br><span class="line">    thumbMoveDidComplete()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="buttonPoint">计算旋钮对应的坐标</h3>
-
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">moveToPoint</span><span class="params">(point:CGPoint)</span></span> -&gt;<span class="type">Bool</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> degree = degreeForLocation(point)</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">moveToClosestEdge</span><span class="params">(degree:Double)</span></span>&#123;</span><br><span class="line">        <span class="keyword">let</span> startDistance = fabs(<span class="type">CGFloat</span>(degree) - startAngle)</span><br><span class="line">        <span class="keyword">let</span> endDistance   = fabs(<span class="type">CGFloat</span>(degree) - endAngle)</span><br><span class="line">        <span class="keyword">if</span> startDistance &lt; endDistance&#123;</span><br><span class="line">            currentAngle = startAngle</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            currentAngle = endAngle</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> startAngle &gt; endAngle &#123;</span><br><span class="line">        <span class="keyword">if</span> degree &lt; <span class="type">Double</span>(startAngle) &amp;&amp; degree &gt; <span class="type">Double</span>(endAngle)&#123;</span><br><span class="line">            moveToClosestEdge(degree)</span><br><span class="line">            thumbMoveDidComplete()</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> degree &gt; <span class="type">Double</span>(endAngle) || degree &lt; <span class="type">Double</span>(startAngle)&#123;</span><br><span class="line">            moveToClosestEdge(degree)</span><br><span class="line">            thumbMoveDidComplete()</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    currentAngle = <span class="type">CGFloat</span>(degree)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p></p><h3>手动发送action</h3><br>由于这个控件是继承自UIControl的，正如其他继承与UIControl的控件一样，我们可以自定义一个控件的状态事件。例如<code>valueChanged、TouchUpInside、TouchOutSide</code>。<br>这里我们需要的是控件的位置信息，所以当endTouch的时候发送一个<code>valueChanged</code>事件：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.sendActionsForControlEvents(.<span class="type">ValueChanged</span>)</span><br></pre></td></tr></table></figure><p></p>
-<p>其中有一个小细节，当点击到按钮时，会有一个变大的动画效果，其实也是用到了一个基本的拉伸效果：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.2</span>, delay: <span class="number">0.0</span>, options: .<span class="type">CurveEaseIn</span>, animations: &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">self</span>.thumbButton.transform = <span class="type">CGAffineTransformMakeScale</span>(<span class="number">1.2</span>, <span class="number">1.2</span>)</span><br><span class="line">                &#125;, completion: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure></p>
-<h2 id="summary">总结</h2>
-
-<ul>
-<li>利用CAShapeLayer+贝塞尔曲线画出UI。</li>
-<li>根据角度计算弧度，并导出按钮对应的坐标点。</li>
-<li>touch事件的处理。- 手动发送action。</li>
-</ul>
-<p>参考代码：<a href="https://github.com/karthikkeyan/CircularSeek" target="_blank" rel="external">CircularSeek On GitHub</a></p>
+<p>iOS中提供了4个框架用于实现蓝牙连接<br>GameKit.framework（用法简单）<br>只能用于iOS设备之间的连接，多用于游戏（比如五子棋对战），从iOS7开始过期</p>
+<p>MultipeerConnectivity.framework<br>只能用于iOS设备之间的连接，从iOS7开始引入，主要用于文件共享（仅限于沙盒的文件）</p>
+<p>ExternalAccessory.framework<br>可用于第三方蓝牙设备交互，但是蓝牙设备必须经过苹果MFi认证（国内较少）</p>
+<p>CoreBluetooth.framework（时下热门）<br>可用于第三方蓝牙设备交互，必须要支持蓝牙4.0<br>硬件至少是4s，系统至少是iOS6<br>蓝牙4.0以低功耗著称，一般也叫BLE（BluetoothLowEnergy）<br>目前应用比较多的案例：运动手坏、嵌入式设备、智能家居</p>
+<p>下面具体介绍使用CoreBluetooth.framework的代码步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;//&#34013;&#29273;&#31995;&#32479;&#24211;&#10;&#10;#import &#60;CoreBluetooth/CoreBluetooth.h&#62;&#10;&#10;//&#24517;&#39035;&#35201;&#30001;UUID&#26469;&#21807;&#19968;&#26631;&#31034;&#23545;&#24212;&#30340;service&#21644;characteristic&#10;&#10;#define kServiceUUID @&#34;5C476471-1109-4EBE-A826-45B4F9D74FB9&#34;&#10;&#10;#define kCharacteristicHeartRateUUID @&#34;82C7AC0F-6113-4EC9-92D1-5EEF44571398&#34;&#10;&#10;#define kCharacteristicBodyLocationUUID @&#34;537B5FD6-1889-4041-9C35-F6949D1CA034&#34;&#10;&#10;&#10;&#10;@interface ViewController ()&#60;CBCentralManagerDelegate,CBPeripheralDelegate&#62;&#10;&#10;&#10;&#10;@property (nonatomic,strong)CBCentralManager * centralManager;&#10;&#10;@property (nonatomic,strong)CBPeripheral     * peripheral;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p></p><h3>1.创建中心角色</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#import &#60;CoreBluetooth/CoreBluetooth.h&#62; &#10;- (void)viewDidLoad&#10;&#10;&#123;&#10;&#10;    [super viewDidLoad];&#10;&#10;    //&#21021;&#22987;&#21270;&#34013;&#29273; central manager&#10;&#10;    _centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) options:nil];    &#10;&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>2.扫描外设</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[manager scanForPeripheralsWithServices:nil options:@&#123;CBCentralManagerRestoredStateScanOptionsKey:@(YES)&#125;];</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>3.连接外设</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI &#10;&#123;&#10;        if([peripheral.name  isEqualToString:BLE_SERVICE_NAME])&#123;&#10;                [self connect:peripheral];&#10;        &#125;&#10;s); &#10;&#125;       &#10; &#10;-(BOOL)connect:(CBPeripheral *)peripheral&#123;&#10;        self.manager.delegate = self;&#10;        [self.manager connectPeripheral:peripheral&#10;                                options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>4.扫描外设中的服务和特征</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral &#10;&#123; &#10;       &#10;    NSLog(@&#34;Did connect to peripheral: %@&#34;, peripheral); &#10;    _testPeripheral = peripheral; &#10;       &#10;    [peripheral setDelegate:self];  &#60;br&#62;//&#26597;&#25214;&#26381;&#21153;&#10;    [peripheral discoverServices:nil]; &#10;       &#10;       &#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>发现服务：</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error &#10;&#123; &#10;   &#10;       &#10;    NSLog(@&#34;didDiscoverServices&#34;); &#10;       &#10;    if (error) &#10;    &#123; &#10;        NSLog(@&#34;Discovered services for %@ with error: %@&#34;, peripheral.name, [error localizedDescription]); &#10;           &#10;        if ([self.delegate respondsToSelector:@selector(DidNotifyFailConnectService:withPeripheral:error:)]) &#10;            [self.delegate DidNotifyFailConnectService:nil withPeripheral:nil error:nil]; &#10;           &#10;        return; &#10;    &#125; &#10;       &#10;   &#10;    for (CBService *service in peripheral.services) &#10;    &#123; &#10;         //&#21457;&#29616;&#26381;&#21153;&#10;        if ([service.UUID isEqual:[CBUUID UUIDWithString:UUIDSTR_ISSC_PROPRIETARY_SERVICE]]) &#10;        &#123; &#10;            NSLog(@&#34;Service found with UUID: %@&#34;, service.UUID);  &#60;br&#62;//&#26597;&#25214;&#29305;&#24449;&#10;            [peripheral discoverCharacteristics:nil forService:service]; &#10;            break; &#10;        &#125; &#10;           &#10;           &#10;    &#125; &#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>发现服务中的特征：</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error&#10;&#123;&#10;     &#10;    if (error)&#10;    &#123;&#10;        NSLog(@&#34;Discovered characteristics for %@ with error: %@&#34;, service.UUID, [error localizedDescription]);&#10;         &#10;        [self error];&#10;        return;&#10;    &#125;&#10;     &#10;    NSLog(@&#34;&#26381;&#21153;&#65306;%@&#34;,service.UUID);&#10;    for (CBCharacteristic *characteristic in service.characteristics)&#10;    &#123;&#10;       //&#21457;&#29616;&#29305;&#24449;&#10;            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@&#34;xxxxxxx&#34;]]) &#123;&#10;                NSLog(@&#34;&#30417;&#21548;&#65306;%@&#34;,characteristic);&#60;br&#62;//&#30417;&#21548;&#29305;&#24449;&#10;                [self.peripheral setNotifyValue:YES forCharacteristic:characteristic];&#10;            &#125;&#10;         &#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>5.与外设进行数据交互</h3><br>读取数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error&#10;&#123;&#10;    if (error)&#10;    &#123;&#10;        NSLog(@&#34;Error updating value for characteristic %@ error: %@&#34;, characteristic.UUID, [error localizedDescription]);&#10;        self.error_b = BluetoothError_System;&#10;        [self error];&#10;        return;&#10;    &#125;&#10;     &#10;//    NSLog(@&#34;&#25910;&#21040;&#30340;&#25968;&#25454;&#65306;%@&#34;,characteristic.value);&#10;    [self decodeData:characteristic.value];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p>写数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *d2 = [[PBABluetoothDecode sharedManager] HexStringToNSData:@&#34;0x02&#34;];&#10;                [self.peripheral writeValue:d2 forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -369,7 +356,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/swift/" rel="tag">#swift</a>
+            <a href="/tags/CoreBluetooth/" rel="tag">#CoreBluetooth</a>
+          
+            <a href="/tags/蓝牙/" rel="tag">#蓝牙</a>
           
         </div>
       
@@ -378,17 +367,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/10/NSURLSession初探/" rel="next" title="NSURLSession初探">
-                <i class="fa fa-chevron-left"></i> NSURLSession初探
+              <a href="/2016/03/08/SDWebImage内部实现过程/" rel="next" title="SDWebImage内部实现过程">
+                <i class="fa fa-chevron-left"></i> SDWebImage内部实现过程
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/28/移动IM开发要点/" rel="prev" title="移动IM开发要点">
-                移动IM开发要点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -565,7 +550,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#strokeUI"><span class="nav-number">1.</span> <span class="nav-text">如何画出圆形旋钮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#touch"><span class="nav-number">2.</span> <span class="nav-text">根据touch位置移动旋钮位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#touchLocation"><span class="nav-number">2.1.</span> <span class="nav-text">获取touch位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buttonPoint"><span class="nav-number">2.2.</span> <span class="nav-text">计算旋钮对应的坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">手动发送action</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">iOS中蓝牙的实现方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建中心角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.2.</span> <span class="nav-text">2.扫描外设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.3.</span> <span class="nav-text">3.连接外设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.4.</span> <span class="nav-text">4.扫描外设中的服务和特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.5.</span> <span class="nav-text">发现服务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.6.</span> <span class="nav-text">发现服务中的特征：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.7.</span> <span class="nav-text">5.与外设进行数据交互</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -823,9 +808,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'hanangellove';
-      var disqus_identifier = '2016/01/17/如何做一个圆形的音量旋钮/';
-      var disqus_title = '如何做一个圆形的音量旋钮';
-      var disqus_url = 'http://koalahl.github.io/2016/01/17/如何做一个圆形的音量旋钮/';
+      var disqus_identifier = '2016/03/08/iOS-蓝牙4-0开发/';
+      var disqus_title = 'iOS 蓝牙4.0开发';
+      var disqus_url = 'http://koalahl.github.io/2016/03/08/iOS-蓝牙4-0开发/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

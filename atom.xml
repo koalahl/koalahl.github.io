@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2016-03-08T12:15:14.000Z</updated>
+  <updated>2016-03-08T12:19:39.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 蓝牙4.0开发]]></title>
+    <link href="http://koalahl.github.io/2016/03/08/iOS-%E8%93%9D%E7%89%994-0%E5%BC%80%E5%8F%91/"/>
+    <id>http://koalahl.github.io/2016/03/08/iOS-蓝牙4-0开发/</id>
+    <published>2016-03-08T12:19:39.000Z</published>
+    <updated>2016-03-08T12:19:39.000Z</updated>
+    <content type="html"><![CDATA[<p>iOS 蓝牙4.0开发</p>
+<h2>背景：</h2><br>1.iOS的蓝牙不能用来传输文件。<br>2.iOS与iOS设备之间进行数据通信，使用gameKit.framework<br>3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework<br><br><a id="more"></a><br><h2>iOS中蓝牙的实现方案</h2>
+
+
+<p>iOS中提供了4个框架用于实现蓝牙连接<br>GameKit.framework（用法简单）<br>只能用于iOS设备之间的连接，多用于游戏（比如五子棋对战），从iOS7开始过期</p>
+<p>MultipeerConnectivity.framework<br>只能用于iOS设备之间的连接，从iOS7开始引入，主要用于文件共享（仅限于沙盒的文件）</p>
+<p>ExternalAccessory.framework<br>可用于第三方蓝牙设备交互，但是蓝牙设备必须经过苹果MFi认证（国内较少）</p>
+<p>CoreBluetooth.framework（时下热门）<br>可用于第三方蓝牙设备交互，必须要支持蓝牙4.0<br>硬件至少是4s，系统至少是iOS6<br>蓝牙4.0以低功耗著称，一般也叫BLE（BluetoothLowEnergy）<br>目前应用比较多的案例：运动手坏、嵌入式设备、智能家居</p>
+<p>下面具体介绍使用CoreBluetooth.framework的代码步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;//&#34013;&#29273;&#31995;&#32479;&#24211;&#10;&#10;#import &#60;CoreBluetooth/CoreBluetooth.h&#62;&#10;&#10;//&#24517;&#39035;&#35201;&#30001;UUID&#26469;&#21807;&#19968;&#26631;&#31034;&#23545;&#24212;&#30340;service&#21644;characteristic&#10;&#10;#define kServiceUUID @&#34;5C476471-1109-4EBE-A826-45B4F9D74FB9&#34;&#10;&#10;#define kCharacteristicHeartRateUUID @&#34;82C7AC0F-6113-4EC9-92D1-5EEF44571398&#34;&#10;&#10;#define kCharacteristicBodyLocationUUID @&#34;537B5FD6-1889-4041-9C35-F6949D1CA034&#34;&#10;&#10;&#10;&#10;@interface ViewController ()&#60;CBCentralManagerDelegate,CBPeripheralDelegate&#62;&#10;&#10;&#10;&#10;@property (nonatomic,strong)CBCentralManager * centralManager;&#10;&#10;@property (nonatomic,strong)CBPeripheral     * peripheral;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p></p><h3>1.创建中心角色</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#import &#60;CoreBluetooth/CoreBluetooth.h&#62; &#10;- (void)viewDidLoad&#10;&#10;&#123;&#10;&#10;    [super viewDidLoad];&#10;&#10;    //&#21021;&#22987;&#21270;&#34013;&#29273; central manager&#10;&#10;    _centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) options:nil];    &#10;&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>2.扫描外设</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[manager scanForPeripheralsWithServices:nil options:@&#123;CBCentralManagerRestoredStateScanOptionsKey:@(YES)&#125;];</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>3.连接外设</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI &#10;&#123;&#10;        if([peripheral.name  isEqualToString:BLE_SERVICE_NAME])&#123;&#10;                [self connect:peripheral];&#10;        &#125;&#10;s); &#10;&#125;       &#10; &#10;-(BOOL)connect:(CBPeripheral *)peripheral&#123;&#10;        self.manager.delegate = self;&#10;        [self.manager connectPeripheral:peripheral&#10;                                options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>4.扫描外设中的服务和特征</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral &#10;&#123; &#10;       &#10;    NSLog(@&#34;Did connect to peripheral: %@&#34;, peripheral); &#10;    _testPeripheral = peripheral; &#10;       &#10;    [peripheral setDelegate:self];  &#60;br&#62;//&#26597;&#25214;&#26381;&#21153;&#10;    [peripheral discoverServices:nil]; &#10;       &#10;       &#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>发现服务：</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error &#10;&#123; &#10;   &#10;       &#10;    NSLog(@&#34;didDiscoverServices&#34;); &#10;       &#10;    if (error) &#10;    &#123; &#10;        NSLog(@&#34;Discovered services for %@ with error: %@&#34;, peripheral.name, [error localizedDescription]); &#10;           &#10;        if ([self.delegate respondsToSelector:@selector(DidNotifyFailConnectService:withPeripheral:error:)]) &#10;            [self.delegate DidNotifyFailConnectService:nil withPeripheral:nil error:nil]; &#10;           &#10;        return; &#10;    &#125; &#10;       &#10;   &#10;    for (CBService *service in peripheral.services) &#10;    &#123; &#10;         //&#21457;&#29616;&#26381;&#21153;&#10;        if ([service.UUID isEqual:[CBUUID UUIDWithString:UUIDSTR_ISSC_PROPRIETARY_SERVICE]]) &#10;        &#123; &#10;            NSLog(@&#34;Service found with UUID: %@&#34;, service.UUID);  &#60;br&#62;//&#26597;&#25214;&#29305;&#24449;&#10;            [peripheral discoverCharacteristics:nil forService:service]; &#10;            break; &#10;        &#125; &#10;           &#10;           &#10;    &#125; &#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>发现服务中的特征：</h3><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error&#10;&#123;&#10;     &#10;    if (error)&#10;    &#123;&#10;        NSLog(@&#34;Discovered characteristics for %@ with error: %@&#34;, service.UUID, [error localizedDescription]);&#10;         &#10;        [self error];&#10;        return;&#10;    &#125;&#10;     &#10;    NSLog(@&#34;&#26381;&#21153;&#65306;%@&#34;,service.UUID);&#10;    for (CBCharacteristic *characteristic in service.characteristics)&#10;    &#123;&#10;       //&#21457;&#29616;&#29305;&#24449;&#10;            if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@&#34;xxxxxxx&#34;]]) &#123;&#10;                NSLog(@&#34;&#30417;&#21548;&#65306;%@&#34;,characteristic);&#60;br&#62;//&#30417;&#21548;&#29305;&#24449;&#10;                [self.peripheral setNotifyValue:YES forCharacteristic:characteristic];&#10;            &#125;&#10;         &#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p></p><h3>5.与外设进行数据交互</h3><br>读取数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error&#10;&#123;&#10;    if (error)&#10;    &#123;&#10;        NSLog(@&#34;Error updating value for characteristic %@ error: %@&#34;, characteristic.UUID, [error localizedDescription]);&#10;        self.error_b = BluetoothError_System;&#10;        [self error];&#10;        return;&#10;    &#125;&#10;     &#10;//    NSLog(@&#34;&#25910;&#21040;&#30340;&#25968;&#25454;&#65306;%@&#34;,characteristic.value);&#10;    [self decodeData:characteristic.value];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
+<p>写数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSData *d2 = [[PBABluetoothDecode sharedManager] HexStringToNSData:@&#34;0x02&#34;];&#10;                [self.peripheral writeValue:d2 forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>iOS 蓝牙4.0开发</p>
+<h2>背景：</h2><br>1.iOS的蓝牙不能用来传输文件。<br>2.iOS与iOS设备之间进行数据通信，使用gameKit.framework<br>3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework<br><br>]]>
+    
+    </summary>
+    
+      <category term="CoreBluetooth" scheme="http://koalahl.github.io/tags/CoreBluetooth/"/>
+    
+      <category term="蓝牙" scheme="http://koalahl.github.io/tags/%E8%93%9D%E7%89%99/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[SDWebImage内部实现过程]]></title>
@@ -1311,6 +1350,32 @@ _   底线
   </entry>
   
   <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
+    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
+    <published>2015-11-30T02:02:57.000Z</published>
+    <updated>2015-12-14T00:31:17.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[常用排序算法]]></title>
     <link href="http://koalahl.github.io/2015/11/30/%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://koalahl.github.io/2015/11/30/常用排序算法/</id>
@@ -1345,32 +1410,6 @@ _   底线
     </summary>
     
       <category term="算法" scheme="http://koalahl.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
-    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
-    <published>2015-11-30T02:02:57.000Z</published>
-    <updated>2015-12-14T00:31:17.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
-    
-    </summary>
-    
-      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
     
   </entry>
   
