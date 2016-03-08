@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2016-03-05T14:31:06.000Z</updated>
+  <updated>2016-03-08T12:15:14.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[SDWebImage内部实现过程]]></title>
+    <link href="http://koalahl.github.io/2016/03/08/SDWebImage%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B/"/>
+    <id>http://koalahl.github.io/2016/03/08/SDWebImage内部实现过程/</id>
+    <published>2016-03-08T12:15:14.000Z</published>
+    <updated>2016-03-08T12:15:14.000Z</updated>
+    <content type="html"><![CDATA[<p>SDWebImage内部实现过程(新版本在各方法前加上了sd_前缀，以区分UIImageView+AFNetworking中的方法)</p>
+<a id="more"></a>
+<p>1.入口 <code>setImageWithURL:placeholderImage:options:</code>会先把 placeholderImage 显示，然后 SDWebImageManager 根据 URL 开始处理图片。</p>
+<p>2.进入 SDWebImageManager-<code>downloadWithURL:delegate:options:userInfo:</code>，交给 SDImageCache 从缓存查找图片是否已经下载 <code>queryDiskCacheForKey:delegate:userInfo:</code>.</p>
+<p>3.先从内存图片缓存查找是否有图片，如果内存中已经有图片缓存，SDImageCacheDelegate 回调 <code>imageCache:didFindImage:forKey:userInfo:</code> 到 SDWebImageManager。</p>
+<p>4.SDWebImageManagerDelegate 回调 <code>webImageManager:didFinishWithImage:</code>到 UIImageView+WebCache 等前端展示图片。</p>
+<p>5.如果内存缓存中没有，生成 NSInvocationOperation 添加到队列开始从硬盘查找图片是否已经缓存。</p>
+<p>6.根据 URLKey 在硬盘缓存目录下尝试读取图片文件。这一步是在 NSOperation 进行的操作，所以回主线程进行结果回调 notifyDelegate:。</p>
+<p>7.如果上一操作从硬盘读取到了图片，将图片添加到内存缓存中（如果空闲内存过小，会先清空内存缓存）。SDImageCacheDelegate 回调 <code>imageCache:didFindImage:forKey:userInfo:</code>。进而回调展示图片。</p>
+<p>8.如果从硬盘缓存目录读取不到图片，说明所有缓存都不存在该图片，需要下载图片，回调 <code>imageCache:didNotFindImageForKey:userInfo:</code>。</p>
+<p>9.共享或重新生成一个下载器 SDWebImageDownloader 开始下载图片。</p>
+<p>10.图片下载由 NSURLConnection 来做，实现相关 delegate 来判断图片下载中、下载完成和下载失败。</p>
+<p>11.<code>connection:didReceiveData:</code>中利用 ImageIO 做了按图片下载进度加载效果。</p>
+<p>12.<code>connectionDidFinishLoading:</code>数据下载完成后交给 SDWebImageDecoder 做图片解码处理。</p>
+<p>13.图片解码处理在一个 NSOperationQueue 完成，不会拖慢主线程 UI。如果有需要对下载的图片进行二次处理，最好也在这里完成，效率会好很多。</p>
+<p>14.在主线程 <code>notifyDelegateOnMainThreadWithInfo:</code> 宣告解码完成，<code>imageDecoder:didFinishDecodingImage:userInfo:</code> 回调给 SDWebImageDownloader。</p>
+<p>15.<code>imageDownloader:didFinishWithImage:</code> 回调给 SDWebImageManager 告知图片下载完成。</p>
+<p>16.通知所有的 downloadDelegates 下载完成，回调给需要的地方展示图片。</p>
+<p>17.将图片保存到 SDImageCache 中，内存缓存和硬盘缓存同时保存。写文件到硬盘也在以单独 NSInvocationOperation 完成，避免拖慢主线程。</p>
+<p>18.SDImageCache 在初始化的时候会注册一些消息通知，在内存警告或退到后台的时候清理内存图片缓存，应用结束的时候清理过期图片。</p>
+<p>19.SDWI 也提供了 UIButton+WebCache 和 MKAnnotationView+WebCache，方便使用。</p>
+<p>20.SDWebImagePrefetcher 可以预先下载图片，方便后续使用。</p>
+<p>从上面流程可以看出，当你调用setImageWithURL:方法的时候，他会自动去给你干这么多事，当你需要在某一具体时刻做事情的时候，你可以覆盖这些方法。比如在下载某个图片的过程中要响应一个事件，就覆盖这个方法：</p>
+<p>覆盖方法，指哪打哪，这个方法是下载imagePath2的时候响应<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SDWebImageManager *manager = [SDWebImageManager sharedManager];</span><br><span class="line"> </span><br><span class="line">[manager downloadImageWithURL:imagePath2 options:SDWebImageRetryFailed progress:^(<span class="built_in">NSInteger</span> receivedSize, <span class="built_in">NSInteger</span> expectedSize) &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"显示当前进度"</span>);</span><br><span class="line">     </span><br><span class="line">&#125; completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSError</span> *error, SDImageCacheType cacheType, <span class="built_in">BOOL</span> finished, <span class="built_in">NSURL</span> *imageURL) &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"下载完成"</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>当服务器更新了某一张图片资源时，客户端需要重新加载，那么就可以设置SDWebImageOption为SDWebImageRefreshCached；附上全部的SDWebImageOptions：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NS_OPTIONS</span><span class="params">(NSUInteger, SDWebImageOptions)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, when a URL fail to be downloaded, the URL is blacklisted so the library won't keep trying.</span><br><span class="line">     * This flag disable this blacklisting.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageRetryFailed = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, image downloads are started during UI interactions, this flags disable this feature,</span><br><span class="line">     * leading to delayed download on UIScrollView deceleration for instance.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageLowPriority = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * This flag disables on-disk caching</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageCacheMemoryOnly = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * This flag enables progressive download, the image is displayed progressively during download as a browser would do.</span><br><span class="line">     * By default, the image is only displayed once completely downloaded.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageProgressiveDownload = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Even if the image is cached, respect the HTTP response cache control, and refresh the image from remote location if needed.</span><br><span class="line">     * The disk caching will be handled by NSURLCache instead of SDWebImage leading to slight performance degradation.</span><br><span class="line">     * This option helps deal with images changing behind the same request URL, e.g. Facebook graph api profile pics.</span><br><span class="line">     * If a cached image is refreshed, the completion block is called once with the cached image and again with the final image.</span><br><span class="line">     *</span><br><span class="line">     * Use this flag only if you can't make your URLs static with embeded cache busting parameter.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageRefreshCached = <span class="number">1</span> &lt;&lt; <span class="number">4</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * In iOS 4+, continue the download of the image if the app goes to background. This is achieved by asking the system for</span><br><span class="line">     * extra time in background to let the request finish. If the background task expires the operation will be cancelled.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageContinueInBackground = <span class="number">1</span> &lt;&lt; <span class="number">5</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Handles cookies stored in NSHTTPCookieStore by setting</span><br><span class="line">     * NSMutableURLRequest.HTTPShouldHandleCookies = YES;</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageHandleCookies = <span class="number">1</span> &lt;&lt; <span class="number">6</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Enable to allow untrusted SSL ceriticates.</span><br><span class="line">     * Useful for testing purposes. Use with caution in production.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageAllowInvalidSSLCertificates = <span class="number">1</span> &lt;&lt; <span class="number">7</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, image are loaded in the order they were queued. This flag move them to</span><br><span class="line">     * the front of the queue and is loaded immediately instead of waiting for the current queue to be loaded (which </span><br><span class="line">     * could take a while).</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageHighPriority = <span class="number">1</span> &lt;&lt; <span class="number">8</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, placeholder images are loaded while the image is loading. This flag will delay the loading</span><br><span class="line">     * of the placeholder image until after the image has finished loading.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageDelayPlaceholder = <span class="number">1</span> &lt;&lt; <span class="number">9</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * We usually don't call transformDownloadedImage delegate method on animated images,</span><br><span class="line">     * as most transformation code would mangle it.</span><br><span class="line">     * Use this flag to transform them anyway.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageTransformAnimatedImage = <span class="number">1</span> &lt;&lt; <span class="number">10</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>SDWebImage内部实现过程(新版本在各方法前加上了sd_前缀，以区分UIImageView+AFNetworking中的方法)</p>]]>
+    
+    </summary>
+    
+      <category term="SDWebImage" scheme="http://koalahl.github.io/tags/SDWebImage/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[QRCode与Core Image]]></title>
@@ -1268,32 +1311,6 @@ _   底线
   </entry>
   
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
-    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
-    <published>2015-11-30T02:02:57.000Z</published>
-    <updated>2015-12-14T00:31:17.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
-    
-    </summary>
-    
-      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[常用排序算法]]></title>
     <link href="http://koalahl.github.io/2015/11/30/%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://koalahl.github.io/2015/11/30/常用排序算法/</id>
@@ -1328,6 +1345,32 @@ _   底线
     </summary>
     
       <category term="算法" scheme="http://koalahl.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
+    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
+    <published>2015-11-30T02:02:57.000Z</published>
+    <updated>2015-12-14T00:31:17.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
     
   </entry>
   
