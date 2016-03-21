@@ -530,7 +530,26 @@
 <p>a.动态方法解析<br>``</p>
 <ul>
 <li>(Bool)resolveInstanceMethod:(SEL)Selector</li>
-<li>(Bool)resolveClassMethod:(SEL)Selector<br>``<br>b.消息转发forwardingTargetForSelector</li>
+<li>(Bool)resolveClassMethod:(SEL)Selector<br>``<br>b.消息转发给可替代接受者（replacement receiver）</li>
+</ul>
+<ul>
+<li>(id)forwardingTargetForSelector:(SEL)Selector</li>
+</ul>
+<p>c.完整的消息转发机制，构造NSInvocation对象</p>
+<ul>
+<li>(id)forwardInvocation:(NSInvocation *)invocation</li>
+</ul>
+<p><img src="/img/message forwarding.png" alt="完整的消息转发流程图"></p>
+<p></p><h2>总结</h2><p></p>
+<ul>
+<li>消息由接受者、选择器及参数构成。给某对象发送消息（invoke a message），也就相当于在该对象上调用方法（calla method）</li>
+<li><p>发给某对象的全部消息都要有动态消息派发系统（dynamic message dispatch system）来处理，该系统会查出对应的方法，并执行其代码。</p>
+</li>
+<li><p>若对象无法响应某个选择器中的消息，则进入消息转发过程。</p>
+</li>
+<li>通过运行期的动态方法解析机制，我们可以在需要用到某个方法时再将其加入类中。</li>
+<li>对象可以把其无法解读的消息转交给其他对象来处理。</li>
+<li>若经过上述两步还是没办法处理消息，则启动完整的消息转发机制。</li>
 </ul>
 <p>详情可参考  <a href="http://blog.jobbole.com/79545/" title="Objective-C Runtime" target="_blank" rel="external">Objective-C Runtime</a></p>
 ]]></content>
