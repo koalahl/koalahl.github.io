@@ -335,11 +335,8 @@
 <li>第一阶段先询问接受对象所属的类是否能够动态添加方法，以处理这个unknown selector，这叫做动态方法解析（dynamic method resolution）.</li>
 <li>第二阶段设计完整的消息转发机制（full forwording mechanism）。<br>如果在运行期，系统已经把第一阶段执行完了，那么接受者自己就无法再以动态添加方法的方式来响应包含该unknown selector的消息了。此时，运行期系统会请求接受者以<br>其他手段来处理与消息相关的方法调用。这里又分为两小步：<br> 2.1首先，接受者查看是否有其他对象能处理这条消息，若有，则运行时系统会将消息转给那个对象，一切如常。<br> 2.2若没有可替代的接受者（replacement receiver），则启动完整的消息转发机制，运行时系统会把与消息有关的全部细节都封装到NSInvocation对象中，再给接受者最后一次机会，令其设法解决当前还未处理的消息。</li>
 </ol>
-<p>a.动态方法解析<br>``</p>
-<ul>
-<li>(Bool)resolveInstanceMethod:(SEL)Selector</li>
-<li>(Bool)resolveClassMethod:(SEL)Selector<br>``<br>b.消息转发给可替代接受者（replacement receiver）</li>
-</ul>
+<p>a.动态方法解析<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (Bool)resolveInstanceMethod:(SEL)Selector</span><br><span class="line">+ (Bool)resolveClassMethod:(SEL)Selector</span><br></pre></td></tr></table></figure></p>
+<p>b.消息转发给可替代接受者（replacement receiver）</p>
 <ul>
 <li>(id)forwardingTargetForSelector:(SEL)Selector</li>
 </ul>
