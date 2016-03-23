@@ -4,6 +4,75 @@
   
     
     <entry>
+      <title><![CDATA[Effective-Objective C 2.0 要点]]></title>
+      <url>http://koalahl.github.io/2016/03/23/Effictive-Objective-C-2-0-%E8%A6%81%E7%82%B9/</url>
+      <content type="html"><![CDATA[<p>Effective-Ojective C 2.0 读书笔记</p>
+<p>第一章的内容比较基础，就没有列在笔记当中了。另外该笔记只记录每一个要点之后的总结，重点地方会另外探讨。</p>
+<a id="more"></a>
+<h2 id="2">第二章 消息、对象、运行期</h2>
+
+<p>7.在对象内部尽量直接访问实例变量</p>
+<ul>
+<li>在对象内部读取数据时，应该直接通过实例变量来读取；而写入数据时，应该通过属性的设置方法来写。</li>
+<li>在初始化方法多及dealloc方法中，总是通过实例变量来读写数据。</li>
+<li>有时会使用lazy initializition方式来初始化某数据，这种情况下，需要通过属性来读取数据。</li>
+</ul>
+<p>8.理解“对象同等性”这一概念</p>
+<ul>
+<li>若想检测对象的等同性，请提供<code>isEqual:</code>与<code>hash</code>方法。</li>
+<li>相同的对象必须具有相同的哈希码，但是两个哈希码相同的对象却未必相同。</li>
+<li>编写hash方法时，应该使用计算速度快而且哈希吗碰撞几率低的算法。</li>
+</ul>
+<p>9.以类簇模式隐藏实现细节</p>
+<ul>
+<li>类簇模式可以把实现细节隐藏在一套简单的公共接口后面。</li>
+<li>系统框架中经常使用类簇。</li>
+<li>从类簇的公共抽象基类中继承子类时要当心，若有开发文档，则应首先阅读。</li>
+</ul>
+<p>10.在既有类中使用关联对象存放自定义数据</p>
+<p>1.关联对象的存储策略：枚举值</p>
+<p>OBJC_ASSOCIATION_ASSIGN —&gt;assign<br>OBJC_ASSOCIATION_RETAIN_NONATOMIC —&gt;nonatomic,retain<br>OBJC_ASSOCIATION_COPY_NONATOMIC —&gt;nonatomic,copy<br>OBJC_ASSOCIATION_RETAIN —&gt;retain<br>OBJC_ASSOCIATION_COPY —&gt;copy</p>
+<p>创建关联对象方法：<br>void objc_setAssociatedObject(id object,void *key,id value,objc_AssociationPolicy policy)</p>
+<p>以给定的键获取某对象的关联对象的值<br>id objc_getAssociatedObject(id object,void *key)</p>
+<p>移除该对象的所有关联对象<br>void objc_removeAssociatedObjects(id object)</p>
+<p>Note:设置关联对象时的key是一个“不透明指针”（opaque pointer：其所指向的数据结构不局限与某种特定类型指针）；</p>
+<p>在设置关联对象时，通常使用静态全局变量作为key。</p>
+<ul>
+<li>可以通过“associateObject”机制来吧两个对象连起来。</li>
+<li>定义关联对象时可指定内存管理语义，用于模仿定义属性时所在用的拥有关系和非拥有关系。</li>
+<li>只有在其他做法不可行时才选用关联对象，因为这种做法通常会引入难以查找的bug。</li>
+</ul>
+<p>11.理解objc_msgSend的作用。</p>
+<ul>
+<li>消息由接受者、选择器及参数构成。给某对象发送消息（invoke a message），也就相当于在该对象上调用方法（calla method）</li>
+<li>发给某对象的全部消息都要有动态消息派发系统（dynamic message dispatch system）来处理，该系统会查出对应的方法，并执行其代码。</li>
+</ul>
+<p>12.理解消息转发机制。</p>
+<ul>
+<li>若对象无法响应某个选择器中的消息，则进入消息转发过程。</li>
+<li>通过运行期的动态方法解析机制，我们可以在需要用到某个方法时再将其加入类中。</li>
+<li>对象可以把其无法解读的消息转交给其他对象来处理。</li>
+<li>若经过上述两步还是没办法处理消息，则启动完整的消息转发机制。</li>
+</ul>
+<p>13.使用方法调配技术Method Swizzling调试黑盒方法<br>void method_exchangeImplementations(Method m1,Method m2)</p>
+<ul>
+<li>在运行期，可以响雷中新增或替换选择器所对应的方法实现。</li>
+<li>使用另一份实现来替换原有的方法实现，叫做方法调配，开发者可以用此技术向原有实现中添加新功能。</li>
+<li>一般来说，只有调试程序的时候才需要在运行期修改方法实现，这种做法不宜滥用。</li>
+</ul>
+<p>14.理解“类对象”的用意</p>
+<ul>
+<li>每个实例都有一个指向Class对象的指针（isa），用意表明其类型，而这些Class对象则构成了类的继承体系（super_class指针）。</li>
+<li>如果对象类型无法再编译期确定，那么久应该使用类型信息查询方法来探知。isMemberOfClass（特定类型的类），isKindOfClass（该类及其派生类）</li>
+<li>尽量使用类型信息查询方法来确定对象类型，而不要直接比较类对象，因为某些对象可能实现了消息转发功能。</li>
+</ul>
+<h2 id="3">第三章 接口与API设计</h2>
+
+<p>15.使用前缀避免命名空间冲突，解决duplicate symbol问题。<br>16.使用全能初始化方法，即带有特定参数的初始化方法。<br>17.实现description方法用来调试程序。<br>18.尽量使用不可变对象。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[iOS 蓝牙4.0开发]]></title>
       <url>http://koalahl.github.io/2016/03/08/iOS-%E8%93%9D%E7%89%994-0%E5%BC%80%E5%8F%91/</url>
       <content type="html"><![CDATA[<p>iOS 蓝牙4.0开发</p>
