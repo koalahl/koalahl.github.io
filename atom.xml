@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[Effective-Objective C 2.0 要点]]></title>
-    <link href="http://koalahl.github.io/2016/03/23/Effictive-Objective-C-2-0-%E8%A6%81%E7%82%B9/"/>
-    <id>http://koalahl.github.io/2016/03/23/Effictive-Objective-C-2-0-要点/</id>
+    <link href="http://koalahl.github.io/2016/03/23/Effective-Objective-C-2-0-%E8%A6%81%E7%82%B9/"/>
+    <id>http://koalahl.github.io/2016/03/23/Effective-Objective-C-2-0-要点/</id>
     <published>2016-03-23T08:10:35.000Z</published>
     <updated>2016-03-23T08:10:35.000Z</updated>
     <content type="html"><![CDATA[<p>Effective-Ojective C 2.0 读书笔记</p>
@@ -790,7 +790,8 @@
 <p></p><h3 id="alog">数据结构 &amp; 算法</h3><br>•基本的算法和数据结构（排序搜索算法, 数组, 队列）<br>•较复杂数据结构的灵活应用（二叉树, 图等）<br>•复杂的专项算法（图像识别算法, 拓扑定位等等）<p></p>
 <p></p><h3 id="safe">安全方案</h3><br>• 本地数据存储安全（Keychain）<br>•授权和身份验证<br>•传输安全（对称, 非对称, SSL）<br>• App代码安全<p></p>
 <p></p><h3 id="bussiness">业务能力</h3><br>•一般性业务功能需求分析及实现<br>•重要业务模块的需求分析及实现<br>•中小规模产品的架构，系统设计和实现<br>•大规模产品或产品线的架构，系统设计和实现<br>•平台级产品的架构，系统设计和实现<p></p>
-<a id="more"></a>]]></content>
+<a id="more"></a>
+]]></content>
     <summary type="html">
     <![CDATA[<p>提醒自己：</p>
 <p><h3 id = "objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优</p>
@@ -1455,32 +1456,6 @@ _   底线
   </entry>
   
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
-    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
-    <published>2015-11-30T02:02:57.000Z</published>
-    <updated>2015-12-14T00:31:17.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
-    
-    </summary>
-    
-      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[常用排序算法]]></title>
     <link href="http://koalahl.github.io/2015/11/30/%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://koalahl.github.io/2015/11/30/常用排序算法/</id>
@@ -1515,6 +1490,32 @@ _   底线
     </summary>
     
       <category term="算法" scheme="http://koalahl.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
+    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
+    <published>2015-11-30T02:02:57.000Z</published>
+    <updated>2015-12-14T00:31:17.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
     
   </entry>
   
