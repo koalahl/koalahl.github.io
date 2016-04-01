@@ -110,6 +110,8 @@
 
 
 
+
+
   
   
     
@@ -144,7 +146,7 @@
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu">
       
         
         <li class="menu-item menu-item-home">
@@ -198,9 +200,16 @@
       
 
       
-
-
-      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
       
     </ul>
   
@@ -208,18 +217,12 @@
   
     <div class="site-search">
       
-  <form class="site-search-form" >
-  <span class="fa fa-search"></span>
-  <input type="text" id="search-input">
-  <div id="search-result"><ul class="search-result-list"><li><a href="//www.baidu.com/s?wd=XXX%20site%3Ahttp://koalahl.github.io" class="search-result">百度搜索 <i class="search-keyword">XXX</i></a></li><li><a href="//www.google.com/search?q=XXX%20site%3Ahttp://koalahl.github.io" class="search-result">谷歌搜索 <i class="search-keyword">XXX</i></a></li><li><a href="#" class="popup-trigger search-result">本地搜索</a></li></ul>
-  </div>
-</form>
- <div class="popup">
-  <span class="fa fa-search"></span>
-  <input type="text" id="local-search-input">
-  <div id="local-search-result"></div>
-  <span class="popup-btn-close">close</span>
- </div>
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
 
 
     </div>
@@ -497,7 +500,7 @@
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
-          
+
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
@@ -533,32 +536,36 @@
               <span class="links-of-author-item">
                 <a href="hanangellove@icloud.com" target="_blank">
                   
-                    <i class="fa fa-globe"></i> Email
+                    <i class="fa fa-globe"></i>
                   
+                  Email
                 </a>
               </span>
             
               <span class="links-of-author-item">
                 <a href="http://weibo.com/1619592223/" target="_blank">
                   
-                    <i class="fa fa-globe"></i> weibo
+                    <i class="fa fa-globe"></i>
                   
+                  weibo
                 </a>
               </span>
             
               <span class="links-of-author-item">
                 <a href="https://github.com/koalahl" target="_blank">
                   
-                    <i class="fa fa-github"></i> GitHub
+                    <i class="fa fa-github"></i>
                   
+                  GitHub
                 </a>
               </span>
             
               <span class="links-of-author-item">
                 <a href="https://twitter.com/hanangellove" target="_blank">
                   
-                    <i class="fa fa-twitter"></i> Twitter
+                    <i class="fa fa-twitter"></i>
                   
+                  Twitter
                 </a>
               </span>
             
@@ -568,18 +575,21 @@
         
         
 
-        <div class="links-of-author motion-element">
+        
+        <div class="links-of-blogroll motion-element">
           
-            <p class="site-author-name">Links</p>
-            
-              <span class="links-of-author-item">
-                <a href="http://hexo.io/" target="_blank">Hexo</a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://feedly.com/i/my" target="_blank">Feedly</a>
-              </span>
-            
+            <div class="links-of-blogroll-title">Links</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hexo.io/" target="_blank">Hexo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://feedly.com/i/my" target="_blank">Feedly</a>
+                </li>
+              
+            </ul>
           
         </div>
 
@@ -587,9 +597,6 @@
 
       
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator">
-            <i class="fa fa-angle-double-up"></i>
-          </div>
           <div class="post-toc">
             
               
@@ -597,9 +604,6 @@
             
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">通讯方式选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">P2P</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">服务器中转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">网络连接方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">协议选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">私有协议的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.1.</span> <span class="nav-text">序列化选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.2.</span> <span class="nav-text">协议格式设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.1.</span> <span class="nav-text">协议加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.2.</span> <span class="nav-text">快速连接(登录)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.3.</span> <span class="nav-text">连接保持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.4.</span> <span class="nav-text">消息可达</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">5.5.</span> <span class="nav-text">文件上传优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
-          </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator">
-            <i class="fa fa-angle-double-down"></i>
           </div>
         </section>
       
@@ -640,7 +644,9 @@
       </div>
     </footer>
 
-    <div class="back-to-top"></div>
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
   </div>
 
   
@@ -648,6 +654,14 @@
 
   
 
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
 
 
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
@@ -676,165 +690,9 @@
   
 
   
-  
-<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-
-<script type="text/javascript" id="sidebar.toc.highlight">
-  $(document).ready(function () {
-    var tocSelector = '.post-toc';
-    var $tocSelector = $(tocSelector);
-    var activeCurrentSelector = '.active-current';
-
-    $tocSelector
-      .on('activate.bs.scrollspy', function () {
-        var $currentActiveElement = $(tocSelector + ' .active').last();
-
-        removeCurrentActiveClass();
-        $currentActiveElement.addClass('active-current');
-
-        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
-      })
-      .on('clear.bs.scrollspy', function () {
-        removeCurrentActiveClass();
-      });
-
-    function removeCurrentActiveClass () {
-      $(tocSelector + ' ' + activeCurrentSelector)
-        .removeClass(activeCurrentSelector.substring(1));
-    }
-
-    function processTOC () {
-      getTOCMaxHeight();
-      toggleTOCOverflowIndicators();
-    }
-
-    function getTOCMaxHeight () {
-      var height = $('.sidebar').height() -
-                   $tocSelector.position().top -
-                   $('.post-toc-indicator-bottom').height();
-
-      $tocSelector.css('height', height);
-
-      return height;
-    }
-
-    function toggleTOCOverflowIndicators () {
-      tocOverflowIndicator(
-        '.post-toc-indicator-top',
-        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
-      );
-
-      tocOverflowIndicator(
-        '.post-toc-indicator-bottom',
-        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
-      )
-    }
-
-    $(document).on('sidebar.motion.complete', function () {
-      processTOC();
-    });
-
-    $('body').scrollspy({ target: tocSelector });
-    $(window).on('resize', function () {
-      if ( $('.sidebar').hasClass('sidebar-active') ) {
-        processTOC();
-      }
-    });
-
-    onScroll($tocSelector);
-
-    function onScroll (element) {
-      element.on('mousewheel DOMMouseScroll', function (event) {
-          var oe = event.originalEvent;
-          var delta = oe.wheelDelta || -oe.detail;
-
-          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-          event.preventDefault();
-
-          toggleTOCOverflowIndicators();
-      });
-    }
-
-    function tocOverflowIndicator (indicator, action) {
-      var $indicator = $(indicator);
-      var opacity = action === 'show' ? 1 : 0;
-      $indicator.velocity ?
-        $indicator.velocity('stop').velocity({
-          opacity: opacity
-        }, { duration: 100 }) :
-        $indicator.stop().animate({
-          opacity: opacity
-        }, 100);
-    }
-
-  });
-</script>
-
-<script type="text/javascript" id="sidebar.nav">
-  $(document).ready(function () {
-    var html = $('html');
-    var TAB_ANIMATE_DURATION = 200;
-    var hasVelocity = $.isFunction(html.velocity);
-
-    $('.sidebar-nav li').on('click', function () {
-      var item = $(this);
-      var activeTabClassName = 'sidebar-nav-active';
-      var activePanelClassName = 'sidebar-panel-active';
-      if (item.hasClass(activeTabClassName)) {
-        return;
-      }
-
-      var currentTarget = $('.' + activePanelClassName);
-      var target = $('.' + item.data('target'));
-
-      hasVelocity ?
-        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
-          target
-            .velocity('stop')
-            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
-            .addClass(activePanelClassName);
-        }) :
-        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
-          currentTarget.hide();
-          target
-            .stop()
-            .css({'opacity': 0, 'display': 'block'})
-            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
-              currentTarget.removeClass(activePanelClassName);
-              target.addClass(activePanelClassName);
-            });
-        });
-
-      item.siblings().removeClass(activeTabClassName);
-      item.addClass(activeTabClassName);
-    });
-
-    $('.post-toc a').on('click', function (e) {
-      e.preventDefault();
-      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
-      var offset = $(targetSelector).offset().top;
-      hasVelocity ?
-        html.velocity('stop').velocity('scroll', {
-          offset: offset  + 'px',
-          mobileHA: false
-        }) :
-        $('html, body').stop().animate({
-          scrollTop: offset
-        }, 500);
-    });
-
-    // Expand sidebar on post detail page by default, when post has a toc.
-    NexT.motion.middleWares.sidebar = function () {
-      var $tocContent = $('.post-toc-content');
-
-      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
-        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
-          NexT.utils.displaySidebar();
-        }
-      }
-    };
-  });
-</script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
 
 
 
@@ -878,39 +736,31 @@
   
   <script type="text/javascript">
     // Popup Window;
-    var scrollTop = '';
-    var newHeight = '100';
-
+    var isfetched = false;
     // Search DB path;
     var search_path = "search.xml";
     if (search_path.length == 0) {
        search_path = "search.xml";
     }
     var path = "/" + search_path;
-
     // monitor main search box;
-    $('#search-input').on('input', function() {
-    if ($(this).val().length <= 0) {
-      $('#search-result').hide();
-      return;
-    }
-    $('i.search-keyword').text($(this).val());
-    $('a.search-result[href!="#"]').each(function(){
-      this.href = this.href.replace(/\=(.*?)(?=%20site)/,'='+$('#search-input').val())
-    });
-    $('#search-result').show();
-    });
 
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
     // search function;
     var searchFunc = function(path, search_id, content_id) {
     'use strict';
-    searchFunc = function(){};
     $.ajax({
         url: path,
         dataType: "xml",
-        async: false,
+        async: true,
         success: function( xmlResponse ) {
             // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
             var datas = $( "entry", xmlResponse ).map(function() {
                 return {
                     title: $( "title", this ).text(),
@@ -921,12 +771,11 @@
             var $input = document.getElementById(search_id);
             var $resultContent = document.getElementById(content_id);
             $input.addEventListener('input', function(){
+                var matchcounts = 0;
                 var str='<ul class=\"search-result-list\">';                
                 var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
                 $resultContent.innerHTML = "";
-                if (this.value.trim().length <= 0) {
-                    return;
-                }
+                if (this.value.trim().length > 1) {
                 // perform local searching
                 datas.forEach(function(data) {
                     var isMatch = true;
@@ -956,6 +805,7 @@
                     }
                     // show search results
                     if (isMatch) {
+                        matchcounts += 1;
                         str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
                         var content = data.content.trim().replace(/<[^>]+>/g,"");
                         if (first_occur >= 0) {
@@ -966,12 +816,12 @@
                                 start = 0;
                             }
                             if(start == 0){
-                                end = 100;
+                                end = 50;
                             }
                             if(end > content.length){
                                 end = content.length;
                             }
-                            var match_content = content.substr(start, end); 
+                            var match_content = content.substring(start, end);
                             // highlight all keywords
                             keywords.forEach(function(keyword){
                                 var regS = new RegExp(keyword, "gi");
@@ -982,51 +832,31 @@
                         }
                         str += "</li>";
                     }
-                });
+                })};
                 str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
                 $resultContent.innerHTML = str;
             });
+            proceedsearch();
         }
     });}
 
     // handle and trigger popup window;
-    $(window).bind('scroll', function() {
-      scrollTop = $( window ).scrollTop();
-      newHeight = scrollTop + 100;
-    });
-    $('#search-result a').mousedown(function(e) {
-        window.location.href = this.href;
-      });
     $('.popup-trigger').mousedown(function(e) {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      $('#local-search-input').val($('#search-input').val());
-      document.getElementById('local-search-input').dispatchEvent(new Event('input'));
       e.stopPropagation();
-      if(jQuery(window).width() < 750) {
-        $('.site-search-form').after( $( ".popup" ) );
-        $('.popup').show().addClass('popup-mobile').css('top', 0);
-        $('html, body').animate({
-          scrollTop: $('.popup').offset().top
-        }, 500);
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
-        $('.popup').removeClass('popup-mobile').css('top', newHeight).toggle();
+        proceedsearch();
       };
+
     });
 
-    $('#search-input').focus(function() {
-    if ($(this).val().length > 0) {
-      $('#search-result').show();
-      }
-    });
-    $('#search-input').blur(function() {
-      $('#search-result').hide();
-    });
-
-    $('html').click(function() {
-      $('.popup').hide();
-    });
     $('.popup-btn-close').click(function(e){
       $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
     });
     $('.popup').click(function(e){
       e.stopPropagation();
@@ -1036,8 +866,8 @@
   
 
   
-  
 
+  
 
 </body>
 </html>
