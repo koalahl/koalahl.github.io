@@ -23,7 +23,8 @@
     <content type="html"><![CDATA[<p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
 <p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
 <p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
-<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。<br><a id="more"></a></p>
+<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
+<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br><a id="more"></a></p>
 <h2 id="UIbutton">UIButton设置文字图片居中</h2>
 
 <p>UIButton图片、文字居中的调整主要就是四个参数：（``）</p>
@@ -45,12 +46,14 @@
 <p>第二步对每个button调用<code>layoutIfNeeded</code>方法，让其立即刷新布局。</p>
 <p>这个是没有调用layoutIfNeeded的情况：<br><img src="/img/Not call layoutIfNeeded.png" alt="Not call layoutIfNeeded"></p>
 <p>以上。</p>
+<p>参考文档<br><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/swift/cl/c:objc(cs" target="_blank" rel="external">UIView Class Reference</a>UIView)</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
 <p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
 <p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
-<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。<br>]]>
+<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
+<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br>]]>
     
     </summary>
     
