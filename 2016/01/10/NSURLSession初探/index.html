@@ -32,13 +32,36 @@
 
 
 
-  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
 
 
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="NSURLSession," />
@@ -52,7 +75,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
 
 
 
@@ -313,6 +336,7 @@
           
           
 
+          
         </div>
       </header>
     
@@ -358,6 +382,12 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#pragma mark - PrivateMethod</span></span><br><span class="line">- (<span class="keyword">void</span>)saveToFile&#123;</span><br><span class="line">    <span class="built_in">NSString</span> * cacheDirectory = [<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>) lastObject];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,cacheDirectory);</span><br><span class="line">    <span class="built_in">NSString</span> * filePath = [cacheDirectory stringByAppendingPathComponent:<span class="keyword">self</span><span class="variable">.fileName</span>];</span><br><span class="line">    <span class="built_in">NSFileManager</span> * fileManager = [<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    [fileManager createFileAtPath:filePath contents:<span class="literal">nil</span> attributes:<span class="literal">nil</span>];</span><br><span class="line">    <span class="comment">//创建操作数据的文件handler</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.fileHandler</span> = [<span class="built_in">NSFileHandle</span> fileHandleForWritingAtPath:filePath];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>更多信息请查看<a href="http://developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class/index.html" target="_blank" rel="external">NSURLSession官方文档</a></p>
 
+      
+    </div>
+    
+    <div>
+      
+        
       
     </div>
 
@@ -608,8 +638,9 @@
   </a>
 </div>
 
+        
 
-
+        
       </div>
     </footer>
 
@@ -620,12 +651,6 @@
 
   
 
-
-  
-
-
-
-
 <script type="text/javascript">
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
@@ -633,42 +658,58 @@
 </script>
 
 
+
+
+
+
+
+
+
+  
+
+
+
+  
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
+  
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
+  
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
 
 
 

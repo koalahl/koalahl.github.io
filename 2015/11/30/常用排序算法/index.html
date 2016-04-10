@@ -32,13 +32,36 @@
 
 
 
-  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
 
 
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="算法," />
@@ -52,7 +75,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
 
 
 
@@ -303,6 +326,7 @@
           
           
 
+          
         </div>
       </header>
     
@@ -333,6 +357,12 @@
 <p>/*<br>7、堆排序算法<br> 堆的定义如下：n个关键字序列号L<a href="">1..n</a>称为堆，仅当该序列满足：<br>1）L(i) \&lt;= L(2i)且L(i) \&lt;= L(2i+1) 或 2)L(i) >= L(2i)且L(i) >= L(2i+1)<br>满足第一种情况的堆，称为小根堆（小顶堆）；<br>满足第二种情况的堆，称为大根堆（大顶堆）。<br>*/</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapAdjust</span><span class="params">(ElemType \*a,<span class="keyword">int</span> i,<span class="keyword">int</span> size)</span>  <span class="comment">//调整堆</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lchild = <span class="number">2</span> \* i;       <span class="comment">//i的左孩子节点序号</span></span><br><span class="line">    <span class="keyword">int</span> rchild = <span class="number">2</span> \* i + <span class="number">1</span>;     <span class="comment">//i的右孩子节点序号</span></span><br><span class="line">    <span class="keyword">int</span> max = i;            <span class="comment">//临时变量</span></span><br><span class="line">   <span class="keyword">if</span>(i \&lt;= size / <span class="number">2</span>)          <span class="comment">//如果i是叶节点就不用进行调整</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (lchild \&lt;= size &amp;&amp; a[lchild]() \&gt; a[max]())</span><br><span class="line">&#123;</span><br><span class="line">max = lchild; <span class="comment">// 左孩子比双亲值还大，需要调整</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (rchild \&lt;= size &amp;&amp; a[rchild]() \&gt; a[max]())</span><br><span class="line">&#123;</span><br><span class="line">max = rchild;<span class="comment">// 右孩子比双亲值还大，需要调整</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (max != i) <span class="comment">// 需要调整</span></span><br><span class="line">&#123;</span><br><span class="line">ElemType tmp = a[max]();</span><br><span class="line">a[max]() = a[i]();</span><br><span class="line">a[i]() = tmp;</span><br><span class="line"></span><br><span class="line">HeapAdjust(a, max, size);    <span class="comment">//避免调整之后以max为父节点的子树不是堆</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BuildHeap</span><span class="params">(ElemType \*a,<span class="keyword">int</span> size)</span>    <span class="comment">//建立堆</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = size / <span class="number">2</span>; i \&gt;= <span class="number">0</span>; i--)    <span class="comment">//非叶节点最大序号值为size/2</span></span><br><span class="line">    &#123;</span><br><span class="line">        HeapAdjust(a, i, size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(ElemType \*a, <span class="keyword">int</span> size)</span>    <span class="comment">//堆排序</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    BuildHeap(a,size);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">1</span>; i \&gt;= <span class="number">0</span>; i--)</span><br><span class="line">&#123;</span><br><span class="line">swap(a[<span class="number">0</span>](), a[i]());           <span class="comment">//交换堆顶和最后一个元素，即每次将剩余元素中的最大者放到最后面</span></span><br><span class="line">BuildHeap(a, i-<span class="number">1</span>);        <span class="comment">//将余下元素重新建立为大顶堆</span></span><br><span class="line">HeapAdjust(a,<span class="number">1</span>,i-<span class="number">1</span>);      <span class="comment">//重新调整堆顶节点成为大顶堆</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType arr[], <span class="keyword">int</span> length)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i \&lt; length; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> \&lt;\&lt; arr[i] \&lt;\&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">cout</span> \&lt;\&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ElemType arr[] = &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">9</span>, -<span class="number">1</span>, <span class="number">4</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//InsertSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//BinaryInsertSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//ShellSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//BubbleSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//QuickSort(arr, 0,  sizeof(arr) / sizeof(ElemType) - 1);</span></span><br><span class="line">HeapSort(arr, <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">Display(arr, <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+      
+    </div>
+    
+    <div>
+      
+        
       
     </div>
 
@@ -579,8 +609,9 @@
   </a>
 </div>
 
+        
 
-
+        
       </div>
     </footer>
 
@@ -591,12 +622,6 @@
 
   
 
-
-  
-
-
-
-
 <script type="text/javascript">
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
@@ -604,42 +629,58 @@
 </script>
 
 
+
+
+
+
+
+
+
+  
+
+
+
+  
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
+  
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
+  
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
 
 
 

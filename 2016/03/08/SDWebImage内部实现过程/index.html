@@ -32,13 +32,36 @@
 
 
 
-  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
 
 
 
 <link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="SDWebImage," />
@@ -52,7 +75,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
 
 
 
@@ -313,6 +336,7 @@
           
           
 
+          
         </div>
       </header>
     
@@ -350,6 +374,12 @@
 <p>覆盖方法，指哪打哪，这个方法是下载imagePath2的时候响应<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SDWebImageManager *manager = [SDWebImageManager sharedManager];</span><br><span class="line"> </span><br><span class="line">[manager downloadImageWithURL:imagePath2 options:SDWebImageRetryFailed progress:^(<span class="built_in">NSInteger</span> receivedSize, <span class="built_in">NSInteger</span> expectedSize) &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"显示当前进度"</span>);</span><br><span class="line">     </span><br><span class="line">&#125; completed:^(<span class="built_in">UIImage</span> *image, <span class="built_in">NSError</span> *error, SDImageCacheType cacheType, <span class="built_in">BOOL</span> finished, <span class="built_in">NSURL</span> *imageURL) &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"下载完成"</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <p>当服务器更新了某一张图片资源时，客户端需要重新加载，那么就可以设置SDWebImageOption为SDWebImageRefreshCached；附上全部的SDWebImageOptions：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NS_OPTIONS</span><span class="params">(NSUInteger, SDWebImageOptions)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, when a URL fail to be downloaded, the URL is blacklisted so the library won't keep trying.</span><br><span class="line">     * This flag disable this blacklisting.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageRetryFailed = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, image downloads are started during UI interactions, this flags disable this feature,</span><br><span class="line">     * leading to delayed download on UIScrollView deceleration for instance.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageLowPriority = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * This flag disables on-disk caching</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageCacheMemoryOnly = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * This flag enables progressive download, the image is displayed progressively during download as a browser would do.</span><br><span class="line">     * By default, the image is only displayed once completely downloaded.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageProgressiveDownload = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Even if the image is cached, respect the HTTP response cache control, and refresh the image from remote location if needed.</span><br><span class="line">     * The disk caching will be handled by NSURLCache instead of SDWebImage leading to slight performance degradation.</span><br><span class="line">     * This option helps deal with images changing behind the same request URL, e.g. Facebook graph api profile pics.</span><br><span class="line">     * If a cached image is refreshed, the completion block is called once with the cached image and again with the final image.</span><br><span class="line">     *</span><br><span class="line">     * Use this flag only if you can't make your URLs static with embeded cache busting parameter.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageRefreshCached = <span class="number">1</span> &lt;&lt; <span class="number">4</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * In iOS 4+, continue the download of the image if the app goes to background. This is achieved by asking the system for</span><br><span class="line">     * extra time in background to let the request finish. If the background task expires the operation will be cancelled.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageContinueInBackground = <span class="number">1</span> &lt;&lt; <span class="number">5</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Handles cookies stored in NSHTTPCookieStore by setting</span><br><span class="line">     * NSMutableURLRequest.HTTPShouldHandleCookies = YES;</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageHandleCookies = <span class="number">1</span> &lt;&lt; <span class="number">6</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Enable to allow untrusted SSL ceriticates.</span><br><span class="line">     * Useful for testing purposes. Use with caution in production.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageAllowInvalidSSLCertificates = <span class="number">1</span> &lt;&lt; <span class="number">7</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, image are loaded in the order they were queued. This flag move them to</span><br><span class="line">     * the front of the queue and is loaded immediately instead of waiting for the current queue to be loaded (which </span><br><span class="line">     * could take a while).</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageHighPriority = <span class="number">1</span> &lt;&lt; <span class="number">8</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * By default, placeholder images are loaded while the image is loading. This flag will delay the loading</span><br><span class="line">     * of the placeholder image until after the image has finished loading.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageDelayPlaceholder = <span class="number">1</span> &lt;&lt; <span class="number">9</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * We usually don't call transformDownloadedImage delegate method on animated images,</span><br><span class="line">     * as most transformation code would mangle it.</span><br><span class="line">     * Use this flag to transform them anyway.</span><br><span class="line">     */</span></span><br><span class="line">    SDWebImageTransformAnimatedImage = <span class="number">1</span> &lt;&lt; <span class="number">10</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 
+      
+    </div>
+    
+    <div>
+      
+        
       
     </div>
 
@@ -600,8 +630,9 @@
   </a>
 </div>
 
+        
 
-
+        
       </div>
     </footer>
 
@@ -612,12 +643,6 @@
 
   
 
-
-  
-
-
-
-
 <script type="text/javascript">
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
@@ -625,42 +650,58 @@
 </script>
 
 
+
+
+
+
+
+
+
+  
+
+
+
+  
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
+  
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
+  
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
-<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
 
 
 
