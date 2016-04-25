@@ -122,7 +122,64 @@
 </ul>
 <h2 id="3">第三章 接口与API设计</h2>
 
-<p>15.使用前缀避免命名空间冲突，解决duplicate symbol问题。<br>16.使用全能初始化方法，即带有特定参数的初始化方法。<br>17.实现description方法用来调试程序。<br>18.尽量使用不可变对象。</p>
+<p>15.使用前缀避免命名空间冲突，解决duplicate symbol问题。<br>16.使用全能初始化方法，即带有特定参数的初始化方法。<br>17.实现description方法用来调试程序。并且最好用字典的方式输出类的属性，条理清晰。<br>18.尽量使用不可变对象。<br>19.使用清晰而协调的命名方式。参考Objective C编程规范。<br>20.为私有方法名添加前缀。<br>21.理解OC的错误模型。OC在遇到极其严重的错误后，会抛出异常，程序会退出（crash），所以不用太考虑异常安全。如果不太严重的错误，可以通过设置返回nil/0，或者NSError。<br>22.理解NSCopying协议。</p>
+<ul>
+<li>实现NSCopying协议。</li>
+<li>重写<code>copyWithZone</code>方法。</li>
+<li><p>如果类中有可变属性，则在copyWithZone方法中同时需要对可变属性进行<code>mutableCopy</code>。<br>举个例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span>&lt;<span class="title">NSCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)<span class="built_in">NSString</span> * firstname;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)<span class="built_in">NSString</span> * lastname;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span> *)fisrtname lastName:(<span class="built_in">NSString</span> *)lastname;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"EOCPerson.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCPerson</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableSet</span> * _friends;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span> *)fisrtname lastName:(<span class="built_in">NSString</span> *)lastname&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> == [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        _firstname = firstname;</span><br><span class="line">        _lastname  = lastname;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone&#123;</span><br><span class="line"></span><br><span class="line">    EOCPerson *<span class="keyword">copy</span> = [[[<span class="keyword">self</span> class] allocWithZone:zone] initWithFirstName:_firstname lastName:_lastname];</span><br><span class="line">    <span class="keyword">copy</span>-&gt;_friends = [_friends mutableCopy];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">copy</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>要点：</p>
+<ul>
+<li>自定义对象若想要进行copy操作，需实现NSCopying协议。</li>
+<li>自定义对象若分为可变和不可变版本，则需实现NSCopying和NSMutableCopying协议。</li>
+<li>复制对象时需要考虑使用浅拷贝还是深拷贝。一般应该尽量使用浅拷贝。</li>
+<li>自定义对象若需要深拷贝，则可以新增一个专门执行深拷贝的方法。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4">第四章 协议与分类</h2>
+
+<p>23.通过委托与数据源协议进行对象间通信<br>24.将类的实现代码分散到数个分类（category）之中。<br>25.总是为第三方分类名称前加前缀。<br>26.尽量不要在分类中声明属性（当然非要做也可）<br>27.使用<code>class-continuation分类</code>（匿名分类）隐藏实现细节<br>28.通过协议提供匿名对象。例如 id<nscopying>,id<eocdelegate>。任意一个遵守了上述协议的对象都可以赋值给这个属性。</eocdelegate></nscopying></p>
+<h2 id="5">第五章 内存管理</h2>
+
+<p>29.理解引用计数。<br>30.以ARC简化引用计数。<br>31.在dealloc方法中只释放引用并解除监听。<br>32.编写“异常安全代码”时应留意内存管理问题。<br>33.以弱引用避免循环引用。<br>34.以“自动释放池”降低内存峰值。<br>35.使用<code>Zombie Object</code>调试内存问题。<br>36.不要使用retainCount。ARC下已废弃。</p>
+<h2 id="6">第六章 GCD</h2>
+
+<p>37.理解block。重点看一下block的内部结构那一节。</p>
+<ul>
+<li>block中的invoke变量，是一个函数指针，类型为<code>void(*)(void *,_)</code>指向了block的实现代码（需要执行的函数）。</li>
+<li>block中的descriptor是一个结构体指针。该结构体中包含了这个block的一些信息，如block的size。</li>
+<li>block还会把从外部捕获的变量拷贝一份，放在descriptor变量的后面。拷贝的并不是对象本身，而是这些对象的指针变量。invoke函数把block对象本身作为参数传递进来，就是为了能   拿到block捕获的这些变量。</li>
+<li>block被定义时是分配在栈内存中。所以需要copy一份，复制到堆内存中，就可以在外部使用。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//栈block：</span></span><br><span class="line"><span class="keyword">void</span>(^block)();</span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* condition */</span>) &#123;</span><br><span class="line">    block = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Stack"</span>); &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    block = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Stack still"</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  block();</span><br><span class="line"></span><br><span class="line"><span class="comment">//堆block：</span></span><br><span class="line"><span class="keyword">void</span>(^block)();</span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* condition */</span>) &#123;</span><br><span class="line">    block = [^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Heap"</span>); &#125; <span class="keyword">copy</span>];</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    block = [^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Heap"</span>); &#125; <span class="keyword">copy</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  block();</span><br><span class="line"></span><br><span class="line"><span class="comment">//全局block：</span></span><br><span class="line">  <span class="keyword">void</span> (^block)() = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"I'm a global block"</span>);&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>38.为常用的block创建typedef。<br>39.用handler块来降低代码分散。常用于异步任务时。<br>40.使用block时注意不要出现循环引用。<br>41.多用dispatch queue，少用同步锁。例如涉及到数据的存取。<br>  GCD以前，有两种实现锁的方式：<br>  1.@synchronized(self){ … }.这种方式会降低代码执行效率，因为花括号内的代码都共用一个同步锁，且顺序执行。<br>  2.使用NSLock。<code>lock()</code>方法和<code>unlock()</code>方法。也可以使用递归锁<code>NSRecursiveLock</code>,线程能够多次持有该锁，而不会出现死锁现象。<br>  例子：属性的读取和设置中。</p>
+<p>42.多用GCD，少用performeSelector.</p>
+<ul>
+<li><code>performSelector</code>系列方法在内存管理方面容易有陷阱。编译器无法确定其将要执行的SEL具体是什么，因此无法通过ARC在编译期插入内存管理方法。</li>
+<li><code>performSelector</code>能够处理的<code>SEL</code>有点局限，选择器的返回类型和参数个数都有限制。<br>43.掌握GCD和OperationQueue操作队列的使用时机。<br>执行后台任务时，操作队列更有优势。<br>使用<code>NSOperation和NSOperationQueue</code>的好处：</li>
+<li>取消某个操作。注意：可以取消的是队列中还没有执行的任务。</li>
+<li>指定操作间的依赖关系。</li>
+<li>通过KVO监测NSOperation对象的属性。</li>
+<li>指定Operation的优先级。</li>
+<li><p>重用operations。<br>44.通过Dispatch_group机制，根据系统资源状况来执行任务</p>
+</li>
+<li><p>dispatch_apply. 这个会阻塞当前线程。所以不能把主线程作为该方法执行的线程参数。<br>45.使用<code>dispatch_once</code>来执行只需要运行一次的线程安全代码。常用于单例模式。<br>46.不要使用dispatch_get_current_queue</p>
+</li>
+</ul>
+<p></p><h2 id="7">第七章 系统框架</h2><br>47.熟悉系统框架。<br>  Fundation 和 CoreFoundation。<p></p>
+<ul>
+<li>无缝桥接，toll-free-bridging,可以将CoreFoundation中的C语言数据结构转换为Foundation中的对象，也可以反向转换。<br>48.多用块枚举，少用for循环</li>
+</ul>
+<ol>
+<li>for(int i=0;i&lt;max;i++){}</li>
+<li>NSEnumerator. <code>allObjects()</code> 和<code>nextObject()</code>方法。</li>
+<li><p>快速遍历 fast enumeration. for in<br>基于block的遍历方式<br><code>- enumerateObjectesUsingBlock:(void(^)(id object,NSUInteger index,BOOL *stop))block</code><br>…其他方法<br>49.对自定义内存管理语义的collection集合类使用无缝桥接</p>
+<p><strong>bridge
+</strong>bridge_retained<br>__bridge_transfer</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *nameArray = @[<span class="string">@"g"</span>,<span class="string">@"c"</span>,<span class="string">@"d"</span>];</span><br><span class="line"><span class="comment">//正向桥接：Foundation对象-&gt;CoreFoundation数据结构</span></span><br><span class="line"><span class="built_in">CFArrayRef</span> a<span class="built_in">CFArray</span> = (__bridge <span class="built_in">CFArrayRef</span>)nameArray  ;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"CFArray's count is %li"</span>,<span class="built_in">CFArrayGetCount</span>(a<span class="built_in">CFArray</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">CFArrayRef</span> b<span class="built_in">CFArray</span> = (__bridge_retained <span class="built_in">CFArrayRef</span>)nameArray;</span><br><span class="line"><span class="comment">//或者用</span></span><br><span class="line">b<span class="built_in">CFArray</span> = <span class="built_in">CFBridgingRetain</span>(nameArray);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"CFArray's count is %li"</span>,<span class="built_in">CFArrayGetCount</span>(b<span class="built_in">CFArray</span>));</span><br><span class="line"><span class="built_in">CFRelease</span>(b<span class="built_in">CFArray</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span> *names = (<span class="built_in">NSArray</span> *)(__bridge_transfer <span class="built_in">NSArray</span> *)a<span class="built_in">CFArray</span>;</span><br><span class="line"><span class="comment">//    //或者用</span></span><br><span class="line"><span class="comment">//    NSArray * names = CFBridgingRelease(aCFArray);</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,names);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 ]]></content>
     </entry>
     
