@@ -202,33 +202,45 @@
 <li>block被定义时是分配在栈内存中。所以需要copy一份，复制到堆内存中，就可以在外部使用。<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//栈block：</span></span><br><span class="line"><span class="keyword">void</span>(^block)();</span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* condition */</span>) &#123;</span><br><span class="line">    block = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Stack"</span>); &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    block = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Stack still"</span>); &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  block();</span><br><span class="line"></span><br><span class="line"><span class="comment">//堆block：</span></span><br><span class="line"><span class="keyword">void</span>(^block)();</span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* condition */</span>) &#123;</span><br><span class="line">    block = [^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Heap"</span>); &#125; <span class="keyword">copy</span>];</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    block = [^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"Block in Heap"</span>); &#125; <span class="keyword">copy</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  block();</span><br><span class="line"></span><br><span class="line"><span class="comment">//全局block：</span></span><br><span class="line">  <span class="keyword">void</span> (^block)() = ^()&#123; <span class="built_in">NSLog</span>(<span class="string">@"I'm a global block"</span>);&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>38.为常用的block创建typedef。<br>39.用handler块来降低代码分散。常用于异步任务时。<br>40.使用block时注意不要出现循环引用。<br>41.多用dispatch queue，少用同步锁。例如涉及到数据的存取。<br>  GCD以前，有两种实现锁的方式：<br>  1.@synchronized(self){ … }.这种方式会降低代码执行效率，因为花括号内的代码都共用一个同步锁，且顺序执行。<br>  2.使用NSLock。<code>lock()</code>方法和<code>unlock()</code>方法。也可以使用递归锁<code>NSRecursiveLock</code>,线程能够多次持有该锁，而不会出现死锁现象。<br>  例子：属性的读取和设置中。</p>
+<p>38.为常用的block创建typedef。<br>39.用handler块来降低代码分散。常用于异步任务时。<br>40.使用block时注意不要出现循环引用。<br>41.多用dispatch queue，少用同步锁。例如涉及到数据的存取。<br>    GCD以前，有两种实现锁的方式：<br>    1.@synchronized(self){ … }.这种方式会降低代码执行效率，因为花括号内的代码都共用一个同步锁，且顺序执行。<br>    2.使用NSLock。<code>lock()</code>方法和<code>unlock()</code>方法。也可以使用递归锁<code>NSRecursiveLock</code>,线程能够多次持有该锁，而不会出现死锁现象。<br>    例子：属性的读取和设置中。</p>
 <p>42.多用GCD，少用performeSelector.</p>
 <ul>
 <li><code>performSelector</code>系列方法在内存管理方面容易有陷阱。编译器无法确定其将要执行的SEL具体是什么，因此无法通过ARC在编译期插入内存管理方法。</li>
-<li><code>performSelector</code>能够处理的<code>SEL</code>有点局限，选择器的返回类型和参数个数都有限制。<br>43.掌握GCD和OperationQueue操作队列的使用时机。<br>执行后台任务时，操作队列更有优势。<br>使用<code>NSOperation和NSOperationQueue</code>的好处：</li>
+<li><code>performSelector</code>能够处理的<code>SEL</code>有点局限，选择器的返回类型和参数个数都有限制。</li>
+</ul>
+<p>43.掌握GCD和OperationQueue操作队列的使用时机。<br>  执行后台任务时，操作队列更有优势。<br>  使用<code>NSOperation和NSOperationQueue</code>的好处：</p>
+<ul>
 <li>取消某个操作。注意：可以取消的是队列中还没有执行的任务。</li>
 <li>指定操作间的依赖关系。</li>
 <li>通过KVO监测NSOperation对象的属性。</li>
 <li>指定Operation的优先级。</li>
-<li><p>重用operations。<br>44.通过Dispatch_group机制，根据系统资源状况来执行任务</p>
-</li>
-<li><p>dispatch_apply. 这个会阻塞当前线程。所以不能把主线程作为该方法执行的线程参数。<br>45.使用<code>dispatch_once</code>来执行只需要运行一次的线程安全代码。常用于单例模式。<br>46.不要使用dispatch_get_current_queue</p>
-</li>
+<li>重用operations。</li>
 </ul>
-<p></p><h2 id="7">第七章 系统框架</h2><br>47.熟悉系统框架。<br>  Fundation 和 CoreFoundation。<p></p>
+<p>44.通过Dispatch_group机制，根据系统资源状况来执行任务</p>
 <ul>
-<li>无缝桥接，toll-free-bridging,可以将CoreFoundation中的C语言数据结构转换为Foundation中的对象，也可以反向转换。<br>48.多用块枚举，少用for循环</li>
+<li>dispatch_apply. 这个会阻塞当前线程。所以不能把主线程作为该方法执行的线程参数。</li>
 </ul>
+<p>45.使用<code>dispatch_once</code>来执行只需要运行一次的线程安全代码。常用于单例模式。<br>46.不要使用dispatch_get_current_queue</p>
+<h2 id="7">第七章 系统框架</h2>
+
+<p>47.熟悉系统框架。<br>  Fundation 和 CoreFoundation。</p>
+<ul>
+<li>无缝桥接，toll-free-bridging,可以将CoreFoundation中的C语言数据结构转换为Foundation中的对象，也可以反向转换。</li>
+</ul>
+<p>48.多用块枚举，少用for循环</p>
 <ol>
 <li>for(int i=0;i&lt;max;i++){}</li>
 <li>NSEnumerator. <code>allObjects()</code> 和<code>nextObject()</code>方法。</li>
-<li><p>快速遍历 fast enumeration. for in<br>基于block的遍历方式<br><code>- enumerateObjectesUsingBlock:(void(^)(id object,NSUInteger index,BOOL *stop))block</code><br>…其他方法<br>49.对自定义内存管理语义的collection集合类使用无缝桥接</p>
-<p><strong>bridge
-</strong>bridge_retained<br>__bridge_transfer</p>
+<li>快速遍历 fast enumeration. for in<br>基于block的遍历方式<br><code>- enumerateObjectesUsingBlock:(void(^)(id object,NSUInteger index,BOOL *stop))block</code><br>…其他方法</li>
+</ol>
+<p>49.对自定义内存管理语义的collection集合类使用无缝桥接</p>
+<ul>
+<li>__bridge</li>
+<li>__bridge_retained</li>
+<li><p>__bridge_transfer</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *nameArray = @[<span class="string">@"g"</span>,<span class="string">@"c"</span>,<span class="string">@"d"</span>];</span><br><span class="line"><span class="comment">//正向桥接：Foundation对象-&gt;CoreFoundation数据结构</span></span><br><span class="line"><span class="built_in">CFArrayRef</span> a<span class="built_in">CFArray</span> = (__bridge <span class="built_in">CFArrayRef</span>)nameArray  ;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"CFArray's count is %li"</span>,<span class="built_in">CFArrayGetCount</span>(a<span class="built_in">CFArray</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">CFArrayRef</span> b<span class="built_in">CFArray</span> = (__bridge_retained <span class="built_in">CFArrayRef</span>)nameArray;</span><br><span class="line"><span class="comment">//或者用</span></span><br><span class="line">b<span class="built_in">CFArray</span> = <span class="built_in">CFBridgingRetain</span>(nameArray);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"CFArray's count is %li"</span>,<span class="built_in">CFArrayGetCount</span>(b<span class="built_in">CFArray</span>));</span><br><span class="line"><span class="built_in">CFRelease</span>(b<span class="built_in">CFArray</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span> *names = (<span class="built_in">NSArray</span> *)(__bridge_transfer <span class="built_in">NSArray</span> *)a<span class="built_in">CFArray</span>;</span><br><span class="line"><span class="comment">//    //或者用</span></span><br><span class="line"><span class="comment">//    NSArray * names = CFBridgingRelease(aCFArray);</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,names);</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 <p>50.构建缓存时使用NSCache而不是NSDictionary。</p>
 <p>51.精简initialize和load的实现代码</p>
 <p>52.别忘了NSTimer会保留其目标对象</p>
