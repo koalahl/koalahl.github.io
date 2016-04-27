@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TableViewCell根据内容自适应高度的方法 | 寒流‘s Blog | 编程与生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="cell高度,tableViewCell">
+  <meta name="description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
+一：根据cell内容手动计算cell高度
+
+无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TableViewCell根据内容自适应高度的方法">
+<meta property="og:url" content="http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
+一：根据cell内容手动计算cell高度
+
+无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
+<meta property="og:image" content="http://koalahl.github.io/img/self sizing cell.jpg">
+<meta property="og:updated_time" content="2015-12-16T12:49:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TableViewCell根据内容自适应高度的方法">
+<meta name="twitter:description" content="本文同时参考 http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/ 
+一：根据cell内容手动计算cell高度
+
+无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。2.如果是xib，去掉autolay">
+  
+    <link rel="alternative" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;p&gt;本文同时参考 &lt;a href=&quot;http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/&quot;&gt;http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/&lt;/a&gt; &lt;/p&gt;
+&lt;h2&gt;一：根据cell内容手动计算cell高度&lt;/h2&gt;
+
+&lt;p&gt;无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。&lt;br&gt;1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。&lt;br&gt;2.如果是xib，去掉autolayout&lt;br&gt;3.在cellForRowAtIndexPath方法中填充cell数据的时候，根据内容高度，设置控件高度&lt;br&gt;4.在heightForRowAtIndexpath方法中，设置每一个cell 的高度&lt;/p&gt;
+&lt;h2&gt;二：Self sizing cell + autolayout&lt;/h2&gt;
+
+&lt;p&gt;Self sizing cell 是iOS8中添加一个新特性，用来自适应cell高度。&lt;br&gt;&lt;img src=&quot;/img/self sizing cell.jpg&quot; alt=&quot;Self Sizing Cell&quot;&gt;&lt;br&gt;同时打开以下参数：&lt;br&gt;&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.tableView&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.estimatedRowHeight&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;213&lt;/span&gt;;&lt;span class=&quot;comment&quot;&gt;//添加估算高度，要不然自动算高失效？&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.tableView&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.rowHeight&lt;/span&gt; = &lt;span class=&quot;built_in&quot;&gt;UITableViewAutomaticDimension&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2&gt;三：UITableView+FDTemplateLayoutCell&lt;/h2&gt;
+
+&lt;p&gt;使用的API:&lt;br&gt;&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;#import &lt;span class=&quot;title&quot;&gt;&amp;lt;UITableView+FDTemplateLayoutCell.h&amp;gt;&lt;/span&gt; &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (&lt;span class=&quot;built_in&quot;&gt;CGFloat&lt;/span&gt;)tableView:(&lt;span class=&quot;built_in&quot;&gt;UITableView&lt;/span&gt; *)tableView heightForRowAtIndexPath:(&lt;span class=&quot;built_in&quot;&gt;NSIndexPath&lt;/span&gt; *)indexPath &amp;#123; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; [tableView fd_heightForCellWithIdentifier:&lt;span class=&quot;string&quot;&gt;@&quot;identifer&quot;&lt;/span&gt; cacheByIndexPath:indexPath configuration:^(&lt;span class=&quot;keyword&quot;&gt;id&lt;/span&gt; cell)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 			&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  			&lt;span class=&quot;comment&quot;&gt;// 配置 cell 的数据源，和 &quot;cellForRow&quot; 干的事一致，比如： &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			  cell&lt;span class=&quot;variable&quot;&gt;.entity&lt;/span&gt; = &lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;.feedEntities&lt;/span&gt;[indexPath&lt;span class=&quot;variable&quot;&gt;.row&lt;/span&gt;]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  			&amp;#125;]; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/forkingdog/UITableView-FDTemplateLayoutCell&quot;&gt;https://github.com/forkingdog/UITableView-FDTemplateLayoutCell&lt;/a&gt;&lt;br&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/avatar.png"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Han Liu</h5>
+        <a href="mailto:hanangellove@icloud.com" title="hanangellove@icloud.com" class="mail">hanangellove@icloud.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/koalahl" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://weibo.com/1619592223/" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            Weibo
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-link"></i>
+            测试
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>寒流‘s Blog &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">TableViewCell根据内容自适应高度的方法</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">TableViewCell根据内容自适应高度的方法</h1>
+    <h5 class="subtitle">2015-12-16</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-TableViewCell根据内容自适应高度的方法" class="article article-type-post" itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cell高度/">cell高度</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tableViewCell/">tableViewCell</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">一：根据cell内容手动计算cell高度</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">二：Self sizing cell + autolayout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#undefined"><span class="post-toc-text">三：UITableView+FDTemplateLayoutCell</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent"><p>本文同时参考 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="external">http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/</a> </p>
+<h2>一：根据cell内容手动计算cell高度</h2>
+
+<p>无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。<br>1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。<br>2.如果是xib，去掉autolayout<br>3.在cellForRowAtIndexPath方法中填充cell数据的时候，根据内容高度，设置控件高度<br>4.在heightForRowAtIndexpath方法中，设置每一个cell 的高度</p>
+<h2>二：Self sizing cell + autolayout</h2>
+
+<p>Self sizing cell 是iOS8中添加一个新特性，用来自适应cell高度。<br><img src="/img/self sizing cell.jpg" alt="Self Sizing Cell"><br>同时打开以下参数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.estimatedRowHeight</span> = <span class="number">213</span>;<span class="comment">//添加估算高度，要不然自动算高失效？</span></span><br><span class="line"><span class="keyword">self</span><span class="variable">.tableView</span><span class="variable">.rowHeight</span> = <span class="built_in">UITableViewAutomaticDimension</span>;</span><br></pre></td></tr></table></figure></p>
+<h2>三：UITableView+FDTemplateLayoutCell</h2>
+
+<p>使用的API:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UITableView+FDTemplateLayoutCell.h&gt;</span> </span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123; </span><br><span class="line">	<span class="keyword">return</span> [tableView fd_heightForCellWithIdentifier:<span class="string">@"identifer"</span> cacheByIndexPath:indexPath configuration:^(<span class="keyword">id</span> cell)</span><br><span class="line"> 			&#123;</span><br><span class="line">  			<span class="comment">// 配置 cell 的数据源，和 "cellForRow" 干的事一致，比如： </span></span><br><span class="line">			  cell<span class="variable">.entity</span> = <span class="keyword">self</span><span class="variable">.feedEntities</span>[indexPath<span class="variable">.row</span>]; </span><br><span class="line">  			&#125;]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="external">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell</a><br><a id="more"></a></p>
+<p>下面给出第一种手动计算高度的代码思路：<br>详细步骤：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HLComment *comment = [HLComment new];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.floor</span> = obj[<span class="string">@"floor"</span>];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.commentId</span> = obj[<span class="string">@"id"</span>];</span><br><span class="line"></span><br><span class="line"> comment<span class="variable">.content</span> = obj[<span class="string">@"content"</span>];</span><br></pre></td></tr></table></figure>
+<p> //计算content内容高度<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">NSDictionary</span> *atrri = @&#123;<span class="built_in">NSFontAttributeName</span>: [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15</span>]&#125;;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">CGRect</span> rect = [comment<span class="variable">.content</span> boundingRectWithSize:<span class="built_in">CGSizeMake</span>(<span class="number">220</span>, <span class="number">1000</span>) options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span> attributes:atrri context:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">comment<span class="variable">.size</span> = rect<span class="variable">.size</span>;<span class="comment">//保存这个高度</span></span><br></pre></td></tr></table></figure></p>
+<p>//填充cell内容时，根据content高度来设置label高度<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)fillCellWithModel:(HLItem *)item&#123;</span><br><span class="line"></span><br><span class="line">	….</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGRect</span> frame = _content<span class="variable">.frame</span>;<span class="comment">//_content 是内容label</span></span><br><span class="line"></span><br><span class="line">    frame<span class="variable">.size</span> = item<span class="variable">.size</span>;</span><br><span class="line"></span><br><span class="line">    _content<span class="variable">.frame</span> = frame;</span><br><span class="line"></span><br><span class="line">	…..</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外在heightForRowAtIndexPath 中添加一定的余量。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自适应cell高度</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//NSLog(@"计算cell高度");;</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (indexPath<span class="variable">.row</span> == <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">self</span><span class="variable">.item</span><span class="variable">.size</span><span class="variable">.height</span>+<span class="number">140</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    HLComment *item = _dataSource[indexPath<span class="variable">.row</span>-<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> item<span class="variable">.size</span><span class="variable">.height</span>+<span class="number">60</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2015/12/16/Block实现原理/" title="Block实现原理" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2015/12/16/理解Objective-C中的消息发送/" title="理解Objective-C中的消息发送" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'hanangellove'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "TableViewCell根据内容自适应高度的方法",
+    pic: "/img/avatar.png",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

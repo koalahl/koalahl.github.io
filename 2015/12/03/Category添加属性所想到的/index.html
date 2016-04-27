@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Category添加属性所想到的 | 寒流‘s Blog | 编程与生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="category">
+  <meta name="description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Category添加属性所想到的">
+<meta property="og:url" content="http://koalahl.github.io/2015/12/03/Category添加属性所想到的/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
+<meta property="og:image" content="http://koalahl.github.io/img/category_1.png">
+<meta property="og:updated_time" content="2016-01-17T13:49:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Category添加属性所想到的">
+<meta name="twitter:description" content="iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：
+Category：分类、类别
+
+category主要用来增加类的方法，并且适用于子类。
+category不能添加实例变量（这个并不是属性），可以添加readonly的属性。
+如果要添加readwrite的属性的话，需要用到runtime方法。
+
+Extension：扩展
+
+可以增加">
+  
+    <link rel="alternative" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  
+  <meta name="summary" content="&lt;p&gt;iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：&lt;/p&gt;
+&lt;p&gt;Category：分类、类别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;category主要用来增加类的方法，并且适用于子类。&lt;/li&gt;
+&lt;li&gt;category不能添加实例变量（这个并不是属性），可以添加readonly的属性。&lt;/li&gt;
+&lt;li&gt;如果要添加readwrite的属性的话，需要用到runtime方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Extension：扩展&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以增加被扩展类的属性和方法。&lt;/li&gt;
+&lt;li&gt;Extension可以理解为匿名类别。&lt;/li&gt;
+&lt;li&gt;定义的方法必须在implementation中实现。&lt;/li&gt;
+&lt;/ul&gt;">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/avatar.png"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">Han Liu</h5>
+        <a href="mailto:hanangellove@icloud.com" title="hanangellove@icloud.com" class="mail">hanangellove@icloud.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            Archives
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            Tags
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/koalahl" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://weibo.com/1619592223/" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            Weibo
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-link"></i>
+            测试
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>寒流‘s Blog &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Category添加属性所想到的</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Category添加属性所想到的</h1>
+    <h5 class="subtitle">2015-12-03</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-Category添加属性所想到的" class="article article-type-post" itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/category/">category</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent"><p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
+<p>Category：分类、类别</p>
+<ul>
+<li>category主要用来增加类的方法，并且适用于子类。</li>
+<li>category不能添加实例变量（这个并不是属性），可以添加readonly的属性。</li>
+<li>如果要添加readwrite的属性的话，需要用到runtime方法。</li>
+</ul>
+<p>Extension：扩展</p>
+<ul>
+<li>可以增加被扩展类的属性和方法。</li>
+<li>Extension可以理解为匿名类别。</li>
+<li>定义的方法必须在implementation中实现。</li>
+</ul>
+<a id="more"></a>
+<p>下面主要看看category的使用：<br>1.添加readonly属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">///在Cell右侧添加的一个自定义label</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UILabel</span> *accessoryLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">strong</span>,<span class="keyword">readonly</span>)<span class="built_in">UIImageView</span> *accessoryImageView;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>.m文件中重写getter方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UITableViewCell</span> (<span class="title">AccessoryView</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UILabel</span> *)accessoryLabel&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UILabel</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];<span class="comment">//因为accessoryLabel是添加在cell上的，而没有在cell.contentView上。</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UILabel</span> * accessoryLabel = [[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">200</span>, <span class="number">0</span>, <span class="number">160</span>, <span class="built_in">CGRectGetHeight</span>(<span class="keyword">self</span><span class="variable">.frame</span>))];</span><br><span class="line">    accessoryLabel<span class="variable">.textColor</span> = [<span class="built_in">UIColor</span> lightGrayColor];</span><br><span class="line">    accessoryLabel<span class="variable">.font</span>      = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12</span>];</span><br><span class="line">    accessoryLabel<span class="variable">.textAlignment</span> = <span class="built_in">NSTextAlignmentRight</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryLabel];</span><br><span class="line">    <span class="keyword">return</span>  accessoryLabel;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImageView</span> *)accessoryImageView&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">id</span> obj <span class="keyword">in</span> <span class="keyword">self</span><span class="variable">.subviews</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([obj class] == [<span class="built_in">UIImageView</span> class]) &#123;</span><br><span class="line">            [obj removeFromSuperview];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIImageView</span> *accessoryImageView = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(kWidth-<span class="number">100</span>, <span class="number">10</span>, <span class="number">60</span>, <span class="number">60</span>)];</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">30</span>;</span><br><span class="line">    accessoryImageView<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addSubview:accessoryImageView];</span><br><span class="line">    <span class="keyword">return</span> accessoryImageView;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>如果我们添加一个普通的属性<code>@property (nonatomic,strong)NSString * name;</code>,那么implementation中会报warning：</p>
+<p><img src="/img/category_1.png" alt="category"></p>
+<p>2.运行时添加属性：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)<span class="built_in">NSString</span> * errorMsg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>.m</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> * strKey = &amp;strKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSError</span> (<span class="title">Message</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setErrorMsg:(<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp; strKey, errorMsg, OBJC_ASSO<span class="built_in">CIATION_COPY_NONATOMIC</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)errorMsg&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;strKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在实际使用中，大多数时候还是用的category较多。后面会给出一些常用的类的category。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2015/12/05/iOS中处理四舍五入的问题/" title="iOS中处理四舍五入的问题" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2015/11/30/Markdown语法参考/" title="Markdown语法参考" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'hanangellove'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "Category添加属性所想到的",
+    pic: "/img/avatar.png",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://koalahl.github.io/2015/12/03/Category添加属性所想到的/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
