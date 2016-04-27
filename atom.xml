@@ -20,7 +20,33 @@
     <id>http://koalahl.github.io/2016/04/26/Learn-Swift-Section-Three/</id>
     <published>2016-04-26T08:21:59.000Z</published>
     <updated>2016-04-26T08:21:59.000Z</updated>
-    <content type="html"><![CDATA[<p>// 类与结构体的共同点：<br>// - 定义属性用于存储值<br>// - 定义方法用于提供功能<br>// - 定义附属脚本用于访问值<br>// - 定义构造器用于生成初始化值<br>// - 通过扩展以增加默认实现的功能<br>// - 实现协议以提供某种标准功能<br>//<br>// 与结构体相比，类还有如下的附加功能：<br>//<br>// - 继承允许一个类继承另一个类的特征<br>// - 类型转换允许在运行时检查和解释一个类实例的类型<br>// - 解构器允许一个类实例释放任何其所被分配的资源<br>// - 引用计数允许对一个类的多次引用<br>//<br>// 更多信息请参见继承，类型转换，析构过程，和自动引用计数。<br>//<br>// 注意<br>// <em> 结构体总是通过被复制的方式在代码中传递，不使用引用计数。<br>//<br>// //值类型与引用类型<br>// 值类型被赋予给一个变量、常量或者被传递给一个函数的时候，其值会被拷贝。<br>//<br>// 在之前的章节中，我们已经大量使用了值类型。实际上，在 Swift 中，所有的基本类型：整数（Integer）、浮点数（floating-point）、布尔值（Boolean）、字符串（string)、数组（array）和字典（dictionary），都是值类型，并且在底层都是以结构体的形式所实现。<br>//<br>// 在 Swift 中，所有的结构体和枚举类型都是值类型。这意味着它们的实例，以及实例中所包含的任何值类型属性，在代码中传递的时候都会被复制。<br>//<br>// “与值类型不同，引用类型在被赋予到一个变量、常量或者被传递到一个函数时，其值不会被拷贝。因此，引用的是已存在的实例本身而不是其拷贝。”<br>//<br>// </em>/<br><a id="more"></a><br>var marray = [“lopl”,”liu”,”han”]<br>func modifyArray()  {<br>    var saray = marray<br>    saray.removeAtIndex(2)<br>}<br>modifyArray()<br>marray//并没有变，说明是值拷贝</p>
+    <content type="html"><![CDATA[<p>类与结构体的共同点：</p>
+<ul>
+<li>定义属性用于存储值</li>
+<li>定义方法用于提供功能</li>
+<li>定义附属脚本用于访问值</li>
+<li>定义构造器用于生成初始化值</li>
+<li>通过扩展以增加默认实现的功能</li>
+<li>实现协议以提供某种标准功能</li>
+</ul>
+<p>与结构体相比，类还有如下的附加功能：</p>
+<ul>
+<li>继承允许一个类继承另一个类的特征</li>
+<li>类型转换允许在运行时检查和解释一个类实例的类型</li>
+<li>解构器允许一个类实例释放任何其所被分配的资源</li>
+<li>引用计数允许对一个类的多次引用<a id="more"></a>
+</li>
+</ul>
+<p>更多信息请参见继承，类型转换，析构过程，和自动引用计数。</p>
+<p>注意</p>
+<ul>
+<li>结构体总是通过被复制的方式在代码中传递，不使用引用计数。</li>
+</ul>
+<p>//值类型与引用类型<br>值类型被赋予给一个变量、常量或者被传递给一个函数的时候，其值会被拷贝。</p>
+<p>在之前的章节中，我们已经大量使用了值类型。实际上，在 Swift 中，所有的基本类型：整数（Integer）、浮点数（floating-point）、布尔值（Boolean）、字符串（string)、数组（array）和字典（dictionary），都是值类型，并且在底层都是以结构体的形式所实现。</p>
+<p>在 Swift 中，所有的结构体和枚举类型都是值类型。这意味着它们的实例，以及实例中所包含的任何值类型属性，在代码中传递的时候都会被复制。</p>
+<p>“与值类型不同，引用类型在被赋予到一个变量、常量或者被传递到一个函数时，其值不会被拷贝。因此，引用的是已存在的实例本身而不是其拷贝。”</p>
+<p>var marray = [“lopl”,”liu”,”han”]<br>func modifyArray()  {<br>    var saray = marray<br>    saray.removeAtIndex(2)<br>}<br>modifyArray()<br>marray//并没有变，说明是值拷贝</p>
 <p>//将结构体实例赋值给一个常量，则无法修改结构体中的属性，即使属性是变量。<br>struct Cars {<br>    var name = “”</p>
 <p>}<br>let car = Cars()<br>car.name = “Audi”<br>//而类则可以修改，因为类是引用类型。<br>class CreateNewLife{<br>    var name = “”<br>}<br>class Animals {<br>    var kind = “”<br>    let planet = “Earth”<br>    lazy var createNewLife = CreateNewLife()<br>}<br>let life = CreateNewLife()<br>let anAnimal = Animals()<br>anAnimal.kind = “Human”<br>print(anAnimal,life)<br>if life === anAnimal {<br>    print(“same class”)<br>}else{<br>    print(“Different class”)<br>}<br>print(anAnimal.createNewLife.name)//这时CreateNewLife实例才会被创建<br>anAnimal.createNewLife.name = “liven”<br>print(anAnimal.kind,anAnimal.createNewLife.name)</p>
 <p>//结构体和类中的属性定义-getter和setter<br>struct Point{<br>    var x = 0.0,y = 0.0<br>}<br>struct Size {<br>    var width = 0.0,height = 0.0<br>}<br>struct Rect {<br>    var origin = Point()<br>    var size   = Size()<br>    var center:Point{//计算属性:即写了get或set的属性。如果只有get，就是只读属性<br>        get{<br>            let centerX = origin.x + size.width/2<br>            let centerY = origin.y + size.height/2<br>            return Point(x: centerX, y: centerY)<br>        }<br>        set(newCenter){<br>            origin.x = newCenter.x - size.width/2<br>            origin.y = newCenter.y - size.height/2<br>        }<br>    }<br>    var arcPoint:Point{//属性观察器didSet,willSet<br>        willSet(newValue){//会将新的值传入<br>            print(“will set arcPoint (newValue)”)<br>        }<br>        didSet(oldValue){//会将旧的值传入<br>            //arcPoint = Point(x: 8, y: 9)<br>            print(“did set arcPoint (arcPoint) (oldValue)”)<br>        }<br>    }<br>    static var name = “my rect”//Type property类型属性</p>
@@ -86,7 +112,21 @@ available = false
 <p>person.someClosure(1,”haha”)</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>// 类与结构体的共同点：<br>// - 定义属性用于存储值<br>// - 定义方法用于提供功能<br>// - 定义附属脚本用于访问值<br>// - 定义构造器用于生成初始化值<br>// - 通过扩展以增加默认实现的功能<br>// - 实现协议以提供某种标准功能<br>//<br>// 与结构体相比，类还有如下的附加功能：<br>//<br>// - 继承允许一个类继承另一个类的特征<br>// - 类型转换允许在运行时检查和解释一个类实例的类型<br>// - 解构器允许一个类实例释放任何其所被分配的资源<br>// - 引用计数允许对一个类的多次引用<br>//<br>// 更多信息请参见继承，类型转换，析构过程，和自动引用计数。<br>//<br>// 注意<br>// <em> 结构体总是通过被复制的方式在代码中传递，不使用引用计数。<br>//<br>// //值类型与引用类型<br>// 值类型被赋予给一个变量、常量或者被传递给一个函数的时候，其值会被拷贝。<br>//<br>// 在之前的章节中，我们已经大量使用了值类型。实际上，在 Swift 中，所有的基本类型：整数（Integer）、浮点数（floating-point）、布尔值（Boolean）、字符串（string)、数组（array）和字典（dictionary），都是值类型，并且在底层都是以结构体的形式所实现。<br>//<br>// 在 Swift 中，所有的结构体和枚举类型都是值类型。这意味着它们的实例，以及实例中所包含的任何值类型属性，在代码中传递的时候都会被复制。<br>//<br>// “与值类型不同，引用类型在被赋予到一个变量、常量或者被传递到一个函数时，其值不会被拷贝。因此，引用的是已存在的实例本身而不是其拷贝。”<br>//<br>// </em>/<br>]]>
+    <![CDATA[<p>类与结构体的共同点：</p>
+<ul>
+<li>定义属性用于存储值</li>
+<li>定义方法用于提供功能</li>
+<li>定义附属脚本用于访问值</li>
+<li>定义构造器用于生成初始化值</li>
+<li>通过扩展以增加默认实现的功能</li>
+<li>实现协议以提供某种标准功能</li>
+</ul>
+<p>与结构体相比，类还有如下的附加功能：</p>
+<ul>
+<li>继承允许一个类继承另一个类的特征</li>
+<li>类型转换允许在运行时检查和解释一个类实例的类型</li>
+<li>解构器允许一个类实例释放任何其所被分配的资源</li>
+<li>引用计数允许对一个类的多次引用]]>
     
     </summary>
     
