@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html>
+
+
+  <html class="light page-post">
+
+
 <head>
   <meta charset="utf-8">
   
-  <title>如何在swift项目中创建Objective-C Bridging header | 寒流‘s Blog | 编程与生活</title>
+  <title>如何在swift项目中创建Objective-C Bridging header | 寒流‘s Blog</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   
-  <meta name="keywords" content="Objc Bridging Header,swift">
+    <meta name="keywords" content="Objc Bridging Header,swift," />
+  
+
   <meta name="description" content="在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。现在有两种方法创建Objective-C Bridging Header:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在swift项目中创建Objective-C Bridging header">
@@ -20,138 +28,176 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在swift项目中创建Objective-C Bridging header">
 <meta name="twitter:description" content="在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。现在有两种方法创建Objective-C Bridging Header:">
+
   
-    <link rel="alternative" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+
   
-  <meta name="summary" content="&lt;p&gt;在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。&lt;br&gt;现在有两种方法创建Objective-C Bridging Header:&lt;br&gt;">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=eaf5ab1e" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css" type="text/css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
 </head>
 
 <body>
-  <div id="loading" class="active"></div>
 
-  <nav id="menu" class="hide" >
-   <div class="inner">
-  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
-      <i class="icon icon-lg icon-close"></i>
-  </a>
-  <div class="brand-wrap">
-    <div class="brand">
-      <a href="/" class="avatar"><img src="/img/avatar.png"></a>
-      <hgroup class="introduce">
-        <h5 class="nickname">Han Liu</h5>
-        <a href="mailto:hanangellove@icloud.com" title="hanangellove@icloud.com" class="mail">hanangellove@icloud.com</a>
-      </hgroup>
-    </div>
-  </div>
-  <ul class="nav">
-    
-        <li class="waves-block">
-          <a href="/"  >
-            <i class="icon icon-lg icon-home"></i>
-            主页
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="/archives"  >
-            <i class="icon icon-lg icon-archives"></i>
-            Archives
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="/tags"  >
-            <i class="icon icon-lg icon-tags"></i>
-            Tags
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="https://github.com/koalahl" target="_blank" >
-            <i class="icon icon-lg icon-github"></i>
-            Github
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="http://weibo.com/1619592223/" target="_blank" >
-            <i class="icon icon-lg icon-weibo"></i>
-            Weibo
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="https://twitter.com/hanangellove" target="_blank" >
-            <i class="icon icon-lg icon-twitter"></i>
-            Twitter
-          </a>
-        </li>
-    
-        <li class="waves-block">
-          <a href="http://hexo.io/"  >
-            <i class="icon icon-lg icon-link"></i>
-            Hexo
-          </a>
-        </li>
-    
-  </ul>
 
-  <footer class="footer">
-  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
-  <p>寒流‘s Blog &copy; 2016</p>
-  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
-  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
-  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"> </i></a>
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
 
-</footer>
-
-</div>
-
-  </nav>
-  <main id="main">
-    <header class="header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">如何在swift项目中创建Objective-C Bridging header</div>
-        
-    </div>
-</header>
-<header class="content-header">
-  <div class="container">
-    <h1 class="author">如何在swift项目中创建Objective-C Bridging header</h1>
-    <h5 class="subtitle">2015-12-30</h5>
-  </div>
-</header>
-
-    <div class="container body-wrap">
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
       
-  <article id="post-如何在swift项目中创建Objective-C-Bridging-header" class="article article-type-post" itemprop="blogPost">
-    
-      <div class="post-meat flex-row">
-        <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
 </div>
-      </div>
-      <div class="post-body">
 
-        <aside class="post-widget" id="post-widget">
 
-          
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#header"><span class="toc-text">Create Objective-C File as Header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#headerDirectly"><span class="toc-text"> Create Objective-C Header File Directly</span></a></li></ol>
+  </div>
 
-          
-          <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#header"><span class="post-toc-text">Create Objective-C File as Header</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#headerDirectly"><span class="post-toc-text"> Create Objective-C Header File Directly</span></a></li></ol>
-          </nav>
-          
-        </aside>
 
-        <div class="post-main">
 
-            <div class="post-content" id="post-content" itemprop="postContent"><p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
+<div class="content content-post CENTER">
+   <article id="post-如何在swift项目中创建Objective-C-Bridging-header" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何在swift项目中创建Objective-C Bridging header</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.12.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Han Liu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
 <p></p><h3 id="header">Create Objective-C File as Header</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C:<p></p>
 <p><img src="/img/Swift-Create-Objective-C-Bridging-Header.png" alt="Create Objective-C File as Header"><br>然后一直next，最后出现如下图时，点击yes：</p>
 <p><img src="/img/create-objective-c-bridging-header-question.png" alt=""></p>
@@ -160,78 +206,174 @@
 <p><img src="/img/Xcode-Choose-Header-File.png" alt="Create Objective-C Header File Directly"></p>
 <p>最后，两种方法创建的.h文件中import你将使用的类。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"xxxx"</span></span></span><br></pre></td></tr></table></figure></p>
 <p>一般在项目中我们使用第二种方法。</p>
+
+    
+  </div>
+</article>
+
 </div>
 
-            
-<nav class="post-nav flex-row">
-  <div class="flex-col waves-block prev">
-    
-      <a href="/2016/01/07/NS-ENUM与NSString/" title="NS_ENUM与NSString" id="post-prev" class="post-nav-link">
-        <i class="icon icon-chevron-left"></i>
-        <span class="article-nav-title">上一篇</span>
-      </a>
-    
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
   </div>
-  <div class="flex-col waves-block next">
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
     
-      <a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/" title="修改UIBarButtonItem标题文字大小、颜色、阴影等" id="post-next" class="post-nav-link">
-        <span class="article-nav-title">下一篇</span>
-        <i class="icon icon-chevron-right"></i>
-      </a>
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
     
-  </div>
-
-</nav>
-
-
-
-            
-
-
-<section id="comments">
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'hanangellove'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_url = 'http://koalahl.github.io/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
   </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
 
 
-
-        </div>
-
-      </div>
 
     
 
-  </article>
 
 
 
-    </div>
-  </main>
-<div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+  </div>
 
+  
 
-<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
 
-<script src="/js/main.js" type="text/javascript"></script>
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
 
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
 
-
-
-
-
-
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
 
 </body>
 </html>
