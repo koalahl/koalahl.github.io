@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2016-04-28T08:50:42.000Z</updated>
+  <updated>2015-12-05T15:04:57.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS开发技术栈]]></title>
+    <link href="http://koalahl.github.io/2016/04/30/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    <id>http://koalahl.github.io/2016/04/30/iOS开发技术栈/</id>
+    <published>2016-04-30T15:04:57.000Z</published>
+    <updated>2015-12-05T15:04:57.000Z</updated>
+    <content type="html"><![CDATA[<p>提醒自己：</p>
+<p></p><h3 id="objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优<p></p>
+<a id="more"></a>
+<p></p><h3 id="OS">操作系统</h3><br>• iOS内存管理和调优<br>• iOS的文件系统和沙盒机制<br>• iOS多线程编程（Thread,GCD,NSOperation）<br>• iOS网络和服务器编程（NSURLConnection,NSURLSession）<br>• iOS系统的各种安全机制<p></p>
+<p></p><h3 id="netpro">网络编程</h3><br>• iOS网络发送机制调整和优化（NSURLSession）<br>• Socket编程<br>•网络传输中的各种保障<br>•对传输协议的调整优化<p></p>
+<p></p><h3 id="sql">数据库&amp;持久化方案</h3><br>• 常规持久化方案（Keychain,NSUserDefaults,Sqlite,CoreData）<br>•数据库的使用和设计（Sqlite）<br>•数据结构优化，Sql调优<p></p>
+<p></p><h3 id="graphic">图形图像编程</h3><br>• UIKit,Core Animation和Core Text的绘制<br>• Core Graphics, Quartz 2D, Media Player, AV Foundation<br>• OpenGL ES, GLKit, SpriteKit, SceneKit, Metal<p></p>
+<p></p><h3 id="alog">数据结构 &amp; 算法</h3><br>•基本的算法和数据结构（排序搜索算法, 数组, 队列）<br>•较复杂数据结构的灵活应用（二叉树, 图等）<br>•复杂的专项算法（图像识别算法, 拓扑定位等等）<p></p>
+<p></p><h3 id="safe">安全方案</h3><br>• 本地数据存储安全（Keychain）<br>•授权和身份验证<br>•传输安全（对称, 非对称, SSL）<br>• App代码安全<p></p>
+<p></p><h3 id="bussiness">业务能力</h3><br>•一般性业务功能需求分析及实现<br>•重要业务模块的需求分析及实现<br>•中小规模产品的架构，系统设计和实现<br>•大规模产品或产品线的架构，系统设计和实现<br>•平台级产品的架构，系统设计和实现<p></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>提醒自己：</p>
+<p><h3 id = "objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优</p>]]>
+    
+    </summary>
+    
+      <category term="skills" scheme="http://koalahl.github.io/tags/skills/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Learn Swift - Section 4th 扩展、协议、泛型]]></title>
@@ -1199,35 +1228,6 @@
     </summary>
     
       <category term="《iOS开发进阶》阅读笔记" scheme="http://koalahl.github.io/tags/%E3%80%8AiOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS开发技术栈]]></title>
-    <link href="http://koalahl.github.io/2015/12/05/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
-    <id>http://koalahl.github.io/2015/12/05/iOS开发技术栈/</id>
-    <published>2015-12-05T15:04:57.000Z</published>
-    <updated>2015-12-05T15:04:57.000Z</updated>
-    <content type="html"><![CDATA[<p>提醒自己：</p>
-<p></p><h3 id="objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优<p></p>
-<a id="more"></a>
-<p></p><h3 id="OS">操作系统</h3><br>• iOS内存管理和调优<br>• iOS的文件系统和沙盒机制<br>• iOS多线程编程（Thread,GCD,NSOperation）<br>• iOS网络和服务器编程（NSURLConnection,NSURLSession）<br>• iOS系统的各种安全机制<p></p>
-<p></p><h3 id="netpro">网络编程</h3><br>• iOS网络发送机制调整和优化（NSURLSession）<br>• Socket编程<br>•网络传输中的各种保障<br>•对传输协议的调整优化<p></p>
-<p></p><h3 id="sql">数据库&amp;持久化方案</h3><br>• 常规持久化方案（Keychain,NSUserDefaults,Sqlite,CoreData）<br>•数据库的使用和设计（Sqlite）<br>•数据结构优化，Sql调优<p></p>
-<p></p><h3 id="graphic">图形图像编程</h3><br>• UIKit,Core Animation和Core Text的绘制<br>• Core Graphics, Quartz 2D, Media Player, AV Foundation<br>• OpenGL ES, GLKit, SpriteKit, SceneKit, Metal<p></p>
-<p></p><h3 id="alog">数据结构 &amp; 算法</h3><br>•基本的算法和数据结构（排序搜索算法, 数组, 队列）<br>•较复杂数据结构的灵活应用（二叉树, 图等）<br>•复杂的专项算法（图像识别算法, 拓扑定位等等）<p></p>
-<p></p><h3 id="safe">安全方案</h3><br>• 本地数据存储安全（Keychain）<br>•授权和身份验证<br>•传输安全（对称, 非对称, SSL）<br>• App代码安全<p></p>
-<p></p><h3 id="bussiness">业务能力</h3><br>•一般性业务功能需求分析及实现<br>•重要业务模块的需求分析及实现<br>•中小规模产品的架构，系统设计和实现<br>•大规模产品或产品线的架构，系统设计和实现<br>•平台级产品的架构，系统设计和实现<p></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>提醒自己：</p>
-<p><h3 id = "objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优</p>]]>
-    
-    </summary>
-    
-      <category term="skills" scheme="http://koalahl.github.io/tags/skills/"/>
     
       <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
