@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Learn Swift - Section Four 扩展、协议、泛型 | 寒流‘s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="LearnSwift," />
+  
+
+  <meta name="description" content="Extension扩展Extension就是向一个已有的类、结构体、枚举类型或者协议类型添加新功能（functionality）。这包括在没有权限获取原始源代码的情况下扩展类型的能力（即逆向建模）。扩展和 Objective-C 中的分类（categories）类似。（不过与 Objective-C 不同的是，Swift 的扩展没有名字。）
+Swift 中的扩展可以：
+
+添加计算型属性和计算型静态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learn Swift - Section Four 扩展、协议、泛型">
+<meta property="og:url" content="http://koalahl.github.io/2016/04/28/Learn-Swift-Section-Four-扩展、协议、泛型/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="Extension扩展Extension就是向一个已有的类、结构体、枚举类型或者协议类型添加新功能（functionality）。这包括在没有权限获取原始源代码的情况下扩展类型的能力（即逆向建模）。扩展和 Objective-C 中的分类（categories）类似。（不过与 Objective-C 不同的是，Swift 的扩展没有名字。）
+Swift 中的扩展可以：
+
+添加计算型属性和计算型静态">
+<meta property="og:updated_time" content="2016-04-28T08:50:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learn Swift - Section Four 扩展、协议、泛型">
+<meta name="twitter:description" content="Extension扩展Extension就是向一个已有的类、结构体、枚举类型或者协议类型添加新功能（functionality）。这包括在没有权限获取原始源代码的情况下扩展类型的能力（即逆向建模）。扩展和 Objective-C 中的分类（categories）类似。（不过与 Objective-C 不同的是，Swift 的扩展没有名字。）
+Swift 中的扩展可以：
+
+添加计算型属性和计算型静态">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=eaf5ab1e" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css" type="text/css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?86a3c4926ef6599491d71ceddf47d46a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/categories/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#extension"><span class="toc-text">Extension</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protocol"><span class="toc-text">Protocol</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Learn-Swift-Section-Four-扩展、协议、泛型" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Learn Swift - Section Four 扩展、协议、泛型</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.04.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Han Liu</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Swift/">Swift</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://koalahl.github.io/2016/04/28/Learn-Swift-Section-Four-扩展、协议、泛型/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p></p><h2 id="extension">Extension</h2><br>扩展<code>Extension</code>就是向一个已有的类、结构体、枚举类型或者协议类型添加新功能（functionality）。这包括在没有权限获取原始源代码的情况下扩展类型的能力（即逆向建模）。扩展和 Objective-C 中的分类（categories）类似。（不过与 Objective-C 不同的是，Swift 的扩展没有名字。）<p></p>
+<p>Swift 中的扩展可以：</p>
+<ul>
+<li>添加计算型属性和计算型静态属性</li>
+<li>定义实例方法和类型方法</li>
+<li>提供新的构造器</li>
+<li>定义下标</li>
+<li>定义和使用新的嵌套类型</li>
+<li>使一个已有类型符合某个协议</li>
+<li>也可以对一个协议进行扩展</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Int</span></span>&#123;</span><br><span class="line">    <span class="comment">//转换成小时</span></span><br><span class="line">    <span class="keyword">var</span> hours : <span class="type">Int</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>/<span class="number">3600</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> ago : <span class="type">Int</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//x之前的时间</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">ago</span><span class="params">(x:Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span> - x</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> currentTime = <span class="number">7200</span></span><br><span class="line"><span class="number">3</span>.hours</span><br><span class="line"><span class="number">3</span>.hours.ago</span><br><span class="line"><span class="number">3</span>.ago + currentTime</span><br><span class="line"><span class="comment">//5秒之前</span></span><br><span class="line">currentTime.ago(<span class="number">5</span>)</span><br><span class="line"><span class="comment">//1小时之前</span></span><br><span class="line">currentTime.hours.ago(<span class="number">1</span>)</span><br><span class="line">currentTime.hours.ago(<span class="number">3600</span>.hours)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">3</span>.ago)</span><br></pre></td></tr></table></figure>
+<p></p><h2 id="protocol">Protocol</h2><br>协议定义了一个蓝图，规定了用来实现某一特定工作或者功能所必需的方法和属性。类，结构体或枚举类型都可以遵循协议，并提供具体实现来完成协议定义的方法和功能。任意能够满足协议要求的类型被称为遵循(conform)这个协议。<p></p>
+<p>除了遵循协议的类型必须实现那些指定的规定以外，还可以对协议进行扩展，实现一些特殊的规定或者一些附加的功能，使得遵循的类型能够收益。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SellProducts</span></span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sellProducts</span><span class="params">(product:String)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name:<span class="type">String</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate:<span class="type">Seller</span>?</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> someClosure:(<span class="type">Int</span>,<span class="type">String</span>)-&gt;<span class="type">String</span> = &#123;</span><br><span class="line">        <span class="comment">//在闭包中将self修饰为无主引用。将delegate 修饰为 弱引用</span></span><br><span class="line">        [<span class="keyword">unowned</span> <span class="keyword">self</span>,<span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!]<span class="comment">//捕获列表</span></span><br><span class="line">        (index:<span class="type">Int</span>,strToProcess:<span class="type">String</span>)-&gt;<span class="type">String</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"<span class="subst">\(<span class="keyword">self</span>.name)</span>,<span class="subst">\(<span class="keyword">self</span>.delegate)</span>,<span class="subst">\(delegate)</span>"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">init</span>(name:<span class="type">String</span>,delegate:<span class="type">Seller</span>?)&#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name;</span><br><span class="line">        <span class="keyword">self</span>.delegate = delegate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">giveSellerProducts</span><span class="params">(product:String )</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.delegate?.sellProducts(product)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Seller</span> : <span class="title">SellProducts</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> product:<span class="type">String</span>?</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sellProducts</span><span class="params">( product: String)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.product = product</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> seller = <span class="type">Seller</span>()</span><br><span class="line"><span class="keyword">var</span> person = <span class="type">Person</span> (name: <span class="string">"Hanliu"</span>, delegate: seller)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//刚开始seller是没有商品的，要等到Person给seller</span></span><br><span class="line"><span class="built_in">print</span>(seller.product)</span><br><span class="line"><span class="comment">//person告诉seller，帮我卖苹果</span></span><br><span class="line">person.giveSellerProducts(<span class="string">"apple"</span>)</span><br><span class="line"><span class="comment">//现在seller手中就有了商品了</span></span><br><span class="line"><span class="built_in">print</span>(seller.product!)</span><br><span class="line"></span><br><span class="line">person.someClosure(<span class="number">1</span>,<span class="string">"haha"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>协议中的属性一定要指明读写状态<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SomeProtocol</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mustBeSettable:<span class="type">Int</span>&#123;<span class="keyword">get</span> <span class="keyword">set</span>&#125;<span class="comment">//表示该属性是可读可写</span></span><br><span class="line">    <span class="keyword">var</span> notNeededForSetable:<span class="type">String</span>&#123;<span class="keyword">get</span>&#125;<span class="comment">//表示只读</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> someTypedProperty:<span class="type">String</span>&#123;<span class="keyword">get</span> <span class="keyword">set</span>&#125;<span class="comment">//类属性(当协议遵循者是class是，可以用class关键字)</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">FullyName</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fullname:<span class="type">String</span>&#123;<span class="keyword">get</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PersonName</span>:<span class="title">FullyName</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fullname: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> shortName :<span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="type">PersonName</span>(fullname: <span class="string">"Levi John"</span>,shortName: <span class="string">"LJ"</span>)</span><br><span class="line">person.fullname</span><br></pre></td></tr></table></figure></p>
+<p>协议本身并不实现任何功能，但是协议可以被作为类型使用。就是与String、Int这些类型的作用相同。</p>
+<ul>
+<li>作为函数、方法或构造器中的参数类型或返回值类型</li>
+<li>作为常量、变量或属性的类型</li>
+<li>作为数组、字典或其他容器中的元素的类型</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protocol RandomGenerator &#123;&#10;    func random()-&#62;Double&#10;&#125;&#10;class Dice&#123;&#10;    let slides:Int&#10;    var generator:RandomGenerator//&#20316;&#20026;&#23646;&#24615;&#31867;&#22411;&#10;    init(slides:Int,generator:RandomGenerator)&#123;//&#20316;&#20026;&#21442;&#25968;&#31867;&#22411;&#10;        self.slides = slides&#10;        self.generator = generator&#10;    &#125;&#10;&#10;    func roll() -&#62; Int &#123;&#10;        return Int(self.generator.random() * Double(slides))+1&#10;    &#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/categories/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hanangellove';
+    
+    var disqus_url = 'http://koalahl.github.io/2016/04/28/Learn-Swift-Section-Four-扩展、协议、泛型/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hanangellove.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
