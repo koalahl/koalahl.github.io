@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[Learn Swift - Section Four 扩展、协议、泛型]]></title>
+      <title><![CDATA[Learn Swift - Section 4th 扩展、协议、泛型]]></title>
       <url>http://koalahl.github.io/2016/04/28/Learn-Swift-Section-Four-%E6%89%A9%E5%B1%95%E3%80%81%E5%8D%8F%E8%AE%AE%E3%80%81%E6%B3%9B%E5%9E%8B/</url>
       <content type="html"><![CDATA[<p></p><h2 id="extension">Extension</h2><br>扩展<code>Extension</code>就是向一个已有的类、结构体、枚举类型或者协议类型添加新功能（functionality）。这包括在没有权限获取原始源代码的情况下扩展类型的能力（即逆向建模）。扩展和 Objective-C 中的分类（categories）类似。（不过与 Objective-C 不同的是，Swift 的扩展没有名字。）<p></p>
 <p>Swift 中的扩展可以：</p>
@@ -37,7 +37,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Learn Swift - Section Three 类与结构体]]></title>
+      <title><![CDATA[Learn Swift - Section 3rd 类与结构体]]></title>
       <url>http://koalahl.github.io/2016/04/26/Learn-Swift-Section-Three/</url>
       <content type="html"><![CDATA[<p>类与结构体的共同点：</p>
 <ul>
@@ -84,7 +84,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Learn Swift - Section Two 集合类型和枚举]]></title>
+      <title><![CDATA[Learn Swift - Section 2nd 集合类型和枚举]]></title>
       <url>http://koalahl.github.io/2016/04/26/Learn-Swift-Section-Two/</url>
       <content type="html"><![CDATA[<p>Arra、Dictionary、Set和枚举</p>
 <a id="more"></a>
@@ -116,7 +116,7 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Learn Swift - Section One 基础知识]]></title>
+      <title><![CDATA[Learn Swift - Section 1st 基础知识]]></title>
       <url>http://koalahl.github.io/2016/04/26/Learn-Swift-Section-One/</url>
       <content type="html"><![CDATA[<p>import UIKit</p>
 <p>var str = “Hello, playground”</p>
