@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2015-12-05T15:04:57.000Z</updated>
+  <updated>2016-04-28T15:04:57.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -16,10 +16,10 @@
   
   <entry>
     <title><![CDATA[iOS开发技术栈]]></title>
-    <link href="http://koalahl.github.io/2016/04/30/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
-    <id>http://koalahl.github.io/2016/04/30/iOS开发技术栈/</id>
-    <published>2016-04-30T15:04:57.000Z</published>
-    <updated>2015-12-05T15:04:57.000Z</updated>
+    <link href="http://koalahl.github.io/2016/04/28/iOS%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    <id>http://koalahl.github.io/2016/04/28/iOS开发技术栈/</id>
+    <published>2016-04-28T15:04:57.000Z</published>
+    <updated>2016-04-28T15:04:57.000Z</updated>
     <content type="html"><![CDATA[<p>提醒自己：</p>
 <p></p><h3 id="objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优<p></p>
 <a id="more"></a>
