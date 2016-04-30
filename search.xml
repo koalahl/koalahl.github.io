@@ -26,7 +26,7 @@
 
 <p>泛型代码可以让你写出根据自我需求定义、适用于任何类型的，灵活且可重用的函数和类型。它的可以让你避免重复的代码，用一种清晰和抽象的方式来表达代码的意图。</p>
 <p>泛型是 Swift 强大特征中的其中一个，许多 Swift 标准库是通过泛型代码构建出来的。事实上，泛型的使用贯穿了整本语言手册，只是你没有发现而已。例如，Swift 的数组和字典类型都是泛型集。你可以创建一个Int数组，也可创建一个String数组，或者甚至于可以是任何其他 Swift 的类型数据数组。同样的，你也可以创建存储任何指定类型的字典（dictionary），而且这些类型可以是没有限制的</p>
-<p>泛型函数<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func swapTwoValues&#60;T&#62;(inout a:T,inout b:T)&#123;&#10;    let tempValue = a&#10;    a = b&#10;    b = tempValue&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>泛型函数<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">swapTwoValues</span><span class="generics">&lt;T&gt;</span><span class="params">(<span class="keyword">inout</span> a:T,<span class="keyword">inout</span> b:T)</span></span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tempValue = a</span><br><span class="line">    a = b</span><br><span class="line">    b = tempValue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>T 表示一个占位命名类型</li>
 <li><t>尖括号表示它里面的T是由函数<code>swapTwoValues</code>定义的一个类型，swift不会去查找命名为T的实际类型</t></li>
