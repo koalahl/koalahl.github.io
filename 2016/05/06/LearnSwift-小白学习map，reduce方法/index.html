@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>LearnSwift-小白学习map，reduce方法 | 寒流‘s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Polomana,koalahl,iOS,Developer,iOS开发,Objective C,swift" />
+  
+
+  <meta name="description" content="数组的map、reduce方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LearnSwift-小白学习map，reduce方法">
+<meta property="og:url" content="http://koalahl.github.io/2016/05/06/LearnSwift-小白学习map，reduce方法/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="数组的map、reduce方法">
+<meta property="og:image" content="http://koalahl.github.io/img/￥0类型.png">
+<meta property="og:image" content="http://koalahl.github.io/img/$1类型.png">
+<meta property="og:updated_time" content="2016-05-06T13:30:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LearnSwift-小白学习map，reduce方法">
+<meta name="twitter:description" content="数组的map、reduce方法">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=eaf5ab1e" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css" type="text/css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?86a3c4926ef6599491d71ceddf47d46a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header LEFT">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post LEFT">
+   <article id="post-LearnSwift-小白学习map，reduce方法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">LearnSwift-小白学习map，reduce方法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.05.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Han Liu</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://koalahl.github.io/2016/05/06/LearnSwift-小白学习map，reduce方法/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>数组的map、reduce方法</p>
+<a id="more"></a>
+<p>map方法将遍历序列中每个元素<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">map</span> &#123; (i) -&gt; <span class="type">Int</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> i * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>reduce: i 这里是一个累加值，保存了前一次运算的结果。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">reduce</span>(<span class="number">1</span>) &#123; (i, element) -&gt; <span class="type">Int</span> <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(i,element)</span><br><span class="line">    <span class="keyword">return</span> i * element</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的reduce方法可以简化为<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">reduce</span>(<span class="number">1</span>, combine: *)</span><br></pre></td></tr></table></figure></p>
+<p>下面来看看flatMap<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> persons: [[<span class="type">String</span>: <span class="type">AnyObject</span>]] = [[<span class="string">"name"</span>: <span class="string">"Carl Saxon"</span>, <span class="string">"city"</span>: <span class="string">"New York, NY"</span>, <span class="string">"age"</span>: <span class="number">44</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Travis Downing"</span>, <span class="string">"city"</span>: <span class="string">"El Segundo, CA"</span>, <span class="string">"age"</span>: <span class="number">34</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Liz Parker"</span>, <span class="string">"city"</span>: <span class="string">"San Francisco, CA"</span>, <span class="string">"age"</span>: <span class="number">32</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"John Newden"</span>, <span class="string">"city"</span>: <span class="string">"New Jersey, NY"</span>, <span class="string">"age"</span>: <span class="number">21</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Hector Simons"</span>, <span class="string">"city"</span>: <span class="string">"San Diego, CA"</span>, <span class="string">"age"</span>: <span class="number">37</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Brian Neo"</span>, <span class="string">"age"</span>: <span class="number">27</span>]] <span class="comment">//注意这家伙没有 city 键值</span></span><br><span class="line"><span class="comment">//找到住在CA的居民。</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">peopleFromState</span><span class="params">(state:String,persons:[[String:AnyObject]])</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> persons.flatMap &#123; $<span class="number">0</span>[<span class="string">"city"</span>]?.componentsSeparatedByString(<span class="string">", "</span>).last&#125;.<span class="built_in">filter</span> &#123; $<span class="number">0</span> == state&#125;.<span class="built_in">count</span></span><br><span class="line">&#125;</span><br><span class="line">peopleFromState(<span class="string">"CA"</span>, persons: persons)</span><br></pre></td></tr></table></figure></p>
+<p>用reduce实现map、flatMap<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">rmap</span><span class="params">(element:[Int],transform:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Int</span> ) -&gt;[<span class="type">Int</span>]&#123;</span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123; (<span class="keyword">var</span> accemulator:[<span class="type">Int</span>], obj:<span class="type">Int</span>) -&gt; [<span class="type">Int</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(accemulator,obj)</span><br><span class="line">        accemulator.append(transform(obj))</span><br><span class="line">        <span class="keyword">return</span> accemulator</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rmap([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], transform: &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">rmap2</span><span class="params">(element:[Int],transform:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Int</span>) -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123;$<span class="number">0</span>  + [transform($<span class="number">1</span>)]&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> array = rmap2([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], transform: &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(array)</span><br><span class="line"></span><br><span class="line">结果都是[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>]</span><br></pre></td></tr></table></figure>
+<p>理解 <code>$0, $1</code><br>$0,$1是一个常量，类型根据所在函数的参数类型决定。<br><img src="/img/￥0类型.png" alt=""><br><img src="/img/$1类型.png" alt=""><br>为何它们是这个类型呢？<br>其所在函数是reduce函数，那么$0的类型应该由reduce函数的参数类型决定，$1的类型是由combine这个函数/闭包/方法的第二个参数类型决定的。所以我们来看看reduce函数的定义：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="func"><span class="keyword">func</span> <span class="title">reduce</span><span class="generics">&lt;T&gt;</span><span class="params">(initial: T, @noescape combine: <span class="params">(T, <span class="keyword">Self</span>.Generator.Element)</span></span></span> <span class="keyword">throws</span> -&gt; <span class="type">T</span>) <span class="keyword">rethrows</span></span><br></pre></td></tr></table></figure></p>
+<p>$0代表第一个参数，其类型这里是[Int],$1代表的是combine内的第二个参数，所以其类型就是Int的。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'hanangellove';
+    
+    var disqus_url = 'http://koalahl.github.io/2016/05/06/LearnSwift-小白学习map，reduce方法/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//hanangellove.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
