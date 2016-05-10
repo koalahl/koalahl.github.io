@@ -22,7 +22,30 @@
     <entry>
       <title><![CDATA[《程序员的自我修养》读书笔记-2.编译和链接]]></title>
       <url>http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-2-%E7%BC%96%E8%AF%91%E5%92%8C%E9%93%BE%E6%8E%A5/</url>
-      <content type="html"><![CDATA[<p><img src="/img/gcc compile process.jpeg" alt=""></p>
+      <content type="html"><![CDATA[<p>一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？<br><code>$gcc HelloWorld.c</code>命令，得到a.out<br><code>$./a.out</code> 执行</p>
+<p>该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。</p>
+<p><img src="/img/gcc compile process.jpeg" alt=""></p>
+<h3 id="preprocess">预编译</h3>
+
+<p>预编译的命令<code>$gcc -E HelloWorld.c -o HelloWorld.i</code>。<br>预编译中的主要规则：</p>
+<ul>
+<li>将所有的<code>#define</code>删除，展开所有的宏定义</li>
+<li>处理所有的条件预编译指令，比如<code>#if</code>,<code>#ifdef</code>,<code>#endif</code>,<code>#elif</code>,<code>#else</code>.</li>
+<li>处理<code>#include</code>指令，将被包含的文件插入到该预编译指令的位置。这个过程是递归进行的</li>
+<li>删除所有的注释<code>//</code>和<code>/**/</code>.</li>
+<li>添加行号和文件名标识。</li>
+<li>保留所有的<code>#pragma</code>编译器指令，因为编译器要使用它。</li>
+</ul>
+<h3 id="compile">编译</h3>
+
+<p>编译器 cc1<br>编译过程就是把预处理完的.i文件进行一系列的词法分析、语法分析、语义分析以及代码优化后产生相应的汇编代码<br>编译的命令<code>$gcc -S HelloWorld.c -o HelloWorld.s</code>。</p>
+<p><img src="/img/compile process.png" alt="编译过程"></p>
+<h3 id="assembly">汇编</h3>
+
+<p>汇编过程将汇编代码转换成机器代码。根据汇编指令和机器代码的对照表一一翻译。汇编器 as<br>汇编的命令<code>$gcc -c HelloWorld.c -o HelloWorld.o</code>。</p>
+<h3 id="linking">链接</h3>
+
+<p>链接器 ld<br>从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。</p>
 <a id="more"></a>
 ]]></content>
     </entry>
