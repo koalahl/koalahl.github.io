@@ -227,11 +227,11 @@
 </ul>
 <h3 id="compile">编译</h3>
 
-<p>编译器 cc1<br>编译过程就是把预处理完的.i文件进行一系列的词法分析、语法分析、语义分析以及代码优化后产生相应的汇编代码<br>编译的命令<code>$gcc -S HelloWorld.c -o HelloWorld.s</code>。</p>
+<p>编译器 ：cc1程序<br>编译过程就是把预处理完的.i文件进行一系列的词法分析、语法分析、语义分析以及代码优化后产生相应的汇编代码<br>编译的命令<code>$gcc -S HelloWorld.c -o HelloWorld.s</code>。</p>
 <p><img src="/img/compile process.png" alt="编译过程"></p>
 <h3 id="assembly">汇编</h3>
 
-<p>汇编过程将汇编代码转换成机器代码。根据汇编指令和机器代码的对照表一一翻译。汇编器 as<br>汇编的命令<code>$gcc -c HelloWorld.c -o HelloWorld.o</code>。</p>
+<p>汇编器 as<br>汇编过程将汇编代码转换成机器代码。根据汇编指令和机器代码的对照表一一翻译。<br>汇编的命令<code>$gcc -c HelloWorld.c -o HelloWorld.o</code>。</p>
 <h3 id="linking">链接</h3>
 
 <p>链接器 ld<br>从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。</p>
