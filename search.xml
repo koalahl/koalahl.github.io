@@ -27,7 +27,37 @@
 
 <p>线程结构：线程ID、指令指针PC、线程内栈和寄存器<br><img src="/img/thread.png" alt="线程结构"></p>
 <p>现在基本都是多线程。</p>
-<p>线程的访问权限。<br>|线程私有      |    线程间共享 |<br>| ————- |:————-:|<br>|  - 局部变量   | - 全局变量 |<br>|  - 函数的参数 | - 堆上的数据 |<br>|  - TLS数据   | - 函数中的静态变量 |<br>|               |- 程序代码 |<br>|               |- 打开的文件。线程A打开的文件可以由线程B读写 |</p>
+<p>线程的访问权限。</p>
+<table>
+<thead>
+<tr>
+<th>线程私有</th>
+<th style="text-align:center">线程间共享</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>- 局部变量</td>
+<td style="text-align:center">- 全局变量</td>
+</tr>
+<tr>
+<td>- 函数的参数</td>
+<td style="text-align:center">- 堆上的数据</td>
+</tr>
+<tr>
+<td>- TLS数据</td>
+<td style="text-align:center">- 函数中的静态变量</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center">- 程序代码</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:center">- 打开的文件。线程A打开的文件可以由线程B读写</td>
+</tr>
+</tbody>
+</table>
 <p>线程安全<br>单指令操作称为原子的Atomic。简单情况下可保证线程安全，但是在复杂的数据结构中，就有可能不能保证。此时需要更加通用的手段：锁<br>同步与锁。但是还是有可能出现问题，原因来自于CPU执行指令的换序（CPU有可能将后面的代码先执行）。<br>barrier阻塞机制。barrier指令会阻止CPU将barrier指令之前的指令交换到barrier之后，反之亦然。</p>
 ]]></content>
     </entry>
