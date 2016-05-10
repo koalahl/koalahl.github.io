@@ -44,9 +44,31 @@
   </entry>
   
   <entry>
+    <title><![CDATA[《程序员的自我修养》读书笔记-2.编译和链接]]></title>
+    <link href="http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-2-%E7%BC%96%E8%AF%91%E5%92%8C%E9%93%BE%E6%8E%A5/"/>
+    <id>http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-2-编译和链接/</id>
+    <published>2016-05-10T12:27:06.000Z</published>
+    <updated>2016-05-10T12:27:06.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/img/gcc compile process.jpeg" alt=""></p>
+<a id="more"></a>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/img/gcc compile process.jpeg" alt=""></p>]]>
+    
+    </summary>
+    
+      <category term="编译" scheme="http://koalahl.github.io/tags/%E7%BC%96%E8%AF%91/"/>
+    
+      <category term="链接" scheme="http://koalahl.github.io/tags/%E9%93%BE%E6%8E%A5/"/>
+    
+      <category term="程序员的自我修养" scheme="http://koalahl.github.io/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[《程序员的自我修养》读书笔记-1温故知新]]></title>
-    <link href="http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98/"/>
-    <id>http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-内存问题/</id>
+    <link href="http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-1-%E6%B8%A9%E6%95%85%E7%9F%A5%E6%96%B0/"/>
+    <id>http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-1-温故知新/</id>
     <published>2016-05-10T11:10:56.000Z</published>
     <updated>2016-05-10T11:10:56.000Z</updated>
     <content type="html"><![CDATA[<p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
