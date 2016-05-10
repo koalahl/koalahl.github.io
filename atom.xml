@@ -44,6 +44,33 @@
   </entry>
   
   <entry>
+    <title><![CDATA[《程序员的自我修养》读书笔记-内存问题]]></title>
+    <link href="http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98/"/>
+    <id>http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-内存问题/</id>
+    <published>2016-05-10T11:10:56.000Z</published>
+    <updated>2016-05-10T11:10:56.000Z</updated>
+    <content type="html"><![CDATA[<p>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。</p>
+<a id="more"></a>
+<p>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。</p>
+<p>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。</p>
+<ul>
+<li>分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。</li>
+<li>分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小</li>
+</ul>
+<p><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。</p>]]>
+    
+    </summary>
+    
+      <category term="内存" scheme="http://koalahl.github.io/tags/%E5%86%85%E5%AD%98/"/>
+    
+      <category term="程序员的自我修养" scheme="http://koalahl.github.io/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[LearnSwift-小白学习map，reduce方法]]></title>
     <link href="http://koalahl.github.io/2016/05/06/LearnSwift-%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0map%EF%BC%8Creduce%E6%96%B9%E6%B3%95/"/>
     <id>http://koalahl.github.io/2016/05/06/LearnSwift-小白学习map，reduce方法/</id>
