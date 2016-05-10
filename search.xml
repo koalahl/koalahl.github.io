@@ -20,17 +20,21 @@
     </entry>
     
     <entry>
-      <title><![CDATA[《程序员的自我修养》读书笔记-内存问题]]></title>
+      <title><![CDATA[《程序员的自我修养》读书笔记-1温故知新]]></title>
       <url>http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。</p>
-<a id="more"></a>
-<p>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。</p>
-<p>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。</p>
+      <content type="html"><![CDATA[<p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
+<h2 id="memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><br><a id="more"></a><br><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br>- 分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。<br>- 分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小。虚拟内存的实现需要依靠硬件支持。通常采用<code>MMU(Memory Management Unit)</code>来进行page mapping，将CPU使用的虚拟地址映射为实际的物理地址。<br><br><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"><br><br><h2 id="thread">线程</h2>
+
+<p>线程结构：线程ID、指令指针PC、线程内栈和寄存器<br><img src="/img/thread.png" alt="线程结构"></p>
+<p>现在基本都是多线程。</p>
+<p>线程的访问权限。<br>线程私有          线程间共享</p>
 <ul>
-<li>分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。</li>
-<li>分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小</li>
+<li>局部变量   | - 全局变量</li>
+<li>函数的参数 | - 堆上的数据</li>
+<li>TLS数据   | - 函数中的静态变量<pre><code>-<span class="ruby"> 程序代码
+</span>-<span class="ruby"> 打开的文件。线程<span class="constant">A</span>打开的文件可以由线程<span class="constant">B</span>读写</span>
+</code></pre></li>
 </ul>
-<p><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"></p>
 ]]></content>
     </entry>
     

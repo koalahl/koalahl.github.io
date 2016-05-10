@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>《程序员的自我修养》读书笔记-内存问题 | 寒流‘s Blog</title>
+  <title>《程序员的自我修养》读书笔记-1温故知新 | 寒流‘s Blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,21 @@
     <meta name="keywords" content="内存," />
   
 
-  <meta name="description" content="早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
+  <meta name="description" content="基础篇回顾一下两个基础：内存线程
+内存早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《程序员的自我修养》读书笔记-内存问题">
+<meta property="og:title" content="《程序员的自我修养》读书笔记-1温故知新">
 <meta property="og:url" content="http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-内存问题/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
+<meta property="og:description" content="基础篇回顾一下两个基础：内存线程
+内存早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
 <meta property="og:image" content="http://koalahl.github.io/img/VPandPP.jpg">
+<meta property="og:image" content="http://koalahl.github.io/img/thread.png">
 <meta property="og:updated_time" content="2016-05-10T11:10:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《程序员的自我修养》读书笔记-内存问题">
-<meta name="twitter:description" content="早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
+<meta name="twitter:title" content="《程序员的自我修养》读书笔记-1温故知新">
+<meta name="twitter:description" content="基础篇回顾一下两个基础：内存线程
+内存早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。">
 
   
 
@@ -150,12 +154,17 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#memory"><span class="toc-text">内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#thread"><span class="toc-text">线程</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post LEFT">
    <article id="post-《程序员的自我修养》读书笔记-内存问题" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">《程序员的自我修养》读书笔记-内存问题</h1>
+    <h1 class="post-title">《程序员的自我修养》读书笔记-1温故知新</h1>
 
     <div class="article-meta">
       <span>
@@ -190,15 +199,19 @@
 
   <div class="article-content">
     
-      <p>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。</p>
-<a id="more"></a>
-<p>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。</p>
-<p>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。</p>
+      <p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
+<h2 id="memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><br><a id="more"></a><br><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br>- 分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。<br>- 分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小。虚拟内存的实现需要依靠硬件支持。通常采用<code>MMU(Memory Management Unit)</code>来进行page mapping，将CPU使用的虚拟地址映射为实际的物理地址。<br><br><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"><br><br><h2 id="thread">线程</h2>
+
+<p>线程结构：线程ID、指令指针PC、线程内栈和寄存器<br><img src="/img/thread.png" alt="线程结构"></p>
+<p>现在基本都是多线程。</p>
+<p>线程的访问权限。<br>线程私有          线程间共享</p>
 <ul>
-<li>分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。</li>
-<li>分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小</li>
+<li>局部变量   | - 全局变量</li>
+<li>函数的参数 | - 堆上的数据</li>
+<li>TLS数据   | - 函数中的静态变量<pre><code>-<span class="ruby"> 程序代码
+</span>-<span class="ruby"> 打开的文件。线程<span class="constant">A</span>打开的文件可以由线程<span class="constant">B</span>读写</span>
+</code></pre></li>
 </ul>
-<p><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"></p>
 
     
   </div>
