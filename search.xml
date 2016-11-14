@@ -20,6 +20,32 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Xcode8中NavigationBar插入背景出错的解决方法]]></title>
+      <url>http://koalahl.github.io/2016/10/05/Xcode8%E4%B8%ADNavigationBar%E6%8F%92%E5%85%A5%E8%83%8C%E6%99%AF%E5%87%BA%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>在xcode8 的view hierarchay表现为：<br><img src="/img/background1.png" alt="xcode8"></p>
+<p>但是现在出现的问题是返回到首页后，导航栏被背景view遮盖了</p>
+<p><img src="/img/background2.png" alt="xcode8"></p>
+<p>解决方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.subviews[<span class="number">0</span>].insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>分析：<br>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[python代码运行在iOS工程中的方案]]></title>
+      <url>http://koalahl.github.io/2016/07/11/python%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%9C%A8iOS%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%96%B9%E6%A1%88/</url>
+      <content type="html"><![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
+<p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印<br>3.可以点击Send Msg按钮，会有如下log</p>
+<p>当然，也可以打开浏览器，输入127.0.0.1:8000</p>
+<p>实现方法：<br>1.主要集成了python基础库libPython和静态库liblibpython.a<br><img src="/img/python lib.png" alt="python lib"><br>2.include python.h,以及python 函数的使用方式：<br><img src="/img/python env init.png" alt="python env init"><br>红色框中server.py脚本被放到了其他线程执行，解决了卡住主线程的问题。</p>
+<p>3.同时我也给出了一个在用户界面向本地服务器消息交互的例子，使用socket。<br><img src="/img/socket.png" alt="socket"></p>
+<p>例子比较简单，实现了最基础的在用户界面与本地服务器通信的例子。并且不影响iOS相关代码的编写。</p>
+<p>由于附件较大，上传到了Github。<a href="https://github.com/koalahl/PythonIniOS。" target="_blank" rel="external">https://github.com/koalahl/PythonIniOS。</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[《程序员的自我修养》读书笔记-编译和链接]]></title>
       <url>http://koalahl.github.io/2016/05/10/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%BC%96%E8%AF%91%E5%92%8C%E9%93%BE%E6%8E%A5/</url>
       <content type="html"><![CDATA[<p>一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？<br><code>$gcc HelloWorld.c</code>命令，得到a.out<br><code>$./a.out</code> 执行</p>

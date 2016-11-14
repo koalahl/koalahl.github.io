@@ -1,158 +1,327 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="Thinking in Different">
-    
-
-    <!--Author-->
-    
-        <meta name="author" content="Han Liu">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="理解Objective-C中的消息发送"/>
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="寒流‘s Blog"/>
-
-    <!--Page Cover-->
-    
-        <meta property="og:image" content="undefined"/>
-    
-
+<html>
+    <head>
     <!-- Title -->
     
-    <title>理解Objective-C中的消息发送 - 寒流‘s Blog</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-
-    <!-- Custom Fonts -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Google Analytics -->
+    <title>
+        理解Objective-C中的消息发送 | 寒流‘s Blog
+    </title>
     
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#039BE5">
+    <meta name="author" content="Han Liu">
+    <meta name="description" content="Thinking in Different">
+    <meta name="keywords" content="iOS,swift,技术开发">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="寒流‘s Blog">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://koalahl.github.io">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="理解Objective-C中的消息发送 | 寒流‘s Blog">
+    <meta property="og:description" content="Thinking in Different">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.min.css" type="text/css">
+    <!-- Config CSS -->
+
+<!-- Theme Background -->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+		
+        #scheme-Paradox .MD-burger-layer {
+            background-color: #666;
+        }
+		
+        #scheme-Paradox .material-back{
+            color: #666;
+        }
+		
+        .material-layout .material-post>.material-nav,
+		.material-layout .material-index>.material-nav,
+        .material-nav a,
+        #scheme-Paradox .material-post_container .material-back{
+            color: #666;
+        }
+    </style>
 
 
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #039BE5
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #039BE5 !important
+    }
+    
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #00BCD4 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #039BE5 !important
+    }
+    
+    .fab{
+        background: #00BCD4 !important
+    }
+</style>
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css" type="text/css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
 </head>
+	
+	
 
-<body>
+    <body id="scheme-Isolation">
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">寒流‘s Blog</a>
-        </div>
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+				<!-- Isolation Header -->
+				<header class="header">
+	<div class="header-wrapper">
+		
+		<!-- Header Copyright -->
+		<div class="header-copyright">
+			<div class="header-site">
+				©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;寒流‘s Blog
+			</div>
+			<!-- 
+			I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+			It will not impact the appearance and can give developers a lot of support :)
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                
-                    <li>
-                        <a href="/archives">Archives</a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
+			很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+			它不会影响美观并可以给开发者很大的支持。 :) 
+			-->
+			<div>
+				Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a>
+				<br>
+				Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a>
+			</div>
+			
+		</div>
 
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
+		<!-- Header Title -->
+		<span class="header-title header-item">
+			<a href="/" title="寒流‘s Blog">
+				寒流‘s Blog
+			</a>
+		</span>
 
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>理解Objective-C中的消息发送</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        2015-12-16
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+		<p class="header-slogan header-item">
+			Thinking in Different
+		</p>
+		
+		<!-- Header Nav -->
+		<nav class="header-nav header-item">
+
+			<span class="header-nav-item">
+				<a href="/" title="Home">
+					<span>Home</span>
+				</a>
+			</span>
+			
+			<!-- Independent Pages -->
+            
+				<span class="header-nav-item">
+					<a href="/categories" title="categories">
+						<span>categories</span>
+					</a>
+				</span>
+            
+				<span class="header-nav-item">
+					<a href="/about" title="about">
+						<span>about</span>
+					</a>
+				</span>
+            
+
+		</nav>
+
+		<!-- Header SNS -->
+		<div class="header-item header-sns_list">
+    <!-- Twitter -->
+    
+    <a href="https://twitter.com/hanangellove" target="view_window">
+		<i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
+	</a>
+    
+    
+    <!-- Facebook -->
+    
+    
+    
+    <!-- Google + -->
+    
+    
+    
+    <!-- Weibo -->
+    
+    <a href="http://weibo.com/1619592223/" target="view_window">
+		<i class="fa fa-weibo fa-lg" aria-hidden="true"></i>
+	</a>
+    
+    
+    <!-- Instagram -->
+    
+    
+    
+    <!-- Tumblr -->
+    
+    
+    
+    <!-- Github -->
+    
+    <a href="https://github.com/koalahl" target="view_window">
+		<i class="fa fa-github fa-lg" aria-hidden="true"></i>
+	</a>
+    
+</div>
+
+
+	</div>
 </header>
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+				
+                
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
+<!-- Layouts -->
 
-            <!-- Tags and categories -->
-           
-                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
-                    
-                        
+    <!-- Post Module -->
+    <div class="material-post_container">
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
 
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	
 
-<a href="/tags/Runtime/">#Runtime</a>
+	<!-- Isolation Post Header -->
+	<!-- Post thumbnail -->
+	
+		<!-- Post Header Info -->
+		<div class="post-header_info without-thumbnail">
+			<!-- Author Avatar & Name -->
+			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
+			<span class="name-span">Han Liu</span>
+		</div>
+	
+		<!-- Null Thumbnail -->
+		<div class="post_thumbnail-null">
+	
+	</div>
 
+				
+				
 
-                    
-                </div>
-                <div class="col-lg-4 col-md-5 post-categories">
-                    
-                        
-
-<a href="/categories/iOS/">iOS</a>
-
-                    
-                </div>
-            
-
-            <!-- Gallery -->
-            
-
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2>消息发送</h2><br>首先来看看怎么理解发送消息的含义：<br><br>面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。<br><br>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。<br><br>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。<br><br>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。<br><br><h3>C语言中的动态方法</h3><br><br>由于Objective-C是C语言的超集，所以最好先理解C语言的函数调用方式。C语言使用“静态绑定（static binding）”，也就是说，在编译器就能决定运行时所应调用的函数。<br>示例代码：<br><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        printHello();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        printGoodBye();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>编译器在编译代码的时候就知道程序中有<code>printHello</code>,<code>printGoodBye</code>两个函数了，函数地址也硬编码在指令之中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> (*func)();</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        func = printHello;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        func = printGoodBye;</span><br><span class="line">    &#125;</span><br><span class="line">    func();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>这样就是动态绑定（dynamic binding）了，因为索要调用的函数直到运行期才能确定。<br><br><h3>顺便附上OC中一个类的底层数据结构</h3><br>mac电脑上的路径/usr/include/objc/runtime.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">	Class isa OBJC_ISA_<span class="built_in">AVAILABILITY</span>; <span class="comment">//isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r		untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</span></span><br><span class="line"></span><br><span class="line">	<span class="preprocessor">#if !__OBJC2__</span></span><br><span class="line">	Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span></span><br><span class="line">	<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">	<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">	<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">	<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method		Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span></span><br><span class="line">	<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span></span><br><span class="line">	<span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UN<span class="built_in">AVAILABLE</span>;</span><br></pre></td></tr></table></figure><br><br><a id="more"></a><br>OC中一个类的对象实例的数据结构（/usr/include/objc/objc.h），就是定义了一个<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// Represents an instance of a class.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> objc_object &#123;</span><br><span class="line"></span><br><span class="line">    Class isa  OBJC_ISA_<span class="built_in">AVAILABILITY</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// A pointer to an instance of a class.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *<span class="keyword">id</span>;</span><br></pre></td></tr></table></figure><br><br>向object发送消息时，Runtime库会根据object的isa指针找到这个实例object所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。id是一个objc_object结构类型的指针，这个类型的对象能够转换成任何一种对象。<br><br><h3>然后再来看看消息发送的函数：<code>objc_msgSend</code>函数</h3><br><br>在引言中已经对objc_msgSend进行了一点介绍，看起来像是objc_msgSend返回了数据，其实objc_msgSend从不返回数据而是你的方法被调用后返回了数据。下面详细叙述下消息发送步骤：<br><br>1.检测这个 selector 是不是要忽略的。比如 Mac OS X 开发，有了垃圾回收就不理会 retain,release 这些函数了。<br>2.检测这个 target 是不是 nil 对象。ObjC 的特性是允许对一个 nil 对象执行任何一个方法不会 Crash，因为会被忽略掉。<br>3.如果上面两个都过了，那就开始查找这个类的 IMP，先从 cache 里面找，完了        找得到就跳到对应的函数去执行。<br>4.如果 cache 找不到就找一下方法分发表。<br>5.如果分发表找不到就到超类的分发表去找，一直找，直到找到NSObject类为止。<br>6.如果还找不到就要开始进入动态方法解析了，后面会提到。<br><br>这么一想，调用一个方法似乎需要很多步骤。不过objc_msgSend会将匹配结果缓存在<code>fast map</code>快速映射表里面，每个类都有这样一块缓存。当然这种fast path 还是不如静态绑定的函数调用那样迅速，不过只要把Selector<br>缓存起来，也就不会慢很多，实际上，这并不是瓶颈。<br><br><h2>消息转发机制</h2>
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+	
+	
+		<div class="post-content_wrapper">
+			<p class="post-title">
+				理解Objective-C中的消息发送
+			</p>
+			<h2>消息发送</h2><br>首先来看看怎么理解发送消息的含义：<br><br>面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。<br><br>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。<br><br>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。<br><br>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。<br><br><h3>C语言中的动态方法</h3><br><br>由于Objective-C是C语言的超集，所以最好先理解C语言的函数调用方式。C语言使用“静态绑定（static binding）”，也就是说，在编译器就能决定运行时所应调用的函数。<br>示例代码：<br><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        printHello();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        printGoodBye();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>编译器在编译代码的时候就知道程序中有<code>printHello</code>,<code>printGoodBye</code>两个函数了，函数地址也硬编码在指令之中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> (*func)();</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        func = printHello;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        func = printGoodBye;</span><br><span class="line">    &#125;</span><br><span class="line">    func();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>这样就是动态绑定（dynamic binding）了，因为索要调用的函数直到运行期才能确定。<br><br><h3>顺便附上OC中一个类的底层数据结构</h3><br>mac电脑上的路径/usr/include/objc/runtime.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">	Class isa OBJC_ISA_<span class="built_in">AVAILABILITY</span>; <span class="comment">//isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r		untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</span></span><br><span class="line"></span><br><span class="line">	<span class="preprocessor">#if !__OBJC2__</span></span><br><span class="line">	Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span></span><br><span class="line">	<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">	<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">	<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">	<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method		Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span></span><br><span class="line">	<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span></span><br><span class="line">	<span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UN<span class="built_in">AVAILABLE</span>;</span><br></pre></td></tr></table></figure><br><br><a id="more"></a><br>OC中一个类的对象实例的数据结构（/usr/include/objc/objc.h），就是定义了一个<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// Represents an instance of a class.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> objc_object &#123;</span><br><span class="line"></span><br><span class="line">    Class isa  OBJC_ISA_<span class="built_in">AVAILABILITY</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// A pointer to an instance of a class.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *<span class="keyword">id</span>;</span><br></pre></td></tr></table></figure><br><br>向object发送消息时，Runtime库会根据object的isa指针找到这个实例object所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。id是一个objc_object结构类型的指针，这个类型的对象能够转换成任何一种对象。<br><br><h3>然后再来看看消息发送的函数：<code>objc_msgSend</code>函数</h3><br><br>在引言中已经对objc_msgSend进行了一点介绍，看起来像是objc_msgSend返回了数据，其实objc_msgSend从不返回数据而是你的方法被调用后返回了数据。下面详细叙述下消息发送步骤：<br><br>1.检测这个 selector 是不是要忽略的。比如 Mac OS X 开发，有了垃圾回收就不理会 retain,release 这些函数了。<br>2.检测这个 target 是不是 nil 对象。ObjC 的特性是允许对一个 nil 对象执行任何一个方法不会 Crash，因为会被忽略掉。<br>3.如果上面两个都过了，那就开始查找这个类的 IMP，先从 cache 里面找，完了        找得到就跳到对应的函数去执行。<br>4.如果 cache 找不到就找一下方法分发表。<br>5.如果分发表找不到就到超类的分发表去找，一直找，直到找到NSObject类为止。<br>6.如果还找不到就要开始进入动态方法解析了，后面会提到。<br><br>这么一想，调用一个方法似乎需要很多步骤。不过objc_msgSend会将匹配结果缓存在<code>fast map</code>快速映射表里面，每个类都有这样一块缓存。当然这种fast path 还是不如静态绑定的函数调用那样迅速，不过只要把Selector<br>缓存起来，也就不会慢很多，实际上，这并不是瓶颈。<br><br><h2>消息转发机制</h2>
 
 <p>当一个对象接收到无法解读的消息时，就会启动<code>消息转发（message forwording）</code>机制。coder可经由此过程告诉对象应该如何处理位置消息。<br>例如给某一个对象实例发送了一个该对象不存在的方法，最后就会crash掉。<br><code>-[NSCFDictionary indexOfObject:]: unrecognized selector sent to instance 0x10773929356</code><br>消息转发分为两大阶段。</p>
 <ol>
@@ -179,97 +348,187 @@
 </ul>
 <p>详情可参考  <a href="http://blog.jobbole.com/79545/" title="Objective-C Runtime" target="_blank" rel="external">Objective-C Runtime</a></p>
 
-            </div>
+		</div>
+	
+	
+</div>
+				
+				
+					<!-- Paradox Post Info -->
+					
+				
 
-            <!-- Comments -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- Post Comments -->
                 
-    <hr />
-    <h3>Comments:</h3>
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
+    <!-- 使用多说评论 -->
+    <link rel="stylesheet" href="/css/duoshuo.min.css" type="text/css">
+<style>
+    #ds-thread #ds-reset .ds-post-button{
+        background-color: #039BE5 !important;
+    }
+    #ds-wrapper #ds-reset .ds-icons-32{
+        background-color: #039BE5 !important;
+    }
+    #ds-reset .ds-highlight {
+        color: #039BE5 !important;
+    }
+</style>
+<div id="comments">
+    <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="undefined" data-title="理解Objective-C中的消息发送" data-url="http://koalahl.github.io//2015/12/16/理解Objective-C中的消息发送/index.html"></div>
+    <!-- 多说评论框 end -->
+</div>
 
 
 
             </div>
-        </div>
-    </div>
-</article>
 
-    <!-- Footer -->
-    <hr />
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    <li>
-                        <a href="https://twitter.com/hanangellove" target="_blank">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://weibo.com/1619592223/" target="_blank">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/koalahl" target="_blank">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted">Copyright 2014 - 2016
-                  <span class="with-love">
-                  <i class="fa fa-heart"></i>
-                  </span>
-                  Han Liu
-               </p>
-                <p class="copyright text-muted">Powered By <a target="_blank" href="https://hexo.io/">Hexo</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-    <!-- After footer scripts -->
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     
-<!-- jQuery -->
-<script src="/js/jquery.min.js" type="text/javascript"></script>
+    <!-- Prev Nav -->
+    
+        <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
 
-<!-- Bootstrap -->
-<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
 
-<!-- Gallery -->
-<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- Next Nav -->
+    
+        <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
 
-<!-- Disqus Comments -->
+				
+				
+				
+				
+					<!-- Floating Action Button -->
+<div class="fabs">
+    <a href="#top" class="fab toTop">
+        <i class="material-icons">expand_less</i>
+    </a>
+    
+    
+        <!-- Post Nav -->
+        
+            <a class="prev-content fab" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" title="TableViewCell根据内容自适应高度的方法"><i class="material-icons">keyboard_arrow_left</i></a>
+        
+
+        
+            <a class="prev-content fab" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" title="关于CoreData和SQLite多线程访问时的线程安全问题"><i class="material-icons">keyboard_arrow_right</i></a>
+        
+    
+    
+    
+    
+    <a href="#bottom" class="fab toBottom">
+        <i class="material-icons">keyboard_arrow_down</i>
+    </a>
+    
+    <a id="prime" class="fab">
+        <i class="material-icons prime-i-add">add</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/js.min.js" type="text/javascript"></script>
+<script src="/js/nprogress.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    var disqus_shortname = 'hanangellove';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
 </script>
 
 
-</body>
+	<script src="/js/smoothscroll.js" type="text/javascript"></script>
 
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    <!-- 多说公共 js 代码 start -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hanangellove"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = 'https://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共 js 代码 end -->
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		$(".fabs").mouseleave(function(){
+			if( $("#prime").hasClass("is-visible") )
+				$("#prime").click();
+		});
+	</script>
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
 </html>
