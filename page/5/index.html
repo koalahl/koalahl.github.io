@@ -303,6 +303,69 @@
     <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
 		<!-- Post Title -->
 		<p class="post_entry-title">
+			<a href="/2015/12/16/Block实现原理/">Block实现原理</a>
+		</p>
+		
+		<!-- Post Excerpt -->
+		<p class="post_entry-excerpt">
+			
+			  Block一直是iOS开发中常用的技巧，类似于C语言中的指针函数。多用于参数回调，异步加载等。下面就来探究以下block是如何实现的。这篇是记录根据网上的文章进行的实际操作。C函数的生成中间编译代码的编译方法是clang -rewrite-objc xxxx.c。由于编译文件中内容较多，这里我们只截取有关block的部分。
+首先，看看没有block的C函数以及编译后的结果：12345#include &lt;stdio.h&gt;int main()&#123;	return 0;&#125;
+编译代码中的block：这里我们可以看到一个block的C实现。12345678#ifndef BLOCK_IMPL#define BLOCK_IMPLstruct __block_impl &#123;  void *isa;  int Flags;  int Reserved;  void *FuncPtr;&#125;;
+*isa说明block也可以作为对象使用（例如我们定义一个myBlock类型的block1），指针变量FunPtr应该就是指向了block代码块的函数首地址
+			
+			&nbsp;&nbsp;&nbsp;
+			<span>
+				<a href="/2015/12/16/Block实现原理/" target="_self">Continue Reading</a>
+			</span>
+		</p>
+		
+		<!-- Post Tags -->
+		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/block/">block</a></li></ul>
+    </div>
+			
+	<!-- Post_entry Footer -->
+	<div class="post_entry-footer">
+		<div class="post_entry-footer-border"></div>
+		<div class="post_entry-footer-info">
+			<div class="post_entry-footer-date">
+				Dec 16, 2015
+			</div>
+			<div class="post_entry-footer-comment">
+				
+					<!-- Comment Number -->
+					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+		
+    
+		
+		
+			<!-- Isolation Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+
+	<!-- Post_entry Header -->
+	
+		<!-- Post Header Info -->
+		<div class="post_entry-header_info without-thumbnail">
+			<!-- Author Avatar & Name -->
+			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
+			<span class="name-span">Han Liu</span>
+		</div>
+	
+		<!-- Null Thumbnail -->
+		<div class="post_thumbnail-null">
+	
+	</div>
+			
+	<!-- Post_entry Content -->
+    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
+		<!-- Post Title -->
+		<p class="post_entry-title">
 			<a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/">TableViewCell根据内容自适应高度的方法</a>
 		</p>
 		
@@ -586,67 +649,6 @@ ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的�
 		<div class="post_entry-footer-info">
 			<div class="post_entry-footer-date">
 				Dec 12, 2015
-			</div>
-			<div class="post_entry-footer-comment">
-				
-					<!-- Comment Number -->
-					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
-				
-			</div>
-		</div>
-	</div>
-	
-</div>
-		
-    
-		
-		
-			<!-- Isolation Thumbnail -->
-        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-
-	<!-- Post_entry Header -->
-	
-		<!-- Post Header Info -->
-		<div class="post_entry-header_info without-thumbnail">
-			<!-- Author Avatar & Name -->
-			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
-			<span class="name-span">Han Liu</span>
-		</div>
-	
-		<!-- Null Thumbnail -->
-		<div class="post_thumbnail-null">
-	
-	</div>
-			
-	<!-- Post_entry Content -->
-    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
-		<!-- Post Title -->
-		<p class="post_entry-title">
-			<a href="/2015/12/05/iOS中处理四舍五入的问题/">iOS中处理四舍五入的问题</a>
-		</p>
-		
-		<!-- Post Excerpt -->
-		<p class="post_entry-excerpt">
-			
-			  处理四舍五入主要使用下面这个方法：12345678910-(NSString *)notRounding:(float)price afterPoint:(int)position&#123;    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];    NSDecimalNumber *ouncesDecimal;    NSDecimalNumber *roundedOunces;        ouncesDecimal = [[NSDecimalNumber alloc] initWithFloat:price];    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];    [ouncesDecimal release];    return [NSString stringWithFormat:@"%@",roundedOunces];&#125;介绍一下参数：price:需要处理的数字，position：保留小数点第几位，然后调用float s =0.126;    NSString *sb = [self notRounding:s afterPoint:2];    NSLog(@”sb = %@”,sb);输出结果为：sb = 0.12
-接下来介绍NSDecimalNumberHandler初始化时的关键参数：decimalNumberHandlerWithRoundingMode：NSRoundDown，NSRoundDown代表的就是 只舍不入。scale的参数position代表保留小数点后几位。
-			
-			&nbsp;&nbsp;&nbsp;
-			<span>
-				<a href="/2015/12/05/iOS中处理四舍五入的问题/" target="_self">Continue Reading</a>
-			</span>
-		</p>
-		
-		<!-- Post Tags -->
-		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/skills/">skills</a></li></ul>
-    </div>
-			
-	<!-- Post_entry Footer -->
-	<div class="post_entry-footer">
-		<div class="post_entry-footer-border"></div>
-		<div class="post_entry-footer-info">
-			<div class="post_entry-footer-date">
-				Dec 05, 2015
 			</div>
 			<div class="post_entry-footer-comment">
 				

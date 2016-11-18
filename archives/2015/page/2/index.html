@@ -390,7 +390,7 @@ Markdown 免费编辑器
 			
 		<!-- Custom thumbnail -->
 		<div class="post_thumbnail-custom">
-			<img src="http://img1.58.com/groupbuy/n_s02157698358070175115%2120618475290624.jpg">
+			<img src="http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg">
 	
 	</div>
 			
@@ -398,22 +398,26 @@ Markdown 免费编辑器
     <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
 		<!-- Post Title -->
 		<p class="post_entry-title">
-			<a href="/2015/11/30/hello-world/">Hello World</a>
+			<a href="/2015/11/30/常用排序算法/">常用排序算法</a>
 		</p>
 		
 		<!-- Post Excerpt -->
 		<p class="post_entry-excerpt">
 			
-			  Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+			  在此总结一下常用排序算法的代码实现
+#include &lt;iostream&gt;using namespace std;typedef int ElemType;
+/*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后
+就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素之前的元素依次后移一个位置；3）将L（i）复制到L（K）。 */时间复杂度为：O(n^2)
+1234567891011121314151617181920void InsertSort(ElemType arr[], int length)&#123;    int i, j;    ElemType guard; // 哨兵 for (i = 1; i &lt; length; ++i) &#123;   if (arr[i]() &lt; arr[i-1]()) // 在无序部分寻找一个元素，使之插入到有序部分后仍然有序 	&#123;	guard = arr[i]();// 复制到“哨兵”	// 将第i个元素之前的元素依次后移一个位置	for (j = i - 1; arr[j]() &gt; guard; j--)	&#123;		arr[j + 1]() = arr[j]();	&#125;	arr[j + 1]() = guard; // 复制到插入位置	&#125;  &#125;&#125;
 			
 			&nbsp;&nbsp;&nbsp;
 			<span>
-				<a href="/2015/11/30/hello-world/" target="_self">Continue Reading</a>
+				<a href="/2015/11/30/常用排序算法/" target="_self">Continue Reading</a>
 			</span>
 		</p>
 		
 		<!-- Post Tags -->
-		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/hexo/">hexo</a></li></ul>
+		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/算法/">算法</a></li></ul>
     </div>
 			
 	<!-- Post_entry Footer -->
@@ -451,7 +455,7 @@ Markdown 免费编辑器
 			
 		<!-- Custom thumbnail -->
 		<div class="post_thumbnail-custom">
-			<img src="http://www.shcpda.com/uploads/allimg/140701/1402553045-0.jpg">
+			<img src="http://img1.58.com/groupbuy/n_s02157698358070175115%2120618475290624.jpg">
 	
 	</div>
 			
@@ -459,26 +463,22 @@ Markdown 免费编辑器
     <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
 		<!-- Post Title -->
 		<p class="post_entry-title">
-			<a href="/2015/11/30/常用排序算法/">常用排序算法</a>
+			<a href="/2015/11/30/hello-world/">Hello World</a>
 		</p>
 		
 		<!-- Post Excerpt -->
 		<p class="post_entry-excerpt">
 			
-			  在此总结一下常用排序算法的代码实现
-#include &lt;iostream&gt;using namespace std;typedef int ElemType;
-/*1、插入排序（1）直接插入排序算法算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后
-就可以形成有序序列。操作步骤如下：1）查找出元素L（i）在表中的插入位置K；2）将表中的第K个元素之前的元素依次后移一个位置；3）将L（i）复制到L（K）。 */时间复杂度为：O(n^2)
-1234567891011121314151617181920void InsertSort(ElemType arr[], int length)&#123;    int i, j;    ElemType guard; // 哨兵 for (i = 1; i &lt; length; ++i) &#123;   if (arr[i]() &lt; arr[i-1]()) // 在无序部分寻找一个元素，使之插入到有序部分后仍然有序 	&#123;	guard = arr[i]();// 复制到“哨兵”	// 将第i个元素之前的元素依次后移一个位置	for (j = i - 1; arr[j]() &gt; guard; j--)	&#123;		arr[j + 1]() = arr[j]();	&#125;	arr[j + 1]() = guard; // 复制到插入位置	&#125;  &#125;&#125;
+			  Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
 			
 			&nbsp;&nbsp;&nbsp;
 			<span>
-				<a href="/2015/11/30/常用排序算法/" target="_self">Continue Reading</a>
+				<a href="/2015/11/30/hello-world/" target="_self">Continue Reading</a>
 			</span>
 		</p>
 		
 		<!-- Post Tags -->
-		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/算法/">算法</a></li></ul>
+		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/hexo/">hexo</a></li></ul>
     </div>
 			
 	<!-- Post_entry Footer -->

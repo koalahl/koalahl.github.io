@@ -303,6 +303,66 @@
     <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
 		<!-- Post Title -->
 		<p class="post_entry-title">
+			<a href="/2016/01/10/NSURLSession初探/">NSURLSession初探</a>
+		</p>
+		
+		<!-- Post Excerpt -->
+		<p class="post_entry-excerpt">
+			
+			  NSURLSession是Apple自iOS7.0之后加入到Cocoa SDK中，用以替代NSURLConnection。它拥有更简洁易懂的API方法。iOS中常用的网络库例如AFNetworking在3.0版本中就全部替换为了NSURLSession。
+			
+			&nbsp;&nbsp;&nbsp;
+			<span>
+				<a href="/2016/01/10/NSURLSession初探/" target="_self">Continue Reading</a>
+			</span>
+		</p>
+		
+		<!-- Post Tags -->
+		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/NSURLSession/">NSURLSession</a></li></ul>
+    </div>
+			
+	<!-- Post_entry Footer -->
+	<div class="post_entry-footer">
+		<div class="post_entry-footer-border"></div>
+		<div class="post_entry-footer-info">
+			<div class="post_entry-footer-date">
+				Jan 10, 2016
+			</div>
+			<div class="post_entry-footer-comment">
+				
+					<!-- Comment Number -->
+					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+		
+    
+		
+		
+			<!-- Isolation Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+
+	<!-- Post_entry Header -->
+	
+		<!-- Post Header Info -->
+		<div class="post_entry-header_info without-thumbnail">
+			<!-- Author Avatar & Name -->
+			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
+			<span class="name-span">Han Liu</span>
+		</div>
+	
+		<!-- Null Thumbnail -->
+		<div class="post_thumbnail-null">
+	
+	</div>
+			
+	<!-- Post_entry Content -->
+    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
+		<!-- Post Title -->
+		<p class="post_entry-title">
 			<a href="/2016/01/07/NS-ENUM与NSString/">NS_ENUM与NSString</a>
 		</p>
 		
@@ -831,67 +891,6 @@ ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的�
 		<div class="post_entry-footer-info">
 			<div class="post_entry-footer-date">
 				Dec 12, 2015
-			</div>
-			<div class="post_entry-footer-comment">
-				
-					<!-- Comment Number -->
-					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
-				
-			</div>
-		</div>
-	</div>
-	
-</div>
-		
-    
-		
-		
-			<!-- Isolation Thumbnail -->
-        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-
-	<!-- Post_entry Header -->
-	
-		<!-- Post Header Info -->
-		<div class="post_entry-header_info without-thumbnail">
-			<!-- Author Avatar & Name -->
-			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
-			<span class="name-span">Han Liu</span>
-		</div>
-	
-		<!-- Null Thumbnail -->
-		<div class="post_thumbnail-null">
-	
-	</div>
-			
-	<!-- Post_entry Content -->
-    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
-		<!-- Post Title -->
-		<p class="post_entry-title">
-			<a href="/2015/12/05/iOS中处理四舍五入的问题/">iOS中处理四舍五入的问题</a>
-		</p>
-		
-		<!-- Post Excerpt -->
-		<p class="post_entry-excerpt">
-			
-			  处理四舍五入主要使用下面这个方法：12345678910-(NSString *)notRounding:(float)price afterPoint:(int)position&#123;    NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:position raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];    NSDecimalNumber *ouncesDecimal;    NSDecimalNumber *roundedOunces;        ouncesDecimal = [[NSDecimalNumber alloc] initWithFloat:price];    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];    [ouncesDecimal release];    return [NSString stringWithFormat:@"%@",roundedOunces];&#125;介绍一下参数：price:需要处理的数字，position：保留小数点第几位，然后调用float s =0.126;    NSString *sb = [self notRounding:s afterPoint:2];    NSLog(@”sb = %@”,sb);输出结果为：sb = 0.12
-接下来介绍NSDecimalNumberHandler初始化时的关键参数：decimalNumberHandlerWithRoundingMode：NSRoundDown，NSRoundDown代表的就是 只舍不入。scale的参数position代表保留小数点后几位。
-			
-			&nbsp;&nbsp;&nbsp;
-			<span>
-				<a href="/2015/12/05/iOS中处理四舍五入的问题/" target="_self">Continue Reading</a>
-			</span>
-		</p>
-		
-		<!-- Post Tags -->
-		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/skills/">skills</a></li></ul>
-    </div>
-			
-	<!-- Post_entry Footer -->
-	<div class="post_entry-footer">
-		<div class="post_entry-footer-border"></div>
-		<div class="post_entry-footer-info">
-			<div class="post_entry-footer-date">
-				Dec 05, 2015
 			</div>
 			<div class="post_entry-footer-comment">
 				
