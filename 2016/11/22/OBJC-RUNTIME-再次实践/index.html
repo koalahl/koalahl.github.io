@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        一起唱，团结就是力量 | 寒流‘s Blog
+        OBJC RUNTIME 再次实践 | 寒流‘s Blog
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://koalahl.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="一起唱，团结就是力量 | 寒流‘s Blog">
+    <meta property="og:title" content="OBJC RUNTIME 再次实践 | 寒流‘s Blog">
     <meta property="og:description" content="Thinking in Different">
     
      <!--[if lte IE 9]>
@@ -292,14 +292,15 @@
 	<!-- Post thumbnail -->
 	
 		<!-- Post Header Info -->
-		<div class="post-header_info without-thumbnail">
+		<div class="post-header_info with-thumbnail">
 			<!-- Author Avatar & Name -->
 			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
 			<span class="name-span">Han Liu</span>
 		</div>
-	
-		<!-- Null Thumbnail -->
-		<div class="post_thumbnail-null">
+			
+		<!-- Custom thumbnail -->
+		<div class="post_thumbnail-custom">
+			<img src="http://image.slidesharecdn.com/objective-cruntime-131204162702-phpapp02/95/objective-c-runtime-13-638.jpg?cb=1386174512">
 	
 	</div>
 
@@ -313,10 +314,29 @@
 	
 		<div class="post-content_wrapper">
 			<p class="post-title">
-				一起唱，团结就是力量
+				OBJC RUNTIME 再次实践
 			</p>
-			<p>两个人来到河边，想要渡河，于是同乘一条船。一人船尾，一人船艏，各自拿起一对桨奋力地划着。可是过了老半天也不见小船驶向对岸，两人转头一看，原来各自把自己的位置当成船艏了，朝着相反的方向划去了。他们互相指责对方的过失，到了太阳落山依然还停留在原地。</p>
+			<p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
+<p>runtime使用场景：</p>
+<ul>
+<li>category添加关联属性</li>
+<li>MethodSwizzle替换/交换系统方法</li>
+</ul>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/Blended layer.png" alt="Blended layer"></p>
 <a id="more"></a>
+<p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<br><a href="/img/NSError+Msg_h.png">NSError+Msg_h</a><br><a href="/img/NSError+Msg_m.png">NSError+Msg_m</a><p></p>
+<p></p><h2 id="methodSwizzle">MethodSwizzle交换系统方法</h2><br>创建一个<code>UIImageView</code>的category，在分类中交换（exchange，注意这里不是替换replace）系统的<code>setImage:</code> 方法.<p></p>
+<p>我们要交换一个类的系统方法，那么首先想想在哪个方法中交换最合适呢？<br>我们知道app在启动之后，会进行类注册，调用类的<code>+load()</code>方法，且只调用一次。（注意与<code>+initialize</code>的区别）<img src="http://polomana.com/2016/03/23/Effective-Objective-C-2-0-要点/" alt="第51条:load与initialize的区别">所以我们在分类中重写<code>load</code>方法中添加交换方法。</p>
+<p>首先我们借用AFNetworking中AFURLSessionManager中定义的swizzle的内联函数<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> hl_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    Method originalMethod = class_getInstanceMethod(theClass, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod(theClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="built_in">BOOL</span> hl_addMethod(Class theClass, SEL selector, Method method) &#123;</span><br><span class="line">    <span class="comment">/*</span><br><span class="line">    YES if the method was added successfully, otherwise NO (for example, the class already contains a method implementation with that name)</span><br><span class="line">    */</span></span><br><span class="line">    <span class="keyword">return</span> class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在<code>+load</code>方法中添加如下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hl_swizzleSelector([<span class="keyword">self</span> class], <span class="keyword">@selector</span>(setImage:), <span class="keyword">@selector</span>(hl_setImage:));</span><br></pre></td></tr></table></figure></p>
+<p>/* 这里参考的是AFURLSessionManager中的方式来添加方法，但是实际上在这个情况下是永远返回NO的</p>
+<ul>
+<li>原因：因为我们是在UIImageView的category中添加了hl_setImage:，所以在UIImageView中已经存在了该方法，再调用class_addMethod就会返回NO。</li>
+<li>因此下面这些代码如果写在category中是不需要的了。<br>*/<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Method hlSetImageMethod = class_getInstanceMethod([<span class="keyword">self</span> class],<span class="keyword">@selector</span>(hl_setImage:));</span><br><span class="line"></span><br><span class="line"><span class="built_in">BOOL</span> result = hl_addMethod([<span class="keyword">self</span> class],<span class="keyword">@selector</span>(hl_setImage:), hlSetImageMethod);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,result);</span><br><span class="line"><span class="keyword">if</span> (result) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>测试一下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImageView</span> * v = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">240</span>, <span class="number">240</span>)];</span><br><span class="line">v<span class="variable">.center</span> = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.center</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:v];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> * image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"IMG_0730.jpg"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//会产生混合图层</span></span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = v<span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2</span>;</span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//采用UIGraphicImageContext重绘后,解决混合图层问题</span></span><br><span class="line">[v setImage:[image hl_imageByCroppingForSize:<span class="built_in">CGSizeMake</span>(<span class="number">240</span>, <span class="number">240</span>) fillColor:[<span class="built_in">UIColor</span> whiteColor]]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Method swizzle交换setImage和hl_setImage:之后：</span></span><br><span class="line">v<span class="variable">.image</span> = image;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/No Blended layer.png" alt="No Blended layer"></p>
 
 		</div>
 	
@@ -345,7 +365,7 @@
 </style>
 <div id="comments">
     <!-- 多说评论框 start -->
-        <div class="ds-thread" data-thread-key="undefined" data-title="一起唱，团结就是力量" data-url="http://koalahl.github.io//2016/11/18/一起唱，团结就是力量/index.html"></div>
+        <div class="ds-thread" data-thread-key="undefined" data-title="OBJC RUNTIME 再次实践" data-url="http://koalahl.github.io//2016/11/22/OBJC-RUNTIME-再次实践/index.html"></div>
     <!-- 多说评论框 end -->
 </div>
 
@@ -358,7 +378,7 @@
     
     <!-- Prev Nav -->
     
-        <a href="/2016/11/22/OBJC-RUNTIME-再次实践/" id="post_nav-newer" class="prev-content">
+        <a href="/2016/12/12/iOS开发技术栈/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -372,7 +392,7 @@
 
     <!-- Next Nav -->
     
-        <a href="/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/" id="post_nav-older" class="next-content">
+        <a href="/2016/11/18/一起唱，团结就是力量/" id="post_nav-older" class="next-content">
             Older
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
@@ -397,11 +417,11 @@
     
         <!-- Post Nav -->
         
-            <a class="prev-content fab" href="/2016/11/22/OBJC-RUNTIME-再次实践/" title="OBJC RUNTIME 再次实践"><i class="material-icons">keyboard_arrow_left</i></a>
+            <a class="prev-content fab" href="/2016/12/12/iOS开发技术栈/" title="iOS开发技术栈"><i class="material-icons">keyboard_arrow_left</i></a>
         
 
         
-            <a class="prev-content fab" href="/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/" title="Xcode8中NavigationBar插入背景出错的解决方法"><i class="material-icons">keyboard_arrow_right</i></a>
+            <a class="prev-content fab" href="/2016/11/18/一起唱，团结就是力量/" title="一起唱，团结就是力量"><i class="material-icons">keyboard_arrow_right</i></a>
         
     
     

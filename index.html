@@ -443,6 +443,73 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
 	<!-- Post_entry Header -->
 	
 		<!-- Post Header Info -->
+		<div class="post_entry-header_info with-thumbnail">
+			<!-- Author Avatar & Name -->
+			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
+			<span class="name-span">Han Liu</span>
+		</div>
+			
+		<!-- Custom thumbnail -->
+		<div class="post_thumbnail-custom">
+			<img src="http://image.slidesharecdn.com/objective-cruntime-131204162702-phpapp02/95/objective-c-runtime-13-638.jpg?cb=1386174512">
+	
+	</div>
+			
+	<!-- Post_entry Content -->
+    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
+		<!-- Post Title -->
+		<p class="post_entry-title">
+			<a href="/2016/11/22/OBJC-RUNTIME-再次实践/">OBJC RUNTIME 再次实践</a>
+		</p>
+		
+		<!-- Post Excerpt -->
+		<p class="post_entry-excerpt">
+			
+			  好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。
+runtime使用场景：
+
+category添加关联属性
+MethodSwizzle替换/交换系统方法
+
+平常使用cornerRadius和maskToBounds组合设置圆角
+			
+			&nbsp;&nbsp;&nbsp;
+			<span>
+				<a href="/2016/11/22/OBJC-RUNTIME-再次实践/" target="_self">Continue Reading</a>
+			</span>
+		</p>
+		
+		<!-- Post Tags -->
+		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/iOS/">iOS</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/runtime/">runtime</a></li></ul>
+    </div>
+			
+	<!-- Post_entry Footer -->
+	<div class="post_entry-footer">
+		<div class="post_entry-footer-border"></div>
+		<div class="post_entry-footer-info">
+			<div class="post_entry-footer-date">
+				Nov 22, 2016
+			</div>
+			<div class="post_entry-footer-comment">
+				
+					<!-- Comment Number -->
+					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+		
+    
+		
+		
+			<!-- Isolation Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+
+	<!-- Post_entry Header -->
+	
+		<!-- Post Header Info -->
 		<div class="post_entry-header_info without-thumbnail">
 			<!-- Author Avatar & Name -->
 			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
@@ -604,89 +671,6 @@ Objective-C• objective-c语言基础• library,framework的制作• Runtime�
 		<div class="post_entry-footer-info">
 			<div class="post_entry-footer-date">
 				Jul 11, 2016
-			</div>
-			<div class="post_entry-footer-comment">
-				
-					<!-- Comment Number -->
-					<span class="ds-thread-count" data-thread-key="undefined" data-count-type="comments"></span>
-				
-			</div>
-		</div>
-	</div>
-	
-</div>
-		
-    
-		
-		
-			<!-- Isolation Thumbnail -->
-        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-
-	<!-- Post_entry Header -->
-	
-		<!-- Post Header Info -->
-		<div class="post_entry-header_info without-thumbnail">
-			<!-- Author Avatar & Name -->
-			<img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Han Liu's avatar">
-			<span class="name-span">Han Liu</span>
-		</div>
-	
-		<!-- Null Thumbnail -->
-		<div class="post_thumbnail-null">
-	
-	</div>
-			
-	<!-- Post_entry Content -->
-    <div class="post_entry-content mdl-color-text--grey-600 mdl-card__supporting-text">
-		<!-- Post Title -->
-		<p class="post_entry-title">
-			<a href="/2016/05/10/《程序员的自我修养》读书笔记-编译和链接/">《程序员的自我修养》读书笔记-编译和链接</a>
-		</p>
-		
-		<!-- Post Excerpt -->
-		<p class="post_entry-excerpt">
-			
-			  一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？$gcc HelloWorld.c命令，得到a.out$./a.out 执行
-该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。
-
-预编译
-
-预编译的命令$gcc -E HelloWorld.c -o HelloWorld.i。预编译中的主要规则：
-
-将所有的#define删除，展开所有的宏定义
-处理所有的条件预编译指令，比如#if,#ifdef,#endif,#elif,#else.
-处理#include指令，将被包含的文件插入到该预编译指令的位置。这个过程是递归进行的
-删除所有的注释//和/**/.
-添加行号和文件名标识。
-保留所有的#pragma编译器指令，因为编译器要使用它。
-
-编译
-
-编译器 ：cc1程序编译过程就是把预处理完的.i文件进行一系列的词法分析、语法分析、语义分析以及代码优化后产生相应的汇编代码编译的命令$gcc -S HelloWorld.c -o HelloWorld.s。
-
-汇编
-
-汇编器 as汇编过程将汇编代码转换成机器代码。根据汇编指令和机器代码的对照表一一翻译。汇编的命令$gcc -c HelloWorld.c -o HelloWorld.o。
-链接
-
-链接器 ld从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。
-			
-			&nbsp;&nbsp;&nbsp;
-			<span>
-				<a href="/2016/05/10/《程序员的自我修养》读书笔记-编译和链接/" target="_self">Continue Reading</a>
-			</span>
-		</p>
-		
-		<!-- Post Tags -->
-		<ul class="post_entry-tags-list"><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/编译/">编译</a></li><li class="post_entry-tags-list-item"><a class="post_entry-tags-list-link" href="/tags/链接/">链接</a></li></ul>
-    </div>
-			
-	<!-- Post_entry Footer -->
-	<div class="post_entry-footer">
-		<div class="post_entry-footer-border"></div>
-		<div class="post_entry-footer-info">
-			<div class="post_entry-footer-date">
-				May 10, 2016
 			</div>
 			<div class="post_entry-footer-comment">
 				

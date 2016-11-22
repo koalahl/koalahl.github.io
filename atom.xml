@@ -612,6 +612,53 @@ _   底线
   </entry>
   
   <entry>
+    <title><![CDATA[OBJC RUNTIME 再次实践]]></title>
+    <link href="http://koalahl.github.io/2016/11/22/OBJC-RUNTIME-%E5%86%8D%E6%AC%A1%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://koalahl.github.io/2016/11/22/OBJC-RUNTIME-再次实践/</id>
+    <published>2016-11-22T06:47:05.000Z</published>
+    <updated>2016-11-22T06:47:05.000Z</updated>
+    <content type="html"><![CDATA[<p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
+<p>runtime使用场景：</p>
+<ul>
+<li>category添加关联属性</li>
+<li>MethodSwizzle替换/交换系统方法</li>
+</ul>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/Blended layer.png" alt="Blended layer"></p>
+<a id="more"></a>
+<p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<br><a href="/img/NSError+Msg_h.png">NSError+Msg_h</a><br><a href="/img/NSError+Msg_m.png">NSError+Msg_m</a><p></p>
+<p></p><h2 id="methodSwizzle">MethodSwizzle交换系统方法</h2><br>创建一个<code>UIImageView</code>的category，在分类中交换（exchange，注意这里不是替换replace）系统的<code>setImage:</code> 方法.<p></p>
+<p>我们要交换一个类的系统方法，那么首先想想在哪个方法中交换最合适呢？<br>我们知道app在启动之后，会进行类注册，调用类的<code>+load()</code>方法，且只调用一次。（注意与<code>+initialize</code>的区别）<img src="http://polomana.com/2016/03/23/Effective-Objective-C-2-0-要点/" alt="第51条:load与initialize的区别">所以我们在分类中重写<code>load</code>方法中添加交换方法。</p>
+<p>首先我们借用AFNetworking中AFURLSessionManager中定义的swizzle的内联函数<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> hl_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    Method originalMethod = class_getInstanceMethod(theClass, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod(theClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="built_in">BOOL</span> hl_addMethod(Class theClass, SEL selector, Method method) &#123;</span><br><span class="line">    <span class="comment">/*</span><br><span class="line">    YES if the method was added successfully, otherwise NO (for example, the class already contains a method implementation with that name)</span><br><span class="line">    */</span></span><br><span class="line">    <span class="keyword">return</span> class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在<code>+load</code>方法中添加如下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hl_swizzleSelector([<span class="keyword">self</span> class], <span class="keyword">@selector</span>(setImage:), <span class="keyword">@selector</span>(hl_setImage:));</span><br></pre></td></tr></table></figure></p>
+<p>/* 这里参考的是AFURLSessionManager中的方式来添加方法，但是实际上在这个情况下是永远返回NO的</p>
+<ul>
+<li>原因：因为我们是在UIImageView的category中添加了hl_setImage:，所以在UIImageView中已经存在了该方法，再调用class_addMethod就会返回NO。</li>
+<li>因此下面这些代码如果写在category中是不需要的了。<br>*/<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Method hlSetImageMethod = class_getInstanceMethod([<span class="keyword">self</span> class],<span class="keyword">@selector</span>(hl_setImage:));</span><br><span class="line"></span><br><span class="line"><span class="built_in">BOOL</span> result = hl_addMethod([<span class="keyword">self</span> class],<span class="keyword">@selector</span>(hl_setImage:), hlSetImageMethod);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,result);</span><br><span class="line"><span class="keyword">if</span> (result) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>测试一下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImageView</span> * v = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">240</span>, <span class="number">240</span>)];</span><br><span class="line">v<span class="variable">.center</span> = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.center</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:v];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> * image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"IMG_0730.jpg"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//会产生混合图层</span></span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = v<span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2</span>;</span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//采用UIGraphicImageContext重绘后,解决混合图层问题</span></span><br><span class="line">[v setImage:[image hl_imageByCroppingForSize:<span class="built_in">CGSizeMake</span>(<span class="number">240</span>, <span class="number">240</span>) fillColor:[<span class="built_in">UIColor</span> whiteColor]]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Method swizzle交换setImage和hl_setImage:之后：</span></span><br><span class="line">v<span class="variable">.image</span> = image;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/No Blended layer.png" alt="No Blended layer"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
+<p>runtime使用场景：</p>
+<ul>
+<li>category添加关联属性</li>
+<li>MethodSwizzle替换/交换系统方法</li>
+</ul>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/Blended layer.png" alt="Blended layer"></p>]]>
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/tags/iOS/"/>
+    
+      <category term="runtime" scheme="http://koalahl.github.io/tags/runtime/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[一起唱，团结就是力量]]></title>
     <link href="http://koalahl.github.io/2016/11/18/%E4%B8%80%E8%B5%B7%E5%94%B1%EF%BC%8C%E5%9B%A2%E7%BB%93%E5%B0%B1%E6%98%AF%E5%8A%9B%E9%87%8F/"/>
     <id>http://koalahl.github.io/2016/11/18/一起唱，团结就是力量/</id>
@@ -2081,6 +2128,32 @@ _   底线
   </entry>
   
   <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
+    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
+    <published>2015-11-30T02:02:57.000Z</published>
+    <updated>2016-04-18T14:36:12.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[常用排序算法]]></title>
     <link href="http://koalahl.github.io/2015/11/30/%E5%B8%B8%E7%94%A8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://koalahl.github.io/2015/11/30/常用排序算法/</id>
@@ -2115,32 +2188,6 @@ _   底线
     </summary>
     
       <category term="算法" scheme="http://koalahl.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <link href="http://koalahl.github.io/2015/11/30/hello-world/"/>
-    <id>http://koalahl.github.io/2015/11/30/hello-world/</id>
-    <published>2015-11-30T02:02:57.000Z</published>
-    <updated>2016-04-18T14:36:12.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>]]>
-    
-    </summary>
-    
-      <category term="hexo" scheme="http://koalahl.github.io/tags/hexo/"/>
     
   </entry>
   
