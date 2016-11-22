@@ -103,7 +103,7 @@ MethodSwizzle替换/交换系统方法
 <meta property="og:image" content="http://koalahl.github.io/img/blended layer.png">
 <meta property="og:image" content="http://koalahl.github.io/img/NSError+Msg_h.png">
 <meta property="og:image" content="http://koalahl.github.io/img/NSError+Msg_m.png">
-<meta property="og:image" content="http://koalahl.github.io/img/No">
+<meta property="og:image" content="http://koalahl.github.io/img/No blended layer.png">
 <meta property="og:updated_time" content="2016-11-22T06:47:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objc Runtime 再次实践">
@@ -377,7 +377,7 @@ MethodSwizzle替换/交换系统方法
 <li>MethodSwizzle替换/交换系统方法</li>
 </ul>
 <p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
-<div align="center"><br>    <img src="/img/blended layer.png" width="150" height="274" alt="girl"><br></div>
+<div align="center"><br>    <img src="/img/blended layer.png" width="225" height="408" alt="girl"><br></div>
 
 <a id="more"></a>
 <p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<p></p>
@@ -393,7 +393,7 @@ MethodSwizzle替换/交换系统方法
 </li>
 </ul>
 <p>测试一下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImageView</span> * v = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">240</span>, <span class="number">240</span>)];</span><br><span class="line">v<span class="variable">.center</span> = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.center</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:v];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> * image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"IMG_0730.jpg"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//会产生混合图层</span></span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = v<span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2</span>;</span><br><span class="line">v<span class="variable">.layer</span><span class="variable">.masksToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//采用UIGraphicImageContext重绘后,解决混合图层问题</span></span><br><span class="line">[v setImage:[image hl_imageByCroppingForSize:<span class="built_in">CGSizeMake</span>(<span class="number">240</span>, <span class="number">240</span>) fillColor:[<span class="built_in">UIColor</span> whiteColor]]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Method swizzle交换setImage和hl_setImage:之后：</span></span><br><span class="line">v<span class="variable">.image</span> = image;</span><br></pre></td></tr></table></figure></p>
-<img src="/img/No" class="[No Blended layer]" title="blended layer.png [150] [274] [No Blended layer]">
+<div align="center"><br>    <img src="/img/No blended layer.png" width="225" height="408" alt="girl"><br></div>
 
       
     </div>
