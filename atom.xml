@@ -626,7 +626,7 @@ _   底线
 <p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/blended layer.png" alt="Blended layer"></p>
 <a id="more"></a>
 <p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<p></p>
-<p><img src="/img/NSError+Msg_h.png" alt="NSError+Msg_h"></p>
+<img src="/img/NSError+Msg_h.png" class="[NSError+Msg_h]" title="[150] [274] [NSError+Msg_h ]">
 <p><img src="/img/NSError+Msg_m.png" alt="NSError+Msg_m"></p>
 <p></p><h2 id="methodSwizzle">MethodSwizzle交换系统方法</h2><br>创建一个<code>UIImageView</code>的category，在分类中交换（exchange，注意这里不是替换replace）系统的<code>setImage:</code> 方法.<p></p>
 <p>我们要交换一个类的系统方法，那么首先想想在哪个方法中交换最合适呢？<br>我们知道app在启动之后，会进行类注册，调用类的<code>+load()</code>方法，且只调用一次。（注意与<code>+initialize</code>的区别）<a href="http://polomana.com/2016/03/23/Effective-Objective-C-2-0-要点/" target="_blank" rel="external">第51条:load与initialize的区别</a>所以我们在分类中重写<code>load</code>方法中添加交换方法。</p>
