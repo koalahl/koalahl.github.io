@@ -623,7 +623,9 @@ _   底线
 <li>category添加关联属性</li>
 <li>MethodSwizzle替换/交换系统方法</li>
 </ul>
-<p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/blended" class="[Blended layer]" title="layer.png [150] [274] [Blended layer]"></p>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
+<div align="center"><br>    <img src="/img/blended layer.png" width="150" height="274" alt="girl"><br></div>
+
 <a id="more"></a>
 <p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<p></p>
 <p><img src="/img/NSError+Msg_h.png" alt="NSError+Msg_h"></p>
@@ -647,7 +649,8 @@ _   底线
 <li>category添加关联属性</li>
 <li>MethodSwizzle替换/交换系统方法</li>
 </ul>
-<p>平常使用cornerRadius和maskToBounds组合设置圆角<br><img src="/img/blended" class="[Blended layer]" title="layer.png [150] [274] [Blended layer]"></p>]]>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
+<div align=center><br>    <img src="/img/blended layer.png" width = "150" height = "274" alt="girl"><br></div>]]>
     
     </summary>
     
