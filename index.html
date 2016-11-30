@@ -622,6 +622,148 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2016/11/30/iOS自动打包脚本/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Han Liu">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/img/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="寒流‘s Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/30/iOS自动打包脚本/" itemprop="url">
+                  iOS自动打包脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-30T14:17:21+08:00">
+                2016-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <a href="/2016/11/30/iOS自动打包脚本/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/30/iOS自动打包脚本/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash&#10;#Author hanliu&#10;&#10;#Global declaration&#10;SCHEMENAME=&#34;hongmeng&#34;&#10;#if use git&#10;#BRANCHNAME = master&#10;&#10;DATE=`date &#34;+%Y%m%d&#34;`&#10;SOURCEPATH=$(CD &#34;$(dirname $0)&#34; &#38;&#38; pwd)&#10;BUILDPATH=$(dirname $(dirname $SOURCEPATH))/AutoBuildIPA&#10;BUILDAPPPATH=$BUILDPATH/Build/Products/Debug-iphoneos&#10;IPAPATH=$(dirname $(dirname $SOURCEPATH))/IPA&#10;IPANAME=$SCHEMENAME_$DATE.ipa&#10;&#10;echo &#34;DATE is &#34; $DATE&#10;echo &#34;SOURCEPATH:&#34;$SOURCEPATH&#10;echo &#34;BUILDPATH:&#34;$BUILDPATH&#10;echo &#34;IPAPATH:&#34;$IPAPATH&#10;&#10;echo &#34;Press any key to continue!&#34;&#10;read -p &#34;press any &#34; c&#10;if $c;then&#10;    xcodebuild -list&#10;else&#10;    echo &#34;ddd&#34;&#10;fi&#10;#&#10;#Information about project &#34;xxxxx&#34;:&#10;#    Targets:&#10;#        xxxxxx&#10;#&#10;#    Build Configurations:&#10;#        Debug&#10;#        Release&#10;#&#10;#    If no build configuration is specified and -scheme is not passed then &#34;Release&#34; is used.&#10;#&#10;#    Schemes:&#10;#        xxxxxx&#10;#&#10;&#10;#&#19981;&#25351;&#23450;configuration&#65292;&#25171;&#21253;&#20026;debug&#27169;&#24335;&#10;#xcodebuild -workspace hongmeng.xcworkspace -scheme hongmeng -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;&#10;xcodebuild -workspace $SCHEMENAME.xcworkspace -scheme $SCHEMENAME -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;if [ -e $BUILDPATH ]; then&#10;    echo &#34;xcodebuild Successful!&#34;&#10;else&#10;    echo &#34;xcodebuild failure!&#34;&#10;    exit 1&#10;fi&#10;&#10;&#10;#&#25171;&#21253;ipa&#10;#xcrun  -sdk iphoneos PackageApplication -v AutoBuildIPA/Build/Products/Debug-iphoneos/$SCHEMENAME.app -o $BUILDPATH/$SCHEMENAME_$DATE.ipa&#10;xcrun  -sdk iphoneos PackageApplication -v $BUILDAPPPATH/$SCHEMENAME.app -o $IPAPATH/$IPANAME&#10;&#10;if [ -e $IPAPATH/$IPANAME ]; then&#10;    echo &#34;\n--------------\n\n&#34;&#10;    echo &#34;Congratulations! Build Successful!&#34;&#10;    open $IPAPATH&#10;else&#10;    echo &#34;Build failure!&#34;&#10;fi</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2016/11/22/OBJC-RUNTIME-再次实践/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1042,141 +1184,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2016/07/11/python代码运行在iOS工程中的方案/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/11/python代码运行在iOS工程中的方案/" itemprop="url">
-                  python代码运行在iOS工程中的方案
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-11T10:37:06+08:00">
-                2016-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <a href="/2016/07/11/python代码运行在iOS工程中的方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/11/python代码运行在iOS工程中的方案/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
-<p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印<br>3.可以点击Send Msg按钮，会有如下log</p>
-<p>当然，也可以打开浏览器，输入127.0.0.1:8000</p>
-<p>实现方法：<br>1.主要集成了python基础库libPython和静态库liblibpython.a<br><img src="/img/python lib.png" alt="python lib"><br>2.include python.h,以及python 函数的使用方式：<br><img src="/img/python env init.png" alt="python env init"><br>红色框中server.py脚本被放到了其他线程执行，解决了卡住主线程的问题。</p>
-<p>3.同时我也给出了一个在用户界面向本地服务器消息交互的例子，使用socket。<br><img src="/img/socket.png" alt="socket"></p>
-<p>例子比较简单，实现了最基础的在用户界面与本地服务器通信的例子。并且不影响iOS相关代码的编写。</p>
-<p>由于附件较大，上传到了Github。<a href="https://github.com/koalahl/PythonIniOS。" target="_blank" rel="external">https://github.com/koalahl/PythonIniOS。</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1217,7 +1229,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1234,7 +1246,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
