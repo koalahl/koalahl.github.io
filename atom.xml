@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2016-11-22T06:53:43.000Z</updated>
+  <updated>2017-03-11T07:37:11.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -13,6 +13,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[简记 - 记录你的生活]]></title>
+    <link href="http://koalahl.github.io/2017/03/11/%E7%AE%80%E8%AE%B0-%E8%AE%B0%E5%BD%95%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB/"/>
+    <id>http://koalahl.github.io/2017/03/11/简记-记录你的生活/</id>
+    <published>2017-03-11T07:37:11.000Z</published>
+    <updated>2017-03-11T07:37:11.000Z</updated>
+    <content type="html"><![CDATA[<p>简记 —— 记录你的生活</p>
+<p>最简单的文字记录app，带给你清新，简约的气息。</p>
+<p>没什么特点的文字编辑app。</p>
+<a id="more"></a>
+<p>———我是分割线———–<br>特点：<br>(⊙v⊙)嗯，就是简单。</p>
+<p>文集分类管理日记。<br>快速创建日记。<br>分享给好友啦。</p>
+<p><img src="http://oh51ob42d.bkt.clouddn.com/mynotes-launchpage.png" alt="简记"><br><img src="http://oh51ob42d.bkt.clouddn.com/mynotes-mainpage.png" alt="简记"><br><img src="http://oh51ob42d.bkt.clouddn.com/mynotes-homepage.png" alt="简记"></p>
+<p>联系邮箱: hanangellove@gmail.com</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>简记 —— 记录你的生活</p>
+<p>最简单的文字记录app，带给你清新，简约的气息。</p>
+<p>没什么特点的文字编辑app。</p>]]>
+    
+    </summary>
+    
+      <category term="简记" scheme="http://koalahl.github.io/tags/%E7%AE%80%E8%AE%B0/"/>
+    
+      <category term="app" scheme="http://koalahl.github.io/categories/app/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Markdown语法参考]]></title>
@@ -606,6 +634,25 @@ _   底线
     </summary>
     
       <category term="skills" scheme="http://koalahl.github.io/tags/skills/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iOS使用flow.ci进行持续集成]]></title>
+    <link href="http://koalahl.github.io/2016/12/07/iOS%E4%BD%BF%E7%94%A8flow-ci%E8%BF%9B%E8%A1%8C%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    <id>http://koalahl.github.io/2016/12/07/iOS使用flow-ci进行持续集成/</id>
+    <published>2016-12-07T02:56:24.000Z</published>
+    <updated>2016-12-07T02:56:24.000Z</updated>
+    <content type="html"><![CDATA[<a id="more"></a>
+]]></content>
+    <summary type="html">
+    <![CDATA[<a id="more"></a>
+]]>
+    </summary>
+    
+      <category term="ci" scheme="http://koalahl.github.io/tags/ci/"/>
     
       <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
