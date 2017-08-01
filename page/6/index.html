@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -13,8 +13,17 @@
 
 
 
+
+
+
+
+
+
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
 
 
 
@@ -65,7 +74,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -79,7 +88,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
 
 
 
@@ -103,7 +112,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"right","display":"always"},
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -128,12 +137,10 @@
 
 
 
-  <title> 寒流‘s Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
+  <title>寒流‘s Blog</title>
   
+
+
 
 
 
@@ -141,7 +148,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?86a3c4926ef6599491d71ceddf47d46a";
+      hm.src = "https://hm.baidu.com/hm.js?86a3c4926ef6599491d71ceddf47d46a";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -154,36 +161,46 @@
 
 
 
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-right 
+  <div class="container sidebar-position-right 
    page-home 
  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">寒流‘s Blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
   </div>
-  <p class="site-subtitle">编程与生活</p>
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
@@ -244,32 +261,9 @@
       
 
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            Search
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
-</div>
-
-
-    </div>
   
 </nav>
 
@@ -294,20 +288,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/16/TableViewCell根据内容自适应高度的方法/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -315,16 +306,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="url">
-                  TableViewCell根据内容自适应高度的方法
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="url">TableViewCell根据内容自适应高度的方法</a></h1>
         
 
         <div class="post-meta">
@@ -333,7 +316,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-16T20:49:20+08:00">
                 2015-12-16
               </time>
@@ -346,11 +331,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -368,16 +357,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/16/TableViewCell根据内容自适应高度的方法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -387,7 +380,6 @@
         </div>
       </header>
     
-
 
     <div class="post-body" itemprop="articleBody">
 
@@ -408,7 +400,7 @@
 <p>使用的API:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UITableView+FDTemplateLayoutCell.h&gt;</span> </span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123; </span><br><span class="line">	<span class="keyword">return</span> [tableView fd_heightForCellWithIdentifier:<span class="string">@"identifer"</span> cacheByIndexPath:indexPath configuration:^(<span class="keyword">id</span> cell)</span><br><span class="line"> 			&#123;</span><br><span class="line">  			<span class="comment">// 配置 cell 的数据源，和 "cellForRow" 干的事一致，比如： </span></span><br><span class="line">			  cell<span class="variable">.entity</span> = <span class="keyword">self</span><span class="variable">.feedEntities</span>[indexPath<span class="variable">.row</span>]; </span><br><span class="line">  			&#125;]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell</a><br>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -426,8 +418,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -450,20 +447,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/16/理解Objective-C中的消息发送/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/16/理解Objective-C中的消息发送/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -471,16 +465,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/16/理解Objective-C中的消息发送/" itemprop="url">
-                  理解Objective-C中的消息发送
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/16/理解Objective-C中的消息发送/" itemprop="url">理解Objective-C中的消息发送</a></h1>
         
 
         <div class="post-meta">
@@ -489,7 +475,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-16T20:32:25+08:00">
                 2015-12-16
               </time>
@@ -502,11 +490,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -524,16 +516,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/16/理解Objective-C中的消息发送/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/16/理解Objective-C中的消息发送/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/16/理解Objective-C中的消息发送/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -544,7 +540,6 @@
       </header>
     
 
-
     <div class="post-body" itemprop="articleBody">
 
       
@@ -554,7 +549,7 @@
         
           <h2>消息发送</h2><br>首先来看看怎么理解发送消息的含义：<br><br>面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。<br><br>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。<br><br>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。<br><br>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。<br><br><h3>C语言中的动态方法</h3><br><br>由于Objective-C是C语言的超集，所以最好先理解C语言的函数调用方式。C语言使用“静态绑定（static binding）”，也就是说，在编译器就能决定运行时所应调用的函数。<br>示例代码：<br><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        printHello();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        printGoodBye();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>编译器在编译代码的时候就知道程序中有<code>printHello</code>,<code>printGoodBye</code>两个函数了，函数地址也硬编码在指令之中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printGoodBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GoodBye,world\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doThings</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> (*func)();</span><br><span class="line">    <span class="keyword">if</span>(type == <span class="number">0</span>)&#123;</span><br><span class="line">        func = printHello;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        func = printGoodBye;</span><br><span class="line">    &#125;</span><br><span class="line">    func();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>这样就是动态绑定（dynamic binding）了，因为索要调用的函数直到运行期才能确定。<br><br><h3>顺便附上OC中一个类的底层数据结构</h3><br>mac电脑上的路径/usr/include/objc/runtime.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">struct</span> objc_class &#123;</span><br><span class="line">	Class isa OBJC_ISA_<span class="built_in">AVAILABILITY</span>; <span class="comment">//isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r		untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</span></span><br><span class="line"></span><br><span class="line">	<span class="preprocessor">#if !__OBJC2__</span></span><br><span class="line">	Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span></span><br><span class="line">	<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span></span><br><span class="line">	<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span></span><br><span class="line">	<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span></span><br><span class="line">	<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span></span><br><span class="line">	<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method		Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span></span><br><span class="line">	<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span></span><br><span class="line">	<span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UN<span class="built_in">AVAILABLE</span>;</span><br></pre></td></tr></table></figure><br><br>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/16/理解Objective-C中的消息发送/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -572,8 +567,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -596,20 +596,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -617,16 +614,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" itemprop="url">
-                  关于CoreData和SQLite多线程访问时的线程安全问题
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" itemprop="url">关于CoreData和SQLite多线程访问时的线程安全问题</a></h1>
         
 
         <div class="post-meta">
@@ -635,7 +624,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-14T18:51:37+08:00">
                 2015-12-14
               </time>
@@ -648,11 +639,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -670,16 +665,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -690,7 +689,6 @@
       </header>
     
 
-
     <div class="post-body" itemprop="articleBody">
 
       
@@ -700,7 +698,7 @@
         
           <p>数据库读取操作一般都是多线程访问的。在对数据进行读取时，我们要保证其当前状态不能被修改，即读取时加锁，否则就会出现数据错误混乱。<br>IOS中常用的两种数据持久化存储方式：CoreData和SQLite，两者都需要设置线程安全，在这里以FMDB来解释对SQLite的线程安全访问。</p>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -718,8 +716,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -742,20 +745,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -763,16 +763,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" itemprop="url">
-                  《iOS开发进阶》阅读笔记（二）——开发技巧
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" itemprop="url">《iOS开发进阶》阅读笔记（二）——开发技巧</a></h1>
         
 
         <div class="post-meta">
@@ -781,7 +773,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-13T19:24:48+08:00">
                 2015-12-13
               </time>
@@ -794,11 +788,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -816,16 +814,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -835,7 +837,6 @@
         </div>
       </header>
     
-
 
     <div class="post-body" itemprop="articleBody">
 
@@ -853,7 +854,7 @@
 <li>直接执行<code>[[[UIApplicatoin sharedApplication] keyWindow] endEditing:YES];</code>。</li>
 </ul>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -871,8 +872,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -895,20 +901,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -916,16 +919,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" itemprop="url">
-                  《iOS开发进阶》阅读笔记（一）内存管理释疑
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" itemprop="url">《iOS开发进阶》阅读笔记（一）内存管理释疑</a></h1>
         
 
         <div class="post-meta">
@@ -934,7 +929,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-12T19:15:32+08:00">
                 2015-12-12
               </time>
@@ -947,11 +944,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -969,16 +970,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -988,7 +993,6 @@
         </div>
       </header>
     
-
 
     <div class="post-body" itemprop="articleBody">
 
@@ -1002,7 +1006,7 @@
 <p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
 <p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -1020,8 +1024,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -1044,20 +1053,17 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/">
+    <link itemprop="mainEntityOfPage" href="http://koalahl.github.io/2015/12/05/iOS中处理四舍五入的问题/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Han Liu">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/img/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="寒流‘s Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="寒流‘s Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.png">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
 
     
       <header class="post-header">
@@ -1065,16 +1071,8 @@
         
         
           <h1 class="post-title" itemprop="name headline">
-            
-            
-              
                 
-                <a class="post-title-link" href="/2015/12/05/iOS中处理四舍五入的问题/" itemprop="url">
-                  iOS中处理四舍五入的问题
-                </a>
-              
-            
-          </h1>
+                <a class="post-title-link" href="/2015/12/05/iOS中处理四舍五入的问题/" itemprop="url">iOS中处理四舍五入的问题</a></h1>
         
 
         <div class="post-meta">
@@ -1083,7 +1081,9 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-05T22:45:34+08:00">
                 2015-12-05
               </time>
@@ -1096,11 +1096,15 @@
 
           
             <span class="post-category" >
+            
               <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">In</span>
+              
+                <span class="post-meta-item-text">In</span>
+              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
@@ -1118,16 +1122,20 @@
             
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
                 <a href="/2015/12/05/iOS中处理四舍五入的问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/05/iOS中处理四舍五入的问题/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/05/iOS中处理四舍五入的问题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
           
 
           
-
           
+
           
 
           
@@ -1137,7 +1145,6 @@
         </div>
       </header>
     
-
 
     <div class="post-body" itemprop="articleBody">
 
@@ -1149,7 +1156,7 @@
           <p>处理四舍五入主要使用下面这个方法：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSString</span> *)notRounding:(<span class="keyword">float</span>)price afterPoint:(<span class="keyword">int</span>)position&#123;</span><br><span class="line">    <span class="built_in">NSDecimalNumberHandler</span>* roundingBehavior = [<span class="built_in">NSDecimalNumberHandler</span> decimalNumberHandlerWithRoundingMode:<span class="built_in">NSRoundDown</span> scale:position raiseOnExactness:<span class="literal">NO</span> raiseOnOverflow:<span class="literal">NO</span> raiseOnUnderflow:<span class="literal">NO</span> raiseOnDivideByZero:<span class="literal">NO</span>];</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *ouncesDecimal;</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *roundedOunces;</span><br><span class="line">    </span><br><span class="line">    ouncesDecimal = [[<span class="built_in">NSDecimalNumber</span> alloc] initWithFloat:price];</span><br><span class="line">    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];</span><br><span class="line">    [ouncesDecimal release];</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,roundedOunces];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>介绍一下参数：<br><code>price</code>:需要处理的数字，<br><code>position</code>：保留小数点第几位，<br>然后调用<br><blockquote><p>float s =0.126;<br>    NSString *sb = [self notRounding:s afterPoint:2];<br>    NSLog(@”sb = %@”,sb);<br>输出结果为：sb = 0.12</p>
 </blockquote><br>接下来介绍NSDecimalNumberHandler初始化时的关键参数：decimalNumberHandlerWithRoundingMode：NSRoundDown，<br><code>NSRoundDown</code>代表的就是 只舍不入。<br>scale的参数<code>position</code>代表保留小数点后几位。</p>
           <!--noindex-->
-          <div class="post-more-link text-center">
+          <div class="post-button text-center">
             <a class="btn" href="/2015/12/05/iOS中处理四舍五入的问题/#more" rel="contents">
               Read more &raquo;
             </a>
@@ -1167,8 +1174,13 @@
       
     </div>
 
+    <div>
+      
+    </div>
 
     <footer class="post-footer">
+      
+
       
 
       
@@ -1210,6 +1222,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -1222,19 +1235,26 @@
                src="/img/avatar.png"
                alt="Han Liu" />
           <p class="site-author-name" itemprop="name">Han Liu</p>
-          <p class="site-description motion-element" itemprop="description">Thinking in Different</p>
+           
+              <p class="site-description motion-element" itemprop="description">Thinking in Different</p>
+          
         </div>
         <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">39</span>
-              <span class="site-state-item-name">posts</span>
-            </a>
-          </div>
 
           
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
@@ -1242,8 +1262,10 @@
           
 
           
+            
+            
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">tags</span>
               </a>
@@ -1334,6 +1356,8 @@
 
       
 
+      
+
     </div>
   </aside>
 
@@ -1373,9 +1397,13 @@
       </div>
     </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
   </div>
 
   
@@ -1395,6 +1423,15 @@
 
 
   
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1420,181 +1457,55 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
 
 
 
   
 
-    <script type="text/javascript">
-      var disqus_shortname = 'hanangellove';
-      var disqus_identifier = 'page/6/index.html';
 
-      var disqus_title = "";
+  
 
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
 
-      function run_disqus_script(disqus_script) {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
+    
 
-      run_disqus_script('count.js');
-
-      
-
-    </script>
   
 
 
 
 
 
+
+
+
+
+
+
   
-  
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length == 0) {
-      search_path = "search.xml";
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
 
-    function proceedsearch() {
-      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
-      $('.popup').toggle();
-    }
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-      $.ajax({
-        url: path,
-        dataType: "xml",
-        async: true,
-        success: function( xmlResponse ) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
-            return {
-              title: $( "title", this ).text(),
-              content: $("content",this).text(),
-              url: $( "url" , this).text()
-            };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
-                      }
-                    }
 
-                  });
-                }
-                // show search results
-                if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
-                    // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if(start == 0){
-                      end = 50;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
 
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
-                  }
-                  str += "</li>";
-                }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
-          proceedsearch();
-        }
-      });}
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched == false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".popoverlay").remove();
-      $('body').css('overflow', '');
-    });
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-  </script>
 
 
   
@@ -1605,6 +1516,9 @@
 
   
 
+  
+
+  
 
 </body>
 </html>

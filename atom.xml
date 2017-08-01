@@ -783,14 +783,14 @@ _   底线
     <link href="http://koalahl.github.io/2016/07/11/python%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%9C%A8iOS%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%96%B9%E6%A1%88/"/>
     <id>http://koalahl.github.io/2016/07/11/python代码运行在iOS工程中的方案/</id>
     <published>2016-07-11T02:37:06.000Z</published>
-    <updated>2016-07-11T02:44:03.000Z</updated>
+    <updated>2017-08-01T13:01:36.000Z</updated>
     <content type="html"><![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
 <p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印<br>3.可以点击Send Msg按钮，会有如下log</p>
 <p>当然，也可以打开浏览器，输入127.0.0.1:8000</p>
 <p>实现方法：<br>1.主要集成了python基础库libPython和静态库liblibpython.a<br><img src="/img/python lib.png" alt="python lib"><br>2.include python.h,以及python 函数的使用方式：<br><img src="/img/python env init.png" alt="python env init"><br>红色框中server.py脚本被放到了其他线程执行，解决了卡住主线程的问题。</p>
 <p>3.同时我也给出了一个在用户界面向本地服务器消息交互的例子，使用socket。<br><img src="/img/socket.png" alt="socket"></p>
 <p>例子比较简单，实现了最基础的在用户界面与本地服务器通信的例子。并且不影响iOS相关代码的编写。</p>
-<p>由于附件较大，上传到了Github。<a href="https://github.com/koalahl/PythonIniOS。" target="_blank" rel="external">https://github.com/koalahl/PythonIniOS。</a></p>
+<p>由于附件较大，上传到了Github。<a href="https://github.com/koalahl/PythonIniOS" target="_blank" rel="external">https://github.com/koalahl/PythonIniOS</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
