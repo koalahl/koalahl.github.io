@@ -96,32 +96,20 @@
 
 
 <meta name="description" content="一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？$gcc HelloWorld.c命令，得到a.out$./a.out 执行
-该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。
-
-预编译
-
-预编译的命令$gcc -E HelloWorld.c -o HelloWorld.i。预">
+该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《程序员的自我修养》读书笔记-编译和链接">
 <meta property="og:url" content="http://koalahl.github.io/2016/05/10/《程序员的自我修养》读书笔记-编译和链接/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
 <meta property="og:description" content="一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？$gcc HelloWorld.c命令，得到a.out$./a.out 执行
-该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。
-
-预编译
-
-预编译的命令$gcc -E HelloWorld.c -o HelloWorld.i。预">
+该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。">
 <meta property="og:image" content="http://koalahl.github.io/img/gcc compile process.jpeg">
 <meta property="og:image" content="http://koalahl.github.io/img/compile process.png">
 <meta property="og:updated_time" content="2016-05-10T12:27:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《程序员的自我修养》读书笔记-编译和链接">
 <meta name="twitter:description" content="一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？$gcc HelloWorld.c命令，得到a.out$./a.out 执行
-该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。
-
-预编译
-
-预编译的命令$gcc -E HelloWorld.c -o HelloWorld.i。预">
+该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。">
 
 
 
@@ -403,6 +391,7 @@
       
         <p>一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？<br><code>$gcc HelloWorld.c</code>命令，得到a.out<br><code>$./a.out</code> 执行</p>
 <p>该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。</p>
+<a id="more"></a>
 <p><img src="/img/gcc compile process.jpeg" alt=""></p>
 <h3 id="preprocess">预编译</h3>
 
@@ -425,7 +414,6 @@
 <h3 id="linking">链接</h3>
 
 <p>链接器 ld<br>从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。</p>
-<a id="more"></a>
 
       
     </div>

@@ -215,8 +215,9 @@
     <link href="http://koalahl.github.io/2016/07/11/python%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%9C%A8iOS%E5%B7%A5%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%96%B9%E6%A1%88/"/>
     <id>http://koalahl.github.io/2016/07/11/python代码运行在iOS工程中的方案/</id>
     <published>2016-07-11T02:37:06.000Z</published>
-    <updated>2017-08-01T13:01:36.000Z</updated>
+    <updated>2017-08-01T13:33:35.000Z</updated>
     <content type="html"><![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
+<a id="more"></a>
 <p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印<br>3.可以点击Send Msg按钮，会有如下log</p>
 <p>当然，也可以打开浏览器，输入127.0.0.1:8000</p>
 <p>实现方法：<br>1.主要集成了python基础库libPython和静态库liblibpython.a<br><img src="/img/python lib.png" alt="python lib"><br>2.include python.h,以及python 函数的使用方式：<br><img src="/img/python env init.png" alt="python env init"><br>红色框中server.py脚本被放到了其他线程执行，解决了卡住主线程的问题。</p>
@@ -225,8 +226,8 @@
 <p>由于附件较大，上传到了Github。<a href="https://github.com/koalahl/PythonIniOS" target="_blank" rel="external">https://github.com/koalahl/PythonIniOS</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
-<p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有l]]>
+    <![CDATA[<p>一种Xcode工程内执行python脚本的方法，详见下文。</p>]]>
+    
     </summary>
     
       <category term="iOS" scheme="http://koalahl.github.io/tags/iOS/"/>
@@ -243,6 +244,7 @@
     <updated>2016-05-10T12:27:06.000Z</updated>
     <content type="html"><![CDATA[<p>一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？<br><code>$gcc HelloWorld.c</code>命令，得到a.out<br><code>$./a.out</code> 执行</p>
 <p>该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。</p>
+<a id="more"></a>
 <p><img src="/img/gcc compile process.jpeg" alt=""></p>
 <h3 id="preprocess">预编译</h3>
 
@@ -265,33 +267,10 @@
 <h3 id="linking">链接</h3>
 
 <p>链接器 ld<br>从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。</p>
-<a id="more"></a>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>一个HelloWorld.c程序是如何被处理，得到一个a.out可执行程序的呢？<br><code>$gcc HelloWorld.c</code>命令，得到a.out<br><code>$./a.out</code> 执行</p>
-<p>该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。</p>
-<p><img src="/img/gcc compile process.jpeg" alt=""></p>
-<h3 id = "preprocess">预编译</h3>
-
-<p>预编译的命令<code>$gcc -E HelloWorld.c -o HelloWorld.i</code>。<br>预编译中的主要规则：</p>
-<ul>
-<li>将所有的<code>#define</code>删除，展开所有的宏定义</li>
-<li>处理所有的条件预编译指令，比如<code>#if</code>,<code>#ifdef</code>,<code>#endif</code>,<code>#elif</code>,<code>#else</code>.</li>
-<li>处理<code>#include</code>指令，将被包含的文件插入到该预编译指令的位置。这个过程是递归进行的</li>
-<li>删除所有的注释<code>//</code>和<code>/**/</code>.</li>
-<li>添加行号和文件名标识。</li>
-<li>保留所有的<code>#pragma</code>编译器指令，因为编译器要使用它。</li>
-</ul>
-<h3 id = "compile">编译</h3>
-
-<p>编译器 ：cc1程序<br>编译过程就是把预处理完的.i文件进行一系列的词法分析、语法分析、语义分析以及代码优化后产生相应的汇编代码<br>编译的命令<code>$gcc -S HelloWorld.c -o HelloWorld.s</code>。</p>
-<p><img src="/img/compile process.png" alt="编译过程"></p>
-<h3 id = "assembly">汇编</h3>
-
-<p>汇编器 as<br>汇编过程将汇编代码转换成机器代码。根据汇编指令和机器代码的对照表一一翻译。<br>汇编的命令<code>$gcc -c HelloWorld.c -o HelloWorld.o</code>。</p>
-<h3 id = "linking">链接</h3>
-
-<p>链接器 ld<br>从图中可以看出，链接器主要是把代码的.o文件与静态库链接在一起。</p>]]>
+<p>该过程可分为四个步骤：预处理（Preprocess）或者叫预编译、编译（Compile）、汇编（Assembly）和链接（Linking）。</p>]]>
     
     </summary>
     
@@ -310,7 +289,7 @@
     <published>2016-05-10T11:10:56.000Z</published>
     <updated>2016-05-10T11:10:56.000Z</updated>
     <content type="html"><![CDATA[<p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
-<h2 id="memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><a id="more"></a><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br>- 分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。<br>- 分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小。虚拟内存的实现需要依靠硬件支持。通常采用<code>MMU(Memory Management Unit)</code>来进行page mapping，将CPU使用的虚拟地址映射为实际的物理地址。<br><br><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"><br><br><h2 id="thread">线程</h2>
+<h2 id="memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><br><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br><br><a id="more"></a><br><br>- 分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。<br>- 分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小。虚拟内存的实现需要依靠硬件支持。通常采用<code>MMU(Memory Management Unit)</code>来进行page mapping，将CPU使用的虚拟地址映射为实际的物理地址。<br><br><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"><br><br><h2 id="thread">线程</h2>
 
 <p>线程结构：线程ID、指令指针PC、线程内栈和寄存器<br><img src="/img/thread2.jpeg" alt="线程结构"></p>
 <p>现在基本都是多线程。</p>
@@ -354,7 +333,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
-<h2 id = "memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br>]]>
+<h2 id = "memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><br><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br><br>]]>
     
     </summary>
     

@@ -95,28 +95,19 @@
 
 
 
-<meta name="description" content="一种Xcode工程内执行python脚本的方法，详见下文。
-1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印3.可以点击Send Msg按钮，会有如下log
-当然，也可以打开浏览器，输入127.0.0.1:8000
-实现方法：1.主要集成了pyth">
+<meta name="description" content="一种Xcode工程内执行python脚本的方法，详见下文。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python代码运行在iOS工程中的方案">
 <meta property="og:url" content="http://koalahl.github.io/2016/07/11/python代码运行在iOS工程中的方案/index.html">
 <meta property="og:site_name" content="寒流‘s Blog">
-<meta property="og:description" content="一种Xcode工程内执行python脚本的方法，详见下文。
-1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印3.可以点击Send Msg按钮，会有如下log
-当然，也可以打开浏览器，输入127.0.0.1:8000
-实现方法：1.主要集成了pyth">
+<meta property="og:description" content="一种Xcode工程内执行python脚本的方法，详见下文。">
 <meta property="og:image" content="http://koalahl.github.io/img/python lib.png">
 <meta property="og:image" content="http://koalahl.github.io/img/python env init.png">
 <meta property="og:image" content="http://koalahl.github.io/img/socket.png">
-<meta property="og:updated_time" content="2017-08-01T13:01:36.000Z">
+<meta property="og:updated_time" content="2017-08-01T13:33:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python代码运行在iOS工程中的方案">
-<meta name="twitter:description" content="一种Xcode工程内执行python脚本的方法，详见下文。
-1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印3.可以点击Send Msg按钮，会有如下log
-当然，也可以打开浏览器，输入127.0.0.1:8000
-实现方法：1.主要集成了pyth">
+<meta name="twitter:description" content="一种Xcode工程内执行python脚本的方法，详见下文。">
 
 
 
@@ -375,6 +366,7 @@
 
       
         <p>一种Xcode工程内执行python脚本的方法，详见下文。</p>
+<a id="more"></a>
 <p>1.下载解压Python-iOS.zip文件，打开python-ios.xcworkspace。<br>2.Command+R运行，此时在模拟器上会有app生成；并且Xcode的console中会有log打印<br>3.可以点击Send Msg按钮，会有如下log</p>
 <p>当然，也可以打开浏览器，输入127.0.0.1:8000</p>
 <p>实现方法：<br>1.主要集成了python基础库libPython和静态库liblibpython.a<br><img src="/img/python lib.png" alt="python lib"><br>2.include python.h,以及python 函数的使用方式：<br><img src="/img/python env init.png" alt="python env init"><br>红色框中server.py脚本被放到了其他线程执行，解决了卡住主线程的问题。</p>
