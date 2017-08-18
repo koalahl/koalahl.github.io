@@ -72,34 +72,18 @@
   </entry>
   
   <entry>
-    <title><![CDATA[iOS使用flow.ci进行持续集成]]></title>
-    <link href="http://koalahl.github.io/2016/12/07/iOS%E4%BD%BF%E7%94%A8flow-ci%E8%BF%9B%E8%A1%8C%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
-    <id>http://koalahl.github.io/2016/12/07/iOS使用flow-ci进行持续集成/</id>
-    <published>2016-12-07T02:56:24.000Z</published>
-    <updated>2016-12-07T02:56:24.000Z</updated>
-    <content type="html"><![CDATA[<a id="more"></a>
-]]></content>
-    <summary type="html">
-    <![CDATA[<a id="more"></a>
-]]>
-    </summary>
-    
-      <category term="ci" scheme="http://koalahl.github.io/tags/ci/"/>
-    
-      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[iOS自动打包脚本]]></title>
     <link href="http://koalahl.github.io/2016/11/30/iOS%E8%87%AA%E5%8A%A8%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC/"/>
     <id>http://koalahl.github.io/2016/11/30/iOS自动打包脚本/</id>
     <published>2016-11-30T06:17:21.000Z</published>
     <updated>2016-11-30T06:17:21.000Z</updated>
-    <content type="html"><![CDATA[<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash&#10;#Author hanliu&#10;&#10;#Global declaration&#10;SCHEMENAME=&#34;hongmeng&#34;&#10;#if use git&#10;#BRANCHNAME = master&#10;&#10;DATE=`date &#34;+%Y%m%d&#34;`&#10;SOURCEPATH=$(CD &#34;$(dirname $0)&#34; &#38;&#38; pwd)&#10;BUILDPATH=$(dirname $(dirname $SOURCEPATH))/AutoBuildIPA&#10;BUILDAPPPATH=$BUILDPATH/Build/Products/Debug-iphoneos&#10;IPAPATH=$(dirname $(dirname $SOURCEPATH))/IPA&#10;IPANAME=$SCHEMENAME_$DATE.ipa&#10;&#10;echo &#34;DATE is &#34; $DATE&#10;echo &#34;SOURCEPATH:&#34;$SOURCEPATH&#10;echo &#34;BUILDPATH:&#34;$BUILDPATH&#10;echo &#34;IPAPATH:&#34;$IPAPATH&#10;&#10;echo &#34;Press any key to continue!&#34;&#10;read -p &#34;press any &#34; c&#10;if $c;then&#10;    xcodebuild -list&#10;else&#10;    echo &#34;ddd&#34;&#10;fi&#10;#&#10;#Information about project &#34;xxxxx&#34;:&#10;#    Targets:&#10;#        xxxxxx&#10;#&#10;#    Build Configurations:&#10;#        Debug&#10;#        Release&#10;#&#10;#    If no build configuration is specified and -scheme is not passed then &#34;Release&#34; is used.&#10;#&#10;#    Schemes:&#10;#        xxxxxx&#10;#&#10;&#10;#&#19981;&#25351;&#23450;configuration&#65292;&#25171;&#21253;&#20026;debug&#27169;&#24335;&#10;#xcodebuild -workspace hongmeng.xcworkspace -scheme hongmeng -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;&#10;xcodebuild -workspace $SCHEMENAME.xcworkspace -scheme $SCHEMENAME -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;if [ -e $BUILDPATH ]; then&#10;    echo &#34;xcodebuild Successful!&#34;&#10;else&#10;    echo &#34;xcodebuild failure!&#34;&#10;    exit 1&#10;fi&#10;&#10;&#10;#&#25171;&#21253;ipa&#10;#xcrun  -sdk iphoneos PackageApplication -v AutoBuildIPA/Build/Products/Debug-iphoneos/$SCHEMENAME.app -o $BUILDPATH/$SCHEMENAME_$DATE.ipa&#10;xcrun  -sdk iphoneos PackageApplication -v $BUILDAPPPATH/$SCHEMENAME.app -o $IPAPATH/$IPANAME&#10;&#10;if [ -e $IPAPATH/$IPANAME ]; then&#10;    echo &#34;\n--------------\n\n&#34;&#10;    echo &#34;Congratulations! Build Successful!&#34;&#10;    open $IPAPATH&#10;else&#10;    echo &#34;Build failure!&#34;&#10;fi</span><br></pre></td></tr></table></figure>
+    <content type="html"><![CDATA[<p>使用Xcodebuild和xcrun命令生成。具体参数可以自己配置。</p>
+<a id="more"></a>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash&#10;#Author hanliu&#10;&#10;#Global declaration&#10;SCHEMENAME=&#34;hongmeng&#34;&#10;#if use git&#10;#BRANCHNAME = master&#10;&#10;DATE=`date &#34;+%Y%m%d&#34;`&#10;SOURCEPATH=$(CD &#34;$(dirname $0)&#34; &#38;&#38; pwd)&#10;BUILDPATH=$(dirname $(dirname $SOURCEPATH))/AutoBuildIPA&#10;BUILDAPPPATH=$BUILDPATH/Build/Products/Debug-iphoneos&#10;IPAPATH=$(dirname $(dirname $SOURCEPATH))/IPA&#10;IPANAME=$SCHEMENAME_$DATE.ipa&#10;&#10;echo &#34;DATE is &#34; $DATE&#10;echo &#34;SOURCEPATH:&#34;$SOURCEPATH&#10;echo &#34;BUILDPATH:&#34;$BUILDPATH&#10;echo &#34;IPAPATH:&#34;$IPAPATH&#10;&#10;echo &#34;Press any key to continue!&#34;&#10;read -p &#34;press any &#34; c&#10;if $c;then&#10;    xcodebuild -list&#10;else&#10;    echo &#34;ddd&#34;&#10;fi&#10;#&#10;#Information about project &#34;xxxxx&#34;:&#10;#    Targets:&#10;#        xxxxxx&#10;#&#10;#    Build Configurations:&#10;#        Debug&#10;#        Release&#10;#&#10;#    If no build configuration is specified and -scheme is not passed then &#34;Release&#34; is used.&#10;#&#10;#    Schemes:&#10;#        xxxxxx&#10;#&#10;&#10;#&#19981;&#25351;&#23450;configuration&#65292;&#25171;&#21253;&#20026;debug&#27169;&#24335;&#10;#xcodebuild -workspace hongmeng.xcworkspace -scheme hongmeng -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;&#10;xcodebuild -workspace $SCHEMENAME.xcworkspace -scheme $SCHEMENAME -configuration Debug clean build -derivedDataPath $BUILDPATH&#10;if [ -e $BUILDPATH ]; then&#10;    echo &#34;xcodebuild Successful!&#34;&#10;else&#10;    echo &#34;xcodebuild failure!&#34;&#10;    exit 1&#10;fi&#10;&#10;&#10;#&#25171;&#21253;ipa&#10;#xcrun  -sdk iphoneos PackageApplication -v AutoBuildIPA/Build/Products/Debug-iphoneos/$SCHEMENAME.app -o $BUILDPATH/$SCHEMENAME_$DATE.ipa&#10;xcrun  -sdk iphoneos PackageApplication -v $BUILDAPPPATH/$SCHEMENAME.app -o $IPAPATH/$IPANAME&#10;&#10;if [ -e $IPAPATH/$IPANAME ]; then&#10;    echo &#34;\n--------------\n\n&#34;&#10;    echo &#34;Congratulations! Build Successful!&#34;&#10;    open $IPAPATH&#10;else&#10;    echo &#34;Build failure!&#34;&#10;fi</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="li]]>
+    <![CDATA[<p>使用Xcodebuild和xcrun命令生成。具体参数可以自己配置。</p>]]>
+    
     </summary>
     
       <category term="shell" scheme="http://koalahl.github.io/tags/shell/"/>
@@ -188,18 +172,19 @@
     <link href="http://koalahl.github.io/2016/10/05/Xcode8%E4%B8%ADNavigationBar%E6%8F%92%E5%85%A5%E8%83%8C%E6%99%AF%E5%87%BA%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
     <id>http://koalahl.github.io/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/</id>
     <published>2016-10-05T01:50:47.000Z</published>
-    <updated>2016-10-05T02:16:32.000Z</updated>
-    <content type="html"><![CDATA[<p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
+    <updated>2017-08-18T09:25:31.000Z</updated>
+    <content type="html"><![CDATA[<p>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
+<a id="more"></a>
+<p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>在xcode8 的view hierarchay表现为：<br><img src="/img/background1.png" alt="xcode8"></p>
 <p>但是现在出现的问题是返回到首页后，导航栏被背景view遮盖了</p>
 <p><img src="/img/background2.png" alt="xcode8"></p>
 <p>解决方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.subviews[<span class="number">0</span>].insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
-<p>分析：<br>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></t]]>
+    <![CDATA[<p>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>]]>
+    
     </summary>
     
       <category term="NavigationBar" scheme="http://koalahl.github.io/tags/NavigationBar/"/>
@@ -991,8 +976,10 @@
     <link href="http://koalahl.github.io/2016/03/04/Xib%E4%B8%8E%E4%B9%8B%E5%85%B3%E8%81%94%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89Class/"/>
     <id>http://koalahl.github.io/2016/03/04/Xib与之关联的自定义Class/</id>
     <published>2016-03-04T01:37:46.000Z</published>
-    <updated>2016-05-06T13:37:18.000Z</updated>
-    <content type="html"><![CDATA[<p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。<br> <img src="/img/被新生成的view覆盖.png" width="300" height="588" alt="被新生成的view覆盖" align="center"><br>打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！<br><img src="/img/reveal view UI hierarchy 2.png" alt="reveal view UI hierarchy"><br><img src="/img/reveal view UI hierarchy.png" alt="reveal view UI hierarchy"><br><a id="more"></a></p>
+    <updated>2017-08-18T09:25:54.000Z</updated>
+    <content type="html"><![CDATA[<p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。</p>
+<a id="more"></a>
+<p> <img src="/img/被新生成的view覆盖.png" width="300" height="588" alt="被新生成的view覆盖" align="center"><br>打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！<br><img src="/img/reveal view UI hierarchy 2.png" alt="reveal view UI hierarchy"><br><img src="/img/reveal view UI hierarchy.png" alt="reveal view UI hierarchy"></p>
 <p></p><h2><code>drawRect</code>方法</h2><br>好吧，修改代码吧。因为这些视图都是在xib上创建好了，另外新建了与之对应的自定义类，所以都直接用的<code>drawRect</code>方法去初始化UI元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)drawRect:(CGRect)rect &#123;&#10;&#10;    [self initSubViews];&#10;&#125;</span><br></pre></td></tr></table></figure><p></p>
 <blockquote><p>The default implementation of this method does nothing. Subclasses that use technologies such as Core Graphics and UIKit to draw their view’s content should override this method and implement their drawing code there. You do not need to override this method if your view sets its content in other ways. For example, you do not need to override this method if your view just displays a background color or if your view sets its content directly using the underlying layer object.</p>
 <p>If you subclass UIView directly, your implementation of this method does not need to call super. However, if you are subclassing a different view class, you should call super at some point in your implementation.<br>This method is called when a view is first displayed or when an event occurs that invalidates a visible part of the view. You should never call this method directly yourself. To invalidate part of your view, and thus cause that portion to be redrawn, call the setNeedsDisplay or setNeedsDisplayInRect: method instead.</p>
@@ -1004,7 +991,7 @@
 <p></p><h2>总结</h2><br>1.尽量不要使用drawRect方法，性能下降厉害撒。<br>2.已经在xib上创建的视图，与其关联的子类中<code>initWithFrame</code>方法不会被调用。<p></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。<br> <img src="/img/被新生成的view覆盖.png" width = "300" height = "588" alt="被新生成的view覆盖" align=center /><br>打开Reveal看了下层级关系，原来是被二次生成的界面覆盖了。再细看一下，上面的视图都被二次生成了。真是哔了狗了！<br><img src="/img/reveal view UI hierarchy 2.png" alt="reveal view UI hierarchy"><br><img src="/img/reveal view UI hierarchy.png" alt="reveal view UI hierarchy"><br>]]>
+    <![CDATA[<p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。</p>]]>
     
     </summary>
     

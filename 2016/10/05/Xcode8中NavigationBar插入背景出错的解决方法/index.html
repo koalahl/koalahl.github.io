@@ -89,13 +89,14 @@
   <div class="article-content">
     <div class="entry">
       
-        <p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
+        <p>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
+<a id="more"></a>
+<p>以前写过一个导航栏中插入背景改变导航栏背景色的类。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>在xcode8 的view hierarchay表现为：<br><img src="/img/background1.png" alt="xcode8"></p>
 <p>但是现在出现的问题是返回到首页后，导航栏被背景view遮盖了</p>
 <p><img src="/img/background2.png" alt="xcode8"></p>
 <p>解决方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.subviews[<span class="number">0</span>].insertSubview(backgroundView!, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
-<p>分析：<br>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
 
       
     </div>
