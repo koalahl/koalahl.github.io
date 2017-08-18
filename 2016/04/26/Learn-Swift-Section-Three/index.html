@@ -1,75 +1,95 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  
+  <title>Learn Swift - Section 3rd 类与结构体 | 寒流‘s Blog | 编程与生活</title>
 
-    <!--Description-->
-    
-        <meta name="description" content="Thinking in Different">
-    
+  
+  <meta name="author" content="Han Liu">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="Han Liu">
-    
+  
+  <meta name="description" content="Thinking in Different">
+  
 
-    <!-- Title -->
-    
-    <title>Learn Swift - Section 3rd 类与结构体 | 寒流‘s Blog</title>
+  
+  
+  <meta name="keywords" content="LearnSwift">
+  
 
-    <!-- Bootstrap Core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <meta property="og:title" content="Learn Swift - Section 3rd 类与结构体"/>
 
-    <!-- Custom Fonts -->
-    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <meta property="og:site_name" content="寒流‘s Blog"/>
 
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 </head>
 
+
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Content -->
-    <section class="article-container">
-<!-- Back Home -->
-<a class="nav-back" href="/">
-    <i class="fa fa-puzzle-piece"></i>
-</a>
-
-<!-- Page Header -->
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Learn Swift - Section 3rd 类与结构体</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Main Content -->
-            <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>类与结构体的共同点：</p>
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Learn Swift - Section 3rd 类与结构体</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/04/26/Learn-Swift-Section-Three/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-04-26T08:21:59.000Z">
+          2016-04-26
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>类与结构体的共同点：</p>
 <ul>
 <li>定义属性用于存储值</li>
 <li>定义方法用于提供功能</li>
@@ -111,63 +131,81 @@
 <p></p><h3 id="8">8.类实例之间的循环强引用</h3><br>解决方式：<br>1.使用weak关键字，弱引用<br>2.使用unowned，无主引用<p></p>
 <p></p><h3 id="9">9.解决闭包引起的循环引用–定义捕获列表</h3><br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SellProducts</span></span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sellProducts</span><span class="params">(product:String)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name:<span class="type">String</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate:<span class="type">Seller</span>?</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> someClosure:(<span class="type">Int</span>,<span class="type">String</span>)-&gt;<span class="type">String</span> = &#123;</span><br><span class="line">        <span class="comment">//在闭包中将self修饰为无主引用。将delegate 修饰为 弱引用</span></span><br><span class="line">        [<span class="keyword">unowned</span> <span class="keyword">self</span>,<span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!]<span class="comment">//捕获列表</span></span><br><span class="line">        (index:<span class="type">Int</span>,strToProcess:<span class="type">String</span>)-&gt;<span class="type">String</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"<span class="subst">\(<span class="keyword">self</span>.name)</span>,<span class="subst">\(<span class="keyword">self</span>.delegate)</span>,<span class="subst">\(delegate)</span>"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">init</span>(name:<span class="type">String</span>,delegate:<span class="type">Seller</span>?)&#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name;</span><br><span class="line">        <span class="keyword">self</span>.delegate = delegate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">giveSellerProducts</span><span class="params">(product:String )</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.delegate?.sellProducts(product)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Seller</span> : <span class="title">SellProducts</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> product:<span class="type">String</span>?</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sellProducts</span><span class="params">( product: String)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.product = product</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> seller = <span class="type">Seller</span>()</span><br><span class="line"><span class="keyword">var</span> person = <span class="type">Person</span> (name: <span class="string">"Hanliu"</span>, delegate: seller)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//刚开始seller是没有商品的，要等到Person给seller</span></span><br><span class="line"><span class="built_in">print</span>(seller.product)</span><br><span class="line"><span class="comment">//person告诉seller，帮我卖苹果</span></span><br><span class="line">person.giveSellerProducts(<span class="string">"apple"</span>)</span><br><span class="line"><span class="comment">//现在seller手中就有了商品了</span></span><br><span class="line"><span class="built_in">print</span>(seller.product!)</span><br><span class="line"></span><br><span class="line">person.someClosure(<span class="number">1</span>,<span class="string">"haha"</span>)</span><br></pre></td></tr></table></figure><p></p>
 
- 
-                <!-- Meta -->
-                <div class="post-meta">
-                    <hr>
-                    <br>
-                    <div class="post-tags">
-                        
-                            
-
-<a href="/tags/LearnSwift/">#LearnSwift</a>
-
-
-                        
-                    </div>
-                    <div class="post-date">
-                        2016 年 04 月 26 日
-                    </div>
-                </div>
-            </div>
-
-            <!-- Comments -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- Disqus Comments -->
-
-<div id="disqus_thread" class="comment"></div>
-<script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = 'hanangellove';
-
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-            </div>
-        </div>
+      
     </div>
-</article>
-</section>
 
-    <!-- Scripts -->
-    <!-- jQuery -->
-<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </div>
 
-<script type="text/javascript">
-	console.log('Hexo-theme-hollow designed by zchen9 🙋 © 2015-' + (new Date()).getFullYear());
-</script>
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
-    <!-- Google Analytics -->
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Swift/">Swift</a>
+    </span>
     
 
-</body>
+    
+    
 
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/LearnSwift/">LearnSwift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
 </html>

@@ -1,75 +1,95 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  
+  <title>QRCode与Core Image | 寒流‘s Blog | 编程与生活</title>
 
-    <!--Description-->
-    
-        <meta name="description" content="Thinking in Different">
-    
+  
+  <meta name="author" content="Han Liu">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="Han Liu">
-    
+  
+  <meta name="description" content="Thinking in Different">
+  
 
-    <!-- Title -->
-    
-    <title>QRCode与Core Image | 寒流‘s Blog</title>
+  
+  
+  <meta name="keywords" content="AVFoundation,CoreImage,QRCode">
+  
 
-    <!-- Bootstrap Core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <meta property="og:title" content="QRCode与Core Image"/>
 
-    <!-- Custom Fonts -->
-    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <meta property="og:site_name" content="寒流‘s Blog"/>
 
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 </head>
 
+
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Content -->
-    <section class="article-container">
-<!-- Back Home -->
-<a class="nav-back" href="/">
-    <i class="fa fa-puzzle-piece"></i>
-</a>
-
-<!-- Page Header -->
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>QRCode与Core Image</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Main Content -->
-            <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>QRCode与Core Image</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/03/05/QRCode的那些事儿/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-03-05T14:31:06.000Z">
+          2016-03-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
 <h2>要讨论的问题</h2><br>在参考<a href="http://www.appcoda.com/qr-code-generator-tutorial/" target="_blank" rel="external">Building a QR Code Generator with Core Image Filters</a>这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<a href="https://github.com/koalahl/HLQRCode" target="_blank" rel="external">Github·HLQRCode</a>。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br><a id="more"></a><br>代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CIContext</span> * context = [<span class="built_in">CIContext</span> contextWithOptions:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">CGImageRef</span> cgimg = [context create<span class="built_in">CGImage</span>:<span class="keyword">self</span><span class="variable">.qrcodeImg</span> fromRect:[<span class="keyword">self</span><span class="variable">.qrcodeImg</span> extent] ];</span><br><span class="line"></span><br><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];</span><br><span class="line">[library writeImageToSavedPhotosAlbum:cgimg metadata:[<span class="keyword">self</span><span class="variable">.qrcodeImg</span> properties] completionBlock:^(<span class="built_in">NSURL</span> *assetURL, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(error != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        msg = <span class="string">@"保存图片失败"</span> ;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,assetURL);</span><br><span class="line">        msg = <span class="string">@"保存图片成功"</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIAlertView</span> *alert = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="literal">nil</span></span><br><span class="line">                                                    message:msg</span><br><span class="line">                                                   delegate:<span class="keyword">self</span></span><br><span class="line">                                          cancelButtonTitle:<span class="string">@"确定"</span></span><br><span class="line">                                          otherButtonTitles:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    [alert show];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure><br><br>但是这样无论怎么样都无法在相册中看到保存的二维码图片。还报错<code>message &quot;BSXPCMessage received error for message: Connection interrupted&quot;</code>。对比参考的代码都是一样的，却找不出原因。我就在文章评论中留言问了这个问题，后来一个朋友提出了解决方案，仔细一看顿时恍然大悟。<br><br><h2>解决方式及要点</h2>
 
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CIContext</span> * context = [<span class="built_in">CIContext</span> contextWithOptions:@&#123;k<span class="built_in">CIContextUseSoftwareRenderer</span>:@YES&#125;];</span><br></pre></td></tr></table></figure>
@@ -91,63 +111,81 @@
 <p></p><h2>参考文章</h2><br><a href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185" target="_blank" rel="external">Core Image Programming Guide</a><br><a href="http://stackoverflow.com/questions/26065808/bsxpcmessage-received-error-for-message-connection-interrupted/29872829#29872829" target="_blank" rel="external">BSXPCMessage received error for message: Connection interrupted</a><p></p>
 <div align="center"><br>    <img src="http://i3.sinaimg.cn/edu/2015/0724/U1151P42DT20150724094518.jpg" alt="girl"><br></div>
 
- 
-                <!-- Meta -->
-                <div class="post-meta">
-                    <hr>
-                    <br>
-                    <div class="post-tags">
-                        
-                            
-
-<a href="/tags/AVFoundation/">#AVFoundation</a> <a href="/tags/CoreImage/">#CoreImage</a> <a href="/tags/QRCode/">#QRCode</a>
-
-
-                        
-                    </div>
-                    <div class="post-date">
-                        2016 年 03 月 05 日
-                    </div>
-                </div>
-            </div>
-
-            <!-- Comments -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- Disqus Comments -->
-
-<div id="disqus_thread" class="comment"></div>
-<script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = 'hanangellove';
-
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-            </div>
-        </div>
+      
     </div>
-</article>
-</section>
 
-    <!-- Scripts -->
-    <!-- jQuery -->
-<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </div>
 
-<script type="text/javascript">
-	console.log('Hexo-theme-hollow designed by zchen9 🙋 © 2015-' + (new Date()).getFullYear());
-</script>
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
-    <!-- Google Analytics -->
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
     
 
-</body>
+    
+    
 
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/AVFoundation/">AVFoundation</a><a href="/tags/CoreImage/">CoreImage</a><a href="/tags/QRCode/">QRCode</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
 </html>

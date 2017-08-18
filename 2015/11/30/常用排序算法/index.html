@@ -1,75 +1,95 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  
+  <title>常用排序算法 | 寒流‘s Blog | 编程与生活</title>
 
-    <!--Description-->
-    
-        <meta name="description" content="Thinking in Different">
-    
+  
+  <meta name="author" content="Han Liu">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="Han Liu">
-    
+  
+  <meta name="description" content="Thinking in Different">
+  
 
-    <!-- Title -->
-    
-    <title>常用排序算法 | 寒流‘s Blog</title>
+  
+  
+  <meta name="keywords" content="算法">
+  
 
-    <!-- Bootstrap Core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <meta property="og:title" content="常用排序算法"/>
 
-    <!-- Custom Fonts -->
-    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <meta property="og:site_name" content="寒流‘s Blog"/>
 
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 </head>
 
+
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Content -->
-    <section class="article-container">
-<!-- Back Home -->
-<a class="nav-back" href="/">
-    <i class="fa fa-puzzle-piece"></i>
-</a>
-
-<!-- Page Header -->
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>常用排序算法</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <!-- Post Main Content -->
-            <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>在此总结一下常用排序算法的代码实现</p>
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>常用排序算法</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/11/30/常用排序算法/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-11-30T02:02:57.000Z">
+          2015-11-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>在此总结一下常用排序算法的代码实现</p>
 <p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
 <p>/*<br>1、插入排序<br>（1）直接插入排序算法<br>算法思想：将等排序列划分为有序与无序两部分，然后再依次将无序部分插入到已经有序的部分，最后</p>
 <p>就可以形成有序序列。<br>操作步骤如下：<br>1）查找出元素L（i）在表中的插入位置K；<br>2）将表中的第K个元素之前的元素依次后移一个位置；<br>3）将L（i）复制到L（K）。<br> */<br>时间复杂度为：O(n^2)</p>
@@ -88,63 +108,74 @@
 <p>/*<br>7、堆排序算法<br> 堆的定义如下：n个关键字序列号L<a href="">1..n</a>称为堆，仅当该序列满足：<br>1）L(i) \&lt;= L(2i)且L(i) \&lt;= L(2i+1) 或 2)L(i) >= L(2i)且L(i) >= L(2i+1)<br>满足第一种情况的堆，称为小根堆（小顶堆）；<br>满足第二种情况的堆，称为大根堆（大顶堆）。<br>*/</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapAdjust</span><span class="params">(ElemType \*a,<span class="keyword">int</span> i,<span class="keyword">int</span> size)</span>  <span class="comment">//调整堆</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lchild = <span class="number">2</span> \* i;       <span class="comment">//i的左孩子节点序号</span></span><br><span class="line">    <span class="keyword">int</span> rchild = <span class="number">2</span> \* i + <span class="number">1</span>;     <span class="comment">//i的右孩子节点序号</span></span><br><span class="line">    <span class="keyword">int</span> max = i;            <span class="comment">//临时变量</span></span><br><span class="line">   <span class="keyword">if</span>(i \&lt;= size / <span class="number">2</span>)          <span class="comment">//如果i是叶节点就不用进行调整</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> (lchild \&lt;= size &amp;&amp; a[lchild]() \&gt; a[max]())</span><br><span class="line">&#123;</span><br><span class="line">max = lchild; <span class="comment">// 左孩子比双亲值还大，需要调整</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (rchild \&lt;= size &amp;&amp; a[rchild]() \&gt; a[max]())</span><br><span class="line">&#123;</span><br><span class="line">max = rchild;<span class="comment">// 右孩子比双亲值还大，需要调整</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (max != i) <span class="comment">// 需要调整</span></span><br><span class="line">&#123;</span><br><span class="line">ElemType tmp = a[max]();</span><br><span class="line">a[max]() = a[i]();</span><br><span class="line">a[i]() = tmp;</span><br><span class="line"></span><br><span class="line">HeapAdjust(a, max, size);    <span class="comment">//避免调整之后以max为父节点的子树不是堆</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BuildHeap</span><span class="params">(ElemType \*a,<span class="keyword">int</span> size)</span>    <span class="comment">//建立堆</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = size / <span class="number">2</span>; i \&gt;= <span class="number">0</span>; i--)    <span class="comment">//非叶节点最大序号值为size/2</span></span><br><span class="line">    &#123;</span><br><span class="line">        HeapAdjust(a, i, size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(ElemType \*a, <span class="keyword">int</span> size)</span>    <span class="comment">//堆排序</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    BuildHeap(a,size);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = size - <span class="number">1</span>; i \&gt;= <span class="number">0</span>; i--)</span><br><span class="line">&#123;</span><br><span class="line">swap(a[<span class="number">0</span>](), a[i]());           <span class="comment">//交换堆顶和最后一个元素，即每次将剩余元素中的最大者放到最后面</span></span><br><span class="line">BuildHeap(a, i-<span class="number">1</span>);        <span class="comment">//将余下元素重新建立为大顶堆</span></span><br><span class="line">HeapAdjust(a,<span class="number">1</span>,i-<span class="number">1</span>);      <span class="comment">//重新调整堆顶节点成为大顶堆</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Display</span><span class="params">(ElemType arr[], <span class="keyword">int</span> length)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i \&lt; length; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> \&lt;\&lt; arr[i] \&lt;\&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">cout</span> \&lt;\&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    ElemType arr[] = &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">6</span>, <span class="number">9</span>, -<span class="number">1</span>, <span class="number">4</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//InsertSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//BinaryInsertSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//ShellSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//BubbleSort(arr, sizeof(arr) / sizeof(ElemType));</span></span><br><span class="line"><span class="comment">//QuickSort(arr, 0,  sizeof(arr) / sizeof(ElemType) - 1);</span></span><br><span class="line">HeapSort(arr, <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">Display(arr, <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
- 
-                <!-- Meta -->
-                <div class="post-meta">
-                    <hr>
-                    <br>
-                    <div class="post-tags">
-                        
-                            
-
-<a href="/tags/算法/">#算法</a>
-
-
-                        
-                    </div>
-                    <div class="post-date">
-                        2015 年 11 月 30 日
-                    </div>
-                </div>
-            </div>
-
-            <!-- Comments -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- Disqus Comments -->
-
-<div id="disqus_thread" class="comment"></div>
-<script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = 'hanangellove';
-
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
-
-            </div>
-        </div>
+      
     </div>
-</article>
-</section>
 
-    <!-- Scripts -->
-    <!-- jQuery -->
-<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </div>
 
-<script type="text/javascript">
-	console.log('Hexo-theme-hollow designed by zchen9 🙋 © 2015-' + (new Date()).getFullYear());
-</script>
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
-    <!-- Google Analytics -->
     
 
-</body>
+    
+    
 
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/算法/">算法</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
 </html>
