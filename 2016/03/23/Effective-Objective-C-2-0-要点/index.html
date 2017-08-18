@@ -1,95 +1,75 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  
-  <title>Effective-Objective C 2.0 要点 | 寒流‘s Blog | 编程与生活</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  <meta name="author" content="Han Liu">
-  
+    <!--Description-->
+    
+        <meta name="description" content="Thinking in Different">
+    
 
-  
-  <meta name="description" content="Thinking in Different">
-  
+    <!--Author-->
+    
+        <meta name="author" content="Han Liu">
+    
 
-  
-  
-  <meta name="keywords" content="Effective-Ojective C 2.0">
-  
+    <!-- Title -->
+    
+    <title>Effective-Objective C 2.0 要点 | 寒流‘s Blog</title>
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-  <meta property="og:title" content="Effective-Objective C 2.0 要点"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 
-  <meta property="og:site_name" content="寒流‘s Blog"/>
+    <!-- Custom Fonts -->
+    <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
-
 <body>
-<div class="blog">
-  <div class="content">
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">寒流‘s Blog</a>
-    </h1>
-    <p class="site-description">编程与生活</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">主页</a></li>
-      
-        <li><a href="/archives">归档</a></li>
-      
-        <li><a href="/categories">分类</a></li>
-      
-        <li><a href="/tags">标签</a></li>
-      
-        <li><a href="/about">关于</a></li>
-      
-    </ul>
-  </nav>
+    <!-- Content -->
+    <section class="article-container">
+<!-- Back Home -->
+<a class="nav-back" href="/">
+    <i class="fa fa-puzzle-piece"></i>
+</a>
+
+<!-- Page Header -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Effective-Objective C 2.0 要点</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
-    <main class="site-main posts-loop">
-    <article>
-
-  
-    
-    <h3 class="article-title"><span>Effective-Objective C 2.0 要点</span></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/23/Effective-Objective-C-2-0-要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-23T08:10:35.000Z">
-          2016-03-23
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Effective-Ojective C 2.0 读书笔记</p>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Main Content -->
+            <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Effective-Ojective C 2.0 读书笔记</p>
 <p>第一章的内容比较基础，就没有列在笔记当中了。另外该笔记只记录每一个要点之后的总结，重点地方会另外探讨。</p>
 <a id="more"></a>
 <h2 id="2">第二章 消息、对象、运行期</h2>
@@ -236,81 +216,63 @@
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分类文件.h/.m</span></span><br><span class="line">  <span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">@interface</span> <span class="title">NSTimer</span> (<span class="title">BlockTimer</span>)</span></span><br><span class="line"></span><br><span class="line">  + (<span class="built_in">NSTimer</span> *)bt_scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval block:(<span class="keyword">void</span>(^)())block repeats:(<span class="built_in">BOOL</span>)repeats;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="preprocessor">#import <span class="title">"NSTimer+BlockTimer.h"</span></span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">@implementation</span> <span class="title">NSTimer</span> (<span class="title">BlockTimer</span>)</span></span><br><span class="line"></span><br><span class="line">  + (<span class="built_in">NSTimer</span> *)bt_scheduledTimerWithTimeInterval:(<span class="built_in">NSTimeInterval</span>)interval block:(<span class="keyword">void</span>(^)())block repeats:(<span class="built_in">BOOL</span>)repeats&#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="keyword">self</span> scheduledTimerWithTimeInterval:interval target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(bt_doSomething:) userInfo:[block <span class="keyword">copy</span>] repeats:repeats];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  + (<span class="keyword">void</span>)bt_doSomething:(<span class="built_in">NSTimer</span> *)timer&#123;</span><br><span class="line">      <span class="keyword">void</span>(^block)() = timer<span class="variable">.userInfo</span>;</span><br><span class="line">      <span class="keyword">if</span> (block) &#123;</span><br><span class="line">          block();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在调用时</span></span><br><span class="line">  __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;</span><br><span class="line">  _timer = [<span class="built_in">NSTimer</span> bt_scheduledTimerWithTimeInterval:<span class="number">1</span> block:^&#123;</span><br><span class="line">      <span class="comment">//不需要再转成strong也可以啊！？</span></span><br><span class="line">      [weakSelf printName:<span class="string">@"hello"</span>];</span><br><span class="line"></span><br><span class="line">      ViewController * strongSelf = weakSelf;</span><br><span class="line">      [strongSelf printName:<span class="string">@"world"</span>];</span><br><span class="line"></span><br><span class="line">  &#125; repeats:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
 
-      
+ 
+                <!-- Meta -->
+                <div class="post-meta">
+                    <hr>
+                    <br>
+                    <div class="post-tags">
+                        
+                            
+
+<a href="/tags/Effective-Ojective-C-2-0/">#Effective-Ojective C 2.0</a>
+
+
+                        
+                    </div>
+                    <div class="post-date">
+                        2016 年 03 月 23 日
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- Disqus Comments -->
+
+<div id="disqus_thread" class="comment"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'hanangellove';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+            </div>
+        </div>
     </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Effective-Ojective-C-2-0/">Effective-Ojective C 2.0</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
 </article>
+</section>
 
-  
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
+    <!-- Scripts -->
+    <!-- jQuery -->
+<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript">
-	var disqus_shortname = 'hanangellove';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
+<script type="text/javascript">
+	console.log('Hexo-theme-hollow designed by zchen9 🙋 © 2015-' + (new Date()).getFullYear());
+</script>
 
-
-
-
-
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
+    <!-- Google Analytics -->
     
-    &copy; 2017 Han Liu
-    
-  </p>
-</footer>
-    
-  </div>
-</div>
+
 </body>
+
 </html>
