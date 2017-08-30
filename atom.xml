@@ -20,8 +20,9 @@
     <id>http://koalahl.github.io/2017/08/30/MVVM-in-Practice/</id>
     <published>2017-08-30T14:07:42.000Z</published>
     <updated>2017-08-30T14:07:42.000Z</updated>
-    <content type="html"><![CDATA[<p>MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。<br><a href="https://www.youtube.com/watch?v=sWx8TtRBOfk&amp;t=497s" target="_blank" rel="external">MVVM in Practice - RWDevCon Session - raywenderlich.com</a>  </p>
-<p>个人认为该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。</p>
+    <content type="html"><![CDATA[<p><a href="https://www.youtube.com/watch?v=sWx8TtRBOfk&amp;t=497s" target="_blank" rel="external">MVVM in Practice - RWDevCon Session - raywenderlich.com</a>  </p>
+<p>MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。</p>
+<p>该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。</p>
 <a id="more"></a>
 <p></p><h4>概念</h4><br>MVVM： Model-View-ViewModel。通过分离ViewController中逻辑代码到独立的ViewModel中，实现业务逻辑分离和VC瘦身。<p></p>
 <p></p><h4>重点：Data Binding</h4><br>iOS中的数据绑定方式：<p></p>
@@ -32,35 +33,41 @@
 <li>Property Observer  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"Hello, playground"</span> &#123;</span><br><span class="line">    <span class="keyword">didSet</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"new str : <span class="subst">\(str)</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">str = <span class="string">"hello swift"</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>实现一个Data Binding类:Box<br>    <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">   <span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Listener</span> = (<span class="type">T</span>) -&gt; <span class="type">Void</span></span><br><span class="line">    <span class="keyword">var</span> listener : <span class="type">Listener</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> value:<span class="type">T</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            listener?(value)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> value:<span class="type">T</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.value = value</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">bind</span><span class="params">(listener:Listener?)</span></span>  &#123;</span><br><span class="line">        <span class="keyword">self</span>.listener = listener</span><br><span class="line">        listener?(value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bindedObj = <span class="type">Box</span>(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">bindedObj.bind &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"new value:<span class="subst">\($<span class="number">0</span>)</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bindedObj.value = <span class="string">"2017"</span></span><br></pre></td></tr></table></figure></p>
+<p>实现一个Data Binding类:Box<br>    <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Listener</span> = (<span class="type">T</span>) -&gt; <span class="type">Void</span></span><br><span class="line">    <span class="keyword">var</span> listener : <span class="type">Listener</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> value:<span class="type">T</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            listener?(value)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> value:<span class="type">T</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.value = value</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">bind</span><span class="params">(listener:Listener?)</span></span>  &#123;</span><br><span class="line">        <span class="keyword">self</span>.listener = listener</span><br><span class="line">        listener?(value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bindedObj = <span class="type">Box</span>(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">bindedObj.bind &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"new value:<span class="subst">\($<span class="number">0</span>)</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bindedObj.value = <span class="string">"2017"</span></span><br></pre></td></tr></table></figure></p>
 <p>可以看出是使用了closure来实现bingding的。同理，Cocoa中的其他类都可以写一个extension实现绑定。</p>
-<p>提问中一些问题：（只给出回答中的重点内容）</p>
+<p></p><h4>提问环节</h4><br>（只给出回答中的重点内容）<p></p>
 <ol>
 <li>为什么ViewModel使用的是class而不是struct？<br> Ash：说是因为他认为这个ViewModel中不仅是数据逻辑，还包含有其他功能逻辑代码。</li>
 <li>为什么dispatchAfter中使用weak self，而viewController中使用unowned self？<br> Ash：通常来说，weak修饰的变量有可能是为nil的，而unowned修饰的变量你会保证它不是optional的。</li>
 </ol>
-<p>MVVM的Benifits和Limitation：<br>Benifits:</p>
+<p></p><h4>MVVM的Benifits和Limitation</h4><p></p>
+<ol>
+<li><p>Benifits:</p>
 <ul>
 <li>Breaks up code by responsibility</li>
 <li>Simplifies Testing</li>
 <li>Code reusablibity</li>
 </ul>
-<p>Limitation:</p>
+</li>
+<li><p>Limitation:</p>
 <ul>
 <li>Requires binding(or other workarounds)</li>
 <li>Potential for boilerplate code</li>
 <li>Sometimes feels like overkill</li>
 <li>Doesn’t cover every case</li>
 </ul>
-<p>延伸阅读：</p>
+</li>
+</ol>
+<p></p><h4>延伸阅读</h4><p></p>
 <ol>
 <li><a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">ReactiveCocoa/RxSwift</a></li>
 <li><a href="http://southpeak.github.io/2017/01/16/Getting-Started-With-RxSwift-and-RxCocoa/" target="_blank" rel="external">Getting Started With RxSwift and RxCocoa</a></li>
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。<br><a href="https://www.youtube.com/watch?v=sWx8TtRBOfk&amp;t=497s">MVVM in Practice - RWDevCon Session - raywenderlich.com</a>  </p>
-<p>个人认为该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。</p>]]>
+    <![CDATA[<p><a href="https://www.youtube.com/watch?v=sWx8TtRBOfk&amp;t=497s">MVVM in Practice - RWDevCon Session - raywenderlich.com</a>  </p>
+<p>MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。</p>
+<p>该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。</p>]]>
     
     </summary>
     
