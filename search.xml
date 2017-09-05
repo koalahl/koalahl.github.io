@@ -13,8 +13,8 @@
 </ol>
 <p>开源工具：</p>
 <ul>
-<li>FBRetainCycleDetector  (<a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">https://github.com/facebook/FBRetainCycleDetector</a>)</li>
-<li>MLeaksFinder (<a href="http://blog.csdn.net/qq_29696849/article/details/51374165" target="_blank" rel="external">http://blog.csdn.net/qq_29696849/article/details/51374165</a>)</li>
+<li><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">FBRetainCycleDetector</a></li>
+<li><a href="http://blog.csdn.net/qq_29696849/article/details/51374165" target="_blank" rel="external">MLeaksFinder</a></li>
 </ul>
 <p><a href="https://wereadteam.github.io/2016/05/03/WeRead-Performance/" target="_blank" rel="external">微信读书 iOS 性能优化总结</a></p>
 <p>2.AsycDisplayKit 原理。</p>
@@ -29,7 +29,7 @@
 <li>HandleException</li>
 <li>SignalHandler</li>
 </ol>
-<p><a href="http://www.cocoachina.com/ios/20150701/12301.html" target="_blank" rel="external">漫谈iOS Crash收集框架 </a><br>[iOS崩溃捕获以及收集原理] (<a href="http://blog.csdn.net/skylin19840101/article/details/50955808#t2" target="_blank" rel="external">http://blog.csdn.net/skylin19840101/article/details/50955808#t2</a>)</p>
+<p><a href="http://www.cocoachina.com/ios/20150701/12301.html" target="_blank" rel="external">漫谈iOS Crash收集框架 </a><br><a href="http://blog.csdn.net/skylin19840101/article/details/50955808#t2" target="_blank" rel="external">iOS崩溃捕获以及收集原理</a></p>
 <p>4.Core animation 动画与UIView动画的区别。<br>是否响应事件？<br>记得在 Core Animation programming guide 中有提到。</p>
 <p>5.Https概念，iOS中设置https。<br>略</p>
 <p>6.100W数据中找到最大的10W，使用什么数据结构？<br>完全不知道，没做回答。</p>
@@ -40,10 +40,11 @@
 <p>首先离屏渲染指的是在GPU在当前屏幕缓冲区以外开辟一个缓冲区进行渲染操作.</p>
 <p>当使用圆角，阴影，遮罩的时候，图层属性的混合体被指定为在未预合成之前(下一个HSync信号开始前)不能直接在屏幕中绘制，所以就需要屏幕外渲染。</p>
 <p>具体参考这篇文章：<a href="http://www.jianshu.com/p/57e2ec17585b" target="_blank" rel="external">iOS-离屏渲染详解</a></p>
-<p>总结：</p>
+<h4>总结：</h4>
+
 <p>本次面试问题侧重于实际项目，很多东西之前有看过，但都忘了大概，用到但没有深入研究是一大劣势。</p>
 <p>所以说多多面试还是有帮助的😆！</p>
-<p>面试必看文章：<br>[iOS 保持界面流畅的技巧] (<a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/</a>)<br>[iOS 应用稳定性监测和指标问题] (<a href="http://www.liuhaihua.cn/archives/497294.html" target="_blank" rel="external">http://www.liuhaihua.cn/archives/497294.html</a>)</p>
+<p>面试必看文章：<br><a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">iOS 保持界面流畅的技巧</a><br><a href="http://www.liuhaihua.cn/archives/497294.html" target="_blank" rel="external">iOS 应用稳定性监测和指标问题</a></p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTE2NTE1Ng==&amp;mid=2649516390&amp;idx=1&amp;sn=afb306c7de96e7dabd38a9d4e72bb699&amp;chksm=f1efe9edc69860fb98c41a77af9a3bf5795b11ae039411e571bbc46cb501a006beeb11310cde&amp;scene=21#wechat_redirect" target="_blank" rel="external">iOS 性能监控方案（上篇）</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTE2NTE1Ng==&amp;mid=2649516402&amp;idx=1&amp;sn=6b294858aea8710faded49e429e0ae79&amp;chksm=f1efe9f9c69860efca1d72ca85aa34583a7a3c8fd2595c6b8dbae5c925893e52c61fe56eb276#rd" target="_blank" rel="external">iOS 性能监控方案（下篇）</a></p>
 ]]></content>
     </entry>
