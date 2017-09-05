@@ -50,15 +50,15 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
-        <li><a href="/categories">分类</a></li>
+        <li><a href="/categories">Categories</a></li>
       
-        <li><a href="/tags">标签</a></li>
+        <li><a href="/tags">Tags</a></li>
       
-        <li><a href="/about">关于</a></li>
+        <li><a href="/about">About</a></li>
       
     </ul>
   </nav>
@@ -97,11 +97,8 @@
 <li>第二阶段设计完整的消息转发机制（full forwording mechanism）。<br>如果在运行期，系统已经把第一阶段执行完了，那么接受者自己就无法再以动态添加方法的方式来响应包含该unknown selector的消息了。此时，运行期系统会请求接受者以<br>其他手段来处理与消息相关的方法调用。这里又分为两小步：<br> 2.1 首先，接受者查看是否有其他对象能处理这条消息，若有，则运行时系统会将消息转给那个对象，一切如常。<br> 2.2 若没有可替代的接受者（replacement receiver），则启动完整的消息转发机制，运行时系统会把与消息有关的全部细节都封装到NSInvocation对象中，再给接受者最后一次机会，令其设法解决当前还未处理的消息。</li>
 </ol>
 <p>a.动态方法解析<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (Bool)resolveInstanceMethod:(SEL)Selector</span><br><span class="line">+ (Bool)resolveClassMethod:(SEL)Selector</span><br></pre></td></tr></table></figure></p>
-<p>b.消息转发给可替代接受者（replacement receiver）<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector:(SEL)Selector</span><br></pre></td></tr></table></figure></p>
-<p>c.完整的消息转发机制，构造NSInvocation对象</p>
-<ul>
-<li>(id)forwardInvocation:(NSInvocation *)invocation</li>
-</ul>
+<p>b.消息转发给可替代接受者，尝试找到一个能响应该消息的对象（replacement receiver）<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)forwardingTargetForSelector:(SEL)Selector</span><br></pre></td></tr></table></figure></p>
+<p>c.下一步，构造NSInvocation对象<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//尝试获得一个方法签名</span></span><br><span class="line">- (<span class="keyword">id</span>)methodSignatureForSelector:(SEL)selector </span><br><span class="line"><span class="comment">//将上一步获取到的方法签名包装成 Invocation 传入，如何处理就在这里面了，并返回非ni</span></span><br><span class="line">- (<span class="keyword">id</span>)forwardInvocation:(<span class="built_in">NSInvocation</span> *)invocation</span><br></pre></td></tr></table></figure></p>
 <p><img src="/img/message forwarding.png" alt="完整的消息转发流程图"></p>
 <p></p><h2>总结</h2><p></p>
 <ul>
