@@ -6,8 +6,8 @@
     <entry>
       <title><![CDATA[腾讯SNG某部门iOS面试经历]]></title>
       <url>http://koalahl.github.io/2017/09/05/%E8%85%BE%E8%AE%AFSNG%E6%9F%90%E9%83%A8%E9%97%A8iOS%E9%9D%A2%E8%AF%95%E7%BB%8F%E5%8E%86/</url>
-      <content type="html"><![CDATA[<a id="more"></a>
-<p>腾讯SNG面试：</p>
+      <content type="html"><![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。</p>
+<a id="more"></a>
 <ol>
 <li>APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</li>
 </ol>

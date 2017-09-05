@@ -4,7 +4,7 @@
   <subtitle><![CDATA[编程与生活]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://koalahl.github.io/"/>
-  <updated>2017-09-05T13:30:55.000Z</updated>
+  <updated>2017-09-05T13:40:55.000Z</updated>
   <id>http://koalahl.github.io/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://koalahl.github.io/2017/09/05/%E8%85%BE%E8%AE%AFSNG%E6%9F%90%E9%83%A8%E9%97%A8iOS%E9%9D%A2%E8%AF%95%E7%BB%8F%E5%8E%86/"/>
     <id>http://koalahl.github.io/2017/09/05/腾讯SNG某部门iOS面试经历/</id>
     <published>2017-09-05T13:30:55.000Z</published>
-    <updated>2017-09-05T13:30:55.000Z</updated>
-    <content type="html"><![CDATA[<a id="more"></a>
-<p>腾讯SNG面试：</p>
+    <updated>2017-09-05T13:40:55.000Z</updated>
+    <content type="html"><![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。</p>
+<a id="more"></a>
 <ol>
 <li>APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</li>
 </ol>
@@ -61,15 +61,13 @@
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTE2NTE1Ng==&amp;mid=2649516390&amp;idx=1&amp;sn=afb306c7de96e7dabd38a9d4e72bb699&amp;chksm=f1efe9edc69860fb98c41a77af9a3bf5795b11ae039411e571bbc46cb501a006beeb11310cde&amp;scene=21#wechat_redirect" target="_blank" rel="external">iOS 性能监控方案（上篇）</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTE2NTE1Ng==&amp;mid=2649516402&amp;idx=1&amp;sn=6b294858aea8710faded49e429e0ae79&amp;chksm=f1efe9f9c69860efca1d72ca85aa34583a7a3c8fd2595c6b8dbae5c925893e52c61fe56eb276#rd" target="_blank" rel="external">iOS 性能监控方案（下篇）</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<a id="more"></a>
-<p>腾讯SNG面试：</p>
-<ol>
-<li>APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</li>
-</ol>
-<p>开源工具：</p>
-<ul>
-<li>FBRetainCycleDetecto]]>
+    <![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。</p>]]>
+    
     </summary>
+    
+      <category term="面试" scheme="http://koalahl.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="iOS" scheme="http://koalahl.github.io/categories/iOS/"/>
     
   </entry>
   
