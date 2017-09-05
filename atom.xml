@@ -22,9 +22,7 @@
     <updated>2017-09-05T13:40:55.000Z</updated>
     <content type="html"><![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。</p>
 <a id="more"></a>
-<ol>
-<li>APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</li>
-</ol>
+<p>###1.APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</p>
 <p>开源工具：</p>
 <ul>
 <li><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">FBRetainCycleDetector</a></li>
