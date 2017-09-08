@@ -42,12 +42,42 @@
 <li>SignalHandler</li>
 </ol>
 <p><a href="http://www.cocoachina.com/ios/20150701/12301.html" target="_blank" rel="external">漫谈iOS Crash收集框架 </a><br><a href="http://blog.csdn.net/skylin19840101/article/details/50955808#t2" target="_blank" rel="external">iOS崩溃捕获以及收集原理</a></p>
-<p>4.Core animation 动画与UIView动画的区别。<br>是否响应事件？<br>记得在 Core Animation programming guide 中有提到。</p>
+<p>4.Core animation 动画与UIView动画的区别,动画执行过程中是否响应事件？</p>
+<ul>
+<li>UIView animation 是基于UIView，Core Animation是基于CALayer。</li>
+<li>UIView animation 由CPU执行，Core Animation由GPU执行。</li>
+<li>CALayer本身不能响应事件，UIView是在CAlayer之上，增加了触摸响应,手势识别等事件响应。</li>
+</ul>
+<blockquote><p>Core Animation is not executed on the CPU. Their commands are more offloaded to the GPU and used to create the graphics that are shown on the screen, powered by the GPU hardware.</p>
+<p>Core Graphics is entirely done on the CPU, and cannot be performed on the GPU. Because it is an entirely CPU-bound operation, it is sometimes slower on older devices (e.g. the iPad 2 or the iPad 3rd Generation). This is something you need to keep in mind when using it in your apps. But, the good thing about Core Graphics is you can combine it with Core Animation.</p>
+</blockquote>
+<p><a href="https://academy.realm.io/posts/tryswift-tim-oliver-advanced-graphics-with-core-animation/" target="_blank" rel="external">Advanced Graphics with Core Animation</a></p>
+<blockquote><p>Core Animation does the rest, handing most of the actual drawing work off to the onboard graphics hardware to accelerate the rendering. This automatic graphics acceleration results in high frame rates and smooth animations without burdening the CPU and slowing down your app.</p>
+</blockquote>
+<p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004514" target="_blank" rel="external">Core Animation Programming Guide</a></p>
+<p>动画执行过程中是否响应事件？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</span><br><span class="line">    <span class="built_in">UITouch</span> *touch = [touches anyObject];</span><br><span class="line">    <span class="built_in">CGPoint</span> point = [touch locationInView:<span class="keyword">self</span><span class="variable">.view</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGRectContainsPoint</span>(<span class="keyword">self</span><span class="variable">.colorLayer</span><span class="variable">.presentationLayer</span><span class="variable">.frame</span>, point)) &#123;</span><br><span class="line">        [<span class="keyword">self</span> startAnimation];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGRectContainsPoint</span>(<span class="keyword">self</span><span class="variable">.myView</span><span class="variable">.frame</span>, point)) &#123;</span><br><span class="line">        [<span class="keyword">self</span> start<span class="built_in">UIViewAnimation</span>:<span class="literal">nil</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过测试，CALayer是可以响应touch事件的,而UIView的block animation在执行过程中不能响应其自身的触摸事件。</p>
+<p><em>注意CALayer在动画执行过程中要是用presentationLayer属性才能获取到中间状态的layer</em><br><em>Core Animation 的removedOnCompletion 属性默认是YES，即动画结束之后会移除动画，CALayer会回到原来的状态</em></p>
+<p>可以查看Core Animation Programming Guide 的显式动画一章。</p>
 <p>5.Https概念，iOS中设置https。<br>略</p>
 <p>6.100W数据中找到最大的10W，使用什么数据结构？<br>完全不知道，没做回答。</p>
 <p>最小堆</p>
 <p><a href="http://blog.csdn.net/zyq522376829/article/details/47686867" target="_blank" rel="external">海量数据处理 - 10亿个数中找出最大的10000个数（top K问题）</a></p>
-<p>7.音视频开发，没做过，然后提到简历上的二维码扫描库 - AVFoundation。<br>影响二维码扫描速度的难点是什么？我回答是二维码图像的清晰度，面试官还提到了二维码图像的角度，该如何优化。</p>
+<p>7.音视频开发，没做过，然后提到简历上的二维码扫描库 - AVFoundation。<br>影响二维码扫描速度的难点是什么？我回答是二维码图像的清晰度，面试官还提到了二维码图像的角度，该如何优化。<br>对于AVFoundation来说，有两个因素：</p>
+<ol>
+<li><p>图像分辨率<br> AVCaptureSession 可以设置 sessionPreset 属性，这个决定了视频输入每一帧图像质量的大小。</p>
+<ul>
+<li>AVCaptureSessionPreset320x240</li>
+<li>AVCaptureSessionPreset352x288</li>
+<li>AVCaptureSessionPreset640x480</li>
+<li>AVCaptureSessionPreset960x540</li>
+<li>AVCaptureSessionPreset1280x720</li>
+<li>AVCaptureSessionPreset1920x1080</li>
+</ul>
+</li>
+<li><p>扫描范围<br> AVCaptureMetadataOutput 的 rectOfInterest 属性来配置解析范围</p>
+</li>
+</ol>
 <p>8.离屏渲染问题的本质是什么？</p>
 <p>首先离屏渲染指的是在GPU在当前屏幕缓冲区以外开辟一个缓冲区进行渲染操作.</p>
 <p>当使用圆角，阴影，遮罩的时候，图层属性的混合体被指定为在未预合成之前(下一个HSync信号开始前)不能直接在屏幕中绘制，所以就需要屏幕外渲染。</p>
