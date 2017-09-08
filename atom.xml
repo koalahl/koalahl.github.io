@@ -44,7 +44,6 @@
 <p><a href="http://www.cocoachina.com/ios/20150701/12301.html" target="_blank" rel="external">漫谈iOS Crash收集框架 </a><br><a href="http://blog.csdn.net/skylin19840101/article/details/50955808#t2" target="_blank" rel="external">iOS崩溃捕获以及收集原理</a></p>
 <p>4.Core animation 动画与UIView动画的区别,动画执行过程中是否响应事件？</p>
 <ul>
-<li>UIView animation 是基于UIView，Core Animation是基于CALayer。</li>
 <li>UIView animation 由CPU执行，Core Animation由GPU执行。</li>
 <li>CALayer本身不能响应事件，UIView是在CAlayer之上，增加了触摸响应,手势识别等事件响应。</li>
 </ul>
