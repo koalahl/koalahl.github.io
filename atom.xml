@@ -22,27 +22,31 @@
     <updated>2017-09-05T13:40:55.000Z</updated>
     <content type="html"><![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。可以看出，高级工程师不仅要会用一些常用库，还要懂得它们的原理。</p>
 <a id="more"></a>
-<p>1.APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</p>
+<h4 id="1">1.APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</h4>
+
 <p>开源工具：</p>
 <ul>
 <li><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">FBRetainCycleDetector</a></li>
 <li><a href="http://blog.csdn.net/qq_29696849/article/details/51374165" target="_blank" rel="external">MLeaksFinder</a></li>
 </ul>
 <p><a href="https://wereadteam.github.io/2016/05/03/WeRead-Performance/" target="_blank" rel="external">微信读书 iOS 性能优化总结</a></p>
-<p>2.AsycDisplayKit 原理。</p>
+<h4 id="2">2.AsycDisplayKit 原理。</h4>
+
 <p><a href="https://github.com/facebookarchive/AsyncDisplayKit" target="_blank" rel="external">AsyncDisplayKit</a>是 Facebook 推出的用于保持界面流畅性的框架，其原理大致如下：<br>UI 线程中一旦出现繁重的任务就会导致界面卡顿，这类任务通常分为3类：排版，绘制，UI对象操作。<br>排版通常包括计算视图大小、计算文本高度、重新计算子式图的排版等操作。</p>
 <p>绘制一般有文本绘制 (例如 CoreText)、图片绘制 (例如预先解压)、元素绘制 (Quartz)等操作。<br>UI对象操作通常包括 UIView/CALayer 等 UI 对象的创建、设置属性和销毁。</p>
 <p>其中前两类操作可以通过各种方法扔到后台线程执行，而最后一类操作只能在主线程完成，并且有时后面的操作需要依赖前面操作的结果 （例如TextView创建时可能需要提前计算出文本的大小）。ASDK 所做的，就是尽量将能放入后台的任务放入后台，不能的则尽量推迟 (例如视图的创建、属性的调整)。<br>为此，ASDK 创建了一个名为 ASDisplayNode 的对象，并在内部封装了 UIView/CALayer，它具有和 UIView/CALayer 相似的属性，例如 frame、backgroundColor等。所有这些属性都可以在后台线程更改，开发者可以只通过 Node 来操作其内部的 UIView/CALayer，这样就可以将排版和绘制放入了后台线程。但是无论怎么操作，这些属性总需要在某个时刻同步到主线程的 UIView/CALayer 去。</p>
 <p>ASDK 仿照 QuartzCore/UIKit 框架的模式，实现了一套类似的界面更新的机制：即在主线程的 RunLoop 中添加一个 Observer，监听了 kCFRunLoopBeforeWaiting 和 kCFRunLoopExit 事件，在收到回调时，遍历所有之前放入队列的待处理的任务，然后一一执行。</p>
 <p>具体的代码可以看这里：_ASAsyncTransactionGroup。</p>
-<p>3.Crash ，Bug收集 SDK的原理，自己做应该怎么做？</p>
+<h4 id="3">3.Crash ，Bug收集 SDK的原理，自己做应该怎么做？</h4>
+
 <p>注册NSSetUncaughtExceptionHandler，包括两种：</p>
 <ol>
 <li>HandleException</li>
 <li>SignalHandler</li>
 </ol>
 <p><a href="http://www.cocoachina.com/ios/20150701/12301.html" target="_blank" rel="external">漫谈iOS Crash收集框架 </a><br><a href="http://blog.csdn.net/skylin19840101/article/details/50955808#t2" target="_blank" rel="external">iOS崩溃捕获以及收集原理</a></p>
-<p>4.Core animation 动画与UIView动画的区别,动画执行过程中是否响应事件？</p>
+<h4 id="4">4.Core animation 动画与UIView动画的区别,动画执行过程中是否响应事件？</h4>
+
 <ul>
 <li>UIView animation 由CPU执行，Core Animation由GPU执行。</li>
 <li>CALayer本身不能响应事件，UIView是在CAlayer之上，增加了触摸响应,手势识别等事件响应。</li>
@@ -59,27 +63,15 @@
 <p><em>注意CALayer在动画执行过程中要是用presentationLayer属性才能获取到中间状态的layer</em><br><em>Core Animation 的removedOnCompletion 属性默认是YES，即动画结束之后会移除动画，CALayer会回到原来的状态</em></p>
 <p>可以查看Core Animation Programming Guide 的显式动画一章。</p>
 <p>另外附一篇有意思的文章 <a href="https://yalantis.com/blog/uidynamics-uikit-or-opengl-3-types-of-ios-animations-for-the-star-wars/" target="_blank" rel="external">UIDynamics, UIKit or OpenGL? 3 Types of iOS Animations for the Star Wars</a>,值得一读。</p>
-<p>5.Https概念，iOS中设置https。<br>略</p>
-<p>6.100W数据中找到最大的10W，使用什么数据结构？</p>
+<h4 id="5">5.Https概念，iOS中设置https。</h4><br>略<br><br><h4 id="6">6.100W数据中找到最大的10W，使用什么数据结构？</h4>
+
 <p>堆</p>
 <p><a href="http://blog.csdn.net/zyq522376829/article/details/47686867" target="_blank" rel="external">海量数据处理 - 10亿个数中找出最大的10000个数（top K问题）</a></p>
-<p>7.音视频开发，没做过，然后提到简历上的二维码扫描库 - AVFoundation。<br>影响二维码扫描速度的难点是什么？我回答是二维码图像的清晰度，面试官还提到了二维码图像的角度，该如何优化。</p>
-<p>对于AVFoundation来说，有两个因素：</p>
-<ol>
-<li><p>图像分辨率<br> AVCaptureSession 可以设置 sessionPreset 属性，这个决定了视频输入每一帧图像质量的大小。</p>
-<ul>
-<li>AVCaptureSessionPreset320x240</li>
-<li>AVCaptureSessionPreset352x288</li>
-<li>AVCaptureSessionPreset640x480</li>
-<li>AVCaptureSessionPreset960x540</li>
-<li>AVCaptureSessionPreset1280x720</li>
-<li>AVCaptureSessionPreset1920x1080</li>
-</ul>
-</li>
-<li><p>扫描范围<br> AVCaptureMetadataOutput 的 rectOfInterest 属性来配置解析范围</p>
-</li>
-</ol>
-<p>8.离屏渲染问题的本质是什么？</p>
+<h4 id="7">7.音视频开发，没做过，然后提到简历上的二维码扫描库 - AVFoundation。</h4><br>影响二维码扫描速度的难点是什么？我回答是二维码图像的清晰度，面试官还提到了二维码图像的角度，该如何优化。<br><br>对于AVFoundation来说，有两个因素：<br>1. 图像分辨率<br>    AVCaptureSession 可以设置 sessionPreset 属性，这个决定了视频输入每一帧图像质量的大小。<br>    <em> AVCaptureSessionPreset320x240
+    </em> AVCaptureSessionPreset352x288<br>    <em> AVCaptureSessionPreset640x480
+    </em> AVCaptureSessionPreset960x540<br>    <em> AVCaptureSessionPreset1280x720
+    </em> AVCaptureSessionPreset1920x1080<br><br>2. 扫描范围<br>    AVCaptureMetadataOutput 的 rectOfInterest 属性来配置解析范围<br><br><h4 id="8">8.离屏渲染问题的本质是什么？</h4>
+
 <p>首先离屏渲染指的是在GPU在当前屏幕缓冲区以外开辟一个缓冲区进行渲染操作.</p>
 <p>当使用圆角，阴影，遮罩的时候，图层属性的混合体被指定为在未预合成之前(下一个HSync信号开始前)不能直接在屏幕中绘制，所以就需要屏幕外渲染。</p>
 <p>具体参考这篇文章：<a href="http://www.jianshu.com/p/57e2ec17585b" target="_blank" rel="external">iOS-离屏渲染详解</a></p>
