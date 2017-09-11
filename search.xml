@@ -8,15 +8,7 @@
       <url>http://koalahl.github.io/2017/09/05/%E8%85%BE%E8%AE%AFSNG%E6%9F%90%E9%83%A8%E9%97%A8iOS%E9%9D%A2%E8%AF%95%E7%BB%8F%E5%8E%86/</url>
       <content type="html"><![CDATA[<p>腾讯SNG面试，算是积攒一次面试经验了。可以看出，高级工程师不仅要会用一些常用库，还要懂得它们的原理。</p>
 <a id="more"></a>
-<h4 id="1">1.APP性能优化：内存泄露检测， 自己做应该怎么做？卡顿检测-CADisplayLink</h4>
-
-<p>开源工具：</p>
-<ul>
-<li><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">FBRetainCycleDetector</a></li>
-<li><a href="http://blog.csdn.net/qq_29696849/article/details/51374165" target="_blank" rel="external">MLeaksFinder</a></li>
-</ul>
-<p><a href="https://wereadteam.github.io/2016/05/03/WeRead-Performance/" target="_blank" rel="external">微信读书 iOS 性能优化总结</a></p>
-<h4 id="2">2.AsycDisplayKit 原理。</h4>
+<h4 id="1">1.APP性能优化：内存泄露检测、卡顿检测,自己做应该怎么做？</h4><br>内存泄露检测：<br>    1. Instruments工具：Leaks，Allocation.<br>    2. MLeakFinder工具。<br><br><a href="https://wereadteam.github.io/2016/02/22/MLeaksFinder/" target="_blank" rel="external">MLeaksFinder：精准 iOS 内存泄露检测工具</a><br><a href="http://mrpeak.cn/blog/leak/" target="_blank" rel="external">iOS内存泄漏自动检测工具PLeakSniffer</a><br><br>卡顿检测：<br>    1. 开发阶段可以用CADisplayLink，添加到runloop中.<br>    2. 线上监测，除了用第三方SDK之外，可以使用 “在子线程添加observer监测主线程”的方式.<br><br><a href="https://wereadteam.github.io/2016/05/03/WeRead-Performance/" target="_blank" rel="external">微信读书 iOS 性能优化总结</a><br><br>卡顿检测的实现代码可以在这里找到：<a href="https://github.com/ming1016/study/wiki/检测iOS的APP性能的一些方法" target="_blank" rel="external">检测iOS的APP性能的一些方法</a><br><br>开源工具：<br>- <a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank" rel="external">FBRetainCycleDetector</a><br>- <a href="http://blog.csdn.net/qq_29696849/article/details/51374165" target="_blank" rel="external">MLeaksFinder</a><br>- <a href="https://github.com/plausiblelabs/plcrashreporter" target="_blank" rel="external">PLCrashreporter</a><br><br><h4 id="2">2.AsycDisplayKit 原理。</h4>
 
 <p><a href="https://github.com/facebookarchive/AsyncDisplayKit" target="_blank" rel="external">AsyncDisplayKit</a>是 Facebook 推出的用于保持界面流畅性的框架，其原理大致如下：<br>UI 线程中一旦出现繁重的任务就会导致界面卡顿，这类任务通常分为3类：排版，绘制，UI对象操作。<br>排版通常包括计算视图大小、计算文本高度、重新计算子式图的排版等操作。</p>
 <p>绘制一般有文本绘制 (例如 CoreText)、图片绘制 (例如预先解压)、元素绘制 (Quartz)等操作。<br>UI对象操作通常包括 UIView/CALayer 等 UI 对象的创建、设置属性和销毁。</p>
