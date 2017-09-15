@@ -67,6 +67,74 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/02/28/移动IM开发要点/"><span>移动IM开发要点</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/02/28/移动IM开发要点/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-02-28T14:10:56.000Z">
+          2016-02-28
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>个人对于IM开发中客户端与服务器之间的连接比较感兴趣，网搜一篇好文，记录下来。<br>转载于 <a href="http://xiangwangfeng.com/2015/05/20/%E7%A7%BB%E5%8A%A8IM%E5%BC%80%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">移动IM开发那些事</a></p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/IM/">IM</a><a href="/tags/xmpp/">xmpp</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2016/02/28/移动IM开发要点/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/01/17/如何做一个圆形的音量旋钮/"><span>如何做一个圆形的音量旋钮</span></a></h3>
     
   
@@ -397,77 +465,6 @@
         <i class="icon-comments"></i>
         <span>
           <a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2015/12/16/Block实现原理/"><span>Block实现原理</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/12/16/Block实现原理/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-12-16T13:11:51.000Z">
-          2015-12-16
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Block一直是iOS开发中常用的技巧，类似于C语言中的指针函数。多用于参数回调，异步加载等。下面就来探究以下block是如何实现的。<br>这篇是记录根据网上的文章进行的实际操作。C函数的生成中间编译代码的编译方法是clang -rewrite-objc xxxx.c。由于编译文件中内容较多，这里我们只截取有关block的部分。</p>
-<p>首先，看看没有block的C函数以及编译后的结果：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#include <span class="title">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main()&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译代码中的block：这里我们可以看到一个block的C实现。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#ifndef BLOCK_IMPL</span></span><br><span class="line"><span class="preprocessor">#define BLOCK_IMPL</span></span><br><span class="line"><span class="keyword">struct</span> __block_impl &#123;</span><br><span class="line">  <span class="keyword">void</span> *isa;</span><br><span class="line">  <span class="keyword">int</span> Flags;</span><br><span class="line">  <span class="keyword">int</span> Reserved;</span><br><span class="line">  <span class="keyword">void</span> *FuncPtr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>*isa说明block也可以作为对象使用（例如我们定义一个myBlock类型的block1），指针变量FunPtr应该就是指向了block代码块的函数首地址<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/block/">block</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2015/12/16/Block实现原理/#comment">评论</a>
         </span>
       </span>
     </div>

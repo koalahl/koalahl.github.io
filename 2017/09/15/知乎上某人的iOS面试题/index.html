@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>知乎上某人的iOS面试题 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Thinking in Different">
+  
+
+  
+  
+  <meta name="keywords" content="">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="知乎上某人的iOS面试题"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>知乎上某人的iOS面试题</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/09/15/知乎上某人的iOS面试题/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-09-15T02:21:00.000Z">
+          2017-09-15
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>这是前年在知乎上总结回答MrPeak的问题，现在搬运到自己的blog中。<br>知乎链接：<a href="http://www.zhihu.com/question/19604641" target="_blank" rel="external">http://www.zhihu.com/question/19604641</a></p>
+<a id="more"></a>
+<p>###1.什么是arc？（arc是为了解决什么问题诞生的？）<br>首先解释ARC: automatic reference counting自动引用计数。<br>    ARC几个要点：<br>    在对象被创建时 retain count +1，在对象被release时 retain count -1.当retain count 为0 时，销毁对象。<br>    程序中加入autoreleasepool的对象会由系统自动加上autorelease方法，如果该对象引用计数为0，则销毁。<br>    那么ARC是为了解决什么问题诞生的呢？这个得追溯到MRC手动内存管理时代说起。<br>    MRC下内存管理的缺点：<br>    1.当我们要释放一个堆内存时，首先要确定指向这个堆空间的指针都被release了。（避免提前释放）<br>    2.释放指针指向的堆空间，首先要确定哪些指针指向同一个堆，这些指针只能释放一次。（MRC下即谁创建，谁释放，避免重复释放）<br>    3.模块化操作时，对象可能被多个模块创建和使用，不能确定最后由谁去释放。<br>    4.多线程操作时，不确定哪个线程最后使用完毕</p>
+<p>###2.请解释以下keywords的区别： assign vs weak, <strong>block vs </strong>weak<br>assign适用于基本数据类型，weak是适用于NSObject对象，并且是一个弱引用。<br>assign其实也可以用来修饰对象，那么我们为什么不用它呢？因为被assign修饰的对象在释放之后，指针的地址还是存在的，也就是说指针并没有被置为nil。如果在后续的内存分配中，刚好分到了这块地址，程序就会崩溃掉。<br>而weak修饰的对象在释放之后，指针地址会被置为nil。所以现在一般弱引用就是用weak。<br>    首先<strong>block是用来修饰一个变量，这个变量就可以在block中被修改（参考block实现原理）
+    </strong>block：使用<strong>block修饰的变量在block代码快中会被retain（ARC下，MRC下不会retain）
+    </strong>weak：使用<strong>weak修饰的变量不会在block代码块中被retain<br>    同时，在ARC下，要避免block出现循环引用 </strong>weak typedof(self)weakSelf = self;</p>
+<p>###3.<strong>block在arc和非arc下含义一样吗？<br>是不一样的。<br>在MRC中</strong>block variable在block中使用是不會retain的<br>    但是ARC中<strong>block則是會Retain的。<br>    取而代之的是用</strong>weak或是__unsafe_unretained來更精確的描述weak reference的目的<br>    其中前者只能在iOS5之後可以使用，但是比較好 (該物件release之後，此pointer會自動設成nil)<br>    而後者是ARC的環境下為了相容4.x的解決方案。<br>    所以上面的範例中</p>
+<pre><code><span class="constant">__block MyClass* temp</span> = …;    <span class="comment">// MRC環境下使用</span>
+<span class="constant">__weak MyClass* temp</span> = …;    <span class="comment">// ARC但只支援iOS5.0以上的版本</span>
+<span class="constant">__unsafe_retained MyClass* temp</span> = …;  <span class="comment">//ARC且可以相容4.x以後的版本</span>
+</code></pre><p>###4.使用nonatomic一定是线程安全的吗？（）<br>不是的。<br>atomic原子操作，系统会为setter方法加锁。 具体使用 @synchronized(self){//code }<br>nonatomic不会为setter方法加锁。<br>atomic：线程安全，需要消耗大量系统资源来为属性加锁<br>nonatomic：非线程安全，适合内存较小的移动设备</p>
+<p>###5.描述一个你遇到过的retain cycle例子。<br>block中的循环引用：一个viewController<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic,strong)HttpRequestHandler * handler;&#10;@property (nonatomic,strong)NSData &#9;&#9;    *data;&#10;_handler = [httpRequestHandler sharedManager];&#10;[ downloadData:^(id responseData)&#123;&#10;&#9;_data = responseData;&#10;&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>self 拥有_handler, _handler 拥有block, block拥有self（因为使用了self的_data属性，block会copy 一份self）<br>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#9;__weak typedof(self)weakSelf = self&#10;&#9;[ downloadData:^(id responseData)&#123;&#10;&#9;&#9;weakSelf.data = responseData;&#10;&#9;&#125;];&#10;```&#9;&#10;&#9;&#10;###6.+(void)load; +(void)initialize&#65307;&#26377;&#20160;&#20040;&#29992;&#22788;&#65311;&#10;&#22312;Objective-C&#20013;&#65292;runtime&#20250;&#33258;&#21160;&#35843;&#29992;&#27599;&#20010;&#31867;&#30340;&#20004;&#20010;&#26041;&#27861;&#12290;+load&#20250;&#22312;&#31867;&#21021;&#22987;&#21152;&#36733;&#26102;&#35843;&#29992;&#65292;+initialize&#20250;&#22312;&#31532;&#19968;&#27425;&#35843;&#29992;&#31867;&#30340;&#31867;&#26041;&#27861;&#25110;&#23454;&#20363;&#26041;&#27861;&#20043;&#21069;&#34987;&#35843;&#29992;&#12290;&#36825;&#20004;&#20010;&#26041;&#27861;&#26159;&#21487;&#36873;&#30340;&#65292;&#19988;&#21482;&#26377;&#22312;&#23454;&#29616;&#20102;&#23427;&#20204;&#26102;&#25165;&#20250;&#34987;&#35843;&#29992;&#12290;&#10;&#20849;&#21516;&#28857;&#65306;&#20004;&#20010;&#26041;&#27861;&#37117;&#21482;&#20250;&#34987;&#35843;&#29992;&#19968;&#27425;&#12290;&#10;###7.&#20026;&#20160;&#20040;&#20854;&#20182;&#35821;&#35328;&#37324;&#21483;&#20989;&#25968;&#35843;&#29992;&#65292; objective c&#37324;&#21017;&#26159;&#32473;&#23545;&#35937;&#21457;&#28040;&#24687;&#65288;&#25110;&#32773;&#35848;&#19979;&#23545;runtime&#30340;&#29702;&#35299;&#65289;&#10;&#20808;&#26469;&#30475;&#30475;&#24590;&#20040;&#29702;&#35299;&#21457;&#36865;&#28040;&#24687;&#30340;&#21547;&#20041;&#65306;&#10;&#10;&#26366;&#32463;&#35273;&#24471;Objc&#29305;&#21035;&#26041;&#20415;&#19978;&#25163;&#65292;&#38754;&#23545;&#30528; Cocoa &#20013;&#22823;&#37327; API&#65292;&#21482;&#30693;&#36947;&#31616;&#21333;&#30340;&#26597;&#25991;&#26723;&#21644;&#35843;&#29992;&#12290;&#36824;&#35760;&#24471;&#21021;&#23398; Objective-C &#26102;&#25226;[receiver message]&#24403;&#25104;&#31616;&#21333;&#30340;&#26041;&#27861;&#35843;&#29992;&#65292;&#32780;&#26080;&#35270;&#20102;&#8220;&#21457;&#36865;&#28040;&#24687;&#8221;&#36825;&#21477;&#35805;&#30340;&#28145;&#21051;&#21547;&#20041;&#12290;&#20110;&#26159;[receiver message]&#20250;&#34987;&#32534;&#35793;&#22120;&#36716;&#21270;&#20026;&#65306;&#10;``objc_msgSend(receiver, selector)``&#10;&#22914;&#26524;&#28040;&#24687;&#21547;&#26377;&#21442;&#25968;&#65292;&#21017;&#20026;&#65306;&#10;``objc_msgSend(receiver, selector, arg1, arg2, ...)``&#10;&#10;&#22914;&#26524;&#28040;&#24687;&#30340;&#25509;&#25910;&#32773;&#33021;&#22815;&#25214;&#21040;&#23545;&#24212;&#30340;selector&#65292;&#37027;&#20040;&#23601;&#30456;&#24403;&#20110;&#30452;&#25509;&#25191;&#34892;&#20102;&#25509;&#25910;&#32773;&#36825;&#20010;&#23545;&#35937;&#30340;&#29305;&#23450;&#26041;&#27861;&#65307;&#21542;&#21017;&#65292;&#28040;&#24687;&#35201;&#20040;&#34987;&#36716;&#21457;&#65292;&#25110;&#26159;&#20020;&#26102;&#21521;&#25509;&#25910;&#32773;&#21160;&#24577;&#28155;&#21152;&#36825;&#20010;selector&#23545;&#24212;&#30340;&#23454;&#29616;&#20869;&#23481;&#65292;&#35201;&#20040;&#23601;&#24178;&#33030;&#29609;&#23436;&#23849;&#28291;&#25481;&#12290;&#10;&#10;&#29616;&#22312;&#21487;&#20197;&#30475;&#20986;[receiver message]&#30495;&#30340;&#19981;&#26159;&#19968;&#20010;&#31616;&#31616;&#21333;&#21333;&#30340;&#26041;&#27861;&#35843;&#29992;&#12290;&#22240;&#20026;&#36825;&#21482;&#26159;&#22312;&#32534;&#35793;&#38454;&#27573;&#30830;&#23450;&#20102;&#35201;&#21521;&#25509;&#25910;&#32773;&#21457;&#36865;message&#36825;&#26465;&#28040;&#24687;&#65292;&#32780;receive&#23558;&#35201;&#22914;&#20309;&#21709;&#24212;&#36825;&#26465;&#28040;&#24687;&#65292;&#37027;&#23601;&#35201;&#30475;&#36816;&#34892;&#26102;&#21457;&#29983;&#30340;&#24773;&#20917;&#26469;&#20915;&#23450;&#20102;&#12290;&#10;&#10;Objective-C &#30340; Runtime &#38136;&#23601;&#20102;&#23427;&#21160;&#24577;&#35821;&#35328;&#30340;&#29305;&#24615;&#65292;&#36825;&#20123;&#28145;&#23618;&#27425;&#30340;&#30693;&#35782;&#34429;&#28982;&#24179;&#26102;&#20889;&#20195;&#30721;&#29992;&#30340;&#23569;&#19968;&#20123;&#65292;&#20294;&#26159;&#21364;&#26159;&#27599;&#20010; Objc &#31243;&#24207;&#21592;&#38656;&#35201;&#20102;&#35299;&#30340;&#12290;&#10;&#10;Objc Runtime&#20351;&#24471;C&#20855;&#26377;&#20102;&#38754;&#21521;&#23545;&#35937;&#33021;&#21147;&#65292;&#22312;&#31243;&#24207;&#36816;&#34892;&#26102;&#21019;&#24314;&#65292;&#26816;&#26597;&#65292;&#20462;&#25913;&#31867;&#12289;&#23545;&#35937;&#21644;&#23427;&#20204;&#30340;&#26041;&#27861;&#12290;&#21487;&#20197;&#20351;&#29992;runtime&#30340;&#19968;&#31995;&#21015;&#26041;&#27861;&#23454;&#29616;&#12290;&#10;&#10;&#39034;&#20415;&#38468;&#19978;OC&#20013;&#19968;&#20010;&#31867;&#30340;&#25968;&#25454;&#32467;&#26500; /usr/include/objc/runtime.h</span><br></pre></td></tr></table></figure></p>
+<p>   struct objc_class {<br>    Class isa OBJC_ISA_AVAILABILITY; //isa指针指向Meta Class，因为Objc的类的本身也是一个Object，为了处理这个关系，r        untime就创造了Meta Class，当给类发送[NSObject alloc]这样消息时，实际上是把这个消息发给了Class Object</p>
+<pre><code><span class="preprocessor">#if !__OBJC2__</span>
+Class super_class OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 父类</span>
+<span class="keyword">const</span> <span class="keyword">char</span> *name OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类名</span>
+<span class="keyword">long</span> version OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类的版本信息，默认为0</span>
+<span class="keyword">long</span> info OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 类信息，供运行期使用的一些位标识</span>
+<span class="keyword">long</span> instance_size OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的实例变量大小</span>
+<span class="keyword">struct</span> objc_ivar_list *ivars OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 该类的成员变量链表</span>
+<span class="keyword">struct</span> objc_method_list **methodLists OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法定义的链表</span>
+<span class="keyword">struct</span> objc_cache *cache OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method        Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。</span>
+<span class="keyword">struct</span> objc_protocol_list *protocols OBJC2_UN<span class="built_in">AVAILABLE</span>; <span class="comment">// 协议链表</span>
+<span class="preprocessor">#endif</span>
+
+} OBJC2_UN<span class="built_in">AVAILABLE</span>;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OC&#20013;&#19968;&#20010;&#31867;&#30340;&#23545;&#35937;&#23454;&#20363;&#30340;&#25968;&#25454;&#32467;&#26500;&#65288;/usr/include/objc/objc.h&#65289;:</span><br></pre></td></tr></table></figure>
+<pre><code>typedef struct objc_class *Class;
+
+/// Represents an<span class="instruction"> instance </span>of a class.
+
+struct objc_object {
+
+    Class isa  OBJC_ISA_AVAI<span class="class">LABILITY;</span>
+
+};
+
+/// A pointer to an<span class="instruction"> instance </span>of a class.
+
+typedef struct objc_object *id;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#21521;object&#21457;&#36865;&#28040;&#24687;&#26102;&#65292;Runtime&#24211;&#20250;&#26681;&#25454;object&#30340;isa&#25351;&#38024;&#25214;&#21040;&#36825;&#20010;&#23454;&#20363;object&#25152;&#23646;&#20110;&#30340;&#31867;&#65292;&#28982;&#21518;&#22312;&#31867;&#30340;&#26041;&#27861;&#21015;&#34920;&#20197;&#21450;&#29238;&#31867;&#26041;&#27861;&#21015;&#34920;&#23547;&#25214;&#23545;&#24212;&#30340;&#26041;&#27861;&#36816;&#34892;&#12290;id&#26159;&#19968;&#20010;objc_object&#32467;&#26500;&#31867;&#22411;&#30340;&#25351;&#38024;&#65292;&#36825;&#20010;&#31867;&#22411;&#30340;&#23545;&#35937;&#33021;&#22815;&#36716;&#25442;&#25104;&#20219;&#20309;&#19968;&#31181;&#23545;&#35937;&#12290;&#10;&#10;&#28982;&#21518;&#20877;&#26469;&#30475;&#30475;&#28040;&#24687;&#21457;&#36865;&#30340;&#20989;&#25968;&#65306;objc_msgSend&#20989;&#25968;&#10;&#10;&#22312;&#24341;&#35328;&#20013;&#24050;&#32463;&#23545;objc_msgSend&#36827;&#34892;&#20102;&#19968;&#28857;&#20171;&#32461;&#65292;&#30475;&#36215;&#26469;&#20687;&#26159;objc_msgSend&#36820;&#22238;&#20102;&#25968;&#25454;&#65292;&#20854;&#23454;objc_msgSend&#20174;&#19981;&#36820;&#22238;&#25968;&#25454;&#32780;&#26159;&#20320;&#30340;&#26041;&#27861;&#34987;&#35843;&#29992;&#21518;&#36820;&#22238;&#20102;&#25968;&#25454;&#12290;&#19979;&#38754;&#35814;&#32454;&#21465;&#36848;&#19979;&#28040;&#24687;&#21457;&#36865;&#27493;&#39588;&#65306;&#10;&#10;&#26816;&#27979;&#36825;&#20010; selector &#26159;&#19981;&#26159;&#35201;&#24573;&#30053;&#30340;&#12290;&#27604;&#22914; Mac OS X &#24320;&#21457;&#65292;&#26377;&#20102;&#22403;&#22334;&#22238;&#25910;&#23601;&#19981;&#29702;&#20250; retain,release &#36825;&#20123;&#20989;&#25968;&#20102;&#12290;&#10;&#26816;&#27979;&#36825;&#20010; target &#26159;&#19981;&#26159; nil &#23545;&#35937;&#12290;ObjC &#30340;&#29305;&#24615;&#26159;&#20801;&#35768;&#23545;&#19968;&#20010; nil &#23545;&#35937;&#25191;&#34892;&#20219;&#20309;&#19968;&#20010;&#26041;&#27861;&#19981;&#20250; Crash&#65292;&#22240;&#20026;&#20250;&#34987;&#24573;&#30053;&#25481;&#12290;&#10;&#22914;&#26524;&#19978;&#38754;&#20004;&#20010;&#37117;&#36807;&#20102;&#65292;&#37027;&#23601;&#24320;&#22987;&#26597;&#25214;&#36825;&#20010;&#31867;&#30340; IMP&#65292;&#20808;&#20174; cache &#37324;&#38754;&#25214;&#65292;&#23436;&#20102;&#25214;&#24471;&#21040;&#23601;&#36339;&#21040;&#23545;&#24212;&#30340;&#20989;&#25968;&#21435;&#25191;&#34892;&#12290;&#10;&#22914;&#26524; cache &#25214;&#19981;&#21040;&#23601;&#25214;&#19968;&#19979;&#26041;&#27861;&#20998;&#21457;&#34920;&#12290;&#10;&#22914;&#26524;&#20998;&#21457;&#34920;&#25214;&#19981;&#21040;&#23601;&#21040;&#36229;&#31867;&#30340;&#20998;&#21457;&#34920;&#21435;&#25214;&#65292;&#19968;&#30452;&#25214;&#65292;&#30452;&#21040;&#25214;&#21040;NSObject&#31867;&#20026;&#27490;&#12290;&#10;&#22914;&#26524;&#36824;&#25214;&#19981;&#21040;&#23601;&#35201;&#24320;&#22987;&#36827;&#20837;&#21160;&#24577;&#26041;&#27861;&#35299;&#26512;&#20102;&#65292;&#21518;&#38754;&#20250;&#25552;&#21040;&#12290;&#10;&#10;&#21518;&#38754;&#36824;&#26377;&#65306;&#10;&#21160;&#24577;&#26041;&#27861;&#35299;&#26512;resolveThisMethodDynamically &#10;&#28040;&#24687;&#36716;&#21457;forwardingTargetForSelector&#10;&#10;&#35814;&#24773;&#21487;&#21442;&#32771; http://www.jianshu.com/p/620022378e97&#10;&#10;###8.&#20160;&#20040;&#26159;method swizzling?&#10;Method Swizzling &#21407;&#29702;&#65288;&#26041;&#27861;&#20132;&#25442;&#65311;&#65289;&#10;&#10;&#22312;Objective-C&#20013;&#35843;&#29992;&#19968;&#20010;&#26041;&#27861;&#65292;&#20854;&#23454;&#26159;&#21521;&#19968;&#20010;&#23545;&#35937;&#21457;&#36865;&#28040;&#24687;&#65292;&#26597;&#25214;&#28040;&#24687;&#30340;&#21807;&#19968;&#20381;&#25454;&#26159;selector&#30340;&#21517;&#23383;&#12290;&#21033;&#29992;Objective-C&#30340;&#21160;&#24577;&#29305;&#24615;&#65292;&#21487;&#20197;&#23454;&#29616;&#22312;&#36816;&#34892;&#26102;&#20599;&#25442;selector&#23545;&#24212;&#30340;&#26041;&#27861;&#23454;&#29616;&#65292;&#36798;&#21040;&#32473;&#26041;&#27861;&#25346;&#38057;&#30340;&#30446;&#30340;&#12290;&#10;&#27599;&#20010;&#31867;&#37117;&#26377;&#19968;&#20010;&#26041;&#27861;&#21015;&#34920;&#65292;&#23384;&#25918;&#30528;selector&#30340;&#21517;&#23383;&#21644;&#26041;&#27861;&#23454;&#29616;&#30340;&#26144;&#23556;&#20851;&#31995;&#12290;IMP&#26377;&#28857;&#31867;&#20284;&#20989;&#25968;&#25351;&#38024;&#65292;&#25351;&#21521;&#20855;&#20307;&#30340;Method&#23454;&#29616;&#12290;&#10;&#10;![&#26041;&#27861;&#25351;&#21521;](http://img.blog.csdn.net/20150413222619384)&#10;&#10;&#25105;&#20204;&#21487;&#20197;&#21033;&#29992; method_exchangeImplementations &#26469;&#20132;&#25442;2&#20010;&#26041;&#27861;&#20013;&#30340;IMP&#65292;&#10;&#10;&#25105;&#20204;&#21487;&#20197;&#21033;&#29992; class_replaceMethod &#26469;&#20462;&#25913;&#31867;&#65292;&#10;&#10;&#25105;&#20204;&#21487;&#20197;&#21033;&#29992; method_setImplementation &#26469;&#30452;&#25509;&#35774;&#32622;&#26576;&#20010;&#26041;&#27861;&#30340;IMP&#65292;&#10;&#8230;&#8230;&#10;&#24402;&#26681;&#32467;&#24213;&#65292;&#37117;&#26159;&#20599;&#25442;&#20102;selector&#30340;IMP&#65292;&#22914;&#19979;&#22270;&#25152;&#31034;&#65306;&#10;![&#26041;&#27861;&#20132;&#25442;](http://img.blog.csdn.net/20150413222534550)&#10;&#10;&#35814;&#24773;&#65306;http://blog.csdn.net/yiyaaixuexi/article/details/9374411&#10;&#10;###9.UIView&#21644;CALayer&#26159;&#21861;&#20851;&#31995;&#65311;&#10;&#10; 1.UIView&#26159;iOS&#31995;&#32479;&#20013;&#30028;&#38754;&#20803;&#32032;&#30340;&#22522;&#30784;&#65292;&#25152;&#26377;&#30340;&#30028;&#38754;&#20803;&#32032;&#37117;&#32487;&#25215;&#33258;&#23427;&#12290;&#23427;&#26412;&#36523;&#23436;&#20840;&#26159;&#30001;CoreAnimation&#26469;&#23454;&#29616;&#30340;&#9;&#65288;Mac&#19979;&#20284;&#20046;&#19981;&#26159;&#36825;&#26679;&#65289;&#12290;&#23427;&#30495;&#27491;&#30340;&#32472;&#22270;&#37096;&#20998;&#65292;&#26159;&#30001;&#19968;&#20010;&#21483;CALayer&#65288;Core Animation Layer&#65289;&#30340;&#31867;&#26469;&#31649;&#29702;&#12290;&#9;UIView&#26412;&#36523;&#65292;&#26356;&#20687;&#26159;&#19968;&#20010;CALayer&#30340;&#31649;&#29702;&#22120;&#65292;&#35775;&#38382;&#23427;&#30340;&#36319;&#32472;&#22270;&#21644;&#36319;&#22352;&#26631;&#26377;&#20851;&#30340;&#23646;&#24615;&#65292;&#20363;&#22914;frame&#65292;bounds&#31561;&#9;&#31561;&#65292;&#23454;&#38469;&#19978;&#20869;&#37096;&#37117;&#26159;&#22312;&#35775;&#38382;&#23427;&#25152;&#21253;&#21547;&#30340;CALayer&#30340;&#30456;&#20851;&#23646;&#24615;&#12290;&#10;&#10;2.UIView&#26377;&#20010;layer&#23646;&#24615;&#65292;&#21487;&#20197;&#36820;&#22238;&#23427;&#30340;&#20027;CALayer&#23454;&#20363;&#65292;UIView&#26377;&#19968;&#20010;layerClass&#26041;&#27861;&#65292;&#36820;&#22238;&#20027;layer&#25152;&#20351;&#29992;&#30340;&#9;&#31867;&#65292;UIView&#30340;&#23376;&#31867;&#65292;&#21487;&#20197;&#36890;&#36807;&#37325;&#36733;&#36825;&#20010;&#26041;&#27861;&#65292;&#26469;&#35753;UIView&#20351;&#29992;&#19981;&#21516;&#30340;CALayer&#26469;&#26174;&#31034;&#65292;&#20363;&#22914;&#36890;&#36807;</span><br></pre></td></tr></table></figure>
+<pre><code>- (<span class="class"><span class="keyword">class</span>) <span class="title">layerClass</span> {</span>
+
+      <span class="keyword">return</span> ([<span class="constant">CAEAGLLayer</span> <span class="class"><span class="keyword">class</span>]);</span>
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&#20351;&#26576;&#20010;UIView&#30340;&#23376;&#31867;&#20351;&#29992;GL&#26469;&#36827;&#34892;&#32472;&#21046;&#12290;&#10;&#10;3.UIView&#30340;CALayer&#31867;&#20284;UIView&#30340;&#23376;View&#26641;&#24418;&#32467;&#26500;&#65292;&#20063;&#21487;&#20197;&#21521;&#23427;&#30340;layer&#19978;&#28155;&#21152;&#23376;layer&#65292;&#26469;&#23436;&#25104;&#26576;&#20123;&#29305;&#27530;&#30340;&#34920;&#9;&#31034;&#12290;&#20363;&#22914;&#19979;&#38754;&#30340;&#20195;&#30721;</span><br></pre></td></tr></table></figure>
+<pre><code>grayCover = <span class="comment">[<span class="comment">[CALayer alloc]</span> init]</span>;
+
+grayCover.backgroundColor = <span class="comment">[<span class="comment">[<span class="comment">[UIColor blackColor]</span> colorWithAlphaComponent:0.2]</span> CGColor]</span>;
+
+<span class="comment">[self.layer addSubLayer: grayCover]</span>;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20250;&#22312;&#30446;&#26631;View&#19978;&#25975;&#19978;&#19968;&#23618;&#40657;&#33394;&#30340;&#36879;&#26126;&#34180;&#33180;&#12290;&#10;&#10;4.UIView&#30340;layer&#26641;&#24418;&#22312;&#31995;&#32479;&#20869;&#37096;&#65292;&#34987;&#31995;&#32479;&#32500;&#25252;&#30528;&#19977;&#20221;copy&#65288;&#36825;&#27573;&#29702;&#35299;&#26377;&#28857;&#21507;&#19981;&#20934;&#65289;&#12290;&#10;&#10; 1. &#36923;&#36753;&#26641;&#65292;&#23601;&#26159;&#20195;&#30721;&#37324;&#21487;&#20197;&#25805;&#32437;&#30340;&#65292;&#20363;&#22914;&#26356;&#25913;layer&#30340;&#23646;&#24615;&#31561;&#31561;&#23601;&#22312;&#36825;&#19968;&#20221;&#12290;&#10; 2. &#21160;&#30011;&#26641;&#65292;&#36825;&#26159;&#19968;&#20010;&#20013;&#38388;&#23618;&#65292;&#31995;&#32479;&#27491;&#22312;&#36825;&#19968;&#23618;&#19978;&#26356;&#25913;&#23646;&#24615;&#65292;&#36827;&#34892;&#21508;&#31181;&#28210;&#26579;&#25805;&#20316;&#12290;&#10; 3. &#26174;&#31034;&#26641;&#65292;&#36825;&#26869;&#26641;&#30340;&#20869;&#23481;&#26159;&#24403;&#21069;&#27491;&#34987;&#26174;&#31034;&#22312;&#23631;&#24149;&#19978;&#30340;&#20869;&#23481;&#12290;&#10;&#10;&#36825;&#19977;&#26869;&#26641;&#30340;&#36923;&#36753;&#32467;&#26500;&#37117;&#26159;&#19968;&#26679;&#30340;&#65292;&#21306;&#21035;&#21482;&#26377;&#21508;&#33258;&#30340;&#23646;&#24615;&#12290;&#10;&#10;###10. &#22914;&#20309;&#39640;&#24615;&#33021;&#30340;&#32473;UIImageView&#21152;&#20010;&#22278;&#35282;&#65311;&#65288;&#19981;&#20934;&#35828;layer.cornerRadius!&#65289;&#10;&#10;&#25105;&#35273;&#24471;&#24212;&#35813;&#26159;&#20351;&#29992;Quartz2D&#30452;&#25509;&#32472;&#21046;&#22270;&#29255;,&#24471;&#25226;&#36825;&#20010;&#30475;&#30475;&#12290;&#10;&#27493;&#39588;&#65306;&#10;&#12288;&#12288;a&#12289;&#21019;&#24314;&#30446;&#26631;&#22823;&#23567;(cropWidth&#65292;cropHeight)&#30340;&#30011;&#24067;&#12290;&#10;&#10;&#12288;&#12288;b&#12289;&#20351;&#29992;UIImage&#30340;drawInRect&#26041;&#27861;&#36827;&#34892;&#32472;&#21046;&#30340;&#26102;&#20505;&#65292;&#25351;&#23450;rect&#20026;(-x&#65292;-y&#65292;width&#65292;height)&#12290;&#10;&#10;&#12288;&#12288;c&#12289;&#20174;&#30011;&#24067;&#20013;&#24471;&#21040;&#35009;&#21098;&#21518;&#30340;&#22270;&#20687;&#12290;&#10;```&#12288;&#12288;&#10;- (UIImage*)cropImageWithRect:(CGRect)cropRect&#10;&#123;&#10;    CGRect drawRect = CGRectMake(-cropRect.origin.x , -cropRect.origin.y, self.size.width * self.scale, self.size.height * self.scale);&#10;    &#10;    UIGraphicsBeginImageContext(cropRect.size);&#10;    CGContextRef context = UIGraphicsGetCurrentContext();&#10;    CGContextClearRect(context, CGRectMake(0, 0, cropRect.size.width, cropRect.size.height));&#10;    &#10;    [self drawInRect:drawRect];&#10;    &#10;    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();&#10;    UIGraphicsEndImageContext();&#10;    &#10;    return image;&#10;&#125;&#10;&#10;@end</span><br></pre></td></tr></table></figure>
+<p>###11. 使用drawRect有什么影响？（这个可深可浅，你至少得用过。。）<br>drawRect方法依赖Core Graphics框架来进行自定义的绘制，但这种方法主要的缺点就是它处理touch事件的方式：每次按钮被点击后，都会用setNeddsDisplay进行强制重绘；而且不止一次，每次单点事件触发两次执行。这样的话从性能的角度来说，对CPU和内存来说都是欠佳的。特别是如果在我们的界面上有多个这样的UIButton实例。</p>
+<p>###12. ASIHttpRequest或者SDWebImage里面给UIImageView加载图片的逻辑是什么样的？<br>详见SDWebImage的实现流程 <a href="http://www.cnblogs.com/6duxz/p/4159572.html" target="_blank" rel="external">http://www.cnblogs.com/6duxz/p/4159572.html</a></p>
+<p>###13. 麻烦你设计个简单的图片内存缓存器（移除策略是一定要说的）<br>图片的内存缓存，可以考虑将图片数据保存到一个数据模型中。所以在程序运行时这个模型都存在内存中。<br>移除策略：释放数据模型对象。</p>
+<p>###14. 讲讲你用Instrument优化动画性能的经历吧（别问我什么是Instrument）<br>可以参考<a href="http://www.hrchen.com/2013/05/performance-with-instruments/" target="_blank" rel="external">iOS App性能优化</a></p>
+<p>###15. loadView是干嘛用的？<br>当你访问一个ViewController的view属性时，如果此时view的值是nil，那么，ViewController就会自动调用loadView这个方法。这个方法就会加载或者创建一个view对象，赋值给view属性。<br>loadView默认做的事情是：如果此ViewController存在一个对应的nib文件，那么就加载这个nib。否则，就创建一个UIView对象。</p>
+<p>如果你用Interface Builder来创建界面，那么不应该重载这个方法。</p>
+<p>如果你想自己创建view对象，那么可以重载这个方法。此时你需要自己给view属性赋值。你自定义的方法不应该调用super。如果你需要对view做一些其他的定制操作，在viewDidLoad里面去做。</p>
+<p>=========================================</p>
+<p>根据上面的文档可以知道，有两种情况：</p>
+<p>1、如果你用了nib文件，重载这个方法就没有太大意义。因为loadView的作用就是加载nib。如果你重载了这个方法不调用super，那么nib文件就不会被加载。如果调用了super，那么view已经加载完了，你需要做的其他事情在viewDidLoad里面做更合适。</p>
+<p>2、如果你没有用nib，这个方法默认就是创建一个空的view对象。如果你想自己控制view对象的创建，例如创建一个特殊尺寸的view，那么可以重载这个方法，自己创建一个UIView对象，然后指定 self.view = myView; 但这种情况也没有必要调用super，因为反正你也不需要在super方法里面创建的view对象。如果调用了super，那么就是浪费了一些资源而已<br>参考：<a href="http://www.cnblogs.com/dyllove98/archive/2013/06/06/3123005.html" target="_blank" rel="external">http://www.cnblogs.com/dyllove98/archive/2013/06/06/3123005.html</a></p>
+<p>###16. viewWillLayoutSubView你总是知道的。<br>横竖屏切换的时候，系统会响应一些函数，其中 viewWillLayoutSubviews 和 viewDidLayoutSubviews。</p>
+<p>//<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillLayoutSubviews&#10;&#10;&#123;&#10;&#10;     [self _shouldRotateToOrientation:(UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation];&#10;&#10;&#125;&#10;&#10;-(void)_shouldRotateToOrientation:(UIDeviceOrientation)orientation &#123;&#10;&#9;&#9;if (orientation == UIDeviceOrientationPortrait ||orientation ==&#10;&#9;&#9;&#9;&#9;UIDeviceOrientationPortraitUpsideDown) &#123;&#10;          // &#31446;&#23631;&#10;&#125;&#10;else &#123;&#10;         // &#27178;&#23631;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上述一个函数就知道横竖屏切换的接口了。<br>注意：viewWillLayoutSubviews只能用在ViewController里面，在view里面没有响应。</p>
+<p>###17. GCD里面有哪几种Queue？你自己建立过串行queue吗？背后的线程模型是什么样的？<br>1.主队列 dispatch_main_queue(); 串行 ，更新UI<br>2.全局队列 dispatch_global_queue(); 并行，四个优先级：background，low，default，high<br>3.自定义队列 dispatch_queue_t queue ; 可以自定义是并行：DISPATCH_QUEUE_CONCURRENT或者串行DISPATCH_QUEUE_SERIAL</p>
+<p>###18. 用过coredata或者sqlite吗？读写是分线程的吗？遇到过死锁没？咋解决的？<br>参考：<a href="http://www.jianshu.com/p/95db3fc4deb3" target="_blank" rel="external">CoreData与SQLite的线程安全</a></p>
+<p>###19. http的post和get啥区别？（区别挺多的，麻烦多说点）<br>1.GET请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，参数之间以&amp;相连，如：login.action?name=hyddd&amp;password=idontknow&amp;verify=%E4%BD%A0%E5%A5%BD。如果数据是英文字母/数字，原样发送，如果是空格，转换为+，如果是中文/其他字符，则直接把字符串用BASE64加密，得出如：%E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。<br>　　POST把提交的数据则放置在是HTTP包的包体中。</p>
+<p>2.”GET方式提交的数据最多只能是1024字节，理论上POST没有限制，可传较大量的数据，IIS4中最大为80KB，IIS5中为100KB”？？！</p>
+<p>　　以上这句是我从其他文章转过来的，其实这样说是错误的，不准确的：</p>
+<p>　　(1).首先是”GET方式提交的数据最多只能是1024字节”，因为GET是通过URL提交数据，那么GET可提交的数据量就跟URL的长度有直接关系了。而实际上，URL不存在参数上限的问题，HTTP协议规范没有对URL长度进行限制。这个限制是特定的浏览器及服务器对它的限制。IE对URL长度的限制是2083字节(2K+35)。对于其他浏览器，如Netscape、FireFox等，理论上没有长度限制，其限制取决于操作系统的支持。</p>
+<p>　　注意这是限制是整个URL长度，而不仅仅是你的参数值数据长度。[见参考资料5]</p>
+<p>　　(2).理论上讲，POST是没有大小限制的，HTTP协议规范也没有进行大小限制，说“POST数据量存在80K/100K的大小限制”是不准确的，POST数据是没有限制的，起限制作用的是服务器的处理程序的处理能力。</p>
+<p>3.在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。在JSP中，用request.getParameter(\”XXXX\”)来获取，虽然jsp中也有request.getQueryString()方法，但使用起来比较麻烦，比如：传一个test.jsp?name=hyddd&amp;password=hyddd，用request.getQueryString()得到的是：name=hyddd&amp;password=hyddd。在PHP中，可以用$_GET和$_POST分别获取GET和POST中的数据，而$_REQUEST则可以获取GET和POST两种请求中的数据。值得注意的是，JSP中使用request和PHP中使用$_REQUEST都会有隐患，这个下次再写个文章总结。</p>
+<p>4.POST的安全性要比GET的安全性高。注意：这里所说的安全性和上面GET提到的“安全”不是同个概念。上面“安全”的含义仅仅是不作数据修改，而这里安全的含义是真正的Security的含义，比如：通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存，(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-site request forgery攻击。</p>
+<p>总结一下，Get是向服务器发索取数据的一种请求，而Post是向服务器提交数据的一种请求，在FORM（表单）中，Method默认为”GET”，实质上，GET和POST只是发送机制不同，并不是一个取一个发！</p>
+<p>###20. 我知道你大学毕业过后就没接触过算法数据结构了，但是请你一定告诉我什么是Binary search tree? search的时间复杂度是多少？<br>Binary search tree:二叉搜索树。<br>主要由四个方法：（用C语言实现或者Python）<br>1.search：时间复杂度为O(h)，h为树的高度</p>
+<p>2.traversal：时间复杂度为O(n)，n为树的总结点数。</p>
+<p>3.insert：时间复杂度为O(h)，h为树的高度。</p>
+<p>4.delete：最坏情况下，时间复杂度为O(h)+指针的移动开销。</p>
+<p>可以看到，二叉搜索树的dictionary operation的时间复杂度与树的高度h相关。所以需要尽可能的降低树的高度，由此引出平衡二叉树Balanced binary tree。它要求左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。这样就可以将搜索树的高度尽量减小。常用算法有红黑树、AVL、Treap、伸展树等。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2017 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
