@@ -25,7 +25,7 @@
 <li>打开ARC：-fobjc-arc</li>
 <li>关闭ARC：-fno-objc-arc<br>如图：</li>
 </ul>
-<p><a href="img/arc-1.png">arc</a></p>
+<p><img src="/img/arc-1.png" alt="arc"></p>
 <p></p><h3>ARC的修饰符</h3><br>ARC主要提供了4种修饰符，他们分别是:<code>__strong</code>,<code>__weak</code>,<code>__autoreleasing</code>,<code>__unsafe_unretained</code>。<p></p>
 <p>__strong</p>
 <p>表示引用为强引用。对应在定义property时的”strong”。所有对象只有当没有任何一个强引用指向时，才会被释放。</p>
@@ -35,7 +35,7 @@
 <p>__autoreleasing</p>
 <p>表示在autorelease pool中自动释放对象的引用，和MRC时代autorelease的用法相同。定义property时不能使用这个修饰符，任何一个对象的property都不应该是autorelease型的。</p>
 <p>一个常见的误解是，在ARC中没有autorelease，因为这样一个“自动释放”看起来好像有点多余。这个误解可能源自于将ARC的“自动”和autorelease“自动”的混淆。其实你只要看一下每个iOS App的main.m文件就能知道，autorelease不仅好好的存在着，并且变得更fashion了：不需要再手工被创建，也不需要再显式得调用[drain]方法释放内存池。</p>
-<p><a href="img/arc-2.png">arc</a></p>
+<p><img src="/img/arc-2.png" alt="arc"></p>
 <p>以下两行代码的意义是相同的。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *str = [[[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"hehe"</span>] autorelease]; <span class="comment">// MRC</span></span><br><span class="line"><span class="built_in">NSString</span> *__autoreleasing str = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"hehe"</span>]; <span class="comment">// ARC</span></span><br></pre></td></tr></table></figure></p>
 <p> 这里关于autoreleasepool就不做展开了，详细地信息可以参考官方文档或者其他文章。</p>
 <p>__autoreleasing在ARC中主要用在参数传递返回值（out-parameters）和引用传递参数（pass-by-reference）的情况下。</p>
@@ -80,7 +80,7 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MyViewController *myController = [[MyViewController alloc] init…];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 隐式地调用[myController retain];造成循环引用</span></span><br><span class="line">myController<span class="variable">.completionHandler</span> =  ^(<span class="built_in">NSInteger</span> result) &#123;</span><br><span class="line">   [myController dismissViewControllerAnimated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> presentViewController:myController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">   [myController release]; <span class="comment">// 注意，这里调用[myController release];是在MRC中的一个常规写法，并不能解决上面循环引用的问题</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>在这段代码中，myController的completionHandler调用了myController的方法[dismissViewController…]，这时completionHandler会对myController做retain操作。而我们知道，myController对completionHandler也至少有一个retain（一般准确讲是copy），这时就出现了在内存管理中最糟糕的情况：循环引用！简单点说就是：myController retain了completionHandler，而completionHandler也retain了myController。循环引用导致了myController和completionHandler最终都不能被释放。我们在delegate关系中，对delegate指针用weak就是为了避免这种问题。</p>
 <p>不过好在，编译器会及时地给我们一个警告，提醒我们可能会发生这类型的问题：</p>
-<p><a href="img/arc-3.png">arc</a></p>
+<p><img src="/img/arc-3.png" alt="arc"></p>
 <p>对这种情况，我们一般用如下方法解决：给要进入Block的指针加一个__block修饰符。</p>
 <p>这个<code>__block</code>在MRC时代有两个作用：</p>
 <p>说明变量可改<br>说明指针指向的对象不做这个隐式的retain操作<br>一个变量如果不加<code>__block</code> ，是不能在Block里面修改的，不过这里有一个例外：static的变量和全局变量不需要加__block就可以在Block中修改。</p>
@@ -140,7 +140,7 @@
 <p>比如：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFStringRef</span> result = <span class="built_in">CFURLCreateStringByAddingPercentEscapes</span>(. . .);</span><br><span class="line">￼<span class="built_in">NSString</span> *s = (__bridge_transfer <span class="built_in">NSString</span> *)result;</span><br><span class="line"><span class="comment">//or NSString *s = (NSString *)CFBridgingRelease(result);</span></span><br><span class="line">￼<span class="keyword">return</span> s;</span><br></pre></td></tr></table></figure></p>
 <p>这里我们将result的管理责任交给了ARC来处理，我们就不需要再显式地将CFRelease()了。</p>
 <p>对了，这里你可能会注意到一个细节，和ARC中那个4个主要的修饰符（<code>__strong</code>,<code>__weak</code>,…）不同，这里修饰符的位置是放在类型前面的，虽然官方文档中没有说明，但看官方的头文件可以知道。小伙伴们，记得别把位置写错哦：）</p>
-<p><a href="img/arc-4.png">arc</a><br>呼~ 好了，以上就是本篇文章的主要内容。这次采用了新的排版，感觉比以前有条理得多，希望的大家看的舒服。</p>
+<p><img src="/img/arc-4.png" alt="arc"><br>呼~ 好了，以上就是本篇文章的主要内容。这次采用了新的排版，感觉比以前有条理得多，希望的大家看的舒服。</p>
 <p>文章中如果有任何错误或者问题，可以在下面留言或者给我发信，期待你们的回复。</p>
 <p>感谢大家的收看。</p>
 ]]></content>
