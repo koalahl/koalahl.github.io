@@ -102,7 +102,7 @@
 </ul>
 <p></p><h3>ARC的本质</h3><br>ARC是编译器（时）特性，而不是运行时特性，更不是垃圾回收器(GC)。<br><blockquote><p>Automatic Reference Counting (ARC) is a compiler-level feature that simplifies the process of managing object lifetimes (memory management) in Cocoa applications.</p>
 </blockquote><p></p>
-<p>ARC只是相对于MRC（Manual Reference Counting或称为非ARC，下文中我们会一直使用MRC来指代非ARC的管理方式）的一次改进，但它和之前的技术本质上没有区别。具体信息可以参考ARC编译器官方文档。</p>
+<p>ARC只是相对于MRC（Manual Reference Counting或称为非ARC，下文中我们会一直使用MRC来指代非ARC的管理方式）的一次改进，但它和之前的技术本质上没有区别。具体信息可以参考<a href="http://clang.llvm.org/docs/AutomaticReferenceCounting.html" target="_blank" rel="external">ARC编译器官方文档</a>。</p>
 <p></p><h3>ARC的开启与关闭</h3><br>不同于XCode4可以在创建工程时选择关闭ARC，XCode5在创建的工程是默认开启ARC，没有可以关闭ARC的选项。<p></p>
 <p>如果需要对特定文件开启或关闭ARC，可以在工程选项中选择Targets -&gt; Compile Phases -&gt; Compile Sources，在里面找到对应文件，添加flag:</p>
 <ul>
@@ -227,8 +227,7 @@
 <p>这个修饰符和函数的功能和上面那个<code>__bridge_retained</code>相反，它表示将管理的责任由Core Foundation转交给Objective-C，即将管理方式由MRC转变为ARC。</p>
 <p>比如：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFStringRef</span> result = <span class="built_in">CFURLCreateStringByAddingPercentEscapes</span>(. . .);</span><br><span class="line">￼<span class="built_in">NSString</span> *s = (__bridge_transfer <span class="built_in">NSString</span> *)result;</span><br><span class="line"><span class="comment">//or NSString *s = (NSString *)CFBridgingRelease(result);</span></span><br><span class="line">￼<span class="keyword">return</span> s;</span><br></pre></td></tr></table></figure></p>
 <p>这里我们将result的管理责任交给了ARC来处理，我们就不需要再显式地将CFRelease()了。</p>
-<p>对了，这里你可能会注意到一个细节，和ARC中那个4个主要的修饰符（<code>__strong</code>,<code>__weak</code>,…）不同，这里修饰符的位置是放在类型前面的，虽然官方文档中没有说明，但看官方的头文件可以知道。小伙伴们，记得别把位置写错哦：）</p>
-<p><img src="/img/arc-4.png" alt="arc"><br>呼~ 好了，以上就是本篇文章的主要内容。这次采用了新的排版，感觉比以前有条理得多，希望的大家看的舒服。</p>
+<p>对了，这里你可能会注意到一个细节，和ARC中那个4个主要的修饰符（<code>__strong</code>,<code>__weak</code>,…）不同，这里修饰符的位置是放在类型前面的，虽然官方文档中没有说明，但看官方的头文件可以知道。小伙伴们，记得别把位置写错哦：）<br><img src="/img/arc-4.png" alt="arc"><br>呼~ 好了，以上就是本篇文章的主要内容。这次采用了新的排版，感觉比以前有条理得多，希望的大家看的舒服。</p>
 <p>文章中如果有任何错误或者问题，可以在下面留言或者给我发信，期待你们的回复。</p>
 <p>感谢大家的收看。</p>
 
