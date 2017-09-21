@@ -42,12 +42,15 @@
 </ul>
 <p><img src="/img/arc-1.png" alt="arc"></p>
 <p></p><h3>ARC的修饰符</h3><br>ARC主要提供了4种修饰符，他们分别是:<code>__strong</code>,<code>__weak</code>,<code>__autoreleasing</code>,<code>__unsafe_unretained</code>。<p></p>
-<p>__strong</p>
+<h4>__strong</h4>
+
 <p>表示引用为强引用。对应在定义property时的”strong”。所有对象只有当没有任何一个强引用指向时，才会被释放。</p>
 <p>注意：如果在声明引用时不加修饰符，那么引用将默认是强引用。当需要释放强引用指向的对象时，需要将强引用置nil。</p>
-<p>__weak</p>
+<h4>__weak</h4>
+
 <p>表示引用为弱引用。对应在定义property时用的”weak”。弱引用不会影响对象的释放，即只要对象没有任何强引用指向，即使有100个弱引用对象指向也没用，该对象依然会被释放。不过好在，对象在被释放的同时，指向它的弱引用会自动被置nil，这个技术叫zeroing weak pointer。这样有效得防止无效指针、野指针的产生。__weak一般用在delegate关系中防止循环引用或者用来修饰指向由Interface Builder编辑与生成的UI控件。</p>
-<p>__autoreleasing</p>
+<h4>__autoreleasing</h4>
+
 <p>表示在autorelease pool中自动释放对象的引用，和MRC时代autorelease的用法相同。定义property时不能使用这个修饰符，任何一个对象的property都不应该是autorelease型的。</p>
 <p>一个常见的误解是，在ARC中没有autorelease，因为这样一个“自动释放”看起来好像有点多余。这个误解可能源自于将ARC的“自动”和autorelease“自动”的混淆。其实你只要看一下每个iOS App的main.m文件就能知道，autorelease不仅好好的存在着，并且变得更fashion了：不需要再手工被创建，也不需要再显式得调用[drain]方法释放内存池。</p>
 <p><img src="/img/arc-2.png" alt="arc"></p>
@@ -73,21 +76,21 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)loopThroughDictionary:(<span class="built_in">NSDictionary</span> *)dict error:(<span class="built_in">NSError</span> **)error</span><br><span class="line">&#123;</span><br><span class="line">    [dict enumerateKeysAndObjectsUsingBlock:^(<span class="keyword">id</span> key, <span class="keyword">id</span> obj, <span class="built_in">BOOL</span> *stop)&#123;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">@autoreleasepool</span>  <span class="comment">// 被隐式创建</span></span><br><span class="line">　　　　　　&#123;</span><br><span class="line">              <span class="keyword">if</span> (there is some error &amp;&amp; error != <span class="literal">nil</span>)</span><br><span class="line">              &#123;</span><br><span class="line">                    *error = [<span class="built_in">NSError</span> errorWithDomain:<span class="string">@"MyError"</span> ￼code:<span class="number">1</span> userInfo:<span class="literal">nil</span>];</span><br><span class="line">              &#125;</span><br><span class="line">￼          &#125;</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// *error 在这里已经被dict的做枚举遍历时创建的autorelease pool释放掉了 ：(  </span></span><br><span class="line">￼&#125;</span><br></pre></td></tr></table></figure>
 <p>为了能够正常的使用*error，我们需要一个strong型的临时引用，在dict的枚举Block中是用这个临时引用，保证引用指向的对象不会在出了dict的枚举Block后被释放，正确的方式如下：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)loopThroughDictionary:(<span class="built_in">NSDictionary</span> *)dict error:(<span class="built_in">NSError</span> **)error</span><br><span class="line">&#123;</span><br><span class="line">　　__block <span class="built_in">NSError</span>* tempError; <span class="comment">// 加__block保证可以在Block内被修改  </span></span><br><span class="line">　　[dict enumerateKeysAndObjectsUsingBlock:^(<span class="keyword">id</span> key, <span class="keyword">id</span> obj, <span class="built_in">BOOL</span> *stop)</span><br><span class="line">　　&#123; </span><br><span class="line">　　　　<span class="keyword">if</span> (there is some error) </span><br><span class="line">　　　　&#123; </span><br><span class="line">　　　　　　*tempError = [<span class="built_in">NSError</span> errorWithDomain:<span class="string">@"MyError"</span> ￼code:<span class="number">1</span> userInfo:<span class="literal">nil</span>]; </span><br><span class="line">　　　　&#125; ￼ </span><br><span class="line"></span><br><span class="line">　　&#125;] </span><br><span class="line"></span><br><span class="line">　　<span class="keyword">if</span> (error != <span class="literal">nil</span>) </span><br><span class="line">　　&#123; </span><br><span class="line">　　　　*error = tempError; </span><br><span class="line">　　&#125; ￼</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>__unsafe_unretained</code></p>
+<h4>__unsafe_unretained</h4>
+
 <p>ARC是在iOS 5引入的，而这个修饰符主要是为了在ARC刚发布时兼容iOS 4以及版本更低的设备，因为这些版本的设备没有weak pointer system，简单的理解这个系统就是我们上面讲weak时提到的，能够在weak引用指向对象被释放后，把引用值自动设为nil的系统。这个修饰符在定义property时对应的是”unsafe_unretained”，实际可以将它理解为MRC时代的assign：纯粹只是将引用指向对象，没有任何额外的操作，在指向对象被释放时依然原原本本地指向原来被释放的对象（所在的内存区域）。所以非常不安全。</p>
 <p>现在可以完全忽略掉这个修饰符了，因为iOS 4早已退出历史舞台很多年。</p>
 <p>*使用修饰符的正确姿势（方式=。=）</p>
 <p>这可能是很多人都不知道的一个问题，包括之前的我，但却是一个特别要注意的问题。</p>
-<p>苹果的文档中明确地写道：</p>
-<p>You should decorate variables correctly. When using qualifiers in an object variable declaration,</p>
+<p>苹果的文档中明确地写道：<br><blockquote><p>You should decorate variables correctly. When using qualifiers in an object variable declaration,</p>
 <p>the correct format is:</p>
-<p>ClassName * qualifier variableName;<br>按照这个说明，要定义一个weak型的NSString引用，它的写法应该是：</p>
-<p>NSString * __weak str = @”hehe”; // 正确！<br>而不应该是：</p>
-<p>__weak NSString *str = @”hehe”;  // 错误！<br>我相信很多人都和我一样，从开始用ARC就一直用上面那种错误的写法。</p>
-<p>那这里就有疑问了，既然文档说是错误的，为啥编译器不报错呢？文档又解释道：</p>
-<p>Other variants are technically incorrect but are “forgiven” by the compiler. To understand the issue, see<a href="http://cdecl.org/" target="_blank" rel="external">http://cdecl.org/</a>.</p>
-<p>好吧，看来是苹果爸爸（=。=）考虑到很多人会用错，所以在编译器这边贴心地帮我们忽略并处理掉了这个错误：）虽然不报错，但是我们还是应该按照正确的方式去使用这些修饰符，如果你以前也常常用错误的写法，那看到这里记得以后不要这么写了，哪天编译器怒了，再不支持错误的写法，就要郁闷了。</p>
-<p>栈中指针默认值为nil</p>
+<p>ClassName * qualifier variableName;</p>
+</blockquote><br>按照这个说明，要定义一个weak型的NSString引用，它的写法应该是：</p>
+<p><code>NSString * __weak str = @&quot;hehe&quot;;</code> // 正确！<br>而不应该是：<br><code>__weak NSString *str = @&quot;hehe&quot;;</code>  // 错误！<br>我相信很多人都和我一样，从开始用ARC就一直用上面那种错误的写法。</p>
+<p>那这里就有疑问了，既然文档说是错误的，为啥编译器不报错呢？文档又解释道：<br><blockquote><p>Other variants are technically incorrect but are “forgiven” by the compiler. To understand the issue, see<a href="http://cdecl.org/" target="_blank" rel="external">http://cdecl.org/</a>.</p>
+</blockquote><br>好吧，看来是苹果爸爸（=。=）考虑到很多人会用错，所以在编译器这边贴心地帮我们忽略并处理掉了这个错误：）虽然不报错，但是我们还是应该按照正确的方式去使用这些修饰符，如果你以前也常常用错误的写法，那看到这里记得以后不要这么写了，哪天编译器怒了，再不支持错误的写法，就要郁闷了。</p>
+<h4>栈中指针默认值为nil</h4>
+
 <p>无论是被strong，weak还是autoreleasing修饰，声明在栈中的指针默认值都会是nil。所有这类型的指针不用再初始化的时候置nil了。虽然好习惯是最重要的，但是这个特性更加降低了“野指针”出现的可能性。</p>
 <p>在ARC中，以下代码会输出null而不是crash:)<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)myMethod </span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *name;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name: %@"</span>, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p></p><h3>ARC与Block</h3><br>在MRC时代，Block会隐式地对进入其作用域内的对象（或者说被Block捕获的指针指向的对象）加retain，来确保Block使用到该对象时，能够正确的访问。<p></p>
@@ -132,8 +135,8 @@
 <p>好的，最后再提一点，在ARC中，对Block捕获对象的内存管理已经简化了很多，由于没有了retain和release等操作，实际只需要考虑循环引用的问题就行了。比如下面这种，是没有内存泄露的问题的：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TestObject *aObject = [[TestObject alloc] init];</span><br><span class="line">    </span><br><span class="line">aObject<span class="variable">.name</span> = <span class="string">@"hehe"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span><span class="variable">.aBlock</span> = ^()&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"aObject's name = %@"</span>,aObject<span class="variable">.name</span>);</span><br><span class="line">        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>我们上面提到的解决方案，只是针对Block产生循环引用的问题，而不是说所有的Block捕获引用都要这么处理，一定要注意！</p>
-<p>ARC与Toll-Free Bridging<br><blockquote><p>There are a number of data types in the Core Foundation framework and the Foundation framework that can be used interchangeably. This capability, called toll-free bridging, means that you can use the same data type as the parameter to a Core Foundation function call or as the receiver of an Objective-C message.</p>
-</blockquote></p>
+<p></p><h3>ARC与Toll-Free Bridging</h3><br><blockquote><p>There are a number of data types in the Core Foundation framework and the Foundation framework that can be used interchangeably. This capability, called toll-free bridging, means that you can use the same data type as the parameter to a Core Foundation function call or as the receiver of an Objective-C message.</p>
+</blockquote><p></p>
 <p>Toll-Free Briding保证了在程序中，可以方便和谐的使用Core Foundation类型的对象和Objective-C类型的对象。详细的内容可参考官方文档。以下是官方文档中给出的一些例子：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLocale</span> *gb<span class="built_in">NSLocale</span> = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@"en_GB"</span>];</span><br><span class="line"><span class="built_in">CFLocaleRef</span> gb<span class="built_in">CFLocale</span> = (<span class="built_in">CFLocaleRef</span>) gb<span class="built_in">NSLocale</span>;</span><br><span class="line"><span class="built_in">CFStringRef</span> cfIdentifier = <span class="built_in">CFLocaleGetIdentifier</span> (gb<span class="built_in">CFLocale</span>);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"cfIdentifier: %@"</span>, (<span class="built_in">NSString</span> *)cfIdentifier);</span><br><span class="line"><span class="comment">// logs: "cfIdentifier: en_GB"</span></span><br><span class="line"><span class="built_in">CFRelease</span>((<span class="built_in">CFLocaleRef</span>) gb<span class="built_in">NSLocale</span>);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">CFLocaleRef</span> my<span class="built_in">CFLocale</span> = <span class="built_in">CFLocaleCopyCurrent</span>();</span><br><span class="line"><span class="built_in">NSLocale</span> * my<span class="built_in">NSLocale</span> = (<span class="built_in">NSLocale</span> *) my<span class="built_in">CFLocale</span>;</span><br><span class="line">[my<span class="built_in">NSLocale</span> autorelease];</span><br><span class="line"><span class="built_in">NSString</span> *nsIdentifier = [my<span class="built_in">NSLocale</span> localeIdentifier];</span><br><span class="line"><span class="built_in">CFShow</span>((<span class="built_in">CFStringRef</span>) [<span class="string">@"nsIdentifier: "</span> stringByAppendingString:nsIdentifier]);</span><br><span class="line"><span class="comment">// logs identifier for current locale</span></span><br></pre></td></tr></table></figure>
 <p>在MRC时代，由于Objective-C类型的对象和Core Foundation类型的对象都是相同的release和retain操作规则，所以Toll-Free Bridging的使用比较简单，但是自从ARC加入后，Objective-C类型的对象内存管理规则改变了，而Core Foundation依然是之前的机制，换句话说，Core Foundation不支持ARC。</p>
@@ -142,7 +145,8 @@
 </blockquote>
 <p>于是苹果在引入ARC之后对Toll-Free Bridging的操作也加入了对应的方法与修饰符，用来指明用哪种规则管理内存，或者说是内存管理权的归属。</p>
 <p>这些方法和修饰符分别是：</p>
-<p>__bridge（修饰符）</p>
+<h4>__bridge（修饰符）</h4>
+
 <p>只是声明类型转变，但是不做内存管理规则的转变。</p>
 <p>比如：</p>
 <p><code>CFStringRef s1 = (__bridge CFStringRef) [[NSString alloc] initWithFormat:@&quot;Hello, %@!&quot;, name];</code><br>只是做了NSString到CFStringRef的转化，但管理规则未变，依然要用Objective-C类型的ARC来管理s1，你不能用CFRelease()去释放s1。</p>
