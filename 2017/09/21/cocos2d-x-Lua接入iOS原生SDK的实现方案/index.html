@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>cocos2d-x + Lua接入iOS原生SDK的实现方案 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Thinking in Different">
+  
+
+  
+  
+  <meta name="keywords" content="Lua,SDK,cocos2d">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="cocos2d-x + Lua接入iOS原生SDK的实现方案"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>cocos2d-x + Lua接入iOS原生SDK的实现方案</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-09-21T07:28:28.000Z">
+          2017-09-21
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4152881.html" target="_blank" rel="external">cocos2d-x + Lua接入iOS原生SDK的实现方案-著作权归原作者所有</a></p>
+<p>相信很多朋友在使用cocos2d-x+lua开发游戏时都遇到过接入iOS原生SDK的问题，比如常见的接应用内支付SDK，广告SDK或是一些社交平台SDK等等，我也没少接过这类SDK。这篇文章主要是对我做过项目中接入iOS原生SDK实现方案的一个总结，在这里分享给大家，希望对自己和大家的开发工作都有帮助。<br><a id="more"></a></p>
+<p>在展开正文之前，先做几点说明：</p>
+<p>1.我这里说的iOS原生SDK是指那些完全用Objective-C语言开发，为原生iOS程序设计的SDK。swift很好很强大，不过我还没用过，惭愧，不过语言终归只是表达方式而已，解决问题的思路都是一样的；</p>
+<p>2.这里假设游戏的主要逻辑使用lua实现，对于主要逻辑使用C++实现的，用本文的思路一样可行，并且设计上更简单，接着往下看就知道了：）</p>
+<p>3.本文以quick-cocos2d-x 2.1版本为例进行讲解，主要因为这个是我之前做项目用得最多的一个版本，-x新版本变动比较大，但是，还是那句话，解决问题的思路是相同的。</p>
+<p>——————-正式开始的分割线——————-</p>
+<p>好了，我们正式开始。开门见山！</p>
+<p>解决这种接入问题，实际上最主要是解决不同语言交互的问题，一旦跨过语言交互的障碍，剩下的事情就so easy!</p>
+<p>由于涉及到Lua,C++,Objective-C三种语言，这个问题表面上看起来错综复杂，但其实只要冷静地（=。=）梳理，我们便可以得到正确的思路。</p>
+<p>因为我们游戏的逻辑主要是用Lua实现的（前面已经做过假设），而SDK是用Objective-C实现，所以这里我们需要解决Lua与Objective-C的交互问题，即最终希望达到的目标是，在Lua层面“调用”Objective-C的代码（注意这里的调用是加引号的，间接的调用），而当Objective-C层面收到SDK的回调，再通知Lua。我们知道，Lua并没有简单的方法直接和Objective-C交流，但是Lua可以通过Lua Binding和C/C++交流，而我们又知道，C++和Objective-C可以混编，即C++可以直接调用（这里调用没引号，是真的直接调用）Objective-C的代码。想到这里，思路就很明显了，我们可以使用C++为Lua和Objective-C的交互充当桥梁，进而实现Lua到Objective-C的交互。</p>
+<p>根据上面的分析，我们可以用如下图表达我们的思路，我们这里将语言交互的过程分成了4个小部分：</p>
+<p><img src="/img/cocos2d-objc-1.png" alt="cocos2d-objc"></p>
+<p>整个语言交互的过程可以总结为：Lua调用Lua Binding的C++接口，C++接口调用混编的Objective-C接口，而Objective-C通过block形式的回调，将结果通知给C++，C++通过Lua的C API将最终结果返回给Lua。这样一趟下来，就完成了Lua与Objective-C的整个交互过程。</p>
+<p>简单的说一下这4部分：</p>
+<p>1.Lua Binding</p>
+<p>将C/C++接口导出给Lua调用的方法，由于篇幅的原因这里就不展开了，具体可以参考Lua的文档，以及网上其他地方的文章。</p>
+<p>2.混编</p>
+<p>Objective-C的一大优点就是可以和C与C++混编使用，就像同一个语言一样共存在一个实现文件里面。具体混编规则也不说了，这里只提两个小细节：</p>
+<p>一，在XCode下混编的实现文件后缀是.mm，而不能是.cpp或者是.m；</p>
+<p>二，混编的实现文件引用头文件的地方，C++或者C的用#include，而Objective-C用#import，相互没有影响。</p>
+<p>3.Block回调</p>
+<p>Block是Objective-C一个非常棒的特性，更棒的是在Block里面还可以直接写C++代码：）具体想了解的可以看苹果官方文档。</p>
+<p>其实在最初，我曾经尝试过使用发送通知的方式来实现Objective-C对C++的回调，即Objective-C收到SDK回调，给C++部分发送附带回调信息的通知，虽然cocos2d-x中有现成的NotificationCenter来帮助实现，但这种方式的一个显而易见的弊端是大大增加了C++代码和Objective-C代码的耦合度，Objective-C部分也要混编C++调用C++的NotificationCenter发通知，C++部分也要混编Objective-C代码，调用C++的NotificationCenter收通知，这种结构实在是有够烦躁的。</p>
+<p>相比之下，使用Block回调就干净利落太多，Objective-C这边一切都是纯粹的，它并不需要知道自己要被C++调用还是Objective-C调用，也不需要花很多精力在返回回调上，只需要干好自己的本职工作，然后在适当的时候调用Block就一切搞定。</p>
+<p>4.Lua C API</p>
+<p>Lua C API用于C/C++与Lua的交互，在cocos2d-x中这些C API已经被封装成了更加易用的C++ Class API。这里要提到的是，在用这套API调用Lua函数的时候，为了传参，需要参数入栈的操作，这个入栈的顺序影响到了Lua函数接受到参数的顺序，不过好在规则很简单：先入栈的参数排在前或者说是入栈顺序和实参顺序相同。举例，如果C++这边调用Lua函数func时，入栈的顺序是A，B，C，那么就是调用函数func(A,B,C)</p>
+<p>——————-渐入佳境的分割线——————-</p>
+<p>在整个语言交互的过程中，如果认为Lua是顶层，Objective-C是底层，那么在实际游戏中交互的过程就是一个自顶向下的过程，然而我们在实现各层级代码的时候，需要自底向上完成，因为在顶层Lua代码中的逻辑，是由底层Objective-C SDK的接口与功能决定的。即我们需要先根据SDK中原始的Objective-C的接口，做适合我们游戏Objective-C封装代理类，然后根据封装结果实现C++的bridge接口，最后再实现Lua的对应逻辑。</p>
+<p>根据以上分析，从层级的角度，设计如下：</p>
+<p><img src="/img/cocos2d-objc-1.png" alt="cocos2d-objc"></p>
+<p>除过Lua的逻辑，我们最重要需要实现的两部分内容：C++ Bridge Class 和 Objective-C SDK Delegate Class。前者是起桥梁作用的接口类，原则上不做任何与游戏逻辑相关的数据处理，而后者负责封装原始的SDK接口，接收以及初步处理SDK回调数据。前者的实现依赖于后者的实现，而后者的实现又依赖于SDK。SDK取得的数据最终通过层层传递，交给Lua逻辑处理，最终保证对数据处理的游戏逻辑尽可能多的放到Lua层中。</p>
+<p>这样设计的好处有很多，一方面，顶层的游戏逻辑变动，不影响下层多语言交互代码，另一方面，底层的SDK变动，如版本更新甚至更换，不影响上层游戏逻辑，多层次结构有效地降低了复杂度，隔离了变化，对于频繁的需求变更，这种结构也可以保证扩展的便利。</p>
+<p>——————-总结的分割线——————-</p>
+<p>综上所述，解决接入iOS原生SDK的问题，主要需要4步：</p>
+<ol>
+<li><p>根据SDK接口与功能实现Objective-C SDK Delegate Class；</p>
+</li>
+<li><p>根据Objective-C SDK Delegate Class实现对应的C++ Bridge Class；</p>
+</li>
+<li><p>根据C++ Bridge Class生成对应的Lua Binding代码；</p>
+</li>
+<li><p>写Lua层逻辑。</p>
+</li>
+</ol>
+<p>——————-最后的分割线——————-</p>
+<p>好了，最后，又到了激动人心的上代码的环节了：）下面就以某iOS第三方计费SDK为例，来说明下实现接入的步骤。</p>
+<p>这个SDK只有一个头文件GameBilling.h，主要使用到的方法和Protocol如下：（为了避免篇幅过长等原因，把注释和不必要的代码都删掉了）。我用代码注释的方式说明了各方法的用途。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="comment">// 初始化计费SDK</span></span><br><span class="line"> <span class="number">2</span> + (GameBilling *)initializeGameBilling;</span><br><span class="line"> <span class="number">3</span> </span><br><span class="line"> <span class="number">4</span> <span class="comment">// 告诉SDK游戏屏幕的Orientation，以便SDK展示正确的UI</span></span><br><span class="line"> <span class="number">5</span> -  (<span class="keyword">void</span>)setDialogOrientationMask:(<span class="built_in">UIInterfaceOrientationMask</span>)orientationMask;</span><br><span class="line"> <span class="number">6</span> </span><br><span class="line"> <span class="number">7</span> <span class="comment">// 确认付费，显示付费UI</span></span><br><span class="line"> <span class="number">8</span> - (<span class="keyword">void</span>)doBillingWith<span class="built_in">UIAndBillingIndex</span>:(<span class="built_in">NSString</span> *)billingIndex isRepeated:(<span class="built_in">BOOL</span>)isRepeated cpParam:(<span class="built_in">NSString</span>*)cpParam;</span><br><span class="line"> <span class="number">9</span> </span><br><span class="line"><span class="number">10</span> <span class="comment">// Delegate回调，告诉调用者付费是否成功等信息</span></span><br><span class="line"><span class="number">11</span> <span class="class"><span class="keyword">@protocol</span> <span class="title">GameBillingDelegate</span>&lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"><span class="number">12</span> <span class="keyword">@required</span></span><br><span class="line"><span class="number">13</span> - (<span class="keyword">void</span>)onBillingResult:(BillingResultType)resultCode billingIndex:(<span class="built_in">NSString</span> *)index message:(<span class="built_in">NSString</span> *)message;</span><br><span class="line"><span class="number">14</span> <span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>以上前两个方法用于初始化SDK，并且和游戏的逻辑没什么太大关系，所以我们把对他们的调用放在程序开始的位置，不必导出给Lua。第三个方法在用户确认付费时使用，需要导出给Lua，当用户在游戏界面做相应操作时候调用。最后的delegate的回调，我们用前面提到的Objective-C SDK Delegate Class来接收，并作初步处理，再用Block传给C++ Bridge Class.</p>
+<p>好的，那我们先来完成Objective-C SDK Delegate Class。这里这个Objective-C做成了个简单的单例来使用，实际可能不需要这么做。</p>
+<p>先完成头文件，这里命名为CMGCIAPiOS.h，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="preprocessor">#import <span class="title">"GameBilling.h"</span></span></span><br><span class="line"> <span class="number">2</span> </span><br><span class="line"> <span class="number">3</span> <span class="comment">// 声明Block</span></span><br><span class="line"> <span class="number">4</span> <span class="keyword">typedef</span> <span class="keyword">void</span> (^BillingResultCallback)(<span class="built_in">BOOL</span> success, <span class="built_in">NSString</span> *index,<span class="built_in">NSString</span> *message); </span><br><span class="line"> <span class="number">5</span> </span><br><span class="line"> <span class="number">6</span> <span class="class"><span class="keyword">@interface</span> <span class="title">CMGCIAPiOS</span> : <span class="title">NSObject</span>&lt;<span class="title">GameBillingDelegate</span>&gt;</span></span><br><span class="line"> <span class="number">7</span> &#123;</span><br><span class="line"> <span class="number">8</span>     GameBilling *_sdk;</span><br><span class="line"> <span class="number">9</span>     <span class="built_in">NSString</span> *_billingIndex;</span><br><span class="line"><span class="number">10</span>     BillingResultCallback _callback;</span><br><span class="line"><span class="number">11</span> &#125;</span><br><span class="line"><span class="number">12</span> </span><br><span class="line"><span class="number">13</span> +(<span class="keyword">id</span>)sharedInstance;</span><br><span class="line"><span class="number">14</span> </span><br><span class="line"><span class="number">15</span> -(<span class="keyword">void</span>)setDialogOrientationMask:(<span class="built_in">UIInterfaceOrientationMask</span>)orientationMask;</span><br><span class="line"><span class="number">16</span> </span><br><span class="line"><span class="number">17</span> -(<span class="keyword">void</span>)doBillingWith<span class="built_in">UIAndBillingIndex</span>:(<span class="built_in">NSString</span> *)billingIndex </span><br><span class="line"><span class="number">18</span>                            isRepeated:(<span class="built_in">BOOL</span>)isRepeated </span><br><span class="line"><span class="number">19</span>                               cpParam:(<span class="built_in">NSString</span>*)cpParam</span><br><span class="line"><span class="number">20</span>                        resultCallback:(BillingResultCallback)callback;</span><br><span class="line"><span class="number">21</span> </span><br><span class="line"><span class="number">22</span> <span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>应该很清楚，就不多做说明了。</p>
+<p>下面是实现文件CMGCIAPiOS.m，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="preprocessor">#import <span class="title">"CMGCIAPiOS.h"</span></span></span><br><span class="line"> <span class="number">2</span> </span><br><span class="line"> <span class="number">3</span> <span class="class"><span class="keyword">@implementation</span> <span class="title">CMGCIAPiOS</span></span></span><br><span class="line"> <span class="number">4</span> </span><br><span class="line"> <span class="number">5</span> <span class="keyword">static</span> CMG<span class="built_in">CIAPiOS</span> *_sharedInstance = <span class="literal">nil</span>;</span><br><span class="line"> <span class="number">6</span> </span><br><span class="line"> <span class="number">7</span> + (<span class="keyword">id</span>)sharedInstance</span><br><span class="line"> <span class="number">8</span> &#123;</span><br><span class="line"> <span class="number">9</span>     <span class="keyword">@synchronized</span>(<span class="keyword">self</span>)</span><br><span class="line"><span class="number">10</span>     &#123;</span><br><span class="line"><span class="number">11</span>         <span class="keyword">if</span> (_sharedInstance == <span class="literal">nil</span>)</span><br><span class="line"><span class="number">12</span>         &#123;</span><br><span class="line"><span class="number">13</span>             _sharedInstance = [[CMG<span class="built_in">CIAPiOS</span> alloc] init];</span><br><span class="line"><span class="number">14</span>         &#125;</span><br><span class="line"><span class="number">15</span>     &#125;</span><br><span class="line"><span class="number">16</span>     <span class="keyword">return</span> _sharedInstance;</span><br><span class="line"><span class="number">17</span> &#125;</span><br><span class="line"><span class="number">18</span> </span><br><span class="line"><span class="number">19</span> -(<span class="keyword">id</span>) init</span><br><span class="line"><span class="number">20</span> &#123;</span><br><span class="line"><span class="number">21</span>     <span class="keyword">if</span>( (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) ) </span><br><span class="line"><span class="number">22</span>     &#123;</span><br><span class="line"><span class="number">23</span>         _sdk = [GameBilling initializeGameBilling];</span><br><span class="line"><span class="number">24</span>         _sdk<span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br><span class="line"><span class="number">25</span>     &#125;</span><br><span class="line"><span class="number">26</span>     <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line"><span class="number">27</span> &#125;</span><br><span class="line"><span class="number">28</span> </span><br><span class="line"><span class="number">29</span> -(<span class="keyword">void</span>)setDialogOrientationMask:(<span class="built_in">UIInterfaceOrientationMask</span>)orientationMask</span><br><span class="line"><span class="number">30</span> &#123;</span><br><span class="line"><span class="number">31</span>     [_sdk setDialogOrientationMask:orientationMask];</span><br><span class="line"><span class="number">32</span> &#125;</span><br><span class="line"><span class="number">33</span> </span><br><span class="line"><span class="number">34</span> - (<span class="keyword">void</span>)doBillingWith<span class="built_in">UIAndBillingIndex</span>:(<span class="built_in">NSString</span> *)billingIndex </span><br><span class="line"><span class="number">35</span>                             isRepeated:(<span class="built_in">BOOL</span>)isRepeated </span><br><span class="line"><span class="number">36</span>                                cpParam:(<span class="built_in">NSString</span>*)cpParam</span><br><span class="line"><span class="number">37</span>                         resultCallback:(BillingResultCallback)callback</span><br><span class="line"><span class="number">38</span> &#123;</span><br><span class="line"><span class="number">39</span> </span><br><span class="line"><span class="number">40</span>     <span class="keyword">if</span> (_callback != <span class="literal">nil</span>)</span><br><span class="line"><span class="number">41</span>     &#123;</span><br><span class="line"><span class="number">42</span>         [_callback release];</span><br><span class="line"><span class="number">43</span>         _callback = <span class="literal">nil</span>;</span><br><span class="line"><span class="number">44</span>     &#125;</span><br><span class="line"><span class="number">45</span> </span><br><span class="line"><span class="number">46</span>     _callback = [callback <span class="keyword">copy</span>];    <span class="comment">// 注意要copy</span></span><br><span class="line"><span class="number">47</span> </span><br><span class="line"><span class="number">48</span>     [_sdk doBillingWith<span class="built_in">UIAndBillingIndex</span>:billingIndex </span><br><span class="line"><span class="number">49</span>                               isRepeated:isRepeated </span><br><span class="line"><span class="number">50</span>                                  cpParam:cpParam];</span><br><span class="line"><span class="number">51</span> &#125;</span><br><span class="line"><span class="number">52</span> </span><br><span class="line"><span class="number">53</span> <span class="preprocessor">#pragma mark - GameBillingDelegate</span></span><br><span class="line"><span class="number">54</span> - (<span class="keyword">void</span>)onBillingResult:(BillingResultType)resultCode</span><br><span class="line"><span class="number">55</span>            billingIndex:(<span class="built_in">NSString</span> *)index </span><br><span class="line"><span class="number">56</span>                 message:(<span class="built_in">NSString</span> *)message</span><br><span class="line"><span class="number">57</span> &#123;</span><br><span class="line"><span class="number">58</span>     <span class="built_in">BOOL</span> b = (resultCode == BillingResultType_PaySuccess || resultCode == BillingResultType_PaySuccess_Activated);</span><br><span class="line"><span class="number">59</span>     <span class="built_in">NSLog</span>(<span class="string">@"billing = %@ %@ %@"</span>, b ? <span class="string">@"yes"</span>:<span class="string">@"no"</span>, index, message);</span><br><span class="line"><span class="number">60</span>     </span><br><span class="line"><span class="number">61</span>     <span class="keyword">if</span> (_callback != <span class="literal">nil</span>)</span><br><span class="line"><span class="number">62</span>     &#123;</span><br><span class="line"><span class="number">63</span>         _callback(b,index,message);</span><br><span class="line"><span class="number">64</span> </span><br><span class="line"><span class="number">65</span>         <span class="comment">// 调用完成就释放掉</span></span><br><span class="line"><span class="number">66</span>         [_callback release];</span><br><span class="line"><span class="number">67</span>         _callback = <span class="literal">nil</span>;</span><br><span class="line"><span class="number">68</span>     &#125;</span><br><span class="line"><span class="number">69</span> &#125;</span><br><span class="line"><span class="number">70</span> </span><br><span class="line"><span class="number">71</span> <span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>可以看到对提到的几个方法都做了封装，并且接收了回调。</p>
+<p>下面是C++ Bridge Class部分，头文件CMGCIAP.h:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="preprocessor">#include <span class="title">&lt;iostream&gt;</span></span></span><br><span class="line"> <span class="number">2</span> </span><br><span class="line"> <span class="number">3</span> class CMG<span class="built_in">CIAP</span></span><br><span class="line"> <span class="number">4</span> &#123;</span><br><span class="line"> <span class="number">5</span> public:</span><br><span class="line"> <span class="number">6</span>     CMG<span class="built_in">CIAP</span>();</span><br><span class="line"> <span class="number">7</span>     ~CMG<span class="built_in">CIAP</span>();</span><br><span class="line"> <span class="number">8</span>     </span><br><span class="line"> <span class="number">9</span> public:</span><br><span class="line"><span class="number">10</span>     <span class="keyword">static</span> CMG<span class="built_in">CIAP</span> *sharedInstance();</span><br><span class="line"><span class="number">11</span>     </span><br><span class="line"><span class="number">12</span>     <span class="keyword">bool</span> init();</span><br><span class="line"><span class="number">13</span>     </span><br><span class="line"><span class="number">14</span>     <span class="keyword">void</span> setDoBillingCallbackScriptHandler(<span class="keyword">int</span> scriptHandler); <span class="comment">// for lua callback</span></span><br><span class="line"><span class="number">15</span>     </span><br><span class="line"><span class="number">16</span>     <span class="keyword">void</span> doBillingWithUI(<span class="keyword">const</span> <span class="keyword">char</span>* billingIndex,</span><br><span class="line"><span class="number">17</span>                          <span class="keyword">bool</span> isRepeated,</span><br><span class="line"><span class="number">18</span>                          <span class="keyword">const</span> <span class="keyword">char</span>* cpParam);</span><br><span class="line"><span class="number">19</span>     </span><br><span class="line"><span class="number">20</span> private:</span><br><span class="line"><span class="number">21</span>     </span><br><span class="line"><span class="number">22</span>     <span class="keyword">int</span> m_doBillingCallbackScriptHandler;</span><br><span class="line"><span class="number">23</span>     </span><br><span class="line"><span class="number">24</span> &#125;;</span><br></pre></td></tr></table></figure>
+<p>由于用cocos2d-x的tolua工具做Lua Binding的原因，我把设置Lua回调的方法单独提出来了，如下：</p>
+<p>1 void setDoBillingCallbackScriptHandler(int scriptHandler);<br>更好的做法是把这个scriptHandler放到下面这个函数中，这样接口就可以和Objective的保持一致了。</p>
+<p>1 void doBillingWithUI(const char<em> billingIndex,<br>2                      bool isRepeated,<br>3                      const char</em> cpParam);<br>不过也没关系，独立设置Lua回调函数也有更灵活的优点。</p>
+<p>注意，C++ Bridge Class头文件一定保持“纯洁性”，做纯粹的C++文件，不能出现Objective-C的任何代码，否则就破坏了上面讲到的层次结构。</p>
+<p>下面是实现文件CMGCIAP.mm:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="preprocessor">#include <span class="title">"CMGCIAP.h"</span></span></span><br><span class="line"> <span class="number">2</span> <span class="preprocessor">#include <span class="title">"cocos2d.h"</span></span></span><br><span class="line"> <span class="number">3</span> <span class="preprocessor">#include <span class="title">"script_support/CCScriptSupport.h"</span></span></span><br><span class="line"> <span class="number">4</span> </span><br><span class="line"> <span class="number">5</span> <span class="preprocessor">#import <span class="title">"CMGCIAPiOS.h"</span></span></span><br><span class="line"> <span class="number">6</span> <span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"> <span class="number">7</span> <span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"> <span class="number">8</span> </span><br><span class="line"> <span class="number">9</span> USING_<span class="built_in">NS_CC</span>;</span><br><span class="line"><span class="number">10</span> </span><br><span class="line"><span class="number">11</span> <span class="keyword">static</span> CMG<span class="built_in">CIAP</span>* s_sharedInstance = <span class="literal">NULL</span>;</span><br><span class="line"><span class="number">12</span> </span><br><span class="line"><span class="number">13</span> CMG<span class="built_in">CIAP</span>::CMG<span class="built_in">CIAP</span>()</span><br><span class="line"><span class="number">14</span> &#123;</span><br><span class="line"><span class="number">15</span>     m_doBillingCallbackScriptHandler = <span class="number">0</span>;</span><br><span class="line"><span class="number">16</span> &#125;</span><br><span class="line"><span class="number">17</span> </span><br><span class="line"><span class="number">18</span> CMG<span class="built_in">CIAP</span>::~CMG<span class="built_in">CIAP</span>()</span><br><span class="line"><span class="number">19</span> &#123;</span><br><span class="line"><span class="number">20</span>     </span><br><span class="line"><span class="number">21</span> &#125;</span><br><span class="line"><span class="number">22</span> </span><br><span class="line"><span class="number">23</span> CMG<span class="built_in">CIAP</span> *CMG<span class="built_in">CIAP</span>::sharedInstance()</span><br><span class="line"><span class="number">24</span> &#123;</span><br><span class="line"><span class="number">25</span>     <span class="keyword">if</span> (s_sharedInstance == <span class="literal">NULL</span>)</span><br><span class="line"><span class="number">26</span>     &#123;</span><br><span class="line"><span class="number">27</span>         s_sharedInstance = new CMG<span class="built_in">CIAP</span>();</span><br><span class="line"><span class="number">28</span>     &#125;</span><br><span class="line"><span class="number">29</span> </span><br><span class="line"><span class="number">30</span>     <span class="keyword">return</span> s_sharedInstance;</span><br><span class="line"><span class="number">31</span> &#125;</span><br><span class="line"><span class="number">32</span> </span><br><span class="line"><span class="number">33</span> <span class="comment">// init方法封装了对SDK的初始化</span></span><br><span class="line"><span class="number">34</span> <span class="keyword">bool</span> CMG<span class="built_in">CIAP</span>::init()</span><br><span class="line"><span class="number">35</span> &#123;</span><br><span class="line"><span class="number">36</span>     <span class="comment">// 由于是竖屏的游戏，所以这里直接设置好了</span></span><br><span class="line"><span class="number">37</span>     [[CMG<span class="built_in">CIAPiOS</span> sharedInstance] setDialogOrientationMask:<span class="built_in">UIInterfaceOrientationMaskPortrait</span>];</span><br><span class="line"><span class="number">38</span>     </span><br><span class="line"><span class="number">39</span>     <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"><span class="number">40</span> &#125;</span><br><span class="line"><span class="number">41</span> </span><br><span class="line"><span class="number">42</span> <span class="keyword">void</span> CMG<span class="built_in">CIAP</span>::setDoBillingCallbackScriptHandler(<span class="keyword">int</span> scriptHandler)</span><br><span class="line"><span class="number">43</span> &#123;</span><br><span class="line"><span class="number">44</span>     m_doBillingCallbackScriptHandler = scriptHandler;</span><br><span class="line"><span class="number">45</span> &#125;</span><br><span class="line"><span class="number">46</span> </span><br><span class="line"><span class="number">47</span> <span class="keyword">void</span> CMG<span class="built_in">CIAP</span>::doBillingWithUI(<span class="keyword">const</span> <span class="keyword">char</span>* billingIndex,</span><br><span class="line"><span class="number">48</span>                               <span class="keyword">bool</span> isRepeated,</span><br><span class="line"><span class="number">49</span>                               <span class="keyword">const</span> <span class="keyword">char</span>* cpParam)</span><br><span class="line"><span class="number">50</span> &#123;</span><br><span class="line"><span class="number">51</span>     </span><br><span class="line"><span class="number">52</span>     <span class="built_in">NSString</span> *billingIndexString = [<span class="built_in">NSString</span> stringWithUTF8String:billingIndex];</span><br><span class="line"><span class="number">53</span>     </span><br><span class="line"><span class="number">54</span>     <span class="built_in">NSString</span> *cpParamString = [<span class="built_in">NSString</span> stringWithUTF8String:cpParam];</span><br><span class="line"><span class="number">55</span>     </span><br><span class="line"><span class="number">56</span>     [[CMG<span class="built_in">CIAPiOS</span> sharedInstance] doBillingWith<span class="built_in">UIAndBillingIndex</span>:billingIndexString</span><br><span class="line"><span class="number">57</span>                                                      isRepeated:isRepeated</span><br><span class="line"><span class="number">58</span>                                                         cpParam:cpParamString</span><br><span class="line"><span class="number">59</span>                                                  resultCallback:^(<span class="built_in">BOOL</span> success, <span class="built_in">NSString</span> *index,<span class="built_in">NSString</span> *message)&#123;</span><br><span class="line"><span class="number">60</span>      </span><br><span class="line"><span class="number">61</span>         <span class="comment">//通过Block将返回结果传给Lua，Objective-C到C++的无缝连接：）</span></span><br><span class="line"><span class="number">62</span>      </span><br><span class="line"><span class="number">63</span>         CCLuaStack *stack = CCLuaEngine::defaultEngine()-&gt;getLuaStack();</span><br><span class="line"><span class="number">64</span>         stack-&gt;clean();</span><br><span class="line"><span class="number">65</span>         stack-&gt;pushBoolean(success);</span><br><span class="line"><span class="number">66</span>         stack-&gt;pushString([index UTF8String]);</span><br><span class="line"><span class="number">67</span>         stack-&gt;pushString([message UTF8String]);</span><br><span class="line"><span class="number">68</span>         stack-&gt;executeFunctionByHandler(m_doBillingCallbackScriptHandler, <span class="number">3</span>);</span><br><span class="line"><span class="number">69</span>      </span><br><span class="line"><span class="number">70</span>      &#125;];</span><br><span class="line"><span class="number">71</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>好了，接下来只需要对C++ Bridge Class做Lua Binding，生成绑定文件，如果用tolua做绑定，绑定配置文件如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> class CMG<span class="built_in">CIAP</span></span><br><span class="line"> <span class="number">2</span> &#123;</span><br><span class="line"> <span class="number">3</span>     <span class="keyword">static</span> CMG<span class="built_in">CIAP</span> *sharedInstance();</span><br><span class="line"> <span class="number">4</span>     </span><br><span class="line"> <span class="number">5</span>     <span class="keyword">void</span> setDoBillingCallbackScriptHandler(LUA_FUNCTION nHandler);</span><br><span class="line"> <span class="number">6</span>     </span><br><span class="line"> <span class="number">7</span>     <span class="keyword">void</span> doBillingWithUI(<span class="keyword">const</span> <span class="keyword">char</span>* billingIndex,</span><br><span class="line"> <span class="number">8</span>                          <span class="keyword">bool</span> isRepeated,</span><br><span class="line"> <span class="number">9</span>                          <span class="keyword">const</span> <span class="keyword">char</span>* cpParam);</span><br><span class="line"><span class="number">10</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>OK，到这里主要的编码工作就完成了，记得要在程序的适当位置做好Lua Binding初始化工作。</p>
+<p>如果一切顺利，在以上工作完成后，在Lua里面已经可以直接调用SDK的接口了，接下来的事情就靠你们了：）</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Lua/">Lua</a><a href="/tags/SDK/">SDK</a><a href="/tags/cocos2d/">cocos2d</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2017 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -67,6 +67,75 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/03/05/QRCode的那些事儿/"><span>QRCode与Core Image</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/03/05/QRCode的那些事儿/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-03-05T14:31:06.000Z">
+          2016-03-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
+<h2>要讨论的问题</h2><br>在参考<a href="http://www.appcoda.com/qr-code-generator-tutorial/">Building a QR Code Generator with Core Image Filters</a>这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<a href="https://github.com/koalahl/HLQRCode">Github·HLQRCode</a>。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/AVFoundation/">AVFoundation</a><a href="/tags/CoreImage/">CoreImage</a><a href="/tags/QRCode/">QRCode</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2016/03/05/QRCode的那些事儿/#comment">评论</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/03/04/Xib与之关联的自定义Class/"><span>Xib与之关联的自定义Class</span></a></h3>
     
   
@@ -397,74 +466,6 @@
         <i class="icon-comments"></i>
         <span>
           <a href="/2016/01/07/NS-ENUM与NSString/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/"><span>如何在swift项目中创建Objective-C Bridging header</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/" rel="bookmark">
-        <time class="entry-date published" datetime="2015-12-30T08:24:16.000Z">
-          2015-12-30
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a><a href="/tags/swift/">swift</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/#comment">评论</a>
         </span>
       </span>
     </div>
