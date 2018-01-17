@@ -22,7 +22,6 @@
     <updated>2017-09-21T07:28:28.000Z</updated>
     <content type="html"><![CDATA[<p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4152881.html" target="_blank" rel="external">cocos2d-x + Lua接入iOS原生SDK的实现方案-著作权归原作者所有</a></p>
 <p>相信很多朋友在使用cocos2d-x+lua开发游戏时都遇到过接入iOS原生SDK的问题，比如常见的接应用内支付SDK，广告SDK或是一些社交平台SDK等等，我也没少接过这类SDK。这篇文章主要是对我做过项目中接入iOS原生SDK实现方案的一个总结，在这里分享给大家，希望对自己和大家的开发工作都有帮助。<br><a id="more"></a></p>
-<p><img src="http://p1novxbf6.bkt.clouddn.com/1-%E6%9C%89%E6%9C%A8%E6%8E%AC%E6%9C%88%E7%81%AF/%E6%9C%89%E6%9C%A8%E6%8E%AC%E6%9C%88%E7%81%AF-1.jpg" alt="有木掬月灯"></p>
 <p>在展开正文之前，先做几点说明：</p>
 <p>1.我这里说的iOS原生SDK是指那些完全用Objective-C语言开发，为原生iOS程序设计的SDK。swift很好很强大，不过我还没用过，惭愧，不过语言终归只是表达方式而已，解决问题的思路都是一样的；</p>
 <p>2.这里假设游戏的主要逻辑使用lua实现，对于主要逻辑使用C++实现的，用本文的思路一样可行，并且设计上更简单，接着往下看就知道了：）</p>
