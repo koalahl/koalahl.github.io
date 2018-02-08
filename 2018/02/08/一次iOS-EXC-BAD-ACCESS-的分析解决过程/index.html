@@ -94,12 +94,12 @@
 <p></p><h3>什么是EXC_BAD_ACCESS？</h3><br>EXC_BAD_ACCESS简单的讲就是使用了已经被释放的内存，导致crash。<p></p>
 <p></p><h3>写Demo测试</h3><br>ClassA(单例对象) ， 一个 strong 的NSMutableArray *marr 吧。 <p></p>
 <p>@property (nonatomic, strong) NSMutableArray *marr;  </p>
-<h4>1、场景：</h4><br>app1退到后台，使用其他app，经过几分钟后，重新进入app1，会调用 [[ClassA sharedIndstance] clean]。<br><br>clean方法：<br>-(void)clean {<br>    [self.marr removeAllObjects];<br>}<br><br><br><h4>2、分析：</h4><br>A1：<br>ClassA单例对象被释放<br>但是每次不是又[ClassA sharedIndstance] 了吗？<br><br>A2：<br>marr 属性被释放，这种怎么讲，单例没释放，反而里面的属性被释放？？<br><br><br>经测试，原因为分析1. [ClassA sharedIndstance] 并不能重新init，即使能init，那也是新的内存对象了。<br><br><h4>3、测试过程：</h4><br>1. 新建单例类SingeTonClass，并在xcode设置为MRC.<br>2. 初始化然后手动release，再初始化。<br><br>￼<img src="/img/￼bad_access_1.png" alt="EXC_BAD_ACCESS1"><br><br><br>￼￼<img src="/img/￼bad_access_2.jpg" alt="EXC_BAD_ACCESS2"><br><br><br><br>又尝试了这种方式初始化：如果再dealloc之后重新以 alloc方式初始化，则并非以前的对象了，无意义。<br><br>￼￼<img src="/img/￼bad_access_3.png" alt="EXC_BAD_ACCESS3"><br><br>那么到此为止，可能看起来就暂时没办法解决了。冲突点：此类必须使用单例，因为工程里面全部用的这种方式；然后断线重连后必须调用clean方法。<br><br><h4>4、最后如何解决？</h4>
+<h4>1、场景：</h4><br>app1退到后台，使用其他app，经过几分钟后，重新进入app1，会调用 [[ClassA sharedIndstance] clean]。<br><br>clean方法：<br>-(void)clean {<br>    [self.marr removeAllObjects];<br>}<br><br><br><h4>2、分析：</h4><br>A1：<br>ClassA单例对象被释放<br>但是每次不是又[ClassA sharedIndstance] 了吗？<br><br>A2：<br>marr 属性被释放，这种怎么讲，单例没释放，反而里面的属性被释放？？<br><br><br>经测试，原因为分析1. [ClassA sharedIndstance] 并不能重新init，即使能init，那也是新的内存对象了。<br><br><h4>3、测试过程：</h4><br>1. 新建单例类SingeTonClass，并在xcode设置为MRC.<br>2. 初始化然后手动release，再初始化。<br><br>￼<img src="/img/bad_access_1.png" alt="EXC_BAD_ACCESS1"><br><br><br>￼￼<img src="/img/bad_access_2.jpg" alt="EXC_BAD_ACCESS2"><br><br><br><br>又尝试了这种方式初始化：如果再dealloc之后重新以 alloc方式初始化，则并非以前的对象了，无意义。<br><br>￼￼<img src="/img/bad_access_3.png" alt="EXC_BAD_ACCESS3"><br><br>那么到此为止，可能看起来就暂时没办法解决了。冲突点：此类必须使用单例，因为工程里面全部用的这种方式；然后断线重连后必须调用clean方法。<br><br><h4>4、最后如何解决？</h4>
 
 <p>其实也还是采用分析1的方式，重新初始化单例类[ClassA sharedIndstance]。</p>
 <p>为何？问题发生的场景。</p>
 <p>因为游戏本身断线重连后要清空缓存消息，相当于重新初始化一次单例类。之前一直在意重新初始化后并非原对象，没有考虑问题发生的场景。</p>
-<p>那么重新初始化sharedIndstance时，需要先把原来的单例销毁，方法:<br>￼<br>￼<img src="/img/￼bad_access_4.png" alt="EXC_BAD_ACCESS4"><br>自此，问题解决。</p>
+<p>那么重新初始化sharedIndstance时，需要先把原来的单例销毁，方法:<br>￼<br>￼<img src="/img/bad_access_4.png" alt="EXC_BAD_ACCESS4"><br>自此，问题解决。</p>
 
       
     </div>
