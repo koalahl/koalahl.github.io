@@ -10,7 +10,7 @@
   
 
   
-  <meta name="description" content="Thinking in Different">
+  <meta name="description" content="Think in Different">
   
 
   
@@ -50,15 +50,15 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
-        <li><a href="/categories">分类</a></li>
+        <li><a href="/categories">Categories</a></li>
       
-        <li><a href="/tags">标签</a></li>
+        <li><a href="/tags">Tags</a></li>
       
-        <li><a href="/about">关于</a></li>
+        <li><a href="/about">About</a></li>
       
     </ul>
   </nav>
@@ -125,7 +125,7 @@
 <p>message = “http:”+message<br>print(message)<br>//前后缀<br>var hasPrefix = message.hasPrefix(“http”)<br>var hasSuffix = message.hasSuffix(“png”)</p>
 <p>//集合类型：数组Array 集合Set 字典Dictionary</p>
 <p>//不可变和可变<br>/<em>“如果创建一个Arrays、Sets或Dictionaries并且把它分配成一个变量，这个集合将会是可变的。这意味着我们可以在创建之后添加更多或移除已存在的数据项来改变这个集合的大小。如果我们把Arrays、Sets或Dictionaries分配成常量，那么它就是不可变的，它的大小不能被改变。”
- </em>/<br>let immutableArray = <a href="count:1,repeatedValue:0" target="_blank" rel="external">Int</a><br>var mutableArray   = <a href="">Int</a></p>
+ </em>/<br>let immutableArray = <a href="count:1,repeatedValue:0" target="_blank" rel="noopener">Int</a><br>var mutableArray   = <a href="">Int</a></p>
 <p>let strArray    = [“world”]</p>
 <p>mutableArray.append(1)<br>var array1:[String] = Array()<br>array1.append(“hello”)<br>array1.appendContentsOf(strArray)<br>array1.insert(“gogogog”, atIndex: 1)<br>array1.count<br>array1.isEmpty</p>
 <p>array1[0…1] = [“apple”,”pear”];<br>array1<br>//数组的遍历<br>for item in array1{<br>    print(item)<br>}</p>
@@ -139,7 +139,7 @@
 <p>for (key,value) in dic1{<br>    print(key ,value)<br>}</p>
 <p>print(dic1.keys.sort())<br>print(dic1.values.sort())</p>
 <p>//控制流程</p>
-<p>//game<br>let finalSqura = 25<br>var board = <a href="count:finalSqura+1,repeatedValue:0" target="_blank" rel="external">Int</a><br>board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02<br>board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08<br>var square = 0<br>var diceRoll = 0</p>
+<p>//game<br>let finalSqura = 25<br>var board = <a href="count:finalSqura+1,repeatedValue:0" target="_blank" rel="noopener">Int</a><br>board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02<br>board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08<br>var square = 0<br>var diceRoll = 0</p>
 <p>gameLoop:while square != finalSqura{<br>    //if ++diceRoll == 7 { diceRoll = 1 }<br>    switch square + diceRoll {<br>    case finalSqura:<br>        break gameLoop<br>    case let newSquare where newSquare &gt; finalSqura:<br>        coutinue gameLoop<br>    default:<br>        square += diceRoll<br>        square += board[square]<br>    }<br>}<br>print(“game over”)</p>
 <p>//检查API可用性<br>if #available(iOS 9, *){</p>
 <p>}else{</p>

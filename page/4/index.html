@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>第 4 页 | 寒流‘s Blog | 编程与生活</title>
+  <title>Page 4 | 寒流‘s Blog | 编程与生活</title>
 
   
   <meta name="author" content="Han Liu">
   
 
   
-  <meta name="description" content="Thinking in Different">
+  <meta name="description" content="Think in Different">
   
 
   
@@ -47,15 +47,15 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
-        <li><a href="/categories">分类</a></li>
+        <li><a href="/categories">Categories</a></li>
       
-        <li><a href="/tags">标签</a></li>
+        <li><a href="/tags">Tags</a></li>
       
-        <li><a href="/about">关于</a></li>
+        <li><a href="/about">About</a></li>
       
     </ul>
   </nav>
@@ -67,15 +67,15 @@
 
   
     
-    <h3 class="article-title"><a href="/2016/04/26/Learn-Swift-Section-One/"><span>Learn Swift - Section 1st 基础知识</span></a></h3>
+    <h3 class="article-title"><a href="/2016/01/10/NSURLSession初探/"><span>NSURLSession初探</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2016/04/26/Learn-Swift-Section-One/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-04-26T08:21:36.000Z">
-          2016-04-26
+      <a href="/2016/01/10/NSURLSession初探/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-01-10T14:04:06.000Z">
+          2016-01-10
         </time>
       </a>
     </span>
@@ -87,10 +87,7 @@
   <div class="article-content">
     <div class="entry">
       
-        <p>import UIKit</p>
-<p>var str = “Hello, playground”</p>
-<p>//常量和变量<br>let maxLoginCount = 10<br>var currentLoginCount = 5</p>
-<p>//类型标注<br>var message = “welcome”//类型推断为String<br>var messageWithTypeAnnotation:String</p>
+        <p>NSURLSession是Apple自iOS7.0之后加入到Cocoa SDK中，用以替代NSURLConnection。它拥有更简洁易懂的API方法。<br>iOS中常用的网络库例如AFNetworking在3.0版本中就全部替换为了NSURLSession。<br>
       
     </div>
 
@@ -104,7 +101,7 @@
 
     <span class="post-categories">
       <i class="icon-categories"></i>
-        <a href="/categories/Swift/">Swift</a>
+        <a href="/categories/iOS/">iOS</a>
     </span>
     
 
@@ -113,7 +110,7 @@
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/LearnSwift/">LearnSwift</a>
+        <a href="/tags/NSURLSession/">NSURLSession</a>
     </span>
     
 
@@ -124,7 +121,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="/2016/04/26/Learn-Swift-Section-One/#comment">评论</a>
+          <a href="/2016/01/10/NSURLSession初探/#comment">Comments</a>
         </span>
       </span>
     </div>
@@ -138,15 +135,15 @@
 
   
     
-    <h3 class="article-title"><a href="/2016/04/10/浅谈iOS中的userAgent/"><span>浅谈iOS中的userAgent</span></a></h3>
+    <h3 class="article-title"><a href="/2016/01/07/NS-ENUM与NSString/"><span>NS_ENUM与NSString</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2016/04/10/浅谈iOS中的userAgent/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-04-10T14:33:37.000Z">
-          2016-04-10
+      <a href="/2016/01/07/NS-ENUM与NSString/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-01-07T09:39:07.000Z">
+          2016-01-07
         </time>
       </a>
     </span>
@@ -158,11 +155,504 @@
   <div class="article-content">
     <div class="entry">
       
-        <p>User-Agent（用户代理）字符串是Web浏览器用于声明自身型号版本并随HTTP请求发送给Web服务器的字符串，在Web服务器上可以获取到该字符串。</p>
-<p>在公司产品中，在userAgent中增加了NetType字段，用于标识客户端当前的网络环境。</p>
+        <h3>NS_ENUM与NSString</h3>
+
+<p>在项目中经常会使用到枚举类型：<code>NS_ENUM</code>,<code>enum</code>,但是系统提供的枚举类型只能设置为NSInteger类型，不能保存对象类型入<code>NSString</code>。<br>传统的用<code>#define</code> 方式，<code>Switch case</code> 转换方式，另外还发现了如下几种方式：</p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/NS-ENUM/">NS_ENUM</a><a href="/tags/NSString/">NSString</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2016/01/07/NS-ENUM与NSString/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/"><span>如何在swift项目中创建Objective-C Bridging header</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-30T08:24:16.000Z">
+          2015-12-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/swift/">swift</a><a href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/"><span>修改UIBarButtonItem标题文字大小、颜色、阴影等</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-29T06:57:36.000Z">
+          2015-12-29
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p></p><h3>修改UIBarButtonItem的标题文字大小、颜色、阴影等</h3><br>有时候我们需要设置一下导航栏右侧按钮标题的大小、颜色等等，但是UIBarButtonItem没有直接提供相关方法。通过查看UIbarButtonItem官方文档，总结出有以下两种方法<br>第一种：使用<code>initWithCustomView</code>方法创建UIBarButtonItem。<br>第二种：通过KVC来修改相关属性。<p></p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UIBarButtonItem/">UIBarButtonItem</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/29/修改UIBarButtonItem标题文字大小、颜色、阴影等/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/16/Block实现原理/"><span>Block实现原理</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/16/Block实现原理/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-16T13:11:51.000Z">
+          2015-12-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>Block一直是iOS开发中常用的技巧，类似于C语言中的指针函数。多用于参数回调，异步加载等。下面就来探究以下block是如何实现的。<br>这篇是记录根据网上的文章进行的实际操作。C函数的生成中间编译代码的编译方法是clang -rewrite-objc xxxx.c。由于编译文件中内容较多，这里我们只截取有关block的部分。</p>
+<p>首先，看看没有block的C函数以及编译后的结果：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main()&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译代码中的block：这里我们可以看到一个block的C实现。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifndef BLOCK_IMPL</span></span><br><span class="line"><span class="meta">#define BLOCK_IMPL</span></span><br><span class="line"><span class="keyword">struct</span> __block_impl &#123;</span><br><span class="line">  <span class="keyword">void</span> *isa;</span><br><span class="line">  <span class="keyword">int</span> Flags;</span><br><span class="line">  <span class="keyword">int</span> Reserved;</span><br><span class="line">  <span class="keyword">void</span> *FuncPtr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>*isa说明block也可以作为对象使用（例如我们定义一个myBlock类型的block1），指针变量FunPtr应该就是指向了block代码块的函数首地址<br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/block/">block</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/16/Block实现原理/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/"><span>TableViewCell根据内容自适应高度的方法</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-16T12:49:20.000Z">
+          2015-12-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本文同时参考 <a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/" target="_blank" rel="noopener">http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/</a> </p>
+<h2>一：根据cell内容手动计算cell高度</h2>
+
+<p>无论使用xib还是代码写控件，核心思想都是根据cell中content内容的高度来计算cell的高度。<br>1.在获取到cell数据源的时候计算内容高度。可以设置一个size属性，用来记录。<br>2.如果是xib，去掉autolayout<br>3.在cellForRowAtIndexPath方法中填充cell数据的时候，根据内容高度，设置控件高度<br>4.在heightForRowAtIndexpath方法中，设置每一个cell 的高度</p>
+<h2>二：Self sizing cell + autolayout</h2>
+
+<p>Self sizing cell 是iOS8中添加一个新特性，用来自适应cell高度。<br><img src="/img/self sizing cell.jpg" alt="Self Sizing Cell"><br>同时打开以下参数：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.tableView.estimatedRowHeight = <span class="number">213</span>;<span class="comment">//添加估算高度，要不然自动算高失效？</span></span><br><span class="line"><span class="keyword">self</span>.tableView.rowHeight = <span class="built_in">UITableViewAutomaticDimension</span>;</span><br></pre></td></tr></table></figure></p>
+<h2>三：UITableView+FDTemplateLayoutCell</h2>
+
+<p>使用的API:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UITableView+FDTemplateLayoutCell.h&gt;</span> </span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123; </span><br><span class="line">	<span class="keyword">return</span> [tableView fd_heightForCellWithIdentifier:<span class="string">@"identifer"</span> cacheByIndexPath:indexPath configuration:^(<span class="keyword">id</span> cell)</span><br><span class="line"> 			&#123;</span><br><span class="line">  			<span class="comment">// 配置 cell 的数据源，和 "cellForRow" 干的事一致，比如： </span></span><br><span class="line">			  cell.entity = <span class="keyword">self</span>.feedEntities[indexPath.row]; </span><br><span class="line">  			&#125;]; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell" target="_blank" rel="noopener">https://github.com/forkingdog/UITableView-FDTemplateLayoutCell</a><br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/tableViewCell/">tableViewCell</a><a href="/tags/cell高度/">cell高度</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/16/TableViewCell根据内容自适应高度的方法/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/16/理解Objective-C中的消息发送/"><span>理解Objective-C中的消息发送</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/16/理解Objective-C中的消息发送/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-16T12:32:25.000Z">
+          2015-12-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2>消息发送</h2><br>首先来看看怎么理解发送消息的含义：<br><br>面对着 Cocoa 中大量 API，只知道简单的查文档和调用。还记得初学 Objective-C 时把<code>[receiver message]</code>当成简单的方法调用，而无视了“发送消息”这句话的深刻含义。于是<code>[receiver message]</code>会被编译器转化为：<br>    <code>objc_msgSend(receiver, selector)</code><br>如果消息含有参数，则为：<br>    <code>objc_msgSend(receiver, selector, arg1, arg2, ...)</code><br>如果消息的接收者能够找到对应的selector，那么就相当于直接执行了接收者这个对象的特定方法；否则，消息要么被转发，或是临时向接收者动态添加这个selector对应的实现内容，要么就干脆玩完崩溃掉。<br><br>现在可以看出[receiver message]真的不是一个简简单单的方法调用。因为这只是在编译阶段确定了要向接收者发送message这条消息，而receive将要如何响应这条消息，那就要看运行时发生的情况来决定了。<br><br>Objective-C 的 Runtime 铸就了它动态语言的特性，这些深层次的知识虽然平时写代码用的少一些，但是却是每个 Objc 程序员需要了解的。<br><br>Objc Runtime使得C具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。可以使用runtime的一系列方法实现。<br><br><h3>C语言中的动态方法</h3><br><br>由于Objective-C是C语言的超集，所以最好先理解C语言的函数调用方式。C语言使用“静态绑定（static binding）”，也就是说，在编译器就能决定运行时所应调用的函数。<br><br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Runtime/">Runtime</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/16/理解Objective-C中的消息发送/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/"><span>关于CoreData和SQLite多线程访问时的线程安全问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-14T10:51:37.000Z">
+          2015-12-14
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>数据库读取操作一般都是多线程访问的。在对数据进行读取时，我们要保证其当前状态不能被修改，即读取时加锁，否则就会出现数据错误混乱。<br>IOS中常用的两种数据持久化存储方式：CoreData和SQLite，两者都需要设置线程安全，在这里以FMDB来解释对SQLite的线程安全访问。</p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/CoreData/">CoreData</a><a href="/tags/SQLite/">SQLite</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2015/12/14/关于CoreData和SQLite多线程访问时的线程安全问题/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/"><span>《iOS开发进阶》阅读笔记（二）——开发技巧</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-13T11:24:48.000Z">
+          2015-12-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="keyboard">收起键盘</h3>
+
+<p>在UIViewController中收起键盘，处了调用相应控件的resignFirstResponder方法外，还有另外三种方法：</p>
 <ul>
-<li>NetType/WIFI</li>
-<li>NetType/3G<br>web服务器端根据NetType类型加载不同分辨率的商品图片。我们只有两种，WIFI下高清图，非WIFI低分辨率图。</li>
+<li>重载UIViewController的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>,这样单击UIViewController的任意地方，就可以收起键盘；</li>
+<li>直接执行<code>[[UIApplicatoin sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];</code>,用于在获得当前UIViewController比较困难的时候使用。</li>
+<li>直接执行<code>[[[UIApplicatoin sharedApplication] keyWindow] endEditing:YES];</code>。</li>
 </ul>
       
     </div>
@@ -186,7 +676,7 @@
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/userAgent/">userAgent</a>
+        <a href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a>
     </span>
     
 
@@ -197,7 +687,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="/2016/04/10/浅谈iOS中的userAgent/#comment">评论</a>
+          <a href="/2015/12/13/《iOS开发进阶》阅读笔记（二）——开发技巧/#comment">Comments</a>
         </span>
       </span>
     </div>
@@ -211,15 +701,15 @@
 
   
     
-    <h3 class="article-title"><a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/"><span>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</span></a></h3>
+    <h3 class="article-title"><a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/"><span>《iOS开发进阶》阅读笔记（一）内存管理释疑</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-31T06:13:54.000Z">
-          2016-03-31
+      <a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-12T11:15:32.000Z">
+          2015-12-12
         </time>
       </a>
     </span>
@@ -231,11 +721,10 @@
   <div class="article-content">
     <div class="entry">
       
-        <p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
-<p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
-<p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
-<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
-<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br>
+        <h3 id="arc">ARC</h3>
+
+<p>ARC能够解决iOS开发中90%的内存管理问题，但是另外还有10%的内存管理是需要手动管理的，主要就是与底层Core Foundation对象交互的部分，因为底层Core Foundation对象由于不在ARC的管理下。</p>
+<p>使用ARC需要额外注意的两个问题：<br>    1.过度使用block产生的循环引用问题。<br>    2.底层Core Foundation对象需要手动进行内存管理。<br>
       
     </div>
 
@@ -258,7 +747,7 @@
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/UIButton/">UIButton</a><a href="/tags/UIView/">UIView</a>
+        <a href="/tags/《iOS开发进阶》阅读笔记/">《iOS开发进阶》阅读笔记</a>
     </span>
     
 
@@ -269,213 +758,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/03/23/Effective-Objective-C-2-0-要点/"><span>Effective-Objective C 2.0 要点</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/23/Effective-Objective-C-2-0-要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-23T08:10:35.000Z">
-          2016-03-23
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Effective-Ojective C 2.0 读书笔记</p>
-<p>第一章的内容比较基础，就没有列在笔记当中了。另外该笔记只记录每一个要点之后的总结，重点地方会另外探讨。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Effective-Ojective-C-2-0/">Effective-Ojective C 2.0</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/23/Effective-Objective-C-2-0-要点/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/03/08/iOS-蓝牙4-0开发/"><span>iOS 蓝牙4.0开发</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/08/iOS-蓝牙4-0开发/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-08T12:19:39.000Z">
-          2016-03-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>iOS 蓝牙4.0开发</p>
-<h2>背景：</h2><br>1.iOS的蓝牙不能用来传输文件。<br>2.iOS与iOS设备之间进行数据通信，使用gameKit.framework<br>3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework<br><br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/CoreBluetooth/">CoreBluetooth</a><a href="/tags/蓝牙/">蓝牙</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/08/iOS-蓝牙4-0开发/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/03/08/SDWebImage内部实现过程/"><span>SDWebImage内部实现过程</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/08/SDWebImage内部实现过程/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-08T12:15:14.000Z">
-          2016-03-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>SDWebImage内部实现过程(新版本在各方法前加上了sd_前缀，以区分UIImageView+AFNetworking中的方法)</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/SDWebImage/">SDWebImage</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/08/SDWebImage内部实现过程/#comment">评论</a>
+          <a href="/2015/12/12/《iOS开发进阶》阅读笔记（一）内存管理释疑/#comment">Comments</a>
         </span>
       </span>
     </div>
@@ -488,10 +771,10 @@
 
 <nav class="pagination">
   
-  <a href="/page/3/" class="pagination-prev">上一页</a>
+  <a href="/page/3/" class="pagination-prev">Prev</a>
   
   
-  <a href="/page/5/" class="pagination-next">下一页</a>
+  <a href="/page/5/" class="pagination-next">Next</a>
   
 </nav>
     </main>
