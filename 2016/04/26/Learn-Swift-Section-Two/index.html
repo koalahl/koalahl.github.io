@@ -97,9 +97,9 @@
 <p>let scores = [“xiaoming”:66,”li”:89,”han”:78,”ming”:100,”xiag”:34]<br>scores.filter { (name,score) in score &gt; 60}</p>
 <p>//“将闭包标注为@noescape使你能在闭包中隐式地引用self”<br>func functionWithNoescapeClosure(@noescape closure:()-&gt;Void){<br>    closure()<br>}<br>var completionHandlers:[() -&gt; Void] = []<br>func functionWithEscapeClosure(completionHandler:()-&gt;Void){<br>    completionHandler()<br>    completionHandlers.append(completionHandler)<br>}</p>
 <p>class SomeClass {<br>    var x = 200<br>    func doSomething(){</p>
-<pre><code>    functionWithEscapeClosure({self.x = <span class="number">100</span>})
+<pre><code>    functionWithEscapeClosure({self.x = 100})
 
-    functionWithNoescapeClosure({x = <span class="number">300</span>})<span class="comment">//隐式引用self</span>
+    functionWithNoescapeClosure({x = 300})//隐式引用self
 
 }
 </code></pre><p>}<br>let some = SomeClass()<br>some.doSomething()<br>print(some.x)</p>
