@@ -128,7 +128,7 @@
 <p>另外附一篇有意思的文章 <a href="https://yalantis.com/blog/uidynamics-uikit-or-opengl-3-types-of-ios-animations-for-the-star-wars/" target="_blank" rel="noopener">UIDynamics, UIKit or OpenGL? 3 Types of iOS Animations for the Star Wars</a>,值得一读。</p>
 <h4 id="5">5.Https概念，iOS中设置https。</h4><br>略<br><br><h4 id="6">6.100W数据中找到最大的10W，使用什么数据结构？</h4>
 
-<p>堆</p>
+<p>最大堆</p>
 <p><a href="http://blog.csdn.net/zyq522376829/article/details/47686867" target="_blank" rel="noopener">海量数据处理 - 10亿个数中找出最大的10000个数（top K问题）</a></p>
 <h4 id="7">7.音视频开发，没做过，然后提到简历上的二维码扫描库 - AVFoundation。</h4><br>影响二维码扫描速度的难点是什么？我回答是二维码图像的清晰度，面试官还提到了二维码图像的角度，该如何优化。<br><br>对于AVFoundation来说，有两个因素：<br>1. 图像分辨率<br>    AVCaptureSession 可以设置 sessionPreset 属性，这个决定了视频输入每一帧图像质量的大小。<br>    <em> AVCaptureSessionPreset320x240
     </em> AVCaptureSessionPreset352x288<br>    <em> AVCaptureSessionPreset640x480
