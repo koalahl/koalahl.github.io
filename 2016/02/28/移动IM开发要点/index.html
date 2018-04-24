@@ -1,104 +1,83 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
 <head>
-  <meta charset="utf-8">
-  
-  <title>移动IM开发要点 | 寒流‘s Blog | 编程与生活</title>
+    <meta charset="utf-8">
+<title>移动IM开发要点 - 寒流‘s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta name="author" content="Han Liu">
-  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
 
-  
-  <meta name="description" content="Think in Different">
-  
 
-  
-  
-  <meta name="keywords" content="IM,xmpp">
-  
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta property="og:title" content="移动IM开发要点"/>
 
-  <meta property="og:site_name" content="寒流‘s Blog"/>
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
-
-
 <body>
-<div class="blog">
-  <div class="content">
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+        </div>
+    </div>
+</nav>
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">寒流‘s Blog</a>
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            移动IM开发要点
+        
     </h1>
-    <p class="site-description">编程与生活</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">首页</a></li>
-      
-        <li><a href="/categories/swiftOldDriver">老司机</a></li>
-      
-        <li><a href="/categories/Swift">Swift</a></li>
-      
-        <li><a href="/categories/algorithm">算法</a></li>
-      
-        <li><a href="/categories/graphic">图形图像</a></li>
-      
-        <li><a href="/categories/iOSInterview">面试集</a></li>
-      
-        <li><a href="/categories/sourcecode">读源码</a></li>
-      
-        <li><a href="/link">博客</a></li>
-      
-        <li><a href="/categories">分类</a></li>
-      
-        <li><a href="/about">关于</a></li>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    <article>
-
-  
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2016-02-28T14:10:56.000Z" itemprop="datePublished">2 years ago</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/iOS/">iOS</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            21 minutes read (About 3102 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-    <h3 class="article-title"><span>移动IM开发要点</span></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/02/28/移动IM开发要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-02-28T14:10:56.000Z">
-          2016-02-28
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
         <p>个人对于IM开发中客户端与服务器之间的连接比较感兴趣，网搜一篇好文，记录下来。<br>转载于 <a href="http://xiangwangfeng.com/2015/05/20/%E7%A7%BB%E5%8A%A8IM%E5%BC%80%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_blank" rel="noopener">移动IM开发那些事</a></p>
 <a id="more"></a>
 <h2>通讯方式选择</h2><br>IM通讯方式无非两种选择:设备直连(P2P)和通过服务器中转。<br><h3>P2P</h3><br>P2P多见于局域网内聊天工具，典型的应用有:飞鸽传书，天网Maze(你懂的)等。这类软件在启动后一般做两件事情<br><br><em> 进行UDP广播:发送自己信息和接受同局域网内其他端信息
@@ -162,83 +141,83 @@
 </ul>
 <p></p><h2>总结</h2><br>此处是软文，请全选阅读:<font color="white">一个大型IM系统涉及到东西实在太多，如果IM模块只是APP的附属功能，并不推荐自己去从头实现IM模块或者使用XMPP这种有天坑的开源实现，直接使用市面上的第三方SDK即可，比如我们的<a href="http://netease.im" target="_blank" rel="noopener">云信</a>。毕竟，我们，是，专业的！~~~~</font><p></p>
 
-      
+    
     </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
     
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
+    <div class="columns is-variable is-1 is-multiline is-mobile">
     
-
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/IM/">#IM</a></span>
     
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/xmpp/">#xmpp</a></span>
     
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/IM/">IM</a><a href="/tags/xmpp/">xmpp</a>
-    </span>
-    
-
     </div>
-
     
-  </div>
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2016/03/04/Xib与之关联的自定义Class/">Xib与之关联的自定义Class</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2016/01/17/如何做一个圆形的音量旋钮/">如何做一个圆形的音量旋钮</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-  
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
-
-	<script type="text/javascript">
-	var disqus_shortname = 'hanangellove';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
 
 
 
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 Han Liu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
-
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    <!--
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-  -->
-    
-    &copy; 2018 Han Liu
-    
-  </p>
+            
+            
+        </div>
+    </div>
 </footer>
-    
-  </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+    
 </body>
 </html>

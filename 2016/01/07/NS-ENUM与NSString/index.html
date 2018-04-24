@@ -1,104 +1,83 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
 <head>
-  <meta charset="utf-8">
-  
-  <title>NS_ENUM与NSString | 寒流‘s Blog | 编程与生活</title>
+    <meta charset="utf-8">
+<title>NS_ENUM与NSString - 寒流‘s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta name="author" content="Han Liu">
-  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
 
-  
-  <meta name="description" content="Think in Different">
-  
 
-  
-  
-  <meta name="keywords" content="NS_ENUM,NSString">
-  
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta property="og:title" content="NS_ENUM与NSString"/>
 
-  <meta property="og:site_name" content="寒流‘s Blog"/>
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
-
-
 <body>
-<div class="blog">
-  <div class="content">
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+        </div>
+    </div>
+</nav>
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">寒流‘s Blog</a>
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            NS_ENUM与NSString
+        
     </h1>
-    <p class="site-description">编程与生活</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">首页</a></li>
-      
-        <li><a href="/categories/swiftOldDriver">老司机</a></li>
-      
-        <li><a href="/categories/Swift">Swift</a></li>
-      
-        <li><a href="/categories/algorithm">算法</a></li>
-      
-        <li><a href="/categories/graphic">图形图像</a></li>
-      
-        <li><a href="/categories/iOSInterview">面试集</a></li>
-      
-        <li><a href="/categories/sourcecode">读源码</a></li>
-      
-        <li><a href="/link">博客</a></li>
-      
-        <li><a href="/categories">分类</a></li>
-      
-        <li><a href="/about">关于</a></li>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    <article>
-
-  
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2016-01-07T09:39:07.000Z" itemprop="datePublished">2 years ago</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/iOS/">iOS</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 342 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-    <h3 class="article-title"><span>NS_ENUM与NSString</span></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/01/07/NS-ENUM与NSString/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-01-07T09:39:07.000Z">
-          2016-01-07
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
         <h3>NS_ENUM与NSString</h3>
 
 <p>在项目中经常会使用到枚举类型：<code>NS_ENUM</code>,<code>enum</code>,但是系统提供的枚举类型只能设置为NSInteger类型，不能保存对象类型入<code>NSString</code>。<br>传统的用<code>#define</code> 方式，<code>Switch case</code> 转换方式，另外还发现了如下几种方式：</p>
@@ -109,83 +88,83 @@
 <p>此法和上面的定义NSString数组相似，但是是用了函数思想。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">    <span class="built_in">UIImageOrientationUp</span> = <span class="number">0</span>,            <span class="comment">// default orientation, set to 0 so that it always starts from 0</span></span><br><span class="line">    <span class="built_in">UIImageOrientationDown</span>,          <span class="comment">// 180 deg rotation</span></span><br><span class="line">    <span class="built_in">UIImageOrientationLeft</span>,          <span class="comment">// 90 deg CCW</span></span><br><span class="line">    <span class="built_in">UIImageOrientationRight</span>,         <span class="comment">// 90 deg CW</span></span><br><span class="line">    <span class="built_in">UIImageOrientationUpMirrored</span>,    <span class="comment">// as above but image mirrored along other axis. horizontal flip</span></span><br><span class="line">    <span class="built_in">UIImageOrientationDownMirrored</span>,  <span class="comment">// horizontal flip</span></span><br><span class="line">    <span class="built_in">UIImageOrientationLeftMirrored</span>,  <span class="comment">// vertical flip</span></span><br><span class="line">    <span class="built_in">UIImageOrientationRightMirrored</span>, <span class="comment">// vertical flip</span></span><br><span class="line">&#125; <span class="built_in">UIImageOrientation</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *stringWithUIImageOrientation(<span class="built_in">UIImageOrientation</span> input) &#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *arr = @[</span><br><span class="line">    <span class="string">@"UIImageOrientationUp"</span>,            <span class="comment">// default orientation</span></span><br><span class="line">    <span class="string">@"UIImageOrientationDown"</span>,          <span class="comment">// 180 deg rotation</span></span><br><span class="line">    <span class="string">@"UIImageOrientationLeft"</span>,          <span class="comment">// 90 deg CCW</span></span><br><span class="line">    <span class="string">@"UIImageOrientationRight"</span>,         <span class="comment">// 90 deg CW</span></span><br><span class="line">    <span class="string">@"UIImageOrientationUpMirrored"</span>,    <span class="comment">// as above but image mirrored along other axis. horizontal flip</span></span><br><span class="line">    <span class="string">@"UIImageOrientationDownMirrored"</span>,  <span class="comment">// horizontal flip</span></span><br><span class="line">    <span class="string">@"UIImageOrientationLeftMirrored"</span>,  <span class="comment">// vertical flip</span></span><br><span class="line">    <span class="string">@"UIImageOrientationRightMirrored"</span>, <span class="comment">// vertical flip</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">NSString</span> *)[arr objectAtIndex:input];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>综合众多方案得出，要熟练使用<code>typedef、#define</code> 就可以提高效率。<br>更多可以参考stackoverflow：<a href="http://stackoverflow.com/questions/6331762/enum-values-to-nsstring-ios" target="_blank" rel="noopener">enum Values to NSString (iOS)</a></p>
 
-      
+    
     </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
     
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
+    <div class="columns is-variable is-1 is-multiline is-mobile">
     
-
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/NS-ENUM/">#NS_ENUM</a></span>
     
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/NSString/">#NSString</a></span>
     
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/NS-ENUM/">NS_ENUM</a><a href="/tags/NSString/">NSString</a>
-    </span>
-    
-
     </div>
-
     
-  </div>
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2016/01/10/NSURLSession初探/">NSURLSession初探</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/">如何在swift项目中创建Objective-C Bridging header</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-  
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
-
-	<script type="text/javascript">
-	var disqus_shortname = 'hanangellove';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
 
 
 
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 Han Liu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
-
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    <!--
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-  -->
-    
-    &copy; 2018 Han Liu
-    
-  </p>
+            
+            
+        </div>
+    </div>
 </footer>
-    
-  </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+    
 </body>
 </html>

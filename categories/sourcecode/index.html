@@ -1,119 +1,197 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
 <head>
-  <meta charset="utf-8">
-  
-  <title>sourcecode | 寒流‘s Blog | 编程与生活</title>
+    <meta charset="utf-8">
+<title>Category: sourcecode - 寒流‘s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <meta name="author" content="Han Liu">
-  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
 
-  
-  <meta name="description" content="Think in Different">
-  
 
-  
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
 
-  <meta property="og:site_name" content="寒流‘s Blog"/>
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
-
-
 <body>
-<div class="blog">
-  <div class="content">
-
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">寒流‘s Blog</a>
-    </h1>
-    <p class="site-description">编程与生活</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">首页</a></li>
-      
-        <li><a href="/categories/swiftOldDriver">老司机</a></li>
-      
-        <li><a href="/categories/Swift">Swift</a></li>
-      
-        <li><a href="/categories/algorithm">算法</a></li>
-      
-        <li><a href="/categories/graphic">图形图像</a></li>
-      
-        <li><a href="/categories/iOSInterview">面试集</a></li>
-      
-        <li><a href="/categories/sourcecode">读源码</a></li>
-      
-        <li><a href="/link">博客</a></li>
-      
-        <li><a href="/categories">分类</a></li>
-      
-        <li><a href="/about">关于</a></li>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
     
-
-<article>
-
-  <h2 class="article-title  category">sourcecode</h2>
-
-  <div class="archive">
-    
-      <div class="post archive">
-        <div class="archive-post">
-          <time datetime="2018-04-24T05:33:07.000Z">
-            <a href="/2018/04/24/SDWebImage4-0源码阅读/">2018-04-24</a>
-          </time>
-          
-            <h3 class="archive-title"><a href="/2018/04/24/SDWebImage4-0源码阅读/"><span>SDWebImage4.0源码阅读</span></a></h3>
-          
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-      </div>
-    
-    <nav class="pagination">
-  
-  
+        
+        <div class="navbar-menu navbar-end">
+            
+            
+            
+        </div>
+    </div>
 </nav>
-  </div>
 
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5><i class="far fa-folder"></i>sourcecode</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/24/SDWebImage4-0源码阅读/" itemprop="url">SDWebImage4.0源码阅读</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-24T05:33:07.000Z" itemprop="datePublished">2 hours ago</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/sourcecode/">sourcecode</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            an hour read (About 7446 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="参拜一下SDWebImage的源码。"><a href="#参拜一下SDWebImage的源码。" class="headerlink" title="参拜一下SDWebImage的源码。"></a>参拜一下SDWebImage的源码。</h3><p>并不是说一定要读如何如何、只是觉得源码的阅读是一种很好的学习方式。无论从架构还是技术点方面。</p>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>常见疑问(面试大全？)<ul>
+<li>磁盘目录位于哪里？</li>
+<li>最大并发数、超时时长？</li>
+<li>图片如何命名？</li>
+<li>如何识别图片类型?</li>
+<li>所查找到的图片的来源?</li>
+<li><strong>所有下载的图片都将被写入缓存？磁盘呢？何时缓存的？</strong></li>
+<li><strong>磁盘缓存的时长？清理操作的时间点？</strong></li>
+<li><strong>磁盘清理的原则？</strong></li>
+<li>下载图片时、会使用缓存协议么?</li>
+<li>下载图片的URL必须是NSURL么？</li>
+<li><strong>读取缓存以及读取磁盘的时候如何保证线程安全？</strong></li>
+</ul>
+</li>
+<li>相关知识点<ul>
+<li>NS_OPTIONS枚举与位运算</li>
+<li>内联函数</li>
+</ul>
+</li>
+<li>准备工作</li>
+<li>工作原理</li>
+<li>业务层级</li>
+<li>核心代码(正常读取下载图片)<ul>
+<li>最上层：UIView+WebCache</li>
+<li>逻辑层：SDWebImageManager</li>
+<li>业务层：<ul>
+<li>缓存&amp;&amp;磁盘操作(SDImageCache)</li>
+<li>下载操作(SDWebImageDownloader)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一些启发<ul>
+<li>分层的接口API设计</li>
+<li>线程安全</li>
+<li>内联函数</li>
+<li>精细的缓存管理原则</li>
+<li>回调设计</li>
+</ul>
+</li>
+</ul>
+<hr>
+        <p class="article-more-link">
+            <a href="/2018/04/24/SDWebImage4-0源码阅读/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
 </article>
-    </main>
 
-    <footer class="site-footer">
-  <p class="site-info">
-    <!--
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-  -->
+
+
+
     
-    &copy; 2018 Han Liu
     
-  </p>
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 Han Liu&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            
+        </div>
+    </div>
 </footer>
-    
-  </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
 </div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+    
 </body>
 </html>
