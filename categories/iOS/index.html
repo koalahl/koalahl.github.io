@@ -1,676 +1,220 @@
-<!DOCTYPE html>
-<html class="has-navbar-fixed-top">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-<title>Category: iOS - 寒流‘s Blog</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  
+  <title>iOS | 寒流‘s Blog | 编程与生活</title>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+  
+  <meta name="author" content="Han Liu">
+  
 
+  
+  <meta name="description" content="Think in Different">
+  
 
+  
 
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
+  
 
+  <meta property="og:site_name" content="寒流‘s Blog"/>
 
-<link rel="icon" href="/favicon.png">
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
 
-
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
-
-
-<link rel="stylesheet" href="/css/style.css">
-<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 </head>
+
+
 <body>
-    
-<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item navbar-logo" href="/">
-                
-                <img src="/images/logo.png" alt="" height="28">
-                
-            </a>
-            <div class="navbar-burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        
-        <div class="navbar-menu navbar-start">
-            
-            <a class="navbar-item "
-               href="/">首页</a>
-            
-            <a class="navbar-item "
-               href="/categories/swiftOldDriver">老司机</a>
-            
-            <a class="navbar-item "
-               href="/categories/Swift">Swift</a>
-            
-            <a class="navbar-item "
-               href="/categories/algorithm">算法</a>
-            
-            <a class="navbar-item "
-               href="/categories/graphic">图形图像</a>
-            
-            <a class="navbar-item "
-               href="/categories/iOSInterview">面试集</a>
-            
-            <a class="navbar-item "
-               href="/categories/sourcecode">读源码</a>
-            
-            <a class="navbar-item "
-               href="/link">博客</a>
-            
-            <a class="navbar-item "
-               href="/categories">分类</a>
-            
-            <a class="navbar-item "
-               href="/about">关于</a>
-            
-        </div>
-        
-        <div class="navbar-menu navbar-end">
-            
-            <a class="navbar-item search" href="javascript:;">
-                <i class="fas fa-search"></i>
-            </a>
-            
-            
-            
-            <a class="navbar-item" href="https://github.com/koalahl">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-               
-            
-        </div>
-    </div>
-</nav>
+<div class="blog">
+  <div class="content">
 
-    <section class="section section-heading">
-    <div class="container">
-        <div class="content">
-            <h5><i class="far fa-folder"></i>iOS</h5>
-        </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/" itemprop="url">一次iOS EXC_BAD_ACCESS 的分析解决过程</a>
-        
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
     </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-02-08T02:49:52.000Z" itemprop="datePublished">3 months ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 623 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>游戏客户端在断线重连后需要调用SDK方法清空消息缓存数据，但是因为游戏在后台停留时间较长，部分内存被释放，导致出现EXC_BAD_ACCESS。</p>
-<p>网上大部分关于EXC_BAD_ACCESS的文章都是写了如何检测，并没有说明如何处理这种问题。当然本文也是基于特定场景下解决了该问题。<br>
-        <p class="article-more-link">
-            <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/" itemprop="url">cocos2d-x + Lua接入iOS原生SDK的实现方案</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-09-21T07:28:28.000Z" itemprop="datePublished">7 months ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            22 minutes read (About 3358 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4152881.html" target="_blank" rel="noopener">cocos2d-x + Lua接入iOS原生SDK的实现方案-著作权归原作者所有</a></p>
-<p>相信很多朋友在使用cocos2d-x+lua开发游戏时都遇到过接入iOS原生SDK的问题，比如常见的接应用内支付SDK，广告SDK或是一些社交平台SDK等等，我也没少接过这类SDK。这篇文章主要是对我做过项目中接入iOS原生SDK实现方案的一个总结，在这里分享给大家，希望对自己和大家的开发工作都有帮助。<br>
-        <p class="article-more-link">
-            <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/09/21/iOS开发ARC内存管理技术要点/" itemprop="url">iOS开发ARC内存管理技术要点</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-09-21T04:07:34.000Z" itemprop="datePublished">7 months ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            42 minutes read (About 6251 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4264220.html" target="_blank" rel="noopener">iOS开发ARC内存管理技术要点-著作权归原作者所有</a></p>
-<p>“本文来源于我个人的ARC学习笔记，旨在通过简明扼要的方式总结出iOS开发中ARC(Automatic Reference Counting，自动引用计数)内存管理技术的要点，所以不会涉及全部细节。这篇文章不是一篇标准的ARC使用教程，并假定读者已经对ARC有了一定了解和使用经验。详细的关于ARC的信息请参见苹果的官方文档与网上的其他教程：）”</p>
-        <p class="article-more-link">
-            <a href="/2017/09/21/iOS开发ARC内存管理技术要点/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2017/08/30/MVVM-in-Practice/" itemprop="url">MVVM in Practice</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2017-08-30T14:07:42.000Z" itemprop="datePublished">8 months ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            3 minutes read (About 440 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p><a href="https://www.youtube.com/watch?v=sWx8TtRBOfk&amp;t=497s" target="_blank" rel="noopener">MVVM in Practice - RWDevCon Session - raywenderlich.com</a>  </p>
-<p>MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。</p>
-<p>该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。</p>
-        <p class="article-more-link">
-            <a href="/2017/08/30/MVVM-in-Practice/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/12/12/iOS开发技术栈/" itemprop="url">iOS开发技术栈</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-12-12T15:04:57.000Z" itemprop="datePublished">a year ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            3 minutes read (About 422 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>提醒自己：</p>
-<p></p><h3 id="objc">Objective-C</h3><br>• objective-c语言基础<br>• library,framework的制作<br>• Runtime编程<br>• LLVM原理和调优<p></p>
-        <p class="article-more-link">
-            <a href="/2016/12/12/iOS开发技术栈/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/11/30/iOS自动打包脚本/" itemprop="url">iOS自动打包脚本</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-11-30T06:17:21.000Z" itemprop="datePublished">a year ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            a minute read (About 224 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>使用Xcodebuild和xcrun命令生成。具体参数可以自己配置。</p>
-        <p class="article-more-link">
-            <a href="/2016/11/30/iOS自动打包脚本/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/11/22/OBJC-RUNTIME-再次实践/" itemprop="url">Objc Runtime 再次实践</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-11-22T06:47:05.000Z" itemprop="datePublished">a year ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            5 minutes read (About 800 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
-<p>runtime使用场景：</p>
-<ul>
-<li>category添加关联属性</li>
-<li>MethodSwizzle替换/交换系统方法</li>
-</ul>
-<p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
-        <p class="article-more-link">
-            <a href="/2016/11/22/OBJC-RUNTIME-再次实践/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/04/10/浅谈iOS中的userAgent/" itemprop="url">浅谈iOS中的userAgent</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-04-10T14:33:37.000Z" itemprop="datePublished">2 years ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 537 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>User-Agent（用户代理）字符串是Web浏览器用于声明自身型号版本并随HTTP请求发送给Web服务器的字符串，在Web服务器上可以获取到该字符串。</p>
-<p>在公司产品中，在userAgent中增加了NetType字段，用于标识客户端当前的网络环境。</p>
-<ul>
-<li>NetType/WIFI</li>
-<li>NetType/3G<br>web服务器端根据NetType类型加载不同分辨率的商品图片。我们只有两种，WIFI下高清图，非WIFI低分辨率图。</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2016/04/10/浅谈iOS中的userAgent/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" itemprop="url">UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-03-31T06:13:54.000Z" itemprop="datePublished">2 years ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            5 minutes read (About 718 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
-<p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
-<p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
-<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
-<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br>
-        <p class="article-more-link">
-            <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2016/03/23/Effective-Objective-C-2-0-要点/" itemprop="url">Effective-Objective C 2.0 要点</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2016-03-23T08:10:35.000Z" itemprop="datePublished">2 years ago</time>
-        </span>
-        
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/iOS/">iOS</a>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            23 minutes read (About 3441 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <p>Effective-Ojective C 2.0 读书笔记</p>
-<p>第一章的内容比较基础，就没有列在笔记当中了。另外该笔记只记录每一个要点之后的总结，重点地方会另外探讨。</p>
-        <p class="article-more-link">
-            <a href="/2016/03/23/Effective-Objective-C-2-0-要点/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-    
-        
-<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-    <div class="pagination-previous is-invisible is-hidden-mobile">
-        <a href="/categories/iOS/page/0/">Prev</a>
-    </div>
-    <div class="pagination-next">
-        <a href="/categories/iOS/page/2/">Next</a>
-    </div>
-    <ul class="pagination-list is-hidden-mobile">
-        
-        <li><a class="pagination-link is-current" href="/categories/iOS/">1</a></li>
-        
-        <li><a class="pagination-link" href="/categories/iOS/page/2/">2</a></li>
-        
-        <li><a class="pagination-link" href="/categories/iOS/page/3/">3</a></li>
-        
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/swiftOldDriver">老司机</a></li>
+      
+        <li><a href="/categories/Swift">Swift</a></li>
+      
+        <li><a href="/categories/algorithm">算法</a></li>
+      
+        <li><a href="/categories/graphic">图形图像</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/categories/sourcecode">读源码</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
     </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    
+
+<article>
+
+  <h2 class="article-title  category">iOS</h2>
+
+  <div class="archive">
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2018-02-08T02:49:52.000Z">
+            <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/">2018-02-08</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/"><span>一次iOS EXC_BAD_ACCESS 的分析解决过程</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2017-09-21T07:28:28.000Z">
+            <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/">2017-09-21</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/"><span>cocos2d-x + Lua接入iOS原生SDK的实现方案</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2017-09-21T04:07:34.000Z">
+            <a href="/2017/09/21/iOS开发ARC内存管理技术要点/">2017-09-21</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2017/09/21/iOS开发ARC内存管理技术要点/"><span>iOS开发ARC内存管理技术要点</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2017-08-30T14:07:42.000Z">
+            <a href="/2017/08/30/MVVM-in-Practice/">2017-08-30</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2017/08/30/MVVM-in-Practice/"><span>MVVM in Practice</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-12-12T15:04:57.000Z">
+            <a href="/2016/12/12/iOS开发技术栈/">2016-12-12</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/12/12/iOS开发技术栈/"><span>iOS开发技术栈</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-11-30T06:17:21.000Z">
+            <a href="/2016/11/30/iOS自动打包脚本/">2016-11-30</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/11/30/iOS自动打包脚本/"><span>iOS自动打包脚本</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-11-22T06:47:05.000Z">
+            <a href="/2016/11/22/OBJC-RUNTIME-再次实践/">2016-11-22</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/11/22/OBJC-RUNTIME-再次实践/"><span>Objc Runtime 再次实践</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-04-10T14:33:37.000Z">
+            <a href="/2016/04/10/浅谈iOS中的userAgent/">2016-04-10</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/04/10/浅谈iOS中的userAgent/"><span>浅谈iOS中的userAgent</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-03-31T06:13:54.000Z">
+            <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/">2016-03-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/"><span>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2016-03-23T08:10:35.000Z">
+            <a href="/2016/03/23/Effective-Objective-C-2-0-要点/">2016-03-23</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2016/03/23/Effective-Objective-C-2-0-要点/"><span>Effective-Objective C 2.0 要点</span></a></h3>
+          
+        </div>
+      </div>
+    
+    <nav class="pagination">
+  
+  
+  <a href="/categories/iOS/page/2/" class="pagination-next">Next</a>
+  
 </nav>
-    
-    </div>
-</section>
-    <footer class="footer">
-    <div class="container">
-        <div class="columns content">
-            <div class="column is-narrow has-text-centered">
-                &copy; 2018 Han Liu&nbsp;
-                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
-                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
-            </div>
-            <div class="column is-hidden-mobile"></div>
+  </div>
 
-            
-            <div class="column is-narrow">
-                <div class="columns is-mobile is-multiline is-centered">
-                
-                    
-                <a class="column is-narrow has-text-black" href="https://github.com/ppoffice/hexo-theme-minos">
-                    
-                    GitHub
-                    
-                </a>
-                
-                </div>
-            </div>
-            
-            
-        </div>
-    </div>
+</article>
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
 </footer>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- test if the browser is outdated -->
-<div id="outdated">
-    <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    
+  </div>
 </div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
-<script>
-    $(document).ready(function () {
-        //plugin function, place inside DOM ready function
-        outdatedBrowser({
-            bgColor: '#f25648',
-            color: '#ffffff',
-            lowerThan: 'flex'
-        })
-    });
-</script>
-
-<script>
-    window.FontAwesomeConfig = {
-        searchPseudoElements: true
-    }
-</script>
-
-
-    
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<script>
-    MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
-    });
-</script>
-
-    
-    
-<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
-<script>
-    (function ($) {
-        $(document).ready(function () {
-            if (typeof($.fn.lightGallery) === 'function') {
-                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
-            }
-            if (typeof($.fn.justifiedGallery) === 'function') {
-                $('.justified-gallery').justifiedGallery();
-            }
-        });
-    })(jQuery);
-</script>
-
-    
-    
-
-    
-
-
-<script src="/js/script.js"></script>
-
-    
-    <div class="searchbox ins-search">
-    <div class="searchbox-mask"></div>
-    <div class="searchbox-container ins-search-container">
-        <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
-            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="searchbox-result-wrapper ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
-            },
-            CONTENT_URL: '/content.json',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script src="/js/insight.js"></script>
-    
 </body>
 </html>
