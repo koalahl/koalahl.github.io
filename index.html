@@ -165,16 +165,8 @@
   <div class="article-content">
     <div class="entry">
       
-        <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>好的书籍都是值得反复看的，那好的文章，好的资料也值得我们反复看。我们在不同的阶段来相同的文章或资料或书籍都能有不同的收获，那它就是好文章，好书籍，好资料。<br>关于iOS 中的RunLoop资料非常的少，以下这些资料都是非常好的。</p>
-<ul>
-<li><a href="https://link.jianshu.com/?t=https://opensource.apple.com/tarballs/CF/" target="_blank" rel="noopener">CF框架源码</a>（这是一份很重要的源码，可以看到CF框架的每一次迭代，我们可以下载最新的版本来分析，或与以下文章对比学习。目前最新的是CF-1153.18.tar.gz）</li>
-<li><a href="https://link.jianshu.com/?t=https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="noopener">RunLoop官方文档</a>(学习iOS的任何技术，官方文档都是入门或深入的极好手册；我们也可以在Xcode—&gt;Help—&gt;Docementation and API Reference —&gt;搜索RunLoop—&gt; Guides（59）—&gt;《Threading Programming Guide:Run Loops》这篇即是）</li>
-<li><a href="https://link.jianshu.com/?t=http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a>(不要看到右边滚动条很长，其实文章占篇幅2/5左右，下面有很多的评论，可见这篇文章的火热)</li>
-<li><a href="https://www.jianshu.com/p/37ab0397fec7#" target="_blank" rel="noopener">RunLoop个人小结</a>(这是一篇总结的很通俗容易理解的文章)</li>
-<li><a href="https://link.jianshu.com/?t=http://v.youku.com/v_show/id_XODgxODkzODI0.html" target="_blank" rel="noopener">sunnyxx线下分享RunLoop</a>(这是一份关于线下分享与讨论RunLoop的视频，备用地址：<a href="https://link.jianshu.com/?t=https://pan.baidu.com/s/1pLm4Vf9" target="_blank" rel="noopener">https://pan.baidu.com/s/1pLm4Vf9</a>）</li>
-<li><a href="https://link.jianshu.com/?t=http://iphonedevwiki.net/index.php/CFRunLoop" target="_blank" rel="noopener">iPhonedevwiki中的CFRunLoop</a>(commonModes中其实包含了三种Mode，我们通常知道两种，还有一种是啥，你知道么？)</li>
-<li><a href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Event_loop" target="_blank" rel="noopener">维基百科中的Event loop</a>（可以看看这篇文章了解一下事件循环）</li>
-</ul>
+        <p>在iOS开发过程中，有时候我们不希望一些花费时间比较长的操作阻塞主线程，导致界面卡顿，那么我们就会创建一个子线程，然后把这些花费时间比较长的操作放在子线程中来处理。可是当子线程中的任务执行完毕后，子线程就会被销毁掉。 </p>
+<p>当子线程中的任务执行完毕后，线程就被立刻销毁了。如果程序中，需要经常在子线程中执行任务，频繁的创建和销毁线程，会造成资源的浪费。这时候我们就可以使用RunLoop来让该线程长时间存活而不被销毁。</p>
       
     </div>
 
