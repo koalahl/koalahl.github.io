@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>寒流‘s Blog | 编程与生活</title>
+  <title>RunLoop 总结：RunLoop的应用场景（一）保证线程长久存活 | 寒流‘s Blog | 编程与生活</title>
 
   
   <meta name="author" content="Han Liu">
@@ -14,12 +14,15 @@
   
 
   
+  
+  <meta name="keywords" content="runloop,线程保活">
+  
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="RunLoop 总结：RunLoop的应用场景（一）保证线程长久存活"/>
 
   <meta property="og:site_name" content="寒流‘s Blog"/>
 
@@ -72,12 +75,11 @@
 </header>
 
     <main class="site-main posts-loop">
-    
-  <article>
+    <article>
 
   
     
-    <h3 class="article-title"><a href="/2018/04/27/RunLoop-总结：RunLoop的应用场景（一）保证线程长久存活/"><span>RunLoop 总结：RunLoop的应用场景（一）保证线程长久存活</span></a></h3>
+    <h3 class="article-title"><span>RunLoop 总结：RunLoop的应用场景（一）保证线程长久存活</span></h3>
     
   
 
@@ -176,676 +178,38 @@
     </div>
 
     
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/27/RunLoop-总结：RunLoop的应用场景（一）保证线程长久存活/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
   </div>
 </article>
 
-
-
-  <article>
-
   
-    
-    <h3 class="article-title"><a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/"><span>iOS-APP-运行时防Crash工具XXShield练就</span></a></h3>
-    
-  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-26T03:50:48.000Z">
-          2018-04-26
-        </time>
-      </a>
-    </span>
-  </div>
 
 
-  
 
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>正在运行的 APP 突然 Crash，是一件令人不爽的事，会流失用户，影响公司发展，所以 APP 运行时拥有防 Crash 功能能有效降低 Crash 率，提升 APP 稳定性。但是有时候 APP Crash 是应有的表现，我们不让 APPCrash 可能会导致别的逻辑错误，不过我们可以抓取到应用当前的堆栈信息并上传至相关的服务器，分析并修复这些 BUG。</p>
-<p>所以本文介绍的 XXShield 库有两个重要的功能:</p>
-<ol>
-<li>防止Crash</li>
-<li>捕获异常状态下的崩溃信息</li>
-</ol>
-<p>类似的相关技术分析也有 <a href="https://link.jianshu.com?t=https://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=2651113088&amp;idx=1&amp;sn=10b28d7fbcdf0def1a47113e5505728d&amp;chksm=844c6f5db33be64b57fc9b4013cdbb7122d7791f3bbca9b4b29e80cce295eb341b03a9fc0f2f&amp;mpshare=1&amp;scene=23&amp;srcid=0207njmGS2HWHI0BZmpjNKhv%23rd" target="_blank" rel="noopener">网易iOS App运行时Crash自动防护实践</a><br>
-      
-    </div>
 
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/performence/">performence</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/crash防护/">crash防护</a><a href="/tags/XXShield/">XXShield</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/24/SDWebImage4-0源码阅读/"><span>SDWebImage4.0源码阅读</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/24/SDWebImage4-0源码阅读/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-24T05:33:07.000Z">
-          2018-04-24
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h3 id="参拜一下SDWebImage的源码。"><a href="#参拜一下SDWebImage的源码。" class="headerlink" title="参拜一下SDWebImage的源码。"></a>参拜一下SDWebImage的源码。</h3><p>并不是说一定要读如何如何、只是觉得源码的阅读是一种很好的学习方式。无论从架构还是技术点方面。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li>常见疑问(面试大全？)<ul>
-<li>磁盘目录位于哪里？</li>
-<li>最大并发数、超时时长？</li>
-<li>图片如何命名？</li>
-<li>如何识别图片类型?</li>
-<li>所查找到的图片的来源?</li>
-<li><strong>所有下载的图片都将被写入缓存？磁盘呢？何时缓存的？</strong></li>
-<li><strong>磁盘缓存的时长？清理操作的时间点？</strong></li>
-<li><strong>磁盘清理的原则？</strong></li>
-<li>下载图片时、会使用缓存协议么?</li>
-<li>下载图片的URL必须是NSURL么？</li>
-<li><strong>读取缓存以及读取磁盘的时候如何保证线程安全？</strong></li>
-</ul>
-</li>
-<li>相关知识点<ul>
-<li>NS_OPTIONS枚举与位运算</li>
-<li>内联函数</li>
-</ul>
-</li>
-<li>准备工作</li>
-<li>工作原理</li>
-<li>业务层级</li>
-<li>核心代码(正常读取下载图片)<ul>
-<li>最上层：UIView+WebCache</li>
-<li>逻辑层：SDWebImageManager</li>
-<li>业务层：<ul>
-<li>缓存&amp;&amp;磁盘操作(SDImageCache)</li>
-<li>下载操作(SDWebImageDownloader)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一些启发<ul>
-<li>分层的接口API设计</li>
-<li>线程安全</li>
-<li>内联函数</li>
-<li>精细的缓存管理原则</li>
-<li>回调设计</li>
-</ul>
-</li>
-</ul>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/sourcecode/">sourcecode</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/SDWebImage/">SDWebImage</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/24/SDWebImage4-0源码阅读/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/20/深入理解iOS-Rendering-Process/"><span>深入理解iOS Rendering Process</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/20/深入理解iOS-Rendering-Process/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-20T01:06:25.000Z">
-          2018-04-20
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><strong>前言</strong><br>iOS 最早名为 iPhone OS，是<a href="https://www.apple.com/" target="_blank" rel="noopener">Apple</a>公司专门为其硬件设备开发的操作系统，最初于 2007 年随第一代 iPhone 推出，后扩展为支持 Apple 公司旗下的其他硬件设备，如 iPod、iPad 等。<br>作为一名 iOS Developer，相信大多数人都有写出过造成 iOS 设备卡顿的代码经历，相应的也有过想方设法优化卡顿代码的经验。<br>本文将从 OpenGL 的角度结合 Apple 官方给出的部分资料，介绍 iOS Rendering Process 的概念及其整个底层渲染管道的各个流程。<br>相信在理解了 iOS Rendering Process 的底层各个阶段之后，我们可以在平日的开发工作之中写出性能更高的代码，在解决帧率不足的显示卡顿问题时也可以多一些思路~</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/graphic/">graphic</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Rendering/">Rendering</a><a href="/tags/OpenGL/">OpenGL</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/20/深入理解iOS-Rendering-Process/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/16/老司机-iOS-周报-15/"><span>老司机 iOS 周报 #15</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/16/老司机-iOS-周报-15/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-16T06:25:38.000Z">
-          2018-04-16
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>老司机 iOS 周报，只为你呈现有价值的信息。<br>你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/swiftOldDriver/">swiftOldDriver</a>
-    </span>
-    
-
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/16/老司机-iOS-周报-15/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/"><span>一次iOS EXC_BAD_ACCESS 的分析解决过程</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-02-08T02:49:52.000Z">
-          2018-02-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>游戏客户端在断线重连后需要调用SDK方法清空消息缓存数据，但是因为游戏在后台停留时间较长，部分内存被释放，导致出现EXC_BAD_ACCESS。</p>
-<p>网上大部分关于EXC_BAD_ACCESS的文章都是写了如何检测，并没有说明如何处理这种问题。当然本文也是基于特定场景下解决了该问题。<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/iOS/">iOS</a><a href="/tags/EXC-BAD-ACCESS/">EXC_BAD_ACCESS</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/01/08/老司机-iOS-周报-1/"><span>老司机 iOS 周报 #1</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/01/08/老司机-iOS-周报-1/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-01-08T06:13:48.000Z">
-          2018-01-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>老司机 iOS 周报，只为你呈现有价值的信息。<br>有建议或者有信息推荐可以到我们 github 下面提 issue。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/swiftOldDriver/">swiftOldDriver</a>
-    </span>
-    
-
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/01/08/老司机-iOS-周报-1/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/"><span>cocos2d-x + Lua接入iOS原生SDK的实现方案</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-09-21T07:28:28.000Z">
-          2017-09-21
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4152881.html" target="_blank" rel="noopener">cocos2d-x + Lua接入iOS原生SDK的实现方案-著作权归原作者所有</a></p>
-<p>相信很多朋友在使用cocos2d-x+lua开发游戏时都遇到过接入iOS原生SDK的问题，比如常见的接应用内支付SDK，广告SDK或是一些社交平台SDK等等，我也没少接过这类SDK。这篇文章主要是对我做过项目中接入iOS原生SDK实现方案的一个总结，在这里分享给大家，希望对自己和大家的开发工作都有帮助。<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/SDK/">SDK</a><a href="/tags/Lua/">Lua</a><a href="/tags/cocos2d/">cocos2d</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2017/09/21/cocos2d-x-Lua接入iOS原生SDK的实现方案/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2017/09/21/iOS开发ARC内存管理技术要点/"><span>iOS开发ARC内存管理技术要点</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/09/21/iOS开发ARC内存管理技术要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-09-21T04:07:34.000Z">
-          2017-09-21
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>本文转载自<a href="http://www.cnblogs.com/flyFreeZn/p/4264220.html" target="_blank" rel="noopener">iOS开发ARC内存管理技术要点-著作权归原作者所有</a></p>
-<p>“本文来源于我个人的ARC学习笔记，旨在通过简明扼要的方式总结出iOS开发中ARC(Automatic Reference Counting，自动引用计数)内存管理技术的要点，所以不会涉及全部细节。这篇文章不是一篇标准的ARC使用教程，并假定读者已经对ARC有了一定了解和使用经验。详细的关于ARC的信息请参见苹果的官方文档与网上的其他教程：）”</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/ARC/">ARC</a><a href="/tags/内存管理/">内存管理</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2017/09/21/iOS开发ARC内存管理技术要点/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2017/09/15/知乎上某人的iOS面试题/"><span>知乎上某人的iOS面试题</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/09/15/知乎上某人的iOS面试题/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-09-15T02:21:00.000Z">
-          2017-09-15
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>这是前年在知乎上总结回答MrPeak的问题，现在搬运到自己的blog中。<br>知乎链接：<a href="http://www.zhihu.com/question/19604641" target="_blank" rel="noopener">http://www.zhihu.com/question/19604641</a></p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOSInterview/">iOSInterview</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/知乎/">知乎</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2017/09/15/知乎上某人的iOS面试题/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-  <a href="/page/2/" class="pagination-next">Next</a>
-  
-</nav>
     </main>
 
     <footer class="site-footer">
