@@ -109,6 +109,7 @@
 <li><a href="https://link.jianshu.com/?t=http://iphonedevwiki.net/index.php/CFRunLoop" target="_blank" rel="noopener">iPhonedevwiki中的CFRunLoop</a>(commonModes中其实包含了三种Mode，我们通常知道两种，还有一种是啥，你知道么？)</li>
 <li><a href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Event_loop" target="_blank" rel="noopener">维基百科中的Event loop</a>（可以看看这篇文章了解一下事件循环）</li>
 </ul>
+<a id="more"></a>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>因为RunLoop 里有很多新的平时基本很难接触到的概念或者对象，所以如果从RunLoop是啥，里面包含啥，为什么是这样讲起，难免太迷茫，太晦涩难懂。大多数关于RunLoop 的文章也是从基础讲起的，文章也比较长，可能看了三分之一，就已经懵了，没了技术看下去的动力。所以我决定先从RunLoop的使用场景和用法讲起，看到了一些用法和现象，再去看它的实现就要容易理解的多了。<br>文章中的示例代码，我会在文章末提供一个关于RunLoop的示例Demo。</p>
 <h2 id="RunLoop的使用场景"><a href="#RunLoop的使用场景" class="headerlink" title="RunLoop的使用场景"></a>RunLoop的使用场景</h2><p>下面介绍一下，可以使用RunLoop的几个使用场景(本想一篇写完，无奈一个使用场景就让文章很长了，还是分几篇来讲吧)。</p>
 <h3 id="1-保证线程的长时间存活"><a href="#1-保证线程的长时间存活" class="headerlink" title="1.保证线程的长时间存活"></a>1.保证线程的长时间存活</h3><p>在iOS开发过程中，有时候我们不希望一些花费时间比较长的操作阻塞主线程，导致界面卡顿，那么我们就会创建一个子线程，然后把这些花费时间比较长的操作放在子线程中来处理。可是当子线程中的任务执行完毕后，子线程就会被销毁掉。<br>** 怎么来验证上面这个结论呢？**<br>首先，我们创建一个HLThread类，继承自NSThread，然后重写dealloc 方法。</p>
