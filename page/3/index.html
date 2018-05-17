@@ -75,6 +75,67 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/"><span>Xcode8中NavigationBar插入背景出错的解决方法</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-10-05T01:50:47.000Z">
+          2016-10-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>insertSubview是把backgroundView插入到UINavigationBar中，UINavigationBar作为其superview。每次跳转回来之后，会重新赋值（可能）<br>所以我们要把backgroundView放入到UIBarBackground中。</p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/swift/">swift</a><a href="/tags/Xcode8/">Xcode8</a><a href="/tags/NavigationBar/">NavigationBar</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2016/10/05/Xcode8中NavigationBar插入背景出错的解决方法/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/07/11/python代码运行在iOS工程中的方案/"><span>python代码运行在iOS工程中的方案</span></a></h3>
     
   
@@ -691,78 +752,6 @@
         <i class="icon-comments"></i>
         <span>
           <a href="/2016/04/10/浅谈iOS中的userAgent/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/"><span>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-31T06:13:54.000Z">
-          2016-03-31
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
-<p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
-<p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
-<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
-<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/UIView/">UIView</a><a href="/tags/UIButton/">UIButton</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/#comment">Comments</a>
         </span>
       </span>
     </div>
