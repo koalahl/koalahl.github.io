@@ -75,6 +75,75 @@
 
   
     
+    <h3 class="article-title"><a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/"><span>一次iOS EXC_BAD_ACCESS 的分析解决过程</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-02-08T02:49:52.000Z">
+          2018-02-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>游戏客户端在断线重连后需要调用SDK方法清空消息缓存数据，但是因为游戏在后台停留时间较长，部分内存被释放，导致出现EXC_BAD_ACCESS。</p>
+<p>网上大部分关于EXC_BAD_ACCESS的文章都是写了如何检测，并没有说明如何处理这种问题。当然本文也是基于特定场景下解决了该问题。<br>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/iOS/">iOS</a><a href="/tags/EXC-BAD-ACCESS/">EXC_BAD_ACCESS</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2018/01/08/老司机-iOS-周报-1/"><span>老司机 iOS 周报 #1</span></a></h3>
     
   
@@ -675,80 +744,6 @@
         <i class="icon-comments"></i>
         <span>
           <a href="/2016/11/30/iOS自动打包脚本/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/11/22/OBJC-RUNTIME-再次实践/"><span>Objc Runtime 再次实践</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/11/22/OBJC-RUNTIME-再次实践/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-11-22T06:47:05.000Z">
-          2016-11-22
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
-<p>runtime使用场景：</p>
-<ul>
-<li>category添加关联属性</li>
-<li>MethodSwizzle替换/交换系统方法</li>
-</ul>
-<p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/iOS/">iOS</a><a href="/tags/runtime/">runtime</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/11/22/OBJC-RUNTIME-再次实践/#comment">Comments</a>
         </span>
       </span>
     </div>
