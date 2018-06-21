@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="WWDC2018,Rendering">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/algorithm">算法</a></li>
+      
+        <li><a href="/categories/graphic">图形图像</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/categories/sourcecode">读源码</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-06-21T10:22:40.000Z">
+          2018-06-21
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="Image-and-Graphics-Best-Practices"><a href="#Image-and-Graphics-Best-Practices" class="headerlink" title="Image and Graphics Best Practices"></a>Image and Graphics Best Practices</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#first" target="_blank" rel="noopener">1.UIImage and UIImageView</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#second" target="_blank" rel="noopener">2.Custom drawing with UIKit</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#third" target="_blank" rel="noopener">3.Advanced CPU and GPU</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#summary" target="_blank" rel="noopener">4.总结</a></p>
+<a id="more"></a>
+<h2 id="1-UIImage-and-UIImageView"><a href="#1-UIImage-and-UIImageView" class="headerlink" title="1. UIImage and UIImageView"></a>1. UIImage and UIImageView</h2><h3 id="1-1-渲染的过程"><a href="#1-1-渲染的过程" class="headerlink" title="1.1 渲染的过程"></a>1.1 渲染的过程</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-dbc20daa0ed66a4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.1modelandview.png"></p>
+<p>在经典的MVC框架中，UIImage扮演Model的角色，UIImageView则充当View，UIImage用于加载图片内容，UIImageView负责将图片内容渲染和显示，看似单向逻辑关系，但实际上为了衡量应用程序的性能，我们必须关注隐藏的Decode环节，如下图所示。但在讨论Decode环节前，我们得先明确buffers的概念。<img src="https://upload-images.jianshu.io/upload_images/11994763-a214783c092226fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.2renderprocess.png"></p>
+<h3 id="1-2-Buffers"><a href="#1-2-Buffers" class="headerlink" title="1.2 Buffers"></a>1.2 Buffers</h3><p>imagebuffer中的每一个元素描述的是一个像素的颜色信息，buffer的size与图片的size为正相关关系。imagebuffer的一个典型例子便是framebuffer，framebuffer真正管理着屏幕的输出。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11994763-147443bcb0ef2dfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.3buffers.png"></p>
+<p>在应用程序更新图层时，UIKit将window及其subviews渲染至framebuffer，这个framebuffer提供每个像素的信息以供显示硬件定时读取，读取的频率一般为60Hz，但在ipad上可提升至120Hz。 与imagebuffer不同，Data Buffer存储着一个图片文件的内容，通常为JPG,PNG等压缩格式，因此其内容不是直接与像素的信息一一对应。metadata存储着图片的尺寸。</p>
+<h3 id="1-3-Decode过程"><a href="#1-3-Decode过程" class="headerlink" title="1.3 Decode过程"></a>1.3 Decode过程</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-4114017b2cf9870b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.4decode.png"></p>
+<p>明确了buffers的概念后，我们便理解了Decode环节存在的必要性。如上图所示，在实际的渲染过程中，UIImage负责解压Data Buffer内容并申请buffer（Image Buffer）存储解压后的图片信息，然后UIImageView负责将Image Buffer 拷贝至 framebuffer，用于给显示硬件提供颜色信息。</p>
+<p>解压过程是一个大量占用CPU资源的工作，因此UIImage 会retain存储解压后信息的Image Buffer以便给重复的渲染工作提供信息，Image Buffer与图片的实际尺寸有关（理论值为height <em> width </em> 4 bytes），与图片文件大小无关。若是在TableView等列表中连续加载多张图片，便会引发连续的大块内存分配，这将对Memory和CPU带来沉重的负担。<br><img src="https://upload-images.jianshu.io/upload_images/11994763-751112ab9ab09dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.5largeallocation.png"></p>
+<h3 id="1-4-DownSampling"><a href="#1-4-DownSampling" class="headerlink" title="1.4 DownSampling"></a>1.4 DownSampling</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-6803dcfb6f330383.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.6downsampling.png"></p>
+<p>DownSampling即在Decode前插入创建缩略图的过程。如下图所示，即对image进行预处理，采用缩小解码后Image Buffer的size的方式，减少内存的占用。此处需注意两个选项的设置。<br>1.kCGImageSourceShouldCache此处设为false，目的在于告知系统此imageSource仅为建立与imageURL的链接，不需要解码。<br>2.kCGImageSourceShouldCacheImmediately设为true，以此控制系统以计算出的size创建Image Buffer并解压。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/11994763-6f25c32bd4d3b427.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.7downsamplingcode.png"></p>
+<p>经过此预处理过程后，内存占用的前后对比如下：<br><img src="https://upload-images.jianshu.io/upload_images/11994763-607364b0325f5120.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.8downsamplingeffect.png"></p>
+<p>但正如Decode部分的介绍，解压是一个CPU密集型工作，如果在主线程中做同步解压，会导致主线程卡顿，影响用户的使用体验。因此使用Downsampling的正确姿势如下：<br><img src="https://upload-images.jianshu.io/upload_images/11994763-bcdc0f25e388c296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.9thebestmethod.png"></p>
+<p>此处通过两种手段解决主线程卡顿的问题：<br>1. 预取.<br>2. 异步解码.<br>异步解码需注意，不用通过dispatch至global queue中，可能会导致 thread explosion的问题。</p>
+<h3 id="1-5-Image-Source"><a href="#1-5-Image-Source" class="headerlink" title="1.5 Image Source"></a>1.5 Image Source</h3><p>推荐使用Image Assets，主要有如下几点原因:<br>1.对基于名字和特性的查找做了优化.<br>2.更加智能的缓存策略.<br>3.针对设备选择相应的图片.<br>4.支持矢量图.<br>从iOS11之后，Image Assets支持 Preserve Vector Data 选项，系统会在compile过程保留矢量图信息，以防止图片渲染至超出或小于自身尺寸的view中引发的模糊问题。</p>
+<h2 id="2-Custom-drawing-with-UIKit"><a href="#2-Custom-drawing-with-UIKit" class="headerlink" title="2. Custom drawing with UIKit"></a>2. Custom drawing with UIKit</h2><h3 id="2-1-Custom-drawing"><a href="#2-1-Custom-drawing" class="headerlink" title="2.1 Custom drawing"></a>2.1 Custom drawing</h3><p>以如下live按钮的实现为例：<br><img src="https://upload-images.jianshu.io/upload_images/11994763-d2fdadfe05bdd0cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.1example.png"></p>
+<p>一解决方案如下：<br><img src="https://upload-images.jianshu.io/upload_images/11994763-6770044588aaec81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.2onesolution.png"></p>
+<p>在说明这种解决方案的优劣前，我们先来说明重写draw：函数后，系统渲染的过程：<br><img src="https://upload-images.jianshu.io/upload_images/11994763-2a3dddd730fcd3b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.3renderprocessusingdraw.png"></p>
+<p>众所周知，UIView背后的CALayer负责将contents传递给framebuffer，当重写draw：函数后，CALayer会负责创建一个Backing Store（尺寸与view显示的size成正相关），然后在此Backing store上执行draw：函数，最后将其中的内容传递给framebuffer。 我们可以通过设置CALayer的contentsFormat（指明是否需要支持wide range color）来控制Backing Store中每个元素的大小，但在iOS12中，系统对wide range color做了优化，如需要，可自动增加buffer的size以支持。</p>
+<p>因此为了减少Backing Store的使用，针对live按钮的实现，我们应该将大的view化为多个subview的组合，减少draw：函数的使用减少imageData的多重拷贝（在给出的解决方案中，会将image ‘draw at’ Backing store，多了一次imageData的拷贝动作），使用优化的选项和属性（UIView的backgroundColor属性可以不通过Backing store直接渲染至framebuffer。但pattern color例外，可用添加imageview为subview代替）。</p>
+<h3 id="2-2-背景的实现"><a href="#2-2-背景的实现" class="headerlink" title="2.2 背景的实现"></a>2.2 背景的实现</h3><p>UIView的maskView 及CALayer.maskLayer都会将图层渲染到临时的image buffer中，而CALayer.cornerRadius不需要。对于live按钮的背景实现，不要用maskView，以UIImageView+Resizable的方式解决。<br><img src="https://upload-images.jianshu.io/upload_images/11994763-f2530c33b5d8a9a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.4backgroundsolution.png"></p>
+<h3 id="2-3-图片的实现"><a href="#2-3-图片的实现" class="headerlink" title="2.3 图片的实现"></a>2.3 图片的实现</h3><p>UIImageView在渲染时可直接对单色图片着色，设置tint color来改变单色图片的颜色从而达到复用图片的目的。<br><img src="https://upload-images.jianshu.io/upload_images/11994763-9cbe6557a3e780c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.5imagesolution.png"></p>
+<h3 id="2-4-文字的实现"><a href="#2-4-文字的实现" class="headerlink" title="2.4 文字的实现"></a>2.4 文字的实现</h3><p>UILabel对单色的string做了优化处理，可节省75%的Backing Store，并能自动更新Backing Store的size以适配富文本或emoji。<br>至此，live按钮的实现方案应如下。<br><img src="https://upload-images.jianshu.io/upload_images/11994763-08160aa22243c47a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.6finalsolution.png"></p>
+<h2 id="3-Advanced-CPU-and-GPU"><a href="#3-Advanced-CPU-and-GPU" class="headerlink" title="3. Advanced CPU and GPU"></a>3. Advanced CPU and GPU</h2><p>此sessions对这一部分仅做了简单的描述。</p>
+<h3 id="3-1-Advanced-Image-Effects"><a href="#3-1-Advanced-Image-Effects" class="headerlink" title="3.1 Advanced Image Effects"></a>3.1 Advanced Image Effects</h3><ol>
+<li>对图片进行实时处理时考虑使用Core Image</li>
+<li>使用GPU处理，解放CPU</li>
+<li>UIImageView 可有效地处理CIImage</li>
+</ol>
+<h3 id="3-2-Advanced-Image-Processing"><a href="#3-2-Advanced-Image-Processing" class="headerlink" title="3.2 Advanced Image Processing"></a>3.2 Advanced Image Processing</h3><ol>
+<li>使用CVPixelBuffer在Metal，Vision，Accelerate框架之间传递数据</li>
+<li>不要重复已经做过的工作</li>
+<li>不要将工作在CPU和GPU间来回传递</li>
+<li>确保给Accelerate传递正确的buffer格式</li>
+</ol>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><ol>
+<li>采用预取和异步decode的方式</li>
+<li>使用UIImageView 和 UILabel来减少Backing Store</li>
+<li>不要无意中关闭了custom draw中系统尝试做的优化</li>
+<li>推荐使用 Image Assets</li>
+<li>不要过度依赖Preserve Vector DataP</li>
+</ol>
+<p>本文转载自<a href="https://techblog.toutiao.com/2018/06/19/untitled-42/" target="_blank" rel="noopener">今日头条技术博客</a><br>作者：今日头条技术博客<br>链接：<a href="https://techblog.toutiao.com/2018/06/19/untitled-42/" target="_blank" rel="noopener">https://techblog.toutiao.com/2018/06/19/untitled-42/</a><br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/graphic/">graphic</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/WWDC2018/">WWDC2018</a><a href="/tags/Rendering/">Rendering</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
