@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>寒流‘s Blog | 编程与生活</title>
+  <title>iOS底层原理总结 - 关联对象实现原理 | 寒流‘s Blog | 编程与生活</title>
 
   
   <meta name="author" content="Han Liu">
@@ -14,12 +14,15 @@
   
 
   
+  
+  <meta name="keywords" content="associate object">
+  
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="iOS底层原理总结 - 关联对象实现原理"/>
 
   <meta property="og:site_name" content="寒流‘s Blog"/>
 
@@ -72,12 +75,11 @@
 </header>
 
     <main class="site-main posts-loop">
-    
-  <article>
+    <article>
 
   
     
-    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-关联对象实现原理/"><span>iOS底层原理总结 - 关联对象实现原理</span></a></h3>
+    <h3 class="article-title"><span>iOS底层原理总结 - 关联对象实现原理</span></h3>
     
   
 
@@ -211,674 +213,38 @@
     </div>
 
     
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/07/05/iOS底层原理总结-关联对象实现原理/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
   </div>
 </article>
 
-
-
-  <article>
-
   
-    
-    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-Category的本质/"><span>iOS底层原理总结 - Category的本质</span></a></h3>
-    
-  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/07/05/iOS底层原理总结-Category的本质/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-07-05T07:17:42.000Z">
-          2018-07-05
-        </time>
-      </a>
-    </span>
-  </div>
 
 
-  
 
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="iOS底层原理总结-Category的本质"><a href="#iOS底层原理总结-Category的本质" class="headerlink" title="iOS底层原理总结 - Category的本质"></a>iOS底层原理总结 - Category的本质</h2><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><ol>
-<li>Category的实现原理，以及Category为什么只能加方法不能加属性。</li>
-<li>Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</li>
-<li>load、initialize的区别，以及它们在category重写的时候的调用的次序。
-      
-    </div>
 
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/principle/">principle</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Category/">Category</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/07/05/iOS底层原理总结-Category的本质/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-RunLoop/"><span>iOS底层原理总结 - RunLoop</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/07/05/iOS底层原理总结-RunLoop/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-07-05T07:13:43.000Z">
-          2018-07-05
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="iOS底层原理总结-RunLoop"><a href="#iOS底层原理总结-RunLoop" class="headerlink" title="iOS底层原理总结 - RunLoop"></a>iOS底层原理总结 - RunLoop</h1><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
-<li>讲讲 RunLoop，项目中有用到吗？</li>
-<li>RunLoop内部实现逻辑？</li>
-<li>Runloop和线程的关系？</li>
-<li>timer 与 Runloop 的关系？</li>
-<li>程序中添加每3秒响应一次的NSTimer，当拖动tableview时timer可能无法响应要怎么解决？</li>
-<li>Runloop 是怎么响应用户操作的， 具体流程是什么样的？</li>
-<li>说说RunLoop的几种状态？</li>
-<li>Runloop的mode作用是什么？</li>
-</ol>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/principle/">principle</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/runloop/">runloop</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/07/05/iOS底层原理总结-RunLoop/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/"><span>iOS底层原理总结 - 探寻Class的本质</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-07-05T07:06:44.000Z">
-          2018-07-05
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h3 id="iOS底层原理总结-探寻Class的本质"><a href="#iOS底层原理总结-探寻Class的本质" class="headerlink" title="iOS底层原理总结 - 探寻Class的本质"></a>iOS底层原理总结 - 探寻Class的本质</h3><p>对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。 上接 <a href="https://link.juejin.im?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5ac81c75518825556534c0af" target="_blank" rel="noopener">iOS底层原理总结 - 探寻OC对象的本质</a></p>
-<h3 id="Class的本质"><a href="#Class的本质" class="headerlink" title="Class的本质"></a>Class的本质</h3><p>我们知道不管是类对象还是元类对象，类型都是Class，class和mete-class的底层都是objc_class结构体的指针，内存中就是结构体，本章来探寻Class的本质。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class objectClass = [NSObject class];        </span><br><span class="line">Class objectMetaClass = object_getClass([NSObject class]);</span><br></pre></td></tr></table></figure>
-<p>点击Class来到内部，我们可以发现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br></pre></td></tr></table></figure>
-<p>Class对象其实是一个指向objc_class结构体的指针。因此我们可以说类对象或元类对象在内存中其实就是objc_class结构体。</p>
-<p>我们来到objc_class内部，可以看到这段在底层原理中经常出现的代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</span><br><span class="line">    const char * _Nonnull name                               OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/principle/">principle</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Class本质/">Class本质</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/"><span>iOS底层原理总结 - 探寻OC对象的本质</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-07-05T06:05:22.000Z">
-          2018-07-05
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="iOS底层原理总结-探寻OC对象的本质"><a href="#iOS底层原理总结-探寻OC对象的本质" class="headerlink" title="iOS底层原理总结 - 探寻OC对象的本质"></a>iOS底层原理总结 - 探寻OC对象的本质</h2><p>对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。</p>
-<blockquote>
-<p>面试题：一个NSObject对象占用多少内存？</p>
-</blockquote>
-<p>探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf21d662684?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="OC代码的转化过程"></p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/principle/">principle</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Object本质/">Object本质</a><a href="/tags/isa/">isa</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/"><span>[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-06-21T10:22:40.000Z">
-          2018-06-21
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="Image-and-Graphics-Best-Practices"><a href="#Image-and-Graphics-Best-Practices" class="headerlink" title="Image and Graphics Best Practices"></a>Image and Graphics Best Practices</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#first" target="_blank" rel="noopener">1.UIImage and UIImageView</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#second" target="_blank" rel="noopener">2.Custom drawing with UIKit</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#third" target="_blank" rel="noopener">3.Advanced CPU and GPU</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#summary" target="_blank" rel="noopener">4.总结</a></p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/graphic/">graphic</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/WWDC2018/">WWDC2018</a><a href="/tags/Rendering/">Rendering</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/06/08/Runtime的运用和减少应用崩溃/"><span>Runtime的运用和减少应用崩溃</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/06/08/Runtime的运用和减少应用崩溃/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-06-08T05:27:55.000Z">
-          2018-06-08
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看<a href="https://link.jianshu.com?t=https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="noopener">Apple开源的Runtime代码</a> 和<a href="https://link.jianshu.com?t=https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">Rumtime编程指南</a> 。</p>
-<p>本文总结一些其常用的方法。<br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/runtime/">runtime</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/06/08/Runtime的运用和减少应用崩溃/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/05/25/老司机-iOS-周报-20-2018-05-21/"><span>老司机 iOS 周报 #20 | 2018-05-21</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/05/25/老司机-iOS-周报-20-2018-05-21/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-05-25T01:21:48.000Z">
-          2018-05-25
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><img src="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" alt=""></p>
-<p>老司机 iOS 周报，只为你呈现有价值的信息。</p>
-<p>你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 <a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FSwiftOldDriver%2FiOS-Weekly%2Fissues" target="_blank" rel="noopener">Issues</a> 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 <a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2FSwiftOldDriver%2FiOS-Weekly%2Fissues" target="_blank" rel="noopener">Issues</a> 提出。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/swiftOldDriver/">swiftOldDriver</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/iOS/">iOS</a><a href="/tags/swift/">swift</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/05/25/老司机-iOS-周报-20-2018-05-21/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/05/17/HTTP和HTTPS详解/"><span>HTTP和HTTPS详解</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/05/17/HTTP和HTTPS详解/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-05-17T06:52:13.000Z">
-          2018-05-17
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><img src="https://user-gold-cdn.xitu.io/2018/5/11/1634e5e739628b16?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p>
-<h3 id="计算机通信原理"><a href="#计算机通信原理" class="headerlink" title="计算机通信原理"></a>计算机通信原理</h3><p>互联网的关键技术就是TCP/IP协议。两台计算机之间的通信是通过TCP/IP协议在因特网上进行的。实际上这个是两个协议：</p>
-<ul>
-<li>TCP: Transmission Control Protocol 传输控制协议</li>
-<li>IP: Internet Protocol 网际协议。</li>
-</ul>
-<blockquote>
-<p>引自维基百科<a href="https://link.juejin.im/?target=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2FTCP%2FIP%25E5%258D%258F%25E8%25AE%25AE%25E6%2597%258F" target="_blank" rel="noopener">TCP/IP协议族</a>是一个网络通信模型，以及一整个网络传输协议家族，为互联网的基础通信架构。该协议家族的两个核心协议：TCP（传输控制协议）和IP（网际协议），为该家族中最早通过的标准。这个协议族由互联网工程任务组负责维护。</p>
-</blockquote>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOSInterview/">iOSInterview</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/HTTP/">HTTP</a><a href="/tags/HTTPS/">HTTPS</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/05/17/HTTP和HTTPS详解/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/27/RunLoop与GCD-、Autorelease-Pool之间的关系/"><span>RunLoop与GCD 、Autorelease Pool之间的关系</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/27/RunLoop与GCD-、Autorelease-Pool之间的关系/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-27T10:14:13.000Z">
-          2018-04-27
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>如果在面试中问到RunLoop相关的知识，很有可能也会问到RunLoop与GCD、Autorelease Pool有没有关系，哪些地方用到了GCD、Autorelease Pool等。<br>So，本文就总结一下RunLoop与GCD和 Autorelease Pool 之间的关系，看看在RunLoop实现中，哪些地方间接或者直接使用、操作到了GCD 和Autorelease Pool。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/performance/">performance</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/runloop/">runloop</a><a href="/tags/GCD/">GCD</a><a href="/tags/Autoreleasepool/">Autoreleasepool</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/27/RunLoop与GCD-、Autorelease-Pool之间的关系/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-  <a href="/page/2/" class="pagination-next">Next</a>
-  
-</nav>
     </main>
 
     <footer class="site-footer">
