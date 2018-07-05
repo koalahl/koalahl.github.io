@@ -77,6 +77,302 @@
 
   
     
+    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-Category的本质/"><span>iOS底层原理总结 - Category的本质</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/07/05/iOS底层原理总结-Category的本质/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-07-05T07:17:42.000Z">
+          2018-07-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="iOS底层原理总结-Category的本质"><a href="#iOS底层原理总结-Category的本质" class="headerlink" title="iOS底层原理总结 - Category的本质"></a>iOS底层原理总结 - Category的本质</h2><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><ol>
+<li>Category的实现原理，以及Category为什么只能加方法不能加属性。</li>
+<li>Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</li>
+<li>load、initialize的区别，以及它们在category重写的时候的调用的次序。
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/principle/">principle</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Category/">Category</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2018/07/05/iOS底层原理总结-Category的本质/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-RunLoop/"><span>iOS底层原理总结 - RunLoop</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/07/05/iOS底层原理总结-RunLoop/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-07-05T07:13:43.000Z">
+          2018-07-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="iOS底层原理总结-RunLoop"><a href="#iOS底层原理总结-RunLoop" class="headerlink" title="iOS底层原理总结 - RunLoop"></a>iOS底层原理总结 - RunLoop</h1><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
+<li>讲讲 RunLoop，项目中有用到吗？</li>
+<li>RunLoop内部实现逻辑？</li>
+<li>Runloop和线程的关系？</li>
+<li>timer 与 Runloop 的关系？</li>
+<li>程序中添加每3秒响应一次的NSTimer，当拖动tableview时timer可能无法响应要怎么解决？</li>
+<li>Runloop 是怎么响应用户操作的， 具体流程是什么样的？</li>
+<li>说说RunLoop的几种状态？</li>
+<li>Runloop的mode作用是什么？</li>
+</ol>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/principle/">principle</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/runloop/">runloop</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2018/07/05/iOS底层原理总结-RunLoop/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/"><span>iOS底层原理总结 - 探寻Class的本质</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-07-05T07:06:44.000Z">
+          2018-07-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="iOS底层原理总结-探寻Class的本质"><a href="#iOS底层原理总结-探寻Class的本质" class="headerlink" title="iOS底层原理总结 - 探寻Class的本质"></a>iOS底层原理总结 - 探寻Class的本质</h3><p>对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。 上接 <a href="https://link.juejin.im?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5ac81c75518825556534c0af" target="_blank" rel="noopener">iOS底层原理总结 - 探寻OC对象的本质</a></p>
+<h3 id="Class的本质"><a href="#Class的本质" class="headerlink" title="Class的本质"></a>Class的本质</h3><p>我们知道不管是类对象还是元类对象，类型都是Class，class和mete-class的底层都是objc_class结构体的指针，内存中就是结构体，本章来探寻Class的本质。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class objectClass = [NSObject class];        </span><br><span class="line">Class objectMetaClass = object_getClass([NSObject class]);</span><br></pre></td></tr></table></figure>
+<p>点击Class来到内部，我们可以发现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br></pre></td></tr></table></figure>
+<p>Class对象其实是一个指向objc_class结构体的指针。因此我们可以说类对象或元类对象在内存中其实就是objc_class结构体。</p>
+<p>我们来到objc_class内部，可以看到这段在底层原理中经常出现的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</span><br><span class="line">    const char * _Nonnull name                               OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/principle/">principle</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Class本质/">Class本质</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/"><span>iOS底层原理总结 - 探寻OC对象的本质</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-07-05T06:05:22.000Z">
+          2018-07-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="iOS底层原理总结-探寻OC对象的本质"><a href="#iOS底层原理总结-探寻OC对象的本质" class="headerlink" title="iOS底层原理总结 - 探寻OC对象的本质"></a>iOS底层原理总结 - 探寻OC对象的本质</h2><p>对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。</p>
+<blockquote>
+<p>面试题：一个NSObject对象占用多少内存？</p>
+</blockquote>
+<p>探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf21d662684?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="OC代码的转化过程"></p>
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/principle/">principle</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Object本质/">Object本质</a><a href="/tags/isa/">isa</a>
+    </span>
+    
+
+    </div>
+
+    
+    <div class="article-meta pull-right">
+      <span>
+        <i class="icon-comments"></i>
+        <span>
+          <a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/#comment">Comments</a>
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/"><span>[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices</span></a></h3>
     
   
@@ -483,327 +779,6 @@
         <i class="icon-comments"></i>
         <span>
           <a href="/2018/04/27/RunLoop总结：RunLoop的应用场景（四）App卡顿监测/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/27/RunLoop总结：RunLoop的应用场景（一）保证线程长久存活/"><span>RunLoop的应用场景（一）- 保证线程长久存活</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/27/RunLoop总结：RunLoop的应用场景（一）保证线程长久存活/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-27T04:52:51.000Z">
-          2018-04-27
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>在iOS开发过程中，有时候我们不希望一些花费时间比较长的操作阻塞主线程，导致界面卡顿，那么我们就会创建一个子线程，然后把这些花费时间比较长的操作放在子线程中来处理。可是当子线程中的任务执行完毕后，子线程就会被销毁掉。 </p>
-<p>当子线程中的任务执行完毕后，线程就被立刻销毁了。如果程序中，需要经常在子线程中执行任务，频繁的创建和销毁线程，会造成资源的浪费。这时候我们就可以使用RunLoop来让该线程长时间存活而不被销毁。</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/performance/">performance</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/runloop/">runloop</a><a href="/tags/线程保活/">线程保活</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/27/RunLoop总结：RunLoop的应用场景（一）保证线程长久存活/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/"><span>iOS-APP-运行时防Crash工具XXShield练就</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-26T03:50:48.000Z">
-          2018-04-26
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>正在运行的 APP 突然 Crash，是一件令人不爽的事，会流失用户，影响公司发展，所以 APP 运行时拥有防 Crash 功能能有效降低 Crash 率，提升 APP 稳定性。但是有时候 APP Crash 是应有的表现，我们不让 APPCrash 可能会导致别的逻辑错误，不过我们可以抓取到应用当前的堆栈信息并上传至相关的服务器，分析并修复这些 BUG。</p>
-<p>所以本文介绍的 XXShield 库有两个重要的功能:</p>
-<ol>
-<li>防止Crash</li>
-<li>捕获异常状态下的崩溃信息</li>
-</ol>
-<p>类似的相关技术分析也有 <a href="https://link.jianshu.com?t=https://mp.weixin.qq.com/s?__biz=MzA3ODg4MDk0Ng==&amp;mid=2651113088&amp;idx=1&amp;sn=10b28d7fbcdf0def1a47113e5505728d&amp;chksm=844c6f5db33be64b57fc9b4013cdbb7122d7791f3bbca9b4b29e80cce295eb341b03a9fc0f2f&amp;mpshare=1&amp;scene=23&amp;srcid=0207njmGS2HWHI0BZmpjNKhv%23rd" target="_blank" rel="noopener">网易iOS App运行时Crash自动防护实践</a><br>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/performance/">performance</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/crash防护/">crash防护</a><a href="/tags/XXShield/">XXShield</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/26/iOS-APP-运行时防Crash工具XXShield练就/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/24/SDWebImage4-0源码阅读/"><span>SDWebImage4.0源码阅读</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/24/SDWebImage4-0源码阅读/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-24T05:33:07.000Z">
-          2018-04-24
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h3 id="参拜一下SDWebImage的源码。"><a href="#参拜一下SDWebImage的源码。" class="headerlink" title="参拜一下SDWebImage的源码。"></a>参拜一下SDWebImage的源码。</h3><p>并不是说一定要读如何如何、只是觉得源码的阅读是一种很好的学习方式。无论从架构还是技术点方面。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li>常见疑问(面试大全？)<ul>
-<li>磁盘目录位于哪里？</li>
-<li>最大并发数、超时时长？</li>
-<li>图片如何命名？</li>
-<li>如何识别图片类型?</li>
-<li>所查找到的图片的来源?</li>
-<li><strong>所有下载的图片都将被写入缓存？磁盘呢？何时缓存的？</strong></li>
-<li><strong>磁盘缓存的时长？清理操作的时间点？</strong></li>
-<li><strong>磁盘清理的原则？</strong></li>
-<li>下载图片时、会使用缓存协议么?</li>
-<li>下载图片的URL必须是NSURL么？</li>
-<li><strong>读取缓存以及读取磁盘的时候如何保证线程安全？</strong></li>
-</ul>
-</li>
-<li>相关知识点<ul>
-<li>NS_OPTIONS枚举与位运算</li>
-<li>内联函数</li>
-</ul>
-</li>
-<li>准备工作</li>
-<li>工作原理</li>
-<li>业务层级</li>
-<li>核心代码(正常读取下载图片)<ul>
-<li>最上层：UIView+WebCache</li>
-<li>逻辑层：SDWebImageManager</li>
-<li>业务层：<ul>
-<li>缓存&amp;&amp;磁盘操作(SDImageCache)</li>
-<li>下载操作(SDWebImageDownloader)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一些启发<ul>
-<li>分层的接口API设计</li>
-<li>线程安全</li>
-<li>内联函数</li>
-<li>精细的缓存管理原则</li>
-<li>回调设计</li>
-</ul>
-</li>
-</ul>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/sourcecode/">sourcecode</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/SDWebImage/">SDWebImage</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/24/SDWebImage4-0源码阅读/#comment">Comments</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2018/04/20/深入理解iOS-Rendering-Process/"><span>深入理解iOS Rendering Process</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2018/04/20/深入理解iOS-Rendering-Process/" rel="bookmark">
-        <time class="entry-date published" datetime="2018-04-20T01:06:25.000Z">
-          2018-04-20
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><strong>前言</strong><br>iOS 最早名为 iPhone OS，是<a href="https://www.apple.com/" target="_blank" rel="noopener">Apple</a>公司专门为其硬件设备开发的操作系统，最初于 2007 年随第一代 iPhone 推出，后扩展为支持 Apple 公司旗下的其他硬件设备，如 iPod、iPad 等。<br>作为一名 iOS Developer，相信大多数人都有写出过造成 iOS 设备卡顿的代码经历，相应的也有过想方设法优化卡顿代码的经验。<br>本文将从 OpenGL 的角度结合 Apple 官方给出的部分资料，介绍 iOS Rendering Process 的概念及其整个底层渲染管道的各个流程。<br>相信在理解了 iOS Rendering Process 的底层各个阶段之后，我们可以在平日的开发工作之中写出性能更高的代码，在解决帧率不足的显示卡顿问题时也可以多一些思路~</p>
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/graphic/">graphic</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Rendering/">Rendering</a><a href="/tags/OpenGL/">OpenGL</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2018/04/20/深入理解iOS-Rendering-Process/#comment">Comments</a>
         </span>
       </span>
     </div>
