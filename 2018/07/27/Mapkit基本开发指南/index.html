@@ -101,8 +101,12 @@
       
         <p>MapKit是iOS自带的地图库。可以实现定位，地理编码，地图标注等功能。 </p>
 <a id="more"></a>
-<p>一：查看是否导入MapKit.framework。 xcode5.1之后会自动导入<br>二：创建地图<br>    创建地图对象: <code>_mapView = [[MKMapView alloc]initWithFrame:self.view.bounds];</code><br>    1.打开地图时的初始位置<br>        1.1 设置地图中心点center<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLLocationCoordinate2D center = CLLocationCoordinate2DMake(latitude, longitude);</span><br></pre></td></tr></table></figure></p>
-<pre><code>    1.2设置地图可视范围 数字越小，可现实范围越小
+<p>一：查看是否导入MapKit.framework。 xcode5.1之后会自动导入<br>二：创建地图<br>    创建地图对象: <code>_mapView = [[MKMapView alloc]initWithFrame:self.view.bounds];</code></p>
+<pre><code>1.打开地图时的初始位置
+    1.1 设置地图中心点center
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLLocationCoordinate2D center = CLLocationCoordinate2DMake(latitude, longitude);</span><br></pre></td></tr></table></figure>
+
+    1.2设置地图可视范围 数字越小，可现实范围越小
     <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MKCoordinateSpan span = MKCoordinateSpanMake(53-3, 135-73);</span><br></pre></td></tr></table></figure>
 
      1.3设置region= cente+span
