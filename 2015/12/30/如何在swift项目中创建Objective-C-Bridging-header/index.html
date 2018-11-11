@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何在swift项目中创建Objective-C Bridging header | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="swift,Objc Bridging Header">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="如何在swift项目中创建Objective-C Bridging header"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>如何在swift项目中创建Objective-C Bridging header</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2015/12/30/如何在swift项目中创建Objective-C-Bridging-header/" rel="bookmark">
+        <time class="entry-date published" datetime="2015-12-30T08:24:16.000Z">
+          2015-12-30
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>在swift工程中，有时候我们也需要使用OBJC代码写的第三方库或者工具类等，这时就需要创建objc文件到swift的桥接header。<br>现在有两种方法创建Objective-C Bridging Header:<br><a id="more"></a></p>
+<p></p><h3 id="header">Create Objective-C File as Header</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C:<p></p>
+<p><img src="/img/Swift-Create-Objective-C-Bridging-Header.png" alt="Create Objective-C File as Header"><br>然后一直next，最后出现如下图时，点击yes：</p>
+<p><img src="/img/create-objective-c-bridging-header-question.png" alt=""></p>
+<p>这种方式会创建出.h和.m文件。</p>
+<p></p><h3 id="headerDirectly"> Create Objective-C Header File Directly</h3><br>Go to <code>File &gt; New &gt; File</code> and Select Objective-C Header File:<p></p>
+<p><img src="/img/Xcode-Choose-Header-File.png" alt="Create Objective-C Header File Directly"></p>
+<p>最后，两种方法创建的.h文件中import你将使用的类。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"xxxx"</span></span></span><br></pre></td></tr></table></figure></p>
+<p>一般在项目中我们使用第二种方法。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/swift/">swift</a><a href="/tags/Objc-Bridging-Header/">Objc Bridging Header</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

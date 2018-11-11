@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Objc Runtime 再次实践 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="iOS,runtime">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Objc Runtime 再次实践"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Objc Runtime 再次实践</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/22/OBJC-RUNTIME-再次实践/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-22T06:47:05.000Z">
+          2016-11-22
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>好久不用，再次使用runtime重写代码。就用高性能添加图片圆角来再一次实践一下runtime的基本用法。</p>
+<p>runtime使用场景：</p>
+<ul>
+<li>category添加关联属性</li>
+<li>MethodSwizzle替换/交换系统方法</li>
+</ul>
+<p>平常使用cornerRadius和maskToBounds组合设置圆角</p>
+<a id="more"></a>
+<div align="center"><br>    <img src="http://oh51ob42d.bkt.clouddn.com/blended layer.png" width="225" height="408" alt="girl"><br></div>
+
+<p></p><h2 id="category">category添加关联属性</h2><br>废话不多说，直接上代码<br>创建一个<code>NSError</code>的category，添加一个<code>errorMsg</code>的属性。因为category本身不能添加属性，这里是使用runtime动态添加关联属性<p></p>
+<p><img src="http://oh51ob42d.bkt.clouddn.com/NSError+Msg_h.png" alt="NSError+Msg_h"></p>
+<p><img src="http://oh51ob42d.bkt.clouddn.com/NSError+Msg_m.png" alt="NSError+Msg_m"></p>
+<p></p><h2 id="methodSwizzle">MethodSwizzle交换系统方法</h2><br>创建一个<code>UIImageView</code>的category，在分类中交换（exchange，注意这里不是替换replace）系统的<code>setImage:</code> 方法.<p></p>
+<p>我们要交换一个类的系统方法，那么首先想想在哪个方法中交换最合适呢？<br>我们知道app在启动之后，会进行类注册，调用类的<code>+load()</code>方法，且只调用一次。（注意与<code>+initialize</code>的区别）<a href="http://polomana.com/2016/03/23/Effective-Objective-C-2-0-要点/" target="_blank" rel="noopener">第51条:load与initialize的区别</a>所以我们在分类中重写<code>load</code>方法中添加交换方法。</p>
+<p>首先我们借用AFNetworking中AFURLSessionManager中定义的swizzle的内联函数<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> hl_swizzleSelector(Class theClass, SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    Method originalMethod = class_getInstanceMethod(theClass, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod(theClass, swizzledSelector);</span><br><span class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="built_in">BOOL</span> hl_addMethod(Class theClass, SEL selector, Method method) &#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    YES if the method was added successfully, otherwise NO (for example, the class already contains a method implementation with that name)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">return</span> class_addMethod(theClass, selector,  method_getImplementation(method),  method_getTypeEncoding(method));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>然后在<code>+load</code>方法中添加如下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hl_swizzleSelector([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(setImage:), <span class="keyword">@selector</span>(hl_setImage:));</span><br></pre></td></tr></table></figure></p>
+<p>/* 这里参考的是AFURLSessionManager中的方式来添加方法，但是实际上在这个情况下是永远返回NO的</p>
+<ul>
+<li>原因：因为我们是在UIImageView的category中添加了hl_setImage:，所以在UIImageView中已经存在了该方法，再调用class_addMethod就会返回NO。</li>
+<li>因此下面这些代码如果写在category中是不需要的了。<br>*/<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Method hlSetImageMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>],<span class="keyword">@selector</span>(hl_setImage:));</span><br><span class="line"></span><br><span class="line"><span class="built_in">BOOL</span> result = hl_addMethod([<span class="keyword">self</span> <span class="keyword">class</span>],<span class="keyword">@selector</span>(hl_setImage:), hlSetImageMethod);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,result);</span><br><span class="line"><span class="keyword">if</span> (result) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>测试一下代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImageView</span> * v = [[<span class="built_in">UIImageView</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">240</span>, <span class="number">240</span>)];</span><br><span class="line">v.center = <span class="keyword">self</span>.view.center;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:v];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> * image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"IMG_0730.jpg"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//会产生混合图层</span></span><br><span class="line">v.layer.cornerRadius = v.frame.size.width / <span class="number">2</span>;</span><br><span class="line">v.layer.masksToBounds = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//采用UIGraphicImageContext重绘后,解决混合图层问题</span></span><br><span class="line">[v setImage:[image hl_imageByCroppingForSize:<span class="built_in">CGSizeMake</span>(<span class="number">240</span>, <span class="number">240</span>) fillColor:[<span class="built_in">UIColor</span> whiteColor]]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Method swizzle交换setImage和hl_setImage:之后：</span></span><br><span class="line">v.image = image;</span><br></pre></td></tr></table></figure></p>
+<div align="center"><br>    <img src="http://oh51ob42d.bkt.clouddn.com/No blended layer.png" width="225" height="408" alt="girls"><br></div>
+
+
+<p></p><h2 id="性能">其中的性能问题</h2><br>我们在UIImage+HLAdd分类中使用UIGraphicImageContext来重新绘图，这肯定是要耗时的操作。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFTimeInterval</span> start = <span class="built_in">CACurrentMediaTime</span>();</span><br><span class="line">...</span><br><span class="line"><span class="comment">//绘图</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%f"</span>,<span class="built_in">CACurrentMediaTime</span>() - start);</span><br></pre></td></tr></table></figure><p></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2016</span><span class="number">-11</span><span class="number">-22</span> <span class="number">17</span>:<span class="number">53</span>:<span class="number">42.614</span> iOS-Kick-On[<span class="number">47630</span>:<span class="number">2598373</span>] <span class="number">0.003525</span></span><br></pre></td></tr></table></figure>
+<p>大概耗时在0.003~0.006之间，以纳秒进行运算的cpu来说，还是一个稍微耗时的操作，因为我们可以把它放在后台线程来做，然后采用回调来获取返回的image<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> * result = [<span class="keyword">self</span> hl_imageByCroppingCorner:radius forSize:targetSize fillColor:[<span class="built_in">UIColor</span> whiteColor]];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="keyword">if</span> (completion) &#123;</span><br><span class="line">            completion(result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/koalahl/UIImageViewHack" target="_blank" rel="noopener">本篇文章代码</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/iOS/">iOS</a><a href="/tags/runtime/">runtime</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

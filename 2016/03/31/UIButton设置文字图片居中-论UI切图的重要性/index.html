@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="UIView,UIButton">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-03-31T06:13:54.000Z">
+          2016-03-31
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
+<p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
+<p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
+<p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
+<p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br><a id="more"></a></p>
+<h2 id="UIbutton">UIButton设置文字图片居中</h2>
+
+<p>UIButton图片、文字居中的调整主要就是四个参数：（``）</p>
+<ul>
+<li><code>contentHorizontalAlignment</code>:设置真个Button内容（包括imageView和titleLabel）的水平位置。</li>
+<li><code>contentVerticalAlignment</code>:设置整个Button内容（包括imageView和titleLabel）的垂直位置，这里用不到。</li>
+<li><code>imageEdgeInsets</code>:设置imageView的边距。</li>
+<li><p><code>titleEdgeInsets</code>:设置titleLabel的边距。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIControlContentVerticalAlignment</span>) &#123;</span><br><span class="line">    <span class="built_in">UIControlContentVerticalAlignmentCenter</span>  = <span class="number">0</span>,</span><br><span class="line">    <span class="built_in">UIControlContentVerticalAlignmentTop</span>     = <span class="number">1</span>,</span><br><span class="line">    <span class="built_in">UIControlContentVerticalAlignmentBottom</span>  = <span class="number">2</span>,</span><br><span class="line">    <span class="built_in">UIControlContentVerticalAlignmentFill</span>    = <span class="number">3</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIControlContentHorizontalAlignment</span>) &#123;</span><br><span class="line">    <span class="built_in">UIControlContentHorizontalAlignmentCenter</span> = <span class="number">0</span>,</span><br><span class="line">    <span class="built_in">UIControlContentHorizontalAlignmentLeft</span>   = <span class="number">1</span>,</span><br><span class="line">    <span class="built_in">UIControlContentHorizontalAlignmentRight</span>  = <span class="number">2</span>,</span><br><span class="line">    <span class="built_in">UIControlContentHorizontalAlignmentFill</span>   = <span class="number">3</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这里给出我用的通用方法，button高度为50为例：<br>1.设置button的<code>contentHorizontalAlignment</code>为<code>UIControlContentHorizontalAlignmentLeft</code>,这样便于根据button大小计算。当然非要用center计算也可！<br>2.设置imageView的Edge：<br>  <code>kButtonImageViewEdgeInsets(btn) UIEdgeInsetsMake(0,(kOptionBtnWidth - btn.imageView.frame.size.width)/2, 20, 0);</code><br>3.设置titleLabel的Edge：<br>  <code>#define kButtonTitleEdgeInsets(btn)     UIEdgeInsetsMake(30, (kOptionBtnWidth - btn.titleLabel.frame.size.width)/2-btn.titleLabel.frame.origin.x, 0, 20);</code>。</p>
+<p>只要传入相应的button就可以了，其中button的宽度由此得来<code>#define kOptionBtnWidth  (CGRectGetWidth(frame)/kOptionBtnCount)</code>。</p>
+<h2 id="UIView">UIView的相关方法</h2>
+
+<p>直接采用上述设置button的方法是有条件的，即确定了当前Button的宽度。我们看到要计算button的宽度，得通过读取屏幕宽度得知。app中初始化UIView的方式通常有两种：<br>1.xib/Storyboard，然后关联<code>.h</code>,<code>.m</code>文件。<br>2.自定义UIView子类,通过<code>initWithFrame</code>方法设置。</p>
+<p>当在UIView的子类中实现时，因为此时屏幕宽度已经通过初始化方法中得知，所以不需要再多设置。<br>而通过xib/sb关联的子类初始化方法中，若打印self.frame，就是当前xib的宽度，而不是实际屏幕宽度。所以不能再初始化方法中设置button的属性。</p>
+<p>第一步重写父类方法，下面两个任选其一。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)updateConstraints;-需要重写父类的updateConstraints方法。</span><br><span class="line">- (<span class="keyword">void</span>)layoutSubviews;</span><br></pre></td></tr></table></figure></p>
+<p>第二步对每个button调用<code>layoutIfNeeded</code>方法，让其立即刷新布局。</p>
+<p>这个是没有调用layoutIfNeeded的情况：<br><img src="/img/Not call layoutIfNeeded.png" alt="Not call layoutIfNeeded"></p>
+<p>以上。</p>
+<p>参考文档<br><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/swift/cl/c:objc(cs" target="_blank" rel="noopener">UIView Class Reference</a>UIView)</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/iOS/">iOS</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/UIView/">UIView</a><a href="/tags/UIButton/">UIButton</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Learn Swift - Section 1st 基础知识 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="LearnSwift">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Learn Swift - Section 1st 基础知识"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Learn Swift - Section 1st 基础知识</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/04/26/Learn-Swift-Section-One/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-04-26T08:21:36.000Z">
+          2016-04-26
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>import UIKit</p>
+<p>var str = “Hello, playground”</p>
+<p>//常量和变量<br>let maxLoginCount = 10<br>var currentLoginCount = 5</p>
+<p>//类型标注<br>var message = “welcome”//类型推断为String<br>var messageWithTypeAnnotation:String</p>
+<a id="more"></a>
+<p>message = “welcome here”<br>messageWithTypeAnnotation = “welcome go”</p>
+<p>print(“Big world (message)”)//(message) 字符串转义<br>print(“Big world”, message)//</p>
+<p>let newString = “Big world “  + “(message) “ + message<br>print(newString)<br>//多行语句用分号<br>let cat = “🐱”; print(cat)</p>
+<p>let a:Int32 = 10<br>let uintb:UInt8 = 255</p>
+<p>//类型别名<br>typealias SLInt = UInt64<br>let i:SLInt<br>var maxInt64 = SLInt.max</p>
+<p>//元组<br>let HttpErrorCode  = (404,”NotFound”)<br>print(HttpErrorCode)</p>
+<p>typealias HttpStateCode = (Int32,String)<br>var errorMsg = HttpErrorCode<br>var normal: HttpStateCode = (200,”OK”)<br>print(normal)</p>
+<p>let (stateCode,stateMsg) = HttpErrorCode<br>print(“HTTP code is (stateCode)”)<br>//通过下标访问元组元素<br>print(HttpErrorCode.1)</p>
+<p>//隐式解析可选类型</p>
+<p>let possibleString:String? = “an optional string”<br>let forcedString:String = possibleString!</p>
+<p>let possibleString2:String! = “an implicitly optional stirng”<br>let forcedString2:String = possibleString2</p>
+<p>//可选绑定<br>if let bingStr = possibleString2{<br>    print(bingStr)<br>}</p>
+<p>//错误处理</p>
+<p>func canThrowAnError() throws{</p>
+<p>}</p>
+<p>func makeASanwich() -&gt; Bool {<br>    return false<br>}<br>func buyNewDishes() -&gt; Void {</p>
+<p>}</p>
+<p>do{<br>    try canThrowAnError()<br>    makeASanwich()<br>}catch Error.MissingNeededMetarail{<br>    buyNewDishes()<br>}</p>
+<p>//断言<br>let num = 4<br>assert(num&gt;0, “a大于0”)</p>
+<p>//空合运算符 ??<br>let defaultColor:String = “red”<br>var userDefinedColor:String?</p>
+<p>//userDefinedColor = “orange”<br>var currentColorToUse = userDefinedColor ?? defaultColor<br>//等价于<br>var currentColorToUse2 = userDefinedColor != nil ? userDefinedColor! : defaultColor</p>
+<p>//区间运算符<br>//1.闭区间 (a…b) 包含a和b<br>for index in (1…5){<br>    print(index)<br>    print(“(index) <em> 5 = (index </em> 5)”)<br>}<br>//2.半开区间 (a..&lt;b)<br>for index in (1..&lt;5){<br>    print(index)<br>    print(“(index) <em> 5 = (index </em> 5)”)<br>}</p>
+<p>//字符串 String<br>//String是值类型<br>for charactor in “You R A🐶”.characters{<br>    print(charactor)<br>}<br>//独立的字符常量或变量<br>let singleCharactor:Character = “!”</p>
+<p>//通过值类型为character的数组来创建字符串<br>let characters:[Character] = [“c”,”a”,”t”,”🐱”]<br>let catString = String(characters)<br>print(catString)</p>
+<p>//插值运算  反斜杠\<br>let multiplier = 4<br>print(“(multiplier) times 5.12 =  (Double(multiplier) * 5.12)”)<br>print(“\r message”+” \u{E9}”)</p>
+<p>//Unicode<br>let ccc1:Character = “\u{65}”<br>let ccc2:Character = “\u{65}\u{301}”</p>
+<p>print(message)<br>message.startIndex<br>message.endIndex<br>//前一个index<br>message.endIndex.predecessor()<br>//后一个index<br>message.startIndex.successor()<br>//从starIndex开始 后面的第i个index<br>let xx = message.startIndex.advancedBy(4)<br>message.removeAtIndex(message.startIndex.advancedBy(4))<br>print(message)<br>//indices 获取字符串的全部索引 。空格不算。。。<br>for index in message.characters.indices{<br>    print(“(message[index])”)<br>}</p>
+<p>message.insert(“u”, atIndex: xx)</p>
+<p>message = “http:”+message<br>print(message)<br>//前后缀<br>var hasPrefix = message.hasPrefix(“http”)<br>var hasSuffix = message.hasSuffix(“png”)</p>
+<p>//集合类型：数组Array 集合Set 字典Dictionary</p>
+<p>//不可变和可变<br>/<em>“如果创建一个Arrays、Sets或Dictionaries并且把它分配成一个变量，这个集合将会是可变的。这意味着我们可以在创建之后添加更多或移除已存在的数据项来改变这个集合的大小。如果我们把Arrays、Sets或Dictionaries分配成常量，那么它就是不可变的，它的大小不能被改变。”
+ </em>/<br>let immutableArray = <a href="count:1,repeatedValue:0" target="_blank" rel="noopener">Int</a><br>var mutableArray   = <a href="">Int</a></p>
+<p>let strArray    = [“world”]</p>
+<p>mutableArray.append(1)<br>var array1:[String] = Array()<br>array1.append(“hello”)<br>array1.appendContentsOf(strArray)<br>array1.insert(“gogogog”, atIndex: 1)<br>array1.count<br>array1.isEmpty</p>
+<p>array1[0…1] = [“apple”,”pear”];<br>array1<br>//数组的遍历<br>for item in array1{<br>    print(item)<br>}</p>
+<p>for (index,item) in array1.enumerate(){<br>    print(item,array1[index])<br>}</p>
+<p>//集合<br>var asset = Set<string>()<br>asset.count<br>asset.insert(“hash string”)<br>asset.remove(“hash”)<br>//set类型必须显式声明,具体元素类型可以省略<br>let asset2:Set<character> = [“a”]<br>let asset3:Set = [“a”,”v”]<br>asset2.hashValue == asset3.hashValue<br>asset.hashValue == asset2.hashValue</character></string></p>
+<p>let asset4 = Set.init(arrayLiteral: “a”,”b”,”c”)<br>let asset5 = Set.init(array1)<br>//集合操作：交集、外集、合集,减集</p>
+<p>asset3.intersect(asset4)<br>asset3.exclusiveOr(asset4)<br>asset3.union(asset4)<br>asset3.subtract(asset4)</p>
+<p>asset3 == asset4<br>asset3.isSubsetOf(asset4)<br>asset3.isSupersetOf(asset3)<br>asset3.isStrictSupersetOf(asset3)//是否是超集，并且不是同一集合<br>asset3.isStrictSubsetOf(asset3)//是否是子集，并且不是同一集合</p>
+<p>asset3.isDisjointWith(asset4)//判断集合是否不含有相同的值。false说明包含相同的值</p>
+<p>//字典 Dictionary<key,value><br>var dic1 = Dictionary<int,string>()<br>var dic2 = <a href="">Int:String</a><br>dic1.updateValue(“value”, forKey: 0)//updateValue方法返回值是该key的旧值<br>dic1.updateValue(“newValue”, forKey: 0)<br>print(dic1)<br>dic1[1] = “ahao”<br>dic1[2] = “dddd”<br>print(dic1)</int,string></key,value></p>
+<p>for (key,value) in dic1{<br>    print(key ,value)<br>}</p>
+<p>print(dic1.keys.sort())<br>print(dic1.values.sort())</p>
+<p>//控制流程</p>
+<p>//game<br>let finalSqura = 25<br>var board = <a href="count:finalSqura+1,repeatedValue:0" target="_blank" rel="noopener">Int</a><br>board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02<br>board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08<br>var square = 0<br>var diceRoll = 0</p>
+<p>gameLoop:while square != finalSqura{<br>    //if ++diceRoll == 7 { diceRoll = 1 }<br>    switch square + diceRoll {<br>    case finalSqura:<br>        break gameLoop<br>    case let newSquare where newSquare &gt; finalSqura:<br>        coutinue gameLoop<br>    default:<br>        square += diceRoll<br>        square += board[square]<br>    }<br>}<br>print(“game over”)</p>
+<p>//检查API可用性<br>if #available(iOS 9, *){</p>
+<p>}else{</p>
+<p>}<br>func checkOSVersion() -&gt; NSString {<br>    //必须在函数体内使用；必须跟着else；必须能跳出else<br>    guard #available(OSX 10.11, *) else {<br>        return “10.10”<br>    }<br>    return “10.11”<br>}</p>
+<p>checkOSVersion()</p>
+<p>//函数嵌套<br>func stepForword(input:Int)-&gt;Int{<br>    return input - 1<br>}<br>func stepBackword(input:Int)-&gt;Int{<br>    return input + 1<br>}<br>func chooseStep(value:Int) -&gt; (Int)-&gt;Int {<br>    return value &gt; 0 ? stepForword : stepBackword<br>}<br>func xxxx(tempFunction:(Int)-&gt;Int) -&gt;Int {<br>    return 1<br>}<br>//如果我再加一个函数嵌套<br>func nextStep(tempFunction:((Int)-&gt;Int)-&gt;Int) -&gt; Int{<br>    return 0<br>}<br>let number = 3<br>let myFunction = chooseStep(number)<br>myFunction(number)</p>
+<p>let names = [“Chris”, “Alex”, “Ewa”, “Barry”, “Daniella”]<br>func absendOrdesend(s1:String,s2:String) -&gt; Bool {<br>    return s1&gt;s2<br>}<br>//使用函数的返回值作为参数<br>names.sort()<br>names.sort(absendOrdesend)<br>//闭包表达式</p>
+<p>{(parameter:Type)-&gt;ReturnType in</p>
+<p>}<br>Objective-C中的block<br>ReturnType ^(parameter){ return }</p>
+<p>//使用闭包的返回值作为参数<br>names.sort({(s1:String,s2:String) -&gt; Bool in<br>        return s1 &gt; s2<br>})</p>
+<p>//因为names数组参数类型确定，所以根据类型推断,省略参数类型和返回值类型<br>names.sort({s1,s2 in return s1&gt;s2})<br>names.sort({s1,s2 in s1&gt;s2})<br>names.sort({$0&gt;$1})<br>names.sort(&gt;)//根据String对&gt;这个符号的定义推断</p>
+<p>//尾随闭包<br>//先定义一个closure<br>let bigger = {(a:Int,b:Int)-&gt;Bool in<br>    return a&gt;b<br>}<br>//声明一个函数，参数是一个闭包<br>func exchangeNumerWithClosure(bigger:(Int,Int)-&gt;Bool){<br>    if bigger(2,3) {<br>        print(“bigger”)<br>    }else{<br>        print(“lower”)<br>    }<br>}<br>//函数调用时<br>//没有使用尾随闭包<br>//exchangeNumerWithClosure({(a:Int,b:Int)-&gt;Bool in<br>//    return a&gt;b<br>//})</p>
+<p>//使用尾随闭包<br>//exchangeNumerWithClosure(){(a:Int,b:Int)-&gt;Bool in return a&gt;b }<br>exchangeNumerWithClosure(){(a:Int,b:Int) -&gt;Bool in a&gt;b}<br>//同理，尾随闭包<br>names.sort(){$0&gt;$1}<br>names.sort{$0&gt;$1}//如果函数只需要闭包表达式一个参数，当您使用尾随闭包时,可以省略()</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Swift/">Swift</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/LearnSwift/">LearnSwift</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RunLoop的应用场景（四）- App卡顿监测 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="runloop,App卡顿监测">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="RunLoop的应用场景（四）- App卡顿监测"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>RunLoop的应用场景（四）- App卡顿监测</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/04/27/RunLoop总结：RunLoop的应用场景（四）App卡顿监测/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-04-27T05:26:59.000Z">
+          2018-04-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>今天要介绍的RunLoop使用场景很有意思，在做长期项目，需要跟踪解决用户问题非常有用。<br>使用RunLoop 监测主线程的卡顿，并将卡顿时的线程堆栈信息保存下来，下次上传到服务器。</p>
+<a id="more"></a>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>关于今天要介绍的使用RunLoop 监测主线程卡顿的资料如下：</p>
+<ul>
+<li><p><a href="http://mrpeak.cn/blog/ui-detect/" target="_blank" rel="noopener">iOS应用UI线程卡顿监控</a> MrPeak写的关于监控UI线程卡顿的文章，其中介绍了两种监测方式。</p>
+</li>
+<li><p><a href="https://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;mid=207890859&amp;idx=1&amp;sn=e98dd604cdb854e7a5808d2072c29162&amp;scene=4" target="_blank" rel="noopener">微信iOS卡顿监控系统</a>（这篇文章要首先阅读，了解有哪些情况会引起主线程卡顿，监测到卡顿后怎么处理等）</p>
+</li>
+<li><p><a href="https://link.jianshu.com/?t=http://www.starming.com/index.php?v=index&amp;view=91" target="_blank" rel="noopener">监控卡顿的方法</a>（使用RunLoop监测卡顿的片段代码)</p>
+</li>
+<li><a href="https://www.jianshu.com/p/71cfbcb15842" target="_blank" rel="noopener">简单监测iOS卡顿的demo</a>（使用RunLoop监测卡顿的例子）</li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>官方文档说明了RunLoop的执行顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1. Notify observers that the run loop has been entered.</span><br><span class="line">2. Notify observers that any ready timers are about to fire.</span><br><span class="line">3. Notify observers that any input sources that are not port based are about to fire.</span><br><span class="line">4. Fire any non-port-based input sources that are ready to fire.</span><br><span class="line">5. If a port-based input source is ready and waiting to fire, process the event immediately. Go to step 9.</span><br><span class="line">6. Notify observers that the thread is about to sleep.</span><br><span class="line">7. Put the thread to sleep until one of the following events occurs:</span><br><span class="line"> * An event arrives for a port-based input source.</span><br><span class="line"> * A timer fires.</span><br><span class="line"> * The timeout value set for the run loop expires.</span><br><span class="line"> * The run loop is explicitly woken up.</span><br><span class="line">8. Notify observers that the thread just woke up.</span><br><span class="line">9. Process the pending event.</span><br><span class="line"> * If a user-defined timer fired, process the timer event and restart the loop. Go to step 2.</span><br><span class="line"> * If an input source fired, deliver the event.</span><br><span class="line"> * If the run loop was explicitly woken up but has not yet timed out, restart the loop. Go to step 2.</span><br><span class="line">10. Notify observers that the run loop has exited.</span><br></pre></td></tr></table></figure>
+<p>用伪代码来实现就是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    /// 1. 通知Observers，即将进入RunLoop</span><br><span class="line">    /// 此处有Observer会创建AutoreleasePool: _objc_autoreleasePoolPush();</span><br><span class="line">    __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopEntry);</span><br><span class="line">    do &#123;</span><br><span class="line"></span><br><span class="line">        /// 2. 通知 Observers: 即将触发 Timer 回调。</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeTimers);</span><br><span class="line">        /// 3. 通知 Observers: 即将触发 Source (非基于port的,Source0) 回调。</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeSources);</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__(block);</span><br><span class="line"></span><br><span class="line">        /// 4. 触发 Source0 (非基于port的) 回调。</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__(source0);</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__(block);</span><br><span class="line"></span><br><span class="line">        /// 6. 通知Observers，即将进入休眠</span><br><span class="line">        /// 此处有Observer释放并新建AutoreleasePool: _objc_autoreleasePoolPop(); _objc_autoreleasePoolPush();</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopBeforeWaiting);</span><br><span class="line"></span><br><span class="line">        /// 7. sleep to wait msg.</span><br><span class="line">        mach_msg() -&gt; mach_msg_trap();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /// 8. 通知Observers，线程被唤醒</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopAfterWaiting);</span><br><span class="line"></span><br><span class="line">        /// 9. 如果是被Timer唤醒的，回调Timer</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__(timer);</span><br><span class="line"></span><br><span class="line">        /// 9. 如果是被dispatch唤醒的，执行所有调用 dispatch_async 等方法放入main queue 的 block</span><br><span class="line">        __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__(dispatched_block);</span><br><span class="line"></span><br><span class="line">        /// 9. 如果如果Runloop是被 Source1 (基于port的) 的事件唤醒了，处理这个事件</span><br><span class="line">        __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__(source1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125; while (...);</span><br><span class="line"></span><br><span class="line">    /// 10. 通知Observers，即将退出RunLoop</span><br><span class="line">    /// 此处有Observer释放AutoreleasePool: _objc_autoreleasePoolPop();</span><br><span class="line">    __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__(kCFRunLoopExit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主线程的RunLoop是在应用启动时自动开启的，也没有超时时间，所以正常情况下，主线程的RunLoop 只会在 2—9 之间无限循环下去。<br>那么，我们只需要在主线程的RunLoop中添加一个observer，检测从<code>kCFRunLoopBeforeSources</code>到<code>kCFRunLoopBeforeWaiting</code>花费的时间 是否过长。如果花费的时间大于某一个阙值，我们就认为有卡顿，并把当前的线程堆栈转储到文件中，并在以后某个合适的时间，将卡顿信息文件上传到服务器。</p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><p>在看了上面的两个监测卡顿的示例Demo后，我按照上面讲述的思路写了一个Demo，应该更容易理解吧。<br>第一步，创建一个子线程，在线程启动时，启动其RunLoop。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">+ (instancetype)shareMonitor</span><br><span class="line">&#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        instance = [[[self class] alloc] init];</span><br><span class="line">        instance.monitorThread = [[NSThread alloc] initWithTarget:self selector:@selector(monitorThreadEntryPoint) object:nil];</span><br><span class="line">        [instance.monitorThread start];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)monitorThreadEntryPoint</span><br><span class="line">&#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        [[NSThread currentThread] setName:@&quot;FluencyMonitor&quot;];</span><br><span class="line">        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];</span><br><span class="line">        [runLoop addPort:[NSMachPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">        [runLoop run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二步，在开始监测时，往主线程的RunLoop中添加一个observer，并往子线程中添加一个定时器，每0.5秒检测一次耗时的时长。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">- (void)start</span><br><span class="line">&#123;</span><br><span class="line">    if (_observer) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 1.创建observer</span><br><span class="line">    CFRunLoopObserverContext context = &#123;0,(__bridge void*)self, NULL, NULL, NULL&#125;;</span><br><span class="line">    _observer = CFRunLoopObserverCreate(kCFAllocatorDefault,</span><br><span class="line">                                              kCFRunLoopAllActivities,</span><br><span class="line">                                              YES,</span><br><span class="line">                                              0,</span><br><span class="line">                                              &amp;runLoopObserverCallBack,</span><br><span class="line">                                              &amp;context);</span><br><span class="line">    // 2.将observer添加到主线程的RunLoop中</span><br><span class="line">    CFRunLoopAddObserver(CFRunLoopGetMain(), _observer, kCFRunLoopCommonModes);</span><br><span class="line"></span><br><span class="line">    // 3.创建一个timer，并添加到子线程的RunLoop中</span><br><span class="line">    [self performSelector:@selector(addTimerToMonitorThread) onThread:self.monitorThread withObject:nil waitUntilDone:NO modes:@[NSRunLoopCommonModes]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)addTimerToMonitorThread</span><br><span class="line">&#123;</span><br><span class="line">    if (_timer) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // 创建一个timer</span><br><span class="line">    CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();</span><br><span class="line">    CFRunLoopTimerContext context = &#123;0, (__bridge void*)self, NULL, NULL, NULL&#125;;</span><br><span class="line">    _timer = CFRunLoopTimerCreate(kCFAllocatorDefault, 0.1, 0.01, 0, 0,</span><br><span class="line">                                                   &amp;runLoopTimerCallBack, &amp;context);</span><br><span class="line">    // 添加到子线程的RunLoop中</span><br><span class="line">    CFRunLoopAddTimer(currentRunLoop, _timer, kCFRunLoopCommonModes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第三步，补充观察者回调处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">static void runLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info)&#123;</span><br><span class="line">    FluencyMonitor *monitor = (__bridge FluencyMonitor*)info;</span><br><span class="line">    NSLog(@&quot;MainRunLoop---%@&quot;,[NSThread currentThread]);</span><br><span class="line">    switch (activity) &#123;</span><br><span class="line">        case kCFRunLoopEntry:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopEntry&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeTimers:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeTimers&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeSources:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeSources&quot;);</span><br><span class="line">            monitor.startDate = [NSDate date];</span><br><span class="line">            monitor.excuting = YES;</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeWaiting:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeWaiting&quot;);</span><br><span class="line">            monitor.excuting = NO;</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopAfterWaiting:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopAfterWaiting&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopExit:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopExit&quot;);</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从打印信息来看，RunLoop进入睡眠状态的时间可能会非常短，有时候只有1毫秒，有时候甚至1毫秒都不到，静止不动时，则会长时间进入睡觉状态。</p>
+<p>因为主线程中的block、交互事件、以及其他任务都是在<code>kCFRunLoopBeforeSources</code>到<code>kCFRunLoopBeforeWaiting</code>之前执行，所以我在即将开始执行Sources 时，记录一下时间，并把正在执行任务的标记置为YES，将要进入睡眠状态时，将正在执行任务的标记置为NO。</p>
+<p>第四步，补充timer 的回调处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">static void runLoopTimerCallBack(CFRunLoopTimerRef timer, void *info)</span><br><span class="line">&#123;</span><br><span class="line">    FluencyMonitor *monitor = (__bridge FluencyMonitor*)info;</span><br><span class="line">    if (!monitor.excuting) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 如果主线程正在执行任务，并且这一次loop 执行到 现在还没执行完，那就需要计算时间差</span><br><span class="line">    NSTimeInterval excuteTime = [[NSDate date] timeIntervalSinceDate:monitor.startDate];</span><br><span class="line">    NSLog(@&quot;定时器---%@&quot;,[NSThread currentThread]);</span><br><span class="line">    NSLog(@&quot;主线程执行了---%f秒&quot;,excuteTime);</span><br><span class="line"></span><br><span class="line">    if (excuteTime &gt;= 0.01) &#123;</span><br><span class="line">        NSLog(@&quot;线程卡顿了%f秒&quot;,excuteTime);</span><br><span class="line">        [monitor handleStackInfo];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>timer 每 0.01秒执行一次，如果当前正在执行任务的状态为YES，并且从开始执行到现在的时间大于阙值，则把堆栈信息保存下来，便于后面处理。<br>为了能够捕获到堆栈信息，我把timer的间隔调的很小（0.01），而评定为卡顿的阙值也调的很小（0.01）。 实际使用时这两个值应该是比较大，timer间隔为1s，卡顿阙值为2s即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">2016-12-15 08:56:39.921 RunLoopDemo03[957:16300] lag happen, detail below: </span><br><span class="line"> Incident Identifier: 68BAB24C-3224-46C8-89BF-F9AABA2E3530</span><br><span class="line">CrashReporter Key:   TODO</span><br><span class="line">Hardware Model:      x86_64</span><br><span class="line">Process:         RunLoopDemo03 [957]</span><br><span class="line">Path:            /Users/harvey/Library/Developer/CoreSimulator/Devices/6ED39DBB-9F69-4ACB-9CE3-E6EB56BBFECE/data/Containers/Bundle/Application/5A94DEFE-4E2E-4D23-9F69-7B1954B2C960/RunLoopDemo03.app/RunLoopDemo03</span><br><span class="line">Identifier:      com.Haley.RunLoopDemo03</span><br><span class="line">Version:         1.0 (1)</span><br><span class="line">Code Type:       X86-64</span><br><span class="line">Parent Process:  debugserver [958]</span><br><span class="line"></span><br><span class="line">Date/Time:       2016-12-15 00:56:38 +0000</span><br><span class="line">OS Version:      Mac OS X 10.1 (16A323)</span><br><span class="line">Report Version:  104</span><br><span class="line"></span><br><span class="line">Exception Type:  SIGTRAP</span><br><span class="line">Exception Codes: TRAP_TRACE at 0x1063da728</span><br><span class="line">Crashed Thread:  4</span><br><span class="line"></span><br><span class="line">Thread 0:</span><br><span class="line">0   libsystem_kernel.dylib              0x000000010a14341a mach_msg_trap + 10</span><br><span class="line">1   CoreFoundation                      0x0000000106f1e7b4 __CFRunLoopServiceMachPort + 212</span><br><span class="line">2   CoreFoundation                      0x0000000106f1dc31 __CFRunLoopRun + 1345</span><br><span class="line">3   CoreFoundation                      0x0000000106f1d494 CFRunLoopRunSpecific + 420</span><br><span class="line">4   GraphicsServices                    0x000000010ad8aa6f GSEventRunModal + 161</span><br><span class="line">5   UIKit                               0x00000001073b7964 UIApplicationMain + 159</span><br><span class="line">6   RunLoopDemo03                       0x00000001063dbf8f main + 111</span><br><span class="line">7   libdyld.dylib                       0x0000000109d7468d start + 1</span><br><span class="line"></span><br><span class="line">Thread 1:</span><br><span class="line">0   libsystem_kernel.dylib              0x000000010a14be5e kevent_qos + 10</span><br><span class="line">1   libdispatch.dylib                   0x0000000109d13074 _dispatch_mgr_invoke + 248</span><br><span class="line">2   libdispatch.dylib                   0x0000000109d12e76 _dispatch_mgr_init + 0</span><br><span class="line"></span><br><span class="line">Thread 2:</span><br><span class="line">0   libsystem_kernel.dylib              0x000000010a14b4e6 __workq_kernreturn + 10</span><br><span class="line">1   libsystem_pthread.dylib             0x000000010a16e221 start_wqthread + 13</span><br><span class="line"></span><br><span class="line">Thread 3:</span><br><span class="line">0   libsystem_kernel.dylib              0x000000010a14341a mach_msg_trap + 10</span><br><span class="line">1   CoreFoundation                      0x0000000106f1e7b4 __CFRunLoopServiceMachPort + 212</span><br><span class="line">2   CoreFoundation                      0x0000000106f1dc31 __CFRunLoopRun + 1345</span><br><span class="line">3   CoreFoundation                      0x0000000106f1d494 CFRunLoopRunSpecific + 420</span><br><span class="line">4   Foundation                          0x00000001064d7ff0 -[NSRunLoop runMode:beforeDate:] + 274</span><br><span class="line">5   Foundation                          0x000000010655f991 -[NSRunLoop runUntilDate:] + 78</span><br><span class="line">6   UIKit                               0x0000000107e3d539 -[UIEventFetcher threadMain] + 118</span><br><span class="line">7   Foundation                          0x00000001064e7ee4 __NSThread__start__ + 1243</span><br><span class="line">8   libsystem_pthread.dylib             0x000000010a16eabb _pthread_body + 180</span><br><span class="line">9   libsystem_pthread.dylib             0x000000010a16ea07 _pthread_body + 0</span><br><span class="line">10  libsystem_pthread.dylib             0x000000010a16e231 thread_start + 13</span><br><span class="line"></span><br><span class="line">Thread 4 Crashed:</span><br><span class="line">0   RunLoopDemo03                       0x00000001063dfae5 -[PLCrashReporter generateLiveReportWithThread:error:] + 632</span><br><span class="line">1   RunLoopDemo03                       0x00000001063da728 -[FluencyMonitor handleStackInfo] + 152</span><br><span class="line">2   RunLoopDemo03                       0x00000001063da2cf runLoopTimerCallBack + 351</span><br><span class="line">3   CoreFoundation                      0x0000000106f26964 __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__ + 20</span><br><span class="line">4   CoreFoundation                      0x0000000106f265f3 __CFRunLoopDoTimer + 1075</span><br><span class="line">5   CoreFoundation                      0x0000000106f2617a __CFRunLoopDoTimers + 250</span><br><span class="line">6   CoreFoundation                      0x0000000106f1df01 __CFRunLoopRun + 2065</span><br><span class="line">7   CoreFoundation                      0x0000000106f1d494 CFRunLoopRunSpecific + 420</span><br><span class="line">8   Foundation                          0x00000001064d7ff0 -[NSRunLoop runMode:beforeDate:] + 274</span><br><span class="line">9   Foundation                          0x00000001064d7ecb -[NSRunLoop run] + 76</span><br><span class="line">10  RunLoopDemo03                       0x00000001063d9cbd +[FluencyMonitor monitorThreadEntryPoint] + 253</span><br><span class="line">11  Foundation                          0x00000001064e7ee4 __NSThread__start__ + 1243</span><br><span class="line">12  libsystem_pthread.dylib             0x000000010a16eabb _pthread_body + 180</span><br><span class="line">13  libsystem_pthread.dylib             0x000000010a16ea07 _pthread_body + 0</span><br><span class="line">14  libsystem_pthread.dylib             0x000000010a16e231 thread_start + 13</span><br><span class="line"></span><br><span class="line">Thread 4 crashed with X86-64 Thread State:</span><br><span class="line">   rip: 0x00000001063dfae5    rbp: 0x000070000f53fc50    rsp: 0x000070000f53f9c0    rax: 0x000070000f53fa20 </span><br><span class="line">   rbx: 0x000070000f53fb60    rcx: 0x0000000000005e0b    rdx: 0x0000000000000000    rdi: 0x00000001063dfc6a </span><br><span class="line">   rsi: 0x000070000f53f9f0     r8: 0x0000000000000014     r9: 0xffffffffffffffec    r10: 0x000000010a1433f6 </span><br><span class="line">   r11: 0x0000000000000246    r12: 0x000060800016b580    r13: 0x0000000000000000    r14: 0x0000000000000006 </span><br><span class="line">   r15: 0x000070000f53fa40 rflags: 0x0000000000000206     cs: 0x000000000000002b     fs: 0x0000000000000000 </span><br><span class="line">    gs: 0x0000000000000000</span><br></pre></td></tr></table></figure>
+<p>剩下的工作就是将字符串保存进文件，以及上传到服务器了。</p>
+<p>我们不能将卡顿的阙值定的太小，也不能将所有的卡顿信息都上传，原因有两点，一，太浪费用户流量；二、文件太多，App内存储和上传后服务器端保存都会占用空间。</p>
+<p>可以参考微信的做法，7天以上的文件删除，随机抽取上传，并且上传前对文件进行压缩处理等。</p>
+<p>文中的示例代码都来自：<a href="https://link.jianshu.com/?t=https://github.com/Haley-Wong/RunLoopDemos" target="_blank" rel="noopener">RunLoopDemos中的RunLoopDemo03</a></p>
+<p>作者：Haley_Wong<br>链接：<a href="https://www.jianshu.com/p/902741bcf707" target="_blank" rel="noopener">https://www.jianshu.com/p/902741bcf707</a><br>來源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/performance/">performance</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/runloop/">runloop</a><a href="/tags/App卡顿监测/">App卡顿监测</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

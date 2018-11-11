@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS底层原理总结 - 关联对象实现原理 | 寒流‘s Blog | 编程与生活</title>
+
+  
+  <meta name="author" content="Han Liu">
+  
+
+  
+  <meta name="description" content="Think in Different">
+  
+
+  
+  
+  <meta name="keywords" content="associate object">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="iOS底层原理总结 - 关联对象实现原理"/>
+
+  <meta property="og:site_name" content="寒流‘s Blog"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">寒流‘s Blog</a>
+    </h1>
+    <p class="site-description">编程与生活</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">首页</a></li>
+      
+        <li><a href="/categories/arch">架构</a></li>
+      
+        <li><a href="/categories/principle">原理</a></li>
+      
+        <li><a href="/categories/performance">性能</a></li>
+      
+        <li><a href="/categories/iOSInterview">面试集</a></li>
+      
+        <li><a href="/link">博客</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>iOS底层原理总结 - 关联对象实现原理</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2018/07/05/iOS底层原理总结-关联对象实现原理/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-07-05T13:56:59.000Z">
+          2018-07-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="iOS底层原理总结-关联对象实现原理"><a href="#iOS底层原理总结-关联对象实现原理" class="headerlink" title="iOS底层原理总结 - 关联对象实现原理"></a>iOS底层原理总结 - 关联对象实现原理</h1><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><p>问： Category能否添加成员变量？如果可以，如何给Category添加成员变量？</p>
+<p>答：不能直接添加成员变量，但是可以通过runtime的方式间接实现添加成员变量的效果。</p>
+<h2 id="Runtime为Category动态关联对象"><a href="#Runtime为Category动态关联对象" class="headerlink" title="Runtime为Category动态关联对象"></a>Runtime为Category动态关联对象</h2><p>使用RunTime给系统的类添加属性，首先需要了解对象与属性的关系。我们通过之前的学习知道，对象一开始初始化的时候其属性为nil，给属性赋值其实就是让属性指向一块存储内容的内存，使这个对象的属性跟这块内存产生一种关联。</p>
+<p>那么如果想动态的添加属性，其实就是动态的产生某种关联就好了。而想要给系统的类添加属性，只能通过分类。</p>
+<p>这里给NSObject添加name属性，创建NSObject的分类 我们可以使用@property给分类添加属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic,strong)NSString *name;</span><br></pre></td></tr></table></figure>
+<p><strong>通过<a href="https://link.juejin.im/?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5aef0a3b518825670f7bc0f3" target="_blank" rel="noopener">探寻Category的本质</a>我们知道，虽然在分类中可以写@property 添加属性，但是不会自动生成私有属性，也不会生成set,get方法的实现，只会生成set,get的声明，需要我们自己去实现。</strong><br><a id="more"></a></p>
+<h5 id="方法一：我们可以通过使用静态全局变量给分类添加属性"><a href="#方法一：我们可以通过使用静态全局变量给分类添加属性" class="headerlink" title="方法一：我们可以通过使用静态全局变量给分类添加属性"></a>方法一：我们可以通过使用静态全局变量给分类添加属性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static NSString *_name;</span><br><span class="line">-(void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">    _name = name;</span><br><span class="line">&#125;</span><br><span class="line">-(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">    return _name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样_name静态全局变量与类并没有关联，无论对象创建与销毁，只要程序在运行_name变量就存在，并不是真正意义上的属性。</p>
+<h5 id="方法二：使用RunTime动态添加属性"><a href="#方法二：使用RunTime动态添加属性" class="headerlink" title="方法二：使用RunTime动态添加属性"></a>方法二：使用RunTime动态添加属性</h5><p>RunTime提供了动态添加属性和获得属性的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-(void)setName:(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(self, @&quot;name&quot;,name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line">-(NSString *)name</span><br><span class="line">&#123;</span><br><span class="line">    return objc_getAssociatedObject(self, @&quot;name&quot;);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>动态添加属性</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy);</span><br></pre></td></tr></table></figure>
+<p>参数一：<strong><code>id object</code></strong>: 给哪个对象添加属性，这里要给自己添加属性，用self。 参数二：<strong><code>void * == id key</code></strong>: 属性名，根据key获取关联对象的属性的值，在<strong><code>objc_getAssociatedObject</code></strong>中通过次key获得属性的值并返回。 参数三：<strong><code>id value</code>** : 关联的值，也就是set方法传入的值给属性去保存。 参数四：</strong><code>objc_AssociationPolicy policy</code>**: 策略，属性以什么形式保存。 有以下几种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef OBJC_ENUM(uintptr_t, objc_AssociationPolicy) &#123;</span><br><span class="line">    OBJC_ASSOCIATION_ASSIGN = 0,  // 指定一个弱引用相关联的对象</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, // 指定相关对象的强引用，非原子性</span><br><span class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = 3,  // 指定相关的对象被复制，非原子性</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN = 01401,  // 指定相关对象的强引用，原子性</span><br><span class="line">    OBJC_ASSOCIATION_COPY = 01403     // 指定相关的对象被复制，原子性   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>key值只要是一个指针即可，我们可以传入@selector(name)</p>
+<ol>
+<li>获得属性</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_getAssociatedObject(id object, const void *key);</span><br></pre></td></tr></table></figure>
+<p>参数一：<strong><code>id object</code></strong>: 获取哪个对象里面的关联的属性。 参数二：<strong><code>void * == id key</code></strong>: 什么属性，与<strong><code>objc_setAssociatedObject</code></strong>中的key相对应，即通过key值取出value。</p>
+<ol>
+<li>移除所有关联对象</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)removeAssociatedObjects</span><br><span class="line">&#123;</span><br><span class="line">    // 移除所有关联对象</span><br><span class="line">    objc_removeAssociatedObjects(self);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时已经成功给NSObject添加name属性，并且NSObject对象可以通过点语法为属性赋值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSObject *objc = [[NSObject alloc]init];</span><br><span class="line">objc.name = @&quot;xx_cc&quot;;</span><br><span class="line">NSLog(@&quot;%@&quot;,objc.name);</span><br></pre></td></tr></table></figure>
+<p>可以看出关联对象的使用非常简单，接下来我们来探寻关联对象的底层原理</p>
+<h2 id="关联对象实现原理"><a href="#关联对象实现原理" class="headerlink" title="关联对象实现原理"></a>关联对象实现原理</h2><p>实现关联对象技术的核心对象有</p>
+<ol>
+<li>AssociationsManager</li>
+<li>AssociationsHashMap</li>
+<li>ObjectAssociationMap</li>
+<li>ObjcAssociation<br>其中Map同我们平时使用的字典类似。通过key-value一一对应存值。</li>
+</ol>
+<p>对关联对象技术的核心对象有了一个大概的意识，我们通过源码来探寻这些对象的存在形式以及其作用</p>
+<h3 id="objc-setAssociatedObject函数"><a href="#objc-setAssociatedObject函数" class="headerlink" title="objc_setAssociatedObject函数"></a>objc_setAssociatedObject函数</h3><p>来到runtime源码，首先找到objc_setAssociatedObject函数，看一下其实现</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1030&quot; height=&quot;132&quot;&gt;&lt;/svg" alt="objc_setAssociatedObject函数实现"></p>
+<p>我们看到其实内部调用的是_object_set_associative_reference函数，我们来到_object_set_associative_reference函数中</p>
+<h3 id="object-set-associative-reference函数"><a href="#object-set-associative-reference函数" class="headerlink" title="_object_set_associative_reference函数"></a>_object_set_associative_reference函数</h3><p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;949&quot; height=&quot;983&quot;&gt;&lt;/svg" alt="_object_set_associative_reference函数内部"></p>
+<p>_object_set_associative_reference函数内部我们可以全部找到我们上面说过的实现关联对象技术的核心对象。接下来我们来一个一个看其内部实现原理探寻他们之间的关系。</p>
+<h3 id="AssociationsManager"><a href="#AssociationsManager" class="headerlink" title="AssociationsManager"></a>AssociationsManager</h3><p>通过AssociationsManager内部源码发现，AssociationsManager内部有一个AssociationsHashMap对象。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6284e807566?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="AssociationsManager内部"></p>
+<h3 id="AssociationsHashMap"><a href="#AssociationsHashMap" class="headerlink" title="AssociationsHashMap"></a>AssociationsHashMap</h3><p>我们来看一下AssociationsHashMap内部的源码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6289c860bcb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="AssociationsHashMap内部"></p>
+<p>通过AssociationsHashMap内部源码我们发现AssociationsHashMap继承自unordered_map首先来看一下unordered_map内的源码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a62857611b5b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="unordered_map内部分源码"></p>
+<p>从unordered_map源码中我们可以看出<code>_Key</code>和<code>_Tp</code>也就是前两个参数对应着map中的Key和Value，那么对照上面AssociationsHashMap内源码发现<code>_Key</code>中传入的是<code>disguised_ptr_t</code>，<code>_Tp</code>中传入的值则为<code>ObjectAssociationMap*</code>。</p>
+<p>紧接着我们来到<code>ObjectAssociationMap</code>中，上图中<strong>ObjectAssociationMap</strong>已经标记出，我们发现ObjectAssociationMap中同样以key、Value的方式存储着<strong>ObjcAssociation</strong>。</p>
+<p>接着我们来到ObjcAssociation中</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a62857770ebb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="ObjcAssociation"></p>
+<p>我们发现ObjcAssociation存储着<code>_policy</code>、<code>_value</code>，而这两个值我们可以发现正是我们调用<strong>objc_setAssociatedObject</strong>函数传入的值，也就是说我们在调用<strong>objc_setAssociatedObject</strong>函数中传入的value和policy这两个值最终是存储在<strong>ObjcAssociation</strong>中的。</p>
+<p>现在我们已经对<strong>AssociationsManager、 AssociationsHashMap、 ObjectAssociationMap、ObjcAssociation</strong>四个对象之间的关系有了简单的认识，那么接下来我们来细读源码，看一下objc_setAssociatedObject函数中传入的四个参数分别放在哪个对象中充当什么作用。</p>
+<h3 id="重新回到-object-set-associative-reference函数实现中"><a href="#重新回到-object-set-associative-reference函数实现中" class="headerlink" title="重新回到_object_set_associative_reference函数实现中"></a>重新回到_object_set_associative_reference函数实现中</h3><p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6284e63b70a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="_object_set_associative_reference函数内部"></p>
+<p>细读上述源码我们可以发现，首先根据我们传入的value经过acquireValue函数处理获取new_value。acquireValue函数内部其实是通过对策略的判断返回不同的值</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;648&quot; height=&quot;207&quot;&gt;&lt;/svg" alt="acquireValue函数内部"></p>
+<p>之后创建AssociationsManager manager;以及拿到manager内部的AssociationsHashMap即<strong>associations</strong>。 之后我们看到了我们传入的第一个参数object object经过DISGUISE函数被转化为了disguised_ptr_t类型的<strong>disguised_object</strong>。</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;786&quot; height=&quot;84&quot;&gt;&lt;/svg" alt="DISGUISE函数"></p>
+<p>DISGUISE函数其实仅仅对object做了位运算</p>
+<p><strong>之后我们看到被处理成new_value的value，同policy被存入了ObjcAssociation中。 而ObjcAssociation对应我们传入的key被存入了ObjectAssociationMap中。 disguised_object和ObjectAssociationMap则以key-value的形式对应存储在associations中也就是AssociationsHashMap中。</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6287c576ac8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="关键代码"></p>
+<p>如果我们value设置为nil的话那么会执行下面的代码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6287ecfd5db?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="value为nil"></p>
+<p>从上述代码中可以看出，如果我们设置value为nil时，就会将关联对象从ObjectAssociationMap中移除。</p>
+<p>最后我们通过一张图可以很清晰的理清楚其中的关系</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a628a228e349?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="关联对象底层对象关系"></p>
+<p><strong>通过上图我们可以总结为：一个实例对象就对应一个ObjectAssociationMap，而ObjectAssociationMap中存储着多个此实例对象的关联对象的key以及ObjcAssociation，为ObjcAssociation中存储着关联对象的value和policy策略。</strong></p>
+<p><strong>由此我们可以知道关联对象并不是放在了原来的对象里面，而是自己维护了一个全局的map用来存放每一个对象及其对应关联属性表格。</strong></p>
+<h3 id="objc-getAssociatedObject函数"><a href="#objc-getAssociatedObject函数" class="headerlink" title="objc_getAssociatedObject函数"></a>objc_getAssociatedObject函数</h3><p>objc_getAssociatedObject内部调用的是_object_get_associative_reference</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a62884162545?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="objc_getAssociatedObject"></p>
+<h3 id="object-get-associative-reference函数"><a href="#object-get-associative-reference函数" class="headerlink" title="_object_get_associative_reference函数"></a>_object_get_associative_reference函数</h3><p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;997&quot; height=&quot;590&quot;&gt;&lt;/svg" alt="_object_get_associative_reference函数"></p>
+<p>从_object_get_associative_reference函数内部可以看出，向set方法中那样，反向将value一层一层取出最后return出去。</p>
+<h3 id="objc-removeAssociatedObjects函数"><a href="#objc-removeAssociatedObjects函数" class="headerlink" title="objc_removeAssociatedObjects函数"></a>objc_removeAssociatedObjects函数</h3><p>objc_removeAssociatedObjects用来删除所有的关联对象，objc_removeAssociatedObjects函数内部调用的是_object_remove_assocations函数</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a6289e8701d3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="objc_removeAssociatedObjects函数"></p>
+<h3 id="object-remove-assocations函数"><a href="#object-remove-assocations函数" class="headerlink" title="_object_remove_assocations函数"></a>_object_remove_assocations函数</h3><p><img src="https://user-gold-cdn.xitu.io/2018/5/14/1635a628ad863eed?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="_object_remove_assocations函数"></p>
+<p>上述源码可以看出_object_remove_assocations函数将object对象向对应的所有关联对象全部删除。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p><strong>关联对象并不是存储在被关联对象本身内存中，而是存储在全局的统一的一个AssociationsManager中，如果设置关联对象为nil，就相当于是移除关联对象。</strong></p>
+<p>此时我们我们在回过头来看objc_AssociationPolicy policy 参数: 属性以什么形式保存的策略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef OBJC_ENUM(uintptr_t, objc_AssociationPolicy) &#123;</span><br><span class="line">    OBJC_ASSOCIATION_ASSIGN = 0,  // 指定一个弱引用相关联的对象</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, // 指定相关对象的强引用，非原子性</span><br><span class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = 3,  // 指定相关的对象被复制，非原子性</span><br><span class="line">    OBJC_ASSOCIATION_RETAIN = 01401,  // 指定相关对象的强引用，原子性</span><br><span class="line">    OBJC_ASSOCIATION_COPY = 01403     // 指定相关的对象被复制，原子性   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们会发现其中只有RETAIN和COPY而为什么没有weak呢？ 总过上面对源码的分析我们知道，object经过DISGUISE函数被转化为了disguised_ptr_t类型的<strong>disguised_object</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">disguised_ptr_t disguised_object = DISGUISE(object);</span><br></pre></td></tr></table></figure>
+<p>而同时我们知道，weak修饰的属性，当没有拥有对象之后就会被销毁，并且指针置位nil，那么在对象销毁之后，虽然在map中既然存在值object对应的AssociationsHashMap，但是因为object地址已经被置位nil，会造成坏地址访问而无法根据object对象的地址转化为disguised_object了。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/principle/">principle</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/associate-object/">associate object</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'hanangellove';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    <!--
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+  -->
+    
+    &copy; 2018 Han Liu
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
