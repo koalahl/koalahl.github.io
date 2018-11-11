@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Object本质,isa," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="iOS底层原理总结 - 探寻OC对象的本质对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。  面试题：一个NSObject对象占用多少内存？  探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。">
+<meta name="keywords" content="Object本质,isa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS底层原理总结 - 探寻OC对象的本质">
+<meta property="og:url" content="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="iOS底层原理总结 - 探寻OC对象的本质对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。  面试题：一个NSObject对象占用多少内存？  探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/7/1629daf21d662684?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1240" height="279"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1224" height="596"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="724" height="261"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1056" height="554"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1083" height="257"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="316" height="523"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="328" height="355"></svg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/7/1629daf24f3b4309?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/7/1629daf24f2e1b3f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/7/1629daf2506cccde?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c44de565?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c4200874?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c453f8d7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c43ad484?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c461c298?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2018-07-05T12:47:13.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS底层原理总结 - 探寻OC对象的本质">
+<meta name="twitter:description" content="iOS底层原理总结 - 探寻OC对象的本质对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。  面试题：一个NSObject对象占用多少内存？  探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/7/1629daf21d662684?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/"/>
+
+
+
+
+
+  <title>iOS底层原理总结 - 探寻OC对象的本质 | 寒流‘s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-算法">
+          <a href="/categories/algorithm" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-原理">
+          <a href="/categories/principle" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            原理
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-图形图像">
+          <a href="/categories/graphic" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            图形图像
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-性能">
+          <a href="/categories/performance" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            性能
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-面试集">
+          <a href="/categories/iOSInterview" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            面试集
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-读源码">
+          <a href="/categories/sourcecode" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            读源码
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客">
+          <a href="/link" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            博客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS底层原理总结 - 探寻OC对象的本质</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-05T14:05:22+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/principle/" itemprop="url" rel="index">
+                    <span itemprop="name">principle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/05/iOS底层原理总结-探寻OC对象的本质/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/05/iOS底层原理总结-探寻OC对象的本质/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="iOS底层原理总结-探寻OC对象的本质"><a href="#iOS底层原理总结-探寻OC对象的本质" class="headerlink" title="iOS底层原理总结 - 探寻OC对象的本质"></a>iOS底层原理总结 - 探寻OC对象的本质</h2><p>对小码哥底层班视频学习的总结与记录。面试题部分，通过对面试题的分析探索问题的本质内容。</p>
+<blockquote>
+<p>面试题：一个NSObject对象占用多少内存？</p>
+</blockquote>
+<p>探寻OC对象的本质，我们平时编写的Objective-C代码，底层实现其实都是C\C++代码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf21d662684?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="OC代码的转化过程"></p>
+<a id="more"></a>
+<p>OC的对象结构都是通过基础C\C++的结构体实现的。 我们通过创建OC文件及对象，并将OC文件转化为C++文件来探寻OC对象的本质</p>
+<p>OC如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        NSObject *objc = [[NSObject alloc] init];</span><br><span class="line"></span><br><span class="line">        NSLog(@&quot;Hello, World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过命令行将OC的mian.m文件转化为c++文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc main.m -o main.cpp // 这种方式没有指定架构例如arm64架构 其中cpp代表（c plus plus）</span><br><span class="line">生成 main.cpp</span><br></pre></td></tr></table></figure>
+<p>我们可以指定架构模式的命令行，使用xcode工具 xcrun</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m -o main-arm64.cpp </span><br><span class="line">生成 main-arm64.cpp</span><br></pre></td></tr></table></figure>
+<p>main-arm64.cpp 文件中搜索NSObjcet，可以找到NSObjcet_IMPL（IMPL代表 implementation 实现）</p>
+<p>我们看一下NSObject_IMPL内部</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct NSObject_IMPL &#123;</span><br><span class="line">    Class isa;</span><br><span class="line">&#125;;</span><br><span class="line">// 查看Class本质</span><br><span class="line">typedef struct objc_class *Class;</span><br><span class="line">我们发现Class其实就是一个指针，对象底层实现其实就是这个样子。</span><br></pre></td></tr></table></figure>
+<p>思考： 一个OC对象在内存中是如何布局的。 NSObjcet的底层实现，点击NSObjcet进入发现NSObject的内部实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@interface NSObject &lt;NSObject&gt; &#123;</span><br><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored &quot;-Wobjc-interface-ivars&quot;</span><br><span class="line">    Class isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line">#pragma clang diagnostic pop</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>转化为c语言其实就是一个结构体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct NSObject_IMPL &#123;</span><br><span class="line">    Class isa;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>那么这个结构体占多大的内存空间呢，我们发现这个结构体只有一个成员，isa指针，而指针在64位架构中占8个字节。也就是说一个NSObjec对象所占用的内存是8个字节。到这里我们已经可以基本解答第一个问题。但是我们发现NSObject对象中还有很多方法，那这些方法不占用内存空间吗？其实类的方法等也占用内存空间，但是这些方法所占用的存储空间并不在NSObject对象中。</p>
+</blockquote>
+<p>为了探寻OC对象在内存中如何体现，我们来看下面一段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSObject *objc = [[NSObject alloc] init];</span><br></pre></td></tr></table></figure>
+<p>上面一段代码在内存中如何体现的呢？上述一段代码中系统为NSObject对象分配8个字节的内存空间，用来存放一个成员isa指针。那么isa指针这个变量的地址就是结构体的地址，也就是NSObjcet对象的地址。 假设isa的地址为0x100400110，那么上述代码分配存储空间给NSObject对象，然后将存储空间的地址赋值给objc指针。objc存储的就是isa的地址。objc指向内存中NSObject对象地址，即指向内存中的结构体，也就是isa的位置。</p>
+<h4 id="自定义类的内部实现"><a href="#自定义类的内部实现" class="headerlink" title="自定义类的内部实现"></a>自定义类的内部实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@interface Student : NSObject&#123;</span><br><span class="line"></span><br><span class="line">    @public</span><br><span class="line">    int _no;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line">@implementation Student</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line"></span><br><span class="line">        Student *stu = [[Student alloc] init];</span><br><span class="line">        stu -&gt; _no = 4;</span><br><span class="line">        stu -&gt; _age = 5;</span><br><span class="line"></span><br><span class="line">        NSLog(@&quot;%@&quot;,stu);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>按照上述步骤同样生成c++文件。并查找Student，我们发现Student_IMPL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Student_IMPL &#123;</span><br><span class="line">    struct NSObject_IMPL NSObject_IVARS;</span><br><span class="line">    int _no;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>发现第一个是 NSObject_IMPL的实现。而通过上面的实验我们知道NSObject_IMPL内部其实就是Class isa 那么我们假设 struct NSObject_IMPL NSObject_IVARS; 等价于 Class isa;</p>
+<p>可以将上述代码转化为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Student_IMPL &#123;</span><br><span class="line">    Class *isa;</span><br><span class="line">    int _no;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因此此结构体占用多少存储空间，对象就占用多少存储空间。因此结构体占用的存储空间为，isa指针8个字节空间+int类型_no4个字节空间+int类型_age4个字节空间共16个字节空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student *stu = [[Student alloc] init];</span><br><span class="line">stu -&gt; _no = 4;</span><br><span class="line">stu -&gt; _age = 5;</span><br></pre></td></tr></table></figure>
+<p>那么上述代码实际上在内存中的体现为，创建Student对象首先会分配16个字节，存储3个东西，isa指针8个字节，4个字节的_no ,4个字节的_age</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1240&quot; height=&quot;279&quot;&gt;&lt;/svg" alt="Studetn对象的存储空间"></p>
+<p>sutdent对象的3个变量分别有自己的地址。而stu指向isa指针的地址。因此stu的地址为0x100400110，stu对象在内存中占用16个字节的空间。并且经过赋值，_no里面存储4 ，_age里面存储5</p>
+<p>验证Student在内存中模样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">struct Student_IMPL &#123;</span><br><span class="line">    Class isa;</span><br><span class="line">    int _no;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@interface Student : NSObject</span><br><span class="line">&#123;</span><br><span class="line">    @public</span><br><span class="line">    int _no;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Student</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">            // 强制转化</span><br><span class="line">            struct Student_IMPL *stuImpl = (__bridge struct Student_IMPL *)stu;</span><br><span class="line">            NSLog(@&quot;_no = %d, _age = %d&quot;, stuImpl-&gt;_no, stuImpl-&gt;_age); // 打印出 _no = 4, _age = 5</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码将oc对象强转成Student_IMPL的结构体。也就是说把一个指向oc对象的指针，指向这种结构体。由于我们之前猜想，对象在内存中的布局与结构体在内存中的布局相同，那么如果可以转化成功，说明我们的猜想正确。由此说明stu这个对象指向的内存确实是一个结构体。</p>
+<p>实际上想要获取对象占用内存的大小，可以通过更便捷的运行时方法来获取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class_getInstanceSize([Student class])</span><br><span class="line">NSLog(@&quot;%zd,%zd&quot;, class_getInstanceSize([NSObject class]) ,class_getInstanceSize([Student class]));</span><br><span class="line">// 打印信息 8和16</span><br></pre></td></tr></table></figure>
+<h4 id="窥探内存结构"><a href="#窥探内存结构" class="headerlink" title="窥探内存结构"></a>窥探内存结构</h4><p>实时查看内存数据</p>
+<p><strong>方式一：通过打断点。</strong> Debug Workflow -&gt; viewMemory address中输入stu的地址</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1224&quot; height=&quot;596&quot;&gt;&lt;/svg" alt="内存地址"></p>
+<p>从上图中，我们可以发现读取数据从高位数据开始读，查看前16位字节，每四个字节读出的数据为 16进制 0x0000004(4字节) 0x0000005(4字节) isa的地址为 00D1081000001119(8字节)</p>
+<p><strong>方式二：通过lldb指令xcode自带的调试器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">memory read 0x10074c450</span><br><span class="line">// 简写  x 0x10074c450</span><br><span class="line"></span><br><span class="line">// 增加读取条件</span><br><span class="line">// memory read/数量格式字节数  内存地址</span><br><span class="line">// 简写 x/数量格式字节数  内存地址</span><br><span class="line">// 格式 x是16进制，f是浮点，d是10进制</span><br><span class="line">// 字节大小   b：byte 1字节，h：half word 2字节，w：word 4字节，g：giant word 8字节</span><br><span class="line"></span><br><span class="line">示例：x/4xw    //   /后面表示如何读取数据 w表示4个字节4个字节读取，x表示以16进制的方式读取数据，4则表示读取4次</span><br></pre></td></tr></table></figure>
+<p>同时也可以通过lldb修改内存中的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">memory write 0x100400c68 6</span><br><span class="line">将_no的值改为了6</span><br></pre></td></tr></table></figure>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;724&quot; height=&quot;261&quot;&gt;&lt;/svg" alt="lldb读取内存"></p>
+<blockquote>
+<p>那么一个NSObject对象占用多少内存？ <strong>NSObjcet实际上是只有一个名为isa的指针的结构体，因此占用一个指针变量所占用的内存空间大小，如果64bit占用8个字节，如果32bit占用4个字节。</strong></p>
+</blockquote>
+<h2 id="更复杂的继承关系"><a href="#更复杂的继承关系" class="headerlink" title="更复杂的继承关系"></a>更复杂的继承关系</h2><blockquote>
+<p>面试题：在64bit环境下， 下面代码的输出内容？</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/* Person */</span><br><span class="line">@interface Person : NSObject</span><br><span class="line">&#123;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Person</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">/* Student */</span><br><span class="line">@interface Student : Person</span><br><span class="line">&#123;</span><br><span class="line">    int _no;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Student</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line"></span><br><span class="line">        NSLog(@&quot;%zd  %zd&quot;,</span><br><span class="line">              class_getInstanceSize([Person class]),</span><br><span class="line">              class_getInstanceSize([Student class])</span><br><span class="line">              );</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这道面试题的实质是想问一个Person对象，一个Student对象分别占用多少内存空间？</p>
+</blockquote>
+<p>我们依据上面的分析与发现，类对象实质上是以结构体的形式存储在内存中，画出真正的内存图例</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1056&quot; height=&quot;554&quot;&gt;&lt;/svg" alt="person对象和student对象内存结构"></p>
+<p><strong>我们发现只要是继承自NSObject的对象，那么底层结构体内一定有一个isa指针。</strong> 那么他们所占的内存空间是多少呢？单纯的将指针和成员变量所占的内存相加即可吗？上述代码实际打印的内容是16 16，也就是说，person对象和student对象所占用的内存空间都为16个字节。 其实实际上person对象确实只使用了12个字节。但是因为内存对齐的原因。使person对象也占用16个字节。</p>
+<blockquote>
+<p>编译器在给结构体开辟空间时，首先找到结构体中最宽的基本数据类型，然后寻找内存地址能是该基本数据类型的整倍的位置，作为结构体的首地址。将这个最宽的基本数据类型的大小作为对齐模数。 为结构体的一个成员开辟空间之前，编译器首先检查预开辟空间的首地址相对于结构体首地址的偏移是否是本成员的整数倍，若是，则存放本成员，反之，则在本成员和上一个成员之间填充一定的字节，以达到整数倍的要求，也就是将预开辟空间的首地址后移几个字节。</p>
+<p>我们可以总结内存对齐为两个原则： <strong>原则 1. 前面的地址必须是后面的地址正数倍,不是就补齐。</strong> <strong>原则 2. 整个Struct的地址必须是最大字节的整数倍。</strong></p>
+</blockquote>
+<p>通过上述内存对齐的原则我们来看，person对象的第一个地址要存放isa指针需要8个字节，第二个地址要存放_age成员变量需要4个字节，根据原则一，8是4的整数倍，符合原则一，不需要补齐。然后检查原则2，目前person对象共占据12个字节的内存，不是最大字节数8个字节的整数倍，所以需要补齐4个字节，因此person对象就占用16个字节空间。</p>
+<p>而对于student对象，我们知道sutdent对象中，包含person对象的结构体实现，和一个int类型的_no成员变量，同样isa指针8个字节，_age成员变量4个字节，_no成员变量4个字节，刚好满足原则1和原则2，所以student对象占据的内存空间也是16个字节。</p>
+<h3 id="OC对象的分类"><a href="#OC对象的分类" class="headerlink" title="OC对象的分类"></a>OC对象的分类</h3><blockquote>
+<p>面试题：OC的类信息存放在哪里。 面试题：对象的isa指针指向哪里。</p>
+</blockquote>
+<p>示例代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">/* Person */ </span><br><span class="line">@interface Person : NSObject &lt;NSCopying&gt;</span><br><span class="line">&#123;</span><br><span class="line">    @public</span><br><span class="line">    int _age;</span><br><span class="line">&#125;</span><br><span class="line">@property (nonatomic, assign) int height;</span><br><span class="line">- (void)personMethod;</span><br><span class="line">+ (void)personClassMethod;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Person</span><br><span class="line">- (void)personMethod &#123;&#125;</span><br><span class="line">+ (void)personClassMethod &#123;&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">/* Student */</span><br><span class="line">@interface Student : Person &lt;NSCoding&gt;</span><br><span class="line">&#123;</span><br><span class="line">    @public</span><br><span class="line">    int _no;</span><br><span class="line">&#125;</span><br><span class="line">@property (nonatomic, assign) int score;</span><br><span class="line">- (void)studentMethod;</span><br><span class="line">+ (void)studentClassMethod;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation Student</span><br><span class="line">- (void)studentMethod &#123;&#125;</span><br><span class="line">+ (void)studentClassMethod &#123;&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;      </span><br><span class="line">        NSObject *object1 = [[NSObject alloc] init];</span><br><span class="line">        NSObject *object2 = [[NSObject alloc] init];</span><br><span class="line"></span><br><span class="line">        Student *stu = [[Student alloc] init];</span><br><span class="line">        [Student load];</span><br><span class="line"></span><br><span class="line">        Person *p1 = [[Person alloc] init];</span><br><span class="line">        p1-&gt;_age = 10;</span><br><span class="line">        [p1 personMethod];</span><br><span class="line">        [Person personClassMethod];</span><br><span class="line">        Person *p2 = [[Person alloc] init];</span><br><span class="line">        p2-&gt;_age = 20;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>OC的类信息存放在哪里</strong> OC对象主要可以分为三种</p>
+<ol>
+<li>instance对象（实例对象）</li>
+<li>class对象（类对象）</li>
+<li>meta-class对象（元类对象）</li>
+</ol>
+<p><strong>instance对象就是通过类alloc出来的对象，每次调用alloc都会产生新的instance对象</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSObjcet *object1 = [[NSObjcet alloc] init];</span><br><span class="line">NSObjcet *object2 = [[NSObjcet alloc] init];</span><br></pre></td></tr></table></figure>
+<p>object1和object2都是NSObject的instace对象（实例对象），但他们是不同的两个对象，并且分别占据着两块不同的内存。 instance对象在内存中存储的信息包括</p>
+<ol>
+<li>isa指针</li>
+<li>其他成员变量</li>
+</ol>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1083&quot; height=&quot;257&quot;&gt;&lt;/svg" alt="instance对象内存"></p>
+<blockquote>
+<p>衍生问题：在上图实例对象中根本没有看到方法，那么实例对象的方法的代码放在什么地方呢？那么类的方法的信息，协议的信息，属性的信息都存放在什么地方呢？</p>
+</blockquote>
+<p><strong>class对象</strong> 我们通过class方法或runtime方法得到一个class对象。class对象也就是类对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class objectClass1 = [object1 class];</span><br><span class="line">Class objectClass2 = [object2 class];</span><br><span class="line">Class objectClass3 = [NSObject class];</span><br><span class="line"></span><br><span class="line">// runtime</span><br><span class="line">Class objectClass4 = object_getClass(object1);</span><br><span class="line">Class objectClass5 = object_getClass(object2);</span><br><span class="line">NSLog(@&quot;%p %p %p %p %p&quot;, objectClass1, objectClass2, objectClass3, objectClass4, objectClass5);</span><br></pre></td></tr></table></figure>
+<p><strong>每一个类在内存中有且只有一个class对象。可以通过打印内存地址证明</strong></p>
+<p>class对象在内存中存储的信息主要包括</p>
+<ol>
+<li>isa指针</li>
+<li>superclass指针</li>
+<li>类的属性信息（@property），类的成员变量信息（ivar）</li>
+<li>类的对象方法信息（instance method），类的协议信息（protocol）</li>
+</ol>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;316&quot; height=&quot;523&quot;&gt;&lt;/svg" alt="class对象在内存中存储的信息图例"></p>
+<p><strong>成员变量的值时存储在实例对象中的，因为只有当我们创建实例对象的时候才为成员变赋值。但是成员变量叫什么名字，是什么类型，只需要有一份就可以了。所以存储在class对象中。</strong></p>
+<p>类方法放在那里？ <strong>元类对象 meta-class</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//runtime中传入类对象此时得到的就是元类对象</span><br><span class="line">Class objectMetaClass = object_getClass([NSObject class]);</span><br><span class="line">// 而调用类对象的class方法时得到还是类对象，无论调用多少次都是类对象</span><br><span class="line">Class cls = [[NSObject class] class];</span><br><span class="line">Class objectClass3 = [NSObject class];</span><br><span class="line">class_isMetaClass(objectMetaClass) // 判断该对象是否为元类对象</span><br><span class="line">NSLog(@&quot;%p %p %p&quot;, objectMetaClass, objectClass3, cls); // 后面两个地址相同，说明多次调用class得到的还是类对象</span><br></pre></td></tr></table></figure>
+<p><strong>每个类在内存中有且只有一个meta-class对象。</strong> meta-class对象和class对象的内存结构是一样的，但是用途不一样，在内存中存储的信息主要包括</p>
+<ol>
+<li>isa指针</li>
+<li>superclass指针</li>
+<li>类的类方法的信息（class method）</li>
+</ol>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;328&quot; height=&quot;355&quot;&gt;&lt;/svg" alt="元类meta-class对象在内存存储的信息图例"></p>
+<p><strong>meta-class对象和class对象的内存结构是一样的，所以meta-class中也有类的属性信息，类的对象方法信息等成员变量，但是其中的值可能是空的。</strong></p>
+<p><strong>对象的isa指针指向哪里</strong></p>
+<ol>
+<li>当对象调用实例方法的时候，我们上面讲到，实例方法信息是存储在class类对象中的，那么要想找到实例方法，就必须找到class类对象，那么此时isa的作用就来了。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[stu studentMethod];</span><br></pre></td></tr></table></figure>
+<p><strong>instance的isa指向class，当调用对象方法时，通过instance的isa找到class，最后找到对象方法的实现进行调用。</strong></p>
+<ol>
+<li>当类对象调用类方法的时候，同上，类方法是存储在meta-class元类对象中的。那么要找到类方法，就需要找到meta-class元类对象，而class类对象的isa指针就指向元类对象</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Student studentClassMethod];</span><br></pre></td></tr></table></figure>
+<p><strong>class的isa指向meta-class 当调用类方法时，通过class的isa找到meta-class，最后找到类方法的实现进行调用</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf24f3b4309?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="isa指针指向图例"></p>
+<ol>
+<li>当对象调用其父类对象方法的时候，又是怎么找到父类对象方法的呢？，此时就需要使用到class类对象superclass指针。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[stu personMethod];</span><br><span class="line">[stu init];</span><br></pre></td></tr></table></figure>
+<p><strong>当Student的instance对象要调用Person的对象方法时，会先通过isa找到Student的class，然后通过superclass找到Person的class，最后找到对象方法的实现进行调用，同样如果Person发现自己没有响应的对象方法，又会通过Person的superclass指针找到NSObject的class对象，去寻找响应的方法</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf24f2e1b3f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="对象调用父类对象方法图例"></p>
+<ol>
+<li>当类对象调用父类的类方法时，就需要先通过isa指针找到meta-class，然后通过superclass去寻找响应的方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Student personClassMethod];</span><br><span class="line">[Student load];</span><br></pre></td></tr></table></figure>
+<p><strong>当Student的class要调用Person的类方法时，会先通过isa找到Student的meta-class，然后通过superclass找到Person的meta-class，最后找到类方法的实现进行调用</strong></p>
+<p>最后又是这张静定的isa指向图，经过上面的分析我们在来看这张图，就显得清晰明了很多。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/7/1629daf2506cccde?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="经典的isa指向图"></p>
+<blockquote>
+<p><strong>对isa、superclass总结</strong></p>
+<ol>
+<li>instance的isa指向class<blockquote>
+<ol>
+<li>class的isa指向meta-class</li>
+<li>meta-class的isa指向基类的meta-class，基类的isa指向自己</li>
+<li>class的superclass指向父类的class，如果没有父类，superclass指针为nil</li>
+<li>meta-class的superclass指向父类的meta-class，基类的meta-class的superclass指向基类的class</li>
+<li>instance调用对象方法的轨迹，isa找到class，方法不存在，就通过superclass找父类</li>
+<li>class调用类方法的轨迹，isa找meta-class，方法不存在，就通过superclass找父类</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<h3 id="如何证明isa指针的指向真的如上面所说？"><a href="#如何证明isa指针的指向真的如上面所说？" class="headerlink" title="如何证明isa指针的指向真的如上面所说？"></a>如何证明isa指针的指向真的如上面所说？</h3><p>我们通过如下代码证明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSObject *object = [[NSObject alloc] init];</span><br><span class="line">Class objectClass = [NSObject class];</span><br><span class="line">Class objectMetaClass = object_getClass([NSObject class]);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;%p %p %p&quot;, object, objectClass, objectMetaClass);</span><br></pre></td></tr></table></figure>
+<p>打断点并通过控制台打印相应对象的isa指针</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c44de565?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="打印object的isa指针和objectClass的地址"></p>
+<p>我们发现object-&gt;isa与objectClass的地址不同，这是因为从64bit开始，isa需要进行一次位运算，才能计算出真实地址。而位运算的值我们可以通过下载<a href="https://link.juejin.im?target=https%3A%2F%2Fopensource.apple.com%2Ftarballs%2Fobjc4%2F" target="_blank" rel="noopener">objc源代码</a>找到。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c4200874?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="ISA_MASK"></p>
+<p>我们通过位运算进行验证。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c453f8d7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="isa通过位运算计算出正确的地址"></p>
+<p>我们发现，object-isa指针地址0x001dffff96537141经过同0x00007ffffffffff8位运算，得出objectClass的地址0x00007fff96537140</p>
+<p>接着我们来验证class对象的isa指针是否同样需要位运算计算出meta-class对象的地址。 当我们以同样的方式打印objectClass-&gt;isa指针时，发现无法打印</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c43ad484?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="p/x objectClass-&gt;isa"></p>
+<p>同时也发现左边objectClass对象中并没有isa指针。我们来到Class内部看一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br><span class="line"></span><br><span class="line">struct objc_class &#123;</span><br><span class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</span><br><span class="line">    const char * _Nonnull name                               OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</span><br><span class="line">    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">&#125; OBJC2_UNAVAILABLE;</span><br><span class="line">/* Use `Class` instead of `struct objc_class *` */</span><br></pre></td></tr></table></figure>
+<p>相信了解过isa指针的同学对objc_class结构体内的内容很熟悉了，今天这里不深入研究，我们只看第一个对象是一个isa指针，为了拿到isa指针的地址，我们自己创建一个同样的结构体并通过强制转化拿到isa指针。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct xx_cc_objc_class&#123;</span><br><span class="line">    Class isa;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Class objectClass = [NSObject class];</span><br><span class="line">struct xx_cc_objc_class *objectClass2 = (__bridge struct xx_cc_objc_class *)(objectClass);</span><br></pre></td></tr></table></figure>
+<p>此时我们重新验证一下</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/4/10/162b03a6c461c298?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="objectClass2-&gt;isa"></p>
+<p>确实，objectClass2的isa指针经过位运算之后的地址是meta-class的地址。</p>
+<h3 id="本文面试题总结："><a href="#本文面试题总结：" class="headerlink" title="本文面试题总结："></a>本文面试题总结：</h3><ol>
+<li><p>一个NSObject对象占用多少内存？ 答：一个指针变量所占用的大小（64bit占8个字节，32bit占4个字节）</p>
+</li>
+<li><p>对象的isa指针指向哪里？ 答：instance对象的isa指针指向class对象，class对象的isa指针指向meta-class对象，meta-class对象的isa指针指向基类的meta-class对象，基类自己的isa指针也指向自己。</p>
+</li>
+<li><p>OC的类信息存放在哪里？ 答：成员变量的具体值存放在instance对象。对象方法，协议，属性，成员变量信息存放在class对象。类方法信息存放在meta-class对象。</p>
+</li>
+</ol>
+<p>作者：xx_cc<br>链接：<a href="https://juejin.im/post/5ac81c75518825556534c0af" target="_blank" rel="noopener">https://juejin.im/post/5ac81c75518825556534c0af</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Object本质/" rel="tag"># Object本质</a>
+          
+            <a href="/tags/isa/" rel="tag"># isa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" rel="next" title="[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices">
+                <i class="fa fa-chevron-left"></i> [WWDC2018] - 图像最佳实践 Image and Graphics Best Practices
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/05/iOS底层原理总结-探寻Class的本质/" rel="prev" title="iOS底层原理总结 - 探寻Class的本质">
+                iOS底层原理总结 - 探寻Class的本质 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han Liu</p>
+              <p class="site-description motion-element" itemprop="description">Think in Different</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS底层原理总结-探寻OC对象的本质"><span class="nav-number">1.</span> <span class="nav-text">iOS底层原理总结 - 探寻OC对象的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义类的内部实现"><span class="nav-number">1.0.1.</span> <span class="nav-text">自定义类的内部实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#窥探内存结构"><span class="nav-number">1.0.2.</span> <span class="nav-text">窥探内存结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更复杂的继承关系"><span class="nav-number">2.</span> <span class="nav-text">更复杂的继承关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OC对象的分类"><span class="nav-number">2.1.</span> <span class="nav-text">OC对象的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何证明isa指针的指向真的如上面所说？"><span class="nav-number">2.2.</span> <span class="nav-text">如何证明isa指针的指向真的如上面所说？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文面试题总结："><span class="nav-number">2.3.</span> <span class="nav-text">本文面试题总结：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han Liu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/';
+          this.page.identifier = '2018/07/05/iOS底层原理总结-探寻OC对象的本质/';
+          this.page.title = 'iOS底层原理总结 - 探寻OC对象的本质';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hanangellove.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

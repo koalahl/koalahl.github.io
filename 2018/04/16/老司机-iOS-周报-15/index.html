@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="老司机 iOS 周报，只为你呈现有价值的信息。你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老司机 iOS 周报 #15">
+<meta property="og:url" content="http://hl1987.com/2018/04/16/老司机-iOS-周报-15/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="老司机 iOS 周报，只为你呈现有价值的信息。你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1">
+<meta property="og:updated_time" content="2018-05-25T01:28:34.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老司机 iOS 周报 #15">
+<meta name="twitter:description" content="老司机 iOS 周报，只为你呈现有价值的信息。你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hl1987.com/2018/04/16/老司机-iOS-周报-15/"/>
+
+
+
+
+
+  <title>老司机 iOS 周报 #15 | 寒流‘s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-算法">
+          <a href="/categories/algorithm" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-原理">
+          <a href="/categories/principle" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            原理
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-图形图像">
+          <a href="/categories/graphic" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            图形图像
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-性能">
+          <a href="/categories/performance" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            性能
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-面试集">
+          <a href="/categories/iOSInterview" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            面试集
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-读源码">
+          <a href="/categories/sourcecode" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            读源码
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客">
+          <a href="/link" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            博客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hl1987.com/2018/04/16/老司机-iOS-周报-15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">老司机 iOS 周报 #15</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-16T14:25:38+08:00">
+                2018-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/swiftOldDriver/" itemprop="url" rel="index">
+                    <span itemprop="name">swiftOldDriver</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/16/老司机-iOS-周报-15/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/16/老司机-iOS-周报-15/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" alt=""></p>
+<p>老司机 iOS 周报，只为你呈现有价值的信息。<br>你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。</p>
+<a id="more"></a>
+<p>###文章<br>🐢 🌟 <a href="http://cocoa-chen.github.io/2018/03/01/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAGCD%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/" target="_blank" rel="noopener">深入浅出 GCD 系列文章</a><br>这是 cocoa-chen 阅读 GCD 源码后分享的系列文章。该系列文章以常用的 5 个 GCD API 为切入点，从『使用场景』到『原理深究』再到『总结』循序渐进十分细致地阐述了 GCD 是怎么实现这些 API 来管理维护线程池的。系列文章一共有 6 篇，大家可以各取所需：</p>
+<ul>
+<li>深入浅出 GCD 之基础篇</li>
+<li>深入浅出 GCD 之 dispatch_queue</li>
+<li>深入浅出 GCD 之 dispatch_semaphore</li>
+<li>深入浅出 GCD 之 dispatch_group</li>
+<li>深入浅出 GCD 之 dispatch_once</li>
+<li>深入浅出 GCD 之 dispatch_source</li>
+</ul>
+<p>🐢 <a href="https://kemchenj.github.io/2016-12-25-1/" target="_blank" rel="noopener">深入理解 Swift 派发机制(英文原文)</a><br>2016 年的一篇文章，主要内容是讲关于 Swift 各种类型的方法派发机制，以及 NSObject 与 Swift 原生类型的差异等等，读完这篇文章我才第一次对于 Swift 的派发机制有了比较清晰全面的认识，虽然有一小部分内容已经过时了，但还是强烈推荐大家看一下。</p>
+<p>🐎 <a href="http://mrpeak.cn/blog/ios-instacrash-reporting/" target="_blank" rel="noopener">iOS App 连续闪退时如何上报 crash 日志</a><br>如果是我们自己开发一套 crash 日志收集系统的话，可能就会发现在 App 启动阶段就连续闪退的场景下往往无法正确上报崩溃日志。Peak 从『如何检测连续闪退』和『如何在闪退后继续上传日志』两方面分析和解决了这个痛点。<br>另外，微信读书团队以前也分享过类似的方案——<a href="https://wereadteam.github.io/2016/05/23/GYBootingProtection/" target="_blank" rel="noopener">iOS 启动连续闪退保护方案</a>，并且该方案额外集成了自修复系统。</p>
+<p>🐎 <a href="https://www.raywenderlich.com/189082/how-to-keep-learning-after-50-and-other-ways-to-hack-your-brain-at-any-age" target="_blank" rel="noopener">How To Keep Learning After 50 and Other Ways to Hack Your Brain at any Age</a><br>这篇文章通过介绍了“神经可塑性”（Neuroplastcity）理论，论证了活到老、学到老是有科学依据的。不仅如此，该文还提出年龄逐渐变大之后如何“hack”自己的大脑来让自己更有效的学习的方法。有趣的是，文章为了讨论这个话题，还邀请了 25 名年长的艺术家、教练和程序员来参与调查，他们中几乎所有都在持续的学习，尤其是其中还有从 Fortran 一路写到 Swift 的程序员，可以说是相当资深了。<br>作为焦虑的准中年程序员，这篇文章对我的触动可谓是很大的。除了内容本身值得思考之外，文风读起来就像《老人与海》那样充满力量感。值得收藏！</p>
+<p>🐢 <a href="https://medium.com/@slavapestov/behind-the-scenes-improvements-in-swift-4-1-269dd56e30c2" target="_blank" rel="noopener">Behind-the scenes improvements in Swift 4.1</a><br>掌握编程语言的设计与实现一直以来都处于技术圈鄙视链的顶端，相信绝大多数程序员都曾经跃跃欲试。如果你是对 Swift 语言的实现原理感兴趣的同学，一定不要错过这篇文章。<br>文章标题看上去好像也就是列举一下 Swift4.1 一些改进，但实际上是针对 Swift 语言设计上面临的诸多问题和解决方案进行了深入讨论，包括但不限于为什么 protocol 中默认实现的方法不能返回 self，OC 类桥接到 Swift 中都发生了什么，以及泛型参数支持中父子关系如何实现等等。看完后对于”为什么 4.1 的编译速度好像变快了？”以及”Swift 的 ABI 什么时候才能稳定？”这两个经典问题，你应该会有自己的答案。</p>
+<p>🐕 ✨✨<a href="https://mp.weixin.qq.com/s/DwDzOcQZIK9vd6FQTyuIWQ" target="_blank" rel="noopener">工程师如何在工作中提升自己？</a><br>美团点评技术团队刘丁对工程师发展的一些思考和总结，写的很全面。文章第一部分阐述了一些学习的原则；二部分分析了作者在工作中碰到和看到的一些典型困惑；第三部分剖析架构师的能力模型，让大家对目标所需能力有一个比较清晰的认知。</p>
+<p>🐎 <a href="https://mp.weixin.qq.com/s/t1P0mw9Hf4y27EiZB2biXw" target="_blank" rel="noopener">如何快速成长为技术大牛</a><br>技术人员天天写业务代码还加班，如何才能成为技术大牛？，文章列出了一些典型的误区及正确做法：Do more、Do better、Do exercise。</p>
+<p>🐎 <a href="https://www.objc.io/blog/2018/04/10/local-vars/" target="_blank" rel="noopener">Swift Tip: Local Computed Variables</a><br>本文介绍了一种通过在函数体内部声明计算属性从而实现局部代码复用的编码方法，不过也仅仅是代码复用，性能方面木有任何提升，类似于一个局部函数，感兴趣的同学可以了解一下。</p>
+<p>🐕 <a href="https://ming1016.github.io/2018/04/07/read-snapkit-and-masonry-source-code/" target="_blank" rel="noopener">读 SnapKit 和 Masonry 自动布局框架源码</a><br>介绍了主流 AutoLayout 布局框架 SnapKit 和 Masonry 源码结构。SnapKit 的设计思路很好理解，也有值得学习的设计经验。如果自己先尝试读读源码再看这篇文章会比较好理解。</p>
+<p>🐢 <a href="https://www.macstories.net/ios/11-tips-for-working-on-the-ipad/" target="_blank" rel="noopener">11 Tips for Working on the iPad</a><br>MacStories 整理了 11 条指南和小窍门，帮你提高 iPad 在 iOS 11 下的生产力。从外接键盘推荐和快捷键到手势和 Siri，全都是 Federico Viticci 日常使用 iPad Pro 的小技巧。</p>
+<p>🐕 <a href="https://medium.com/s23nyc-tech/prototyping-animations-in-swift-97a9cfb1f41b" target="_blank" rel="noopener">iOS 中制作原型动画的一些方式</a><br>介绍了两种动画原型的制作方式。利用 Xcode 的 playground 和 PaintCode。在我看来这两种方式其实都有缺点。playground 编译速度太慢并且调参还是用代码。效果基本靠蒙。PaintCode 适用范围太局限。基本都是绘制路径。现在最强的的原型工具应该是 Principle。</p>
+<p>🐎 <a href="https://github.com/fastlane/ci/releases/tag/1.0.0.alpha.1" target="_blank" rel="noopener">fastlane 发布 CI aplha 版本</a><br>alpha 版本发布了。其实关于公司的自动化也是老生常谈的问题了。<br>体验比较好的自动化配置在我看来是，Slack + Xcode server + Fastlane + Phabricator + Arcanist + Trello(jira)。有兴趣的同学可以研究一下。</p>
+<p>###工具<br><a href="https://developer.apple.com/ibm/" target="_blank" rel="noopener">IBM Watson Services for Core ML</a><br>Watson Services 是 IBM 的人工智能实验室提供对外的 AI 服务，包含了聊天对话/视觉识别/语音处理/语言翻译等多方面能力，而 IBM Watson Services for Core ML 是 IBM 与苹果合作的，将 Watson Services 的 AI 能力与苹果的 CoreML 相结合移动端 AI 服务，以 SDK 的形式接入移动端，方便开发者快速构建具有 AI 能力的 App。</p>
+<p><a href="">苹果产品购买时机建议</a><br>苹果更新其产品的时候往往是该产品的最佳购买时机，如果错过了，那么可以在这个网站上找到购买建议，网站会根据该产品距离上次更新的时长，以及历史以来的平均更新周期给出指导，并收集了产品相关的最新传闻给与你作为参考。</p>
+<p>###内推<br>奇志信息科技: 杭州/广州 iOS 工程师<br>我（@没故事的卓同学）现在的公司，Swift 开发，应用支持从 iOS 10 开始，杭州和广州都有研发团队，无人机应用方向。iOS、Android、前端、UI 都招，感兴趣的朋友欢迎简历投到 hr@kiwiinc.net 。</p>
+<p>上海享物说网络科技有限公司：上海 iOS 工程师<br>我 (@EyreFree) 现在所在的公司，位于上海宜山路地铁站附近，主营内容为二手互送社区，Swift 开发，应用支持从 iOS 9 开始。除 iOS 职位以外，还有 Web 前端 / Android 工程师等岗位空缺，求三年左右经验的大佬，三餐供应，住宿补贴。感兴趣的朋友欢迎简历投到 eyrefree@eyrefree.org。</p>
+<p>###专栏<br><a href="https://xiaozhuanlan.com/onevcat" target="_blank" rel="noopener">onevcat 的小专栏：开发笔记簿</a><br>记录了喵神日常开发时遇到的问题和解决方案，同时也会收藏一些学习时记录的笔记，随想等。定价 ¥99，因为至少会有一两年的长期更新，所以这个价格是非常良心的。而且目前已经更新了 9 篇，涉及的范围也比较广，值得订阅！</p>
+<p>###福利<br><a href="https://h5.weidian.com/m/coupon/get.html?coupon_id=5618711&amp;shop_id=457915687" target="_blank" rel="noopener">周报读者专属 Reveal 50 元优惠券</a><br>我们和 Price Tag 的合作，给读者送一个小福利，点击上面链接可以领取 Reveal 14 优惠券。领取后到这里可以使用：购买链接 。</p>
+<p>关注我们<br>我们开通了公众号，每期发布时公众号会推送消息，欢迎关注。</p>
+<p>作者：老司机iOS周报<br>链接：<a href="https://juejin.im/post/5ad437596fb9a028d567933a" target="_blank" rel="noopener">https://juejin.im/post/5ad437596fb9a028d567933a</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/08/一次iOS-EXC-BAD-ACCESS-的分析解决过程/" rel="next" title="一次iOS EXC_BAD_ACCESS 的分析解决过程">
+                <i class="fa fa-chevron-left"></i> 一次iOS EXC_BAD_ACCESS 的分析解决过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/20/深入理解iOS-Rendering-Process/" rel="prev" title="深入理解iOS Rendering Process">
+                深入理解iOS Rendering Process <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han Liu</p>
+              <p class="site-description motion-element" itemprop="description">Think in Different</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han Liu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://hl1987.com/2018/04/16/老司机-iOS-周报-15/';
+          this.page.identifier = '2018/04/16/老司机-iOS-周报-15/';
+          this.page.title = '老司机 iOS 周报 #15';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hanangellove.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

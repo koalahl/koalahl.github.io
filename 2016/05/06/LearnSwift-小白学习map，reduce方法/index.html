@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LearnSwift," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="数组的map、reduce方法">
+<meta name="keywords" content="LearnSwift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LearnSwift-小白学习map，reduce方法">
+<meta property="og:url" content="http://hl1987.com/2016/05/06/LearnSwift-小白学习map，reduce方法/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="数组的map、reduce方法">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://hl1987.com/img/￥0类型.png">
+<meta property="og:image" content="http://hl1987.com/img/$1类型.png">
+<meta property="og:updated_time" content="2016-05-06T13:30:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LearnSwift-小白学习map，reduce方法">
+<meta name="twitter:description" content="数组的map、reduce方法">
+<meta name="twitter:image" content="http://hl1987.com/img/￥0类型.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hl1987.com/2016/05/06/LearnSwift-小白学习map，reduce方法/"/>
+
+
+
+
+
+  <title>LearnSwift-小白学习map，reduce方法 | 寒流‘s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-算法">
+          <a href="/categories/algorithm" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-原理">
+          <a href="/categories/principle" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            原理
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-图形图像">
+          <a href="/categories/graphic" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            图形图像
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-性能">
+          <a href="/categories/performance" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            性能
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-面试集">
+          <a href="/categories/iOSInterview" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            面试集
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-读源码">
+          <a href="/categories/sourcecode" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            读源码
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客">
+          <a href="/link" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            博客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hl1987.com/2016/05/06/LearnSwift-小白学习map，reduce方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LearnSwift-小白学习map，reduce方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-06T21:30:01+08:00">
+                2016-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/05/06/LearnSwift-小白学习map，reduce方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/05/06/LearnSwift-小白学习map，reduce方法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数组的map、reduce方法</p>
+<a id="more"></a>
+<p>map方法将遍历序列中每个元素<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">map</span> &#123; (i) -&gt; <span class="type">Int</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> i * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>简化版<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">map</span>(&#123;$<span class="number">0</span> * <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>reduce: i 这里是一个累加器（并不表示相加），保存了前一次运算的结果。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">reduce</span>(<span class="number">1</span>) &#123; (i, element) -&gt; <span class="type">Int</span> <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(i,element)</span><br><span class="line">    <span class="keyword">return</span> i * element</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的reduce方法可以简化为<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>].<span class="built_in">reduce</span>(<span class="number">1</span>, combine: *)</span><br></pre></td></tr></table></figure></p>
+<p>下面来看看flatMap,该函数会忽略为nil的集合元素。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> persons: [[<span class="type">String</span>: <span class="type">AnyObject</span>]] = [[<span class="string">"name"</span>: <span class="string">"Carl Saxon"</span>, <span class="string">"city"</span>: <span class="string">"New York, NY"</span>, <span class="string">"age"</span>: <span class="number">44</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Travis Downing"</span>, <span class="string">"city"</span>: <span class="string">"El Segundo, CA"</span>, <span class="string">"age"</span>: <span class="number">34</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Liz Parker"</span>, <span class="string">"city"</span>: <span class="string">"San Francisco, CA"</span>, <span class="string">"age"</span>: <span class="number">32</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"John Newden"</span>, <span class="string">"city"</span>: <span class="string">"New Jersey, NY"</span>, <span class="string">"age"</span>: <span class="number">21</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Hector Simons"</span>, <span class="string">"city"</span>: <span class="string">"San Diego, CA"</span>, <span class="string">"age"</span>: <span class="number">37</span>],</span><br><span class="line">                                      [<span class="string">"name"</span>: <span class="string">"Brian Neo"</span>, <span class="string">"age"</span>: <span class="number">27</span>]] <span class="comment">//注意这家伙没有 city 键值</span></span><br><span class="line"><span class="comment">//找到住在CA的居民。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">peopleFromState</span><span class="params">(state:String,persons:[[String:AnyObject]])</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> persons.flatMap &#123; $<span class="number">0</span>[<span class="string">"city"</span>]?.componentsSeparatedByString(<span class="string">", "</span>).last&#125;.<span class="built_in">filter</span> &#123; $<span class="number">0</span> == state&#125;.<span class="built_in">count</span></span><br><span class="line">&#125;</span><br><span class="line">peopleFromState(<span class="string">"CA"</span>, persons: persons)</span><br></pre></td></tr></table></figure></p>
+<p>用reduce实现map、flatMap<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rmap</span><span class="params">(element:[Int],transform:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Int</span> ) -&gt;[<span class="type">Int</span>]&#123;</span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123; (<span class="keyword">var</span> accemulator:[<span class="type">Int</span>], obj:<span class="type">Int</span>) -&gt; [<span class="type">Int</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(accemulator,obj)</span><br><span class="line">        accemulator.append(transform(obj))</span><br><span class="line">        <span class="keyword">return</span> accemulator</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rmap([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], transform: &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rmap2</span><span class="params">(element:[Int],transform:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Int</span>) -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123;$<span class="number">0</span>  + [transform($<span class="number">1</span>)]&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> array = rmap2([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], transform: &#123;$<span class="number">0</span> * <span class="number">2</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(array)</span><br><span class="line"></span><br><span class="line">结果都是[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>]</span><br></pre></td></tr></table></figure>
+<p>理解 <code>$0, $1</code><br>$0,$1是一个常量，类型根据所在函数的参数类型决定。<br><img src="/img/￥0类型.png" alt=""><br><img src="/img/$1类型.png" alt=""><br>为何它们是这个类型呢？<br>其所在函数是combine，那么$0和$1的类型都是由combine这个(函数/闭包/方法)的第二个参数类型决定的。所以我们来看看reduce函数的定义：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">reduce</span>&lt;T&gt;<span class="params">(initial: T, @noescape combine: <span class="params">(T, <span class="keyword">Self</span>.Generator.Element)</span></span></span> <span class="keyword">throws</span> -&gt; <span class="type">T</span>) <span class="keyword">rethrows</span></span><br></pre></td></tr></table></figure></p>
+<p>$0代表第一个参数，其类型这里是[Int],$1代表的是combine内的第二个参数，所以其类型就是Int的。</p>
+<p>用reduce实现filter<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rfilter</span><span class="params">(element:[Int],<span class="built_in">filter</span>:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Bool</span>)-&gt; [<span class="type">Int</span>]&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123; (<span class="keyword">var</span> acc:[<span class="type">Int</span>], value:<span class="type">Int</span>) -&gt; [<span class="type">Int</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">filter</span>(value)&#123;</span><br><span class="line">            acc.append(value)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> acc</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> xxc = rfilter([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], <span class="built_in">filter</span>: &#123; $<span class="number">0</span> &gt; <span class="number">3</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(xxc)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rfilter2</span><span class="params">(element:[Int],<span class="built_in">filter</span>:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Bool</span>)-&gt; [<span class="type">Int</span>]&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> element.<span class="built_in">reduce</span>([<span class="type">Int</span>](), combine: &#123; <span class="keyword">guard</span> <span class="built_in">filter</span>($<span class="number">1</span>) <span class="keyword">else</span>&#123; <span class="keyword">return</span> $<span class="number">0</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> $<span class="number">0</span> + [$<span class="number">1</span>]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> oos = rfilter2([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], <span class="built_in">filter</span>: &#123;$<span class="number">0</span> &gt; <span class="number">3</span> &#125;)</span><br><span class="line"><span class="built_in">print</span>(oos)</span><br></pre></td></tr></table></figure></p>
+<p>再看前面提过的问题：找到住在CA的居民。并且计算他们的平均年龄<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">peopleFromState</span><span class="params">(state:String,persons:[[String:AnyObject]])</span></span> -&gt; (population:<span class="type">Int</span>,averageAge:<span class="type">CGFloat</span>)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//return persons.flatMap &#123; $0["city"]?.componentsSeparatedByString(", ").last&#125;.filter &#123; $0 == state&#125;.count</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Result</span> = (population:<span class="type">Int</span>,averageAge:<span class="type">CGFloat</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> u = persons.<span class="built_in">reduce</span>((populatoin:<span class="number">0</span>,averageAge:<span class="number">0.0</span>)) &#123; (<span class="keyword">var</span> result:<span class="type">Result</span>, dic:[<span class="type">String</span>:<span class="type">AnyObject</span>]) -&gt; <span class="type">Result</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> locationStr = dic[<span class="string">"city"</span>]?.componentsSeparatedByString(<span class="string">", "</span>).last,<span class="keyword">let</span> personAge = dic[<span class="string">"age"</span>] <span class="keyword">where</span> locationStr == state <span class="keyword">else</span>&#123; <span class="keyword">return</span> result&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (result.population + <span class="number">1</span>,result.averageAge + <span class="type">CGFloat</span>(personAge <span class="keyword">as</span>! <span class="type">NSNumber</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (u.populatoin,u.averageAge / <span class="type">CGFloat</span>(u.populatoin))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result = peopleFromState(<span class="string">"CA"</span>, persons: persons)</span><br><span class="line">result.population <span class="comment">// 3</span></span><br><span class="line">result.averageAge <span class="comment">// 34.333333334</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LearnSwift/" rel="tag"># LearnSwift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/28/Learn-Swift-Section-Four-扩展、协议、泛型/" rel="next" title="Learn Swift - Section 4th 扩展、协议、泛型">
+                <i class="fa fa-chevron-left"></i> Learn Swift - Section 4th 扩展、协议、泛型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/10/《程序员的自我修养》读书笔记-温故知新/" rel="prev" title="《程序员的自我修养》读书笔记-温故知新">
+                《程序员的自我修养》读书笔记-温故知新 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han Liu</p>
+              <p class="site-description motion-element" itemprop="description">Think in Different</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han Liu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://hl1987.com/2016/05/06/LearnSwift-小白学习map，reduce方法/';
+          this.page.identifier = '2016/05/06/LearnSwift-小白学习map，reduce方法/';
+          this.page.title = 'LearnSwift-小白学习map，reduce方法';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hanangellove.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

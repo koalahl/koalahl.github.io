@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="runtime," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看Apple开源的Runtime代码 和Rumtime编程指南 。 本文总结一些其常用的方法。">
+<meta name="keywords" content="runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Runtime的运用和减少应用崩溃">
+<meta property="og:url" content="http://hl1987.com/2018/06/08/Runtime的运用和减少应用崩溃/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看Apple开源的Runtime代码 和Rumtime编程指南 。 本文总结一些其常用的方法。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-886229082decc1c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-cc6760e06809b906.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-c172fdcefb800b4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-fe53c4089117125c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-bbdd92ab3525f7a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-68b9595bcfbeea46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/282">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-cd35b30a7aac027b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/225">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-a5d56f29800661d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/301">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-fb48a73483a7a5b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/192">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1608265-eaedc8b99447b10a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259">
+<meta property="og:updated_time" content="2018-06-08T05:29:43.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Runtime的运用和减少应用崩溃">
+<meta name="twitter:description" content="Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看Apple开源的Runtime代码 和Rumtime编程指南 。 本文总结一些其常用的方法。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1608265-886229082decc1c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hl1987.com/2018/06/08/Runtime的运用和减少应用崩溃/"/>
+
+
+
+
+
+  <title>Runtime的运用和减少应用崩溃 | 寒流‘s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-算法">
+          <a href="/categories/algorithm" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-原理">
+          <a href="/categories/principle" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            原理
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-图形图像">
+          <a href="/categories/graphic" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            图形图像
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-性能">
+          <a href="/categories/performance" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            性能
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-面试集">
+          <a href="/categories/iOSInterview" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            面试集
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-读源码">
+          <a href="/categories/sourcecode" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            读源码
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客">
+          <a href="/link" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            博客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hl1987.com/2018/06/08/Runtime的运用和减少应用崩溃/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Runtime的运用和减少应用崩溃</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-08T13:27:55+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/08/Runtime的运用和减少应用崩溃/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/08/Runtime的运用和减少应用崩溃/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看<a href="https://link.jianshu.com?t=https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="noopener">Apple开源的Runtime代码</a> 和<a href="https://link.jianshu.com?t=https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">Rumtime编程指南</a> 。</p>
+<p>本文总结一些其常用的方法。<br><a id="more"></a></p>
+<h4 id="一、新建测试Demo"><a href="#一、新建测试Demo" class="headerlink" title="一、新建测试Demo"></a>一、新建测试Demo</h4><p>我们先创建一个测试Demo如下图，其中TestClass是一个测试类，TestClass+Category是它的一个分类，NSObject+Runtime封装了一些Runtime的方法。大家可以在这里下载<a href="https://link.jianshu.com?t=https://github.com/lisongrc/RuntimeDemo" target="_blank" rel="noopener">Demo</a>。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-886229082decc1c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259" alt=""></p>
+<p>Demo</p>
+<p>下面是几个类的主要部分：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-cc6760e06809b906.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>TestClass.h</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-c172fdcefb800b4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>TestClass.m</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-fe53c4089117125c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>TestClass+Category.h</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-bbdd92ab3525f7a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt=""></p>
+<p>TestClass+Category.m</p>
+<h4 id="二、Runtime的封装"><a href="#二、Runtime的封装" class="headerlink" title="二、Runtime的封装"></a>二、Runtime的封装</h4><p>接下来我们就来看看NSObject+Runtime中的内容，其对Runtime常用的方法进行了简单的封装：</p>
+<p>Paste_Image.png</p>
+<p>别着急，我们一个一个看。</p>
+<h6 id="1、获取成员变量"><a href="#1、获取成员变量" class="headerlink" title="1、获取成员变量"></a>1、获取成员变量</h6><p>下面这个方法就是获取类的成员变量列表，其中包括属性生成的成员变量。我们可以用ivar_getTypeEncoding()来获取成员变量的类型，用ivar_getName()来获取成员变量的名称：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)fetchIvarList</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    Ivar *ivarList = class_copyIvarList(<span class="keyword">self</span>, &amp;count);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableList = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:count];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">NSMutableDictionary</span> *dic = [<span class="built_in">NSMutableDictionary</span> dictionaryWithCapacity:<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *ivarName = ivar_getName(ivarList[i]);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *ivarType = ivar_getTypeEncoding(ivarList[i]);</span><br><span class="line">        dic[<span class="string">@"type"</span>] = [<span class="built_in">NSString</span> stringWithUTF8String: ivarType];</span><br><span class="line">        dic[<span class="string">@"ivarName"</span>] = [<span class="built_in">NSString</span> stringWithUTF8String: ivarName];</span><br><span class="line"></span><br><span class="line">        [mutableList addObject:dic];</span><br><span class="line">    &#125;</span><br><span class="line">    free(ivarList);</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:mutableList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>[TestClass fetchIvarList]</code>方法获取TestClass类的成员变量结果：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-68b9595bcfbeea46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/282" alt=""></p>
+<p>TestClass的成员变量列表</p>
+<h6 id="2、获取属性列表"><a href="#2、获取属性列表" class="headerlink" title="2、获取属性列表"></a>2、获取属性列表</h6><p>下面这个方法获取的是属性列表，包括私有和公有属性，也包括分类中的属性：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)fetchPropertyList</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    objc_property_t *propertyList = class_copyPropertyList(<span class="keyword">self</span>, &amp;count);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableList = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:count];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(propertyList[i]);</span><br><span class="line">        [mutableList addObject:[<span class="built_in">NSString</span> stringWithUTF8String:propertyName]];</span><br><span class="line">    &#125;</span><br><span class="line">    free(propertyList);</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:mutableList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>[TestClass fetchPropertyList]</code>获取TestClass的属性列表结果:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-cd35b30a7aac027b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/225" alt=""></p>
+<p>TestClass的属性列表</p>
+<h6 id="3、获取实例方法"><a href="#3、获取实例方法" class="headerlink" title="3、获取实例方法"></a>3、获取实例方法</h6><p>下面这个方法就是获取类的实例方法列表，包括getter, setter, 分类中的方法等：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)fetchInstanceMethodList</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    Method *methodList = class_copyMethodList(<span class="keyword">self</span>, &amp;count);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableList = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:count];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Method method = methodList[i];</span><br><span class="line">        SEL methodName = method_getName(method);</span><br><span class="line">        [mutableList addObject:<span class="built_in">NSStringFromSelector</span>(methodName)];</span><br><span class="line">    &#125;</span><br><span class="line">    free(methodList);</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:mutableList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>[TestClass fetchInstanceMethodList]</code>获取TestClass的实例方法列表的结果：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-a5d56f29800661d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/301" alt=""></p>
+<p>TestClass实例方法列表</p>
+<h6 id="4、获取类方法列表"><a href="#4、获取类方法列表" class="headerlink" title="4、获取类方法列表"></a>4、获取类方法列表</h6><p>下方这个方法就是获取类的类方法列表：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)fetchClassMethodList</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    Method *methodList = class_copyMethodList(object_getClass(<span class="keyword">self</span>), &amp;count);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableList = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:count];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Method method = methodList[i];</span><br><span class="line">        SEL methodName = method_getName(method);</span><br><span class="line">        [mutableList addObject:<span class="built_in">NSStringFromSelector</span>(methodName)];</span><br><span class="line">    &#125;</span><br><span class="line">    free(methodList);</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:mutableList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>[TestClass fetchClassMethodList]</code>获取TestClass的类方法列表的结果：</p>
+<p>TestClass类方法列表</p>
+<h6 id="5、获取协议列表"><a href="#5、获取协议列表" class="headerlink" title="5、获取协议列表"></a>5、获取协议列表</h6><p>下面是获取类所遵循协议列表的方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)fetchProtocolList</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    __<span class="keyword">unsafe_unretained</span> Protocol **protocolList = class_copyProtocolList(<span class="keyword">self</span>, &amp;count);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *mutableList = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:count];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++ )</span><br><span class="line">    &#123;</span><br><span class="line">        Protocol *protocol = protocolList[i];</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *protocolName = protocol_getName(protocol);</span><br><span class="line">        [mutableList addObject:[<span class="built_in">NSString</span> stringWithUTF8String:protocolName]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSArray</span> arrayWithArray:mutableList];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>[TestClass fetchProtocolList]</code>获取TestClass类所遵循的协议列表的结果：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-fb48a73483a7a5b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/192" alt=""></p>
+<p>TestClass的协议列表</p>
+<h6 id="6、给类添加一个方法"><a href="#6、给类添加一个方法" class="headerlink" title="6、给类添加一个方法"></a>6、给类添加一个方法</h6><p>下面的方法就是给类添加方法。第一个参数是方法的SEL，第二个参数则是提供方法实现的SEL。这个可以用在找不到某个方法时就添加一个，不然有可能会崩溃。详见Demo。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)addMethod:(SEL)methodSel methodImp:(SEL)methodImp;</span><br><span class="line">&#123;</span><br><span class="line">    Method method = class_getInstanceMethod(<span class="keyword">self</span>, methodImp);</span><br><span class="line">    IMP methodIMP = method_getImplementation(method);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *types = method_getTypeEncoding(method);</span><br><span class="line">    class_addMethod(<span class="keyword">self</span>, methodSel, methodIMP, types);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="7、交换实例方法"><a href="#7、交换实例方法" class="headerlink" title="7、交换实例方法"></a>7、交换实例方法</h6><p>下面的方法就是将类的两个实例方法进行交换。如果将originMethod与currentMethod的方法实现进行交换的话，调用originMethod时就会执行currentMethod的内容。详见Demo。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)swapMethod:(SEL)originMethod currentMethod:(SEL)currentMethod;</span><br><span class="line">&#123;</span><br><span class="line">    Method firstMethod = class_getInstanceMethod(<span class="keyword">self</span>, originMethod);</span><br><span class="line">    Method secondMethod = class_getInstanceMethod(<span class="keyword">self</span>, currentMethod);</span><br><span class="line">    method_exchangeImplementations(firstMethod, secondMethod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="8、交换类方法"><a href="#8、交换类方法" class="headerlink" title="8、交换类方法"></a>8、交换类方法</h6><p>下面的方法就是将类的两个类方法进行交换，与交换实例方法类似，详见Demo。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)swapClassMethod:(SEL)originMethod currentMethod:(SEL)currentMethod;</span><br><span class="line">&#123;</span><br><span class="line">    Method firstMethod = class_getClassMethod(<span class="keyword">self</span>, originMethod);</span><br><span class="line">    Method secondMethod = class_getClassMethod(<span class="keyword">self</span>, currentMethod);</span><br><span class="line">    method_exchangeImplementations(firstMethod, secondMethod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="三、利用Runtime减少应用崩溃"><a href="#三、利用Runtime减少应用崩溃" class="headerlink" title="三、利用Runtime减少应用崩溃"></a>三、利用Runtime减少应用崩溃</h4><p>利用交换方法可以减少程序中的崩溃，例如数组越界等等。demo里面的Safe文件夹就是一些防止崩溃的分类，直接放进工程就可以了。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/1608265-eaedc8b99447b10a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/259" alt=""></p>
+<p>Safe</p>
+<p><strong>补充：如果有键盘推到后台崩溃的话，需要到build phase里给NSArray+Safe.m文件加上-fno-objc-arc标识</strong>。</p>
+<p>我们看一个例子，其他的大家可以去demo里面看。</p>
+<p>我们首先把<code>__NSArrayI</code>的<code>objectAtIndex</code>方法换成我们的<code>ls_objectAtIndex</code>，然后方法里面判断但是否越界，是的话直接返回nil：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSClassFromString</span>(<span class="string">@"__NSArrayI"</span>) swapMethod:<span class="keyword">@selector</span>(objectAtIndex:) currentMethod:<span class="keyword">@selector</span>(ls_objectAtIndex:)];</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)ls_objectAtIndex:(<span class="built_in">NSUInteger</span>)index</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &gt;= [<span class="keyword">self</span> count])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> ls_objectAtIndex:index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后当我们想下面这样写的时候就不会崩溃了：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *array = @[<span class="string">@"aa"</span>,<span class="string">@"ddd"</span>];</span><br><span class="line">array[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<p>好了，先说到这里吧。大家可以下载我的<a href="https://link.jianshu.com?t=https://github.com/lisongrc/RuntimeDemo" target="_blank" rel="noopener">demo</a>详细看一下。</p>
+<p>作者：iOS_小松哥<br>链接：<a href="https://www.jianshu.com/p/35971a7e8bf6" target="_blank" rel="noopener">https://www.jianshu.com/p/35971a7e8bf6</a><br>來源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/runtime/" rel="tag"># runtime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/老司机-iOS-周报-20-2018-05-21/" rel="next" title="老司机 iOS 周报 #20 | 2018-05-21">
+                <i class="fa fa-chevron-left"></i> 老司机 iOS 周报 #20 | 2018-05-21
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" rel="prev" title="[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices">
+                [WWDC2018] - 图像最佳实践 Image and Graphics Best Practices <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han Liu</p>
+              <p class="site-description motion-element" itemprop="description">Think in Different</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、新建测试Demo"><span class="nav-number">1.</span> <span class="nav-text">一、新建测试Demo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Runtime的封装"><span class="nav-number">2.</span> <span class="nav-text">二、Runtime的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、获取成员变量"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、获取成员变量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、获取属性列表"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、获取属性列表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、获取实例方法"><span class="nav-number">2.0.3.</span> <span class="nav-text">3、获取实例方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、获取类方法列表"><span class="nav-number">2.0.4.</span> <span class="nav-text">4、获取类方法列表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5、获取协议列表"><span class="nav-number">2.0.5.</span> <span class="nav-text">5、获取协议列表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6、给类添加一个方法"><span class="nav-number">2.0.6.</span> <span class="nav-text">6、给类添加一个方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7、交换实例方法"><span class="nav-number">2.0.7.</span> <span class="nav-text">7、交换实例方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8、交换类方法"><span class="nav-number">2.0.8.</span> <span class="nav-text">8、交换类方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、利用Runtime减少应用崩溃"><span class="nav-number">3.</span> <span class="nav-text">三、利用Runtime减少应用崩溃</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han Liu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://hl1987.com/2018/06/08/Runtime的运用和减少应用崩溃/';
+          this.page.identifier = '2018/06/08/Runtime的运用和减少应用崩溃/';
+          this.page.title = 'Runtime的运用和减少应用崩溃';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hanangellove.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

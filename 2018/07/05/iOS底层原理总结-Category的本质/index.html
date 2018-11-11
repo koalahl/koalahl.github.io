@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Category," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="iOS底层原理总结 - Category的本质面试题 Category的实现原理，以及Category为什么只能加方法不能加属性。 Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？ load、initialize的区别，以及它们在category重写的时候的调用的次序。">
+<meta name="keywords" content="Category">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS底层原理总结 - Category的本质">
+<meta property="og:url" content="http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/index.html">
+<meta property="og:site_name" content="寒流‘s Blog">
+<meta property="og:description" content="iOS底层原理总结 - Category的本质面试题 Category的实现原理，以及Category为什么只能加方法不能加属性。 Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？ load、initialize的区别，以及它们在category重写的时候的调用的次序。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="820" height="177"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1179" height="269"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1135" height="211"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1189" height="823"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="962" height="216"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="689" height="186"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1194" height="311"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="812" height="483"></svg">
+<meta property="og:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="866" height="1250"></svg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfd9a75d82b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfda535671e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdb406d9eb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdbc1e6342?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdd1c21a4f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdf2b67ad6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfde1f6fd84?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe22408f93?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe2225f850?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfde1208b8c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdff879e66?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe32c1889c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2018-07-05T12:47:05.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS底层原理总结 - Category的本质">
+<meta name="twitter:description" content="iOS底层原理总结 - Category的本质面试题 Category的实现原理，以及Category为什么只能加方法不能加属性。 Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？ load、initialize的区别，以及它们在category重写的时候的调用的次序。">
+<meta name="twitter:image" content="data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="820" height="177"></svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/"/>
+
+
+
+
+
+  <title>iOS底层原理总结 - Category的本质 | 寒流‘s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">寒流‘s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">编程与生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-算法">
+          <a href="/categories/algorithm" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-原理">
+          <a href="/categories/principle" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            原理
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-图形图像">
+          <a href="/categories/graphic" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            图形图像
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-性能">
+          <a href="/categories/performance" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            性能
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-面试集">
+          <a href="/categories/iOSInterview" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            面试集
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-读源码">
+          <a href="/categories/sourcecode" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            读源码
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客">
+          <a href="/link" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            博客
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Han Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="寒流‘s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS底层原理总结 - Category的本质</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-05T15:17:42+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/principle/" itemprop="url" rel="index">
+                    <span itemprop="name">principle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/05/iOS底层原理总结-Category的本质/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/05/iOS底层原理总结-Category的本质/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="iOS底层原理总结-Category的本质"><a href="#iOS底层原理总结-Category的本质" class="headerlink" title="iOS底层原理总结 - Category的本质"></a>iOS底层原理总结 - Category的本质</h2><h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><ol>
+<li>Category的实现原理，以及Category为什么只能加方法不能加属性。</li>
+<li>Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</li>
+<li>load、initialize的区别，以及它们在category重写的时候的调用的次序。<a id="more"></a>
+<h3 id="Category的本质"><a href="#Category的本质" class="headerlink" title="Category的本质"></a>Category的本质</h3></li>
+</ol>
+<p>首先我们写一段简单的代码，之后的分析都基于这段代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">Presen类 </span><br><span class="line">// Presen.h</span><br><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">@interface Preson : NSObject</span><br><span class="line">&#123;</span><br><span class="line">    int _age;</span><br><span class="line">&#125;</span><br><span class="line">- (void)run;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Presen.m</span><br><span class="line">#import &quot;Preson.h&quot;</span><br><span class="line">@implementation Preson</span><br><span class="line">- (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;Person - run&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">Presen扩展1</span><br><span class="line">// Presen+Test.h</span><br><span class="line">#import &quot;Preson.h&quot;</span><br><span class="line">@interface Preson (Test) &lt;NSCopying&gt;</span><br><span class="line">- (void)test;</span><br><span class="line">+ (void)abc;</span><br><span class="line">@property (assign, nonatomic) int age;</span><br><span class="line">- (void)setAge:(int)age;</span><br><span class="line">- (int)age;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Presen+Test.m</span><br><span class="line">#import &quot;Preson+Test.h&quot;</span><br><span class="line">@implementation Preson (Test)</span><br><span class="line">- (void)test</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (void)abc</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">- (void)setAge:(int)age</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">- (int)age</span><br><span class="line">&#123;</span><br><span class="line">    return 10;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">Presen分类2</span><br><span class="line">// Preson+Test2.h</span><br><span class="line">#import &quot;Preson.h&quot;</span><br><span class="line">@interface Preson (Test2)</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Preson+Test2.m</span><br><span class="line">#import &quot;Preson+Test2.h&quot;</span><br><span class="line">@implementation Preson (Test2)</span><br><span class="line">- (void)run</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;Person (Test2) - run&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>我们之前讲到过实例对象的isa指针指向类对象，类对象的isa指针指向元类对象，当p调用run方法时，类对象的isa指针找到类对象的isa指针，然后在类对象中查找对象方法，如果没有找到，就通过类对象的superclass指针找到父类对象，接着去寻找run方法。</p>
+<p>那么当调用分类的方法时，步骤是否和调用对象方法一样呢？ <strong>分类中的对象方法依然是存储在类对象中的，同对象方法在同一个地方，那么调用步骤也同调用对象方法一样。如果是类方法的话，也同样是存储在元类对象中。</strong> 那么分类方法是如何存储在类对象中的，我们来通过源码看一下分类的底层结构。</p>
+<h3 id="分类的底层结构"><a href="#分类的底层结构" class="headerlink" title="分类的底层结构"></a>分类的底层结构</h3><p>如何验证上述问题？通过查看分类的源码我们可以找到category_t 结构体。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">struct category_t &#123;</span><br><span class="line">    const char *name;</span><br><span class="line">    classref_t cls;</span><br><span class="line">    struct method_list_t *instanceMethods; // 对象方法</span><br><span class="line">    struct method_list_t *classMethods; // 类方法</span><br><span class="line">    struct protocol_list_t *protocols; // 协议</span><br><span class="line">    struct property_list_t *instanceProperties; // 属性</span><br><span class="line">    // Fields below this point are not always present on disk.</span><br><span class="line">    struct property_list_t *_classProperties;</span><br><span class="line"></span><br><span class="line">    method_list_t *methodsForMeta(bool isMeta) &#123;</span><br><span class="line">        if (isMeta) return classMethods;</span><br><span class="line">        else return instanceMethods;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    property_list_t *propertiesForMeta(bool isMeta, struct header_info *hi);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>从源码基本可以看出我们平时使用categroy的方式，对象方法，类方法，协议，和属性都可以找到对应的存储方式。并且我们发现分类结构体中是不存在成员变量的，因此分类中是不允许添加成员变量的。分类中添加的属性并不会帮助我们自动生成成员变量，只会生成get set方法的声明，需要我们自己去实现。</p>
+<p>通过源码我们发现，分类的方法，协议，属性等好像确实是存放在categroy结构体里面的，那么他又是如何存储在类对象中的呢？ 我们来看一下底层的内部方法探寻其中的原理。 首先我们通过命令行将Preson+Test.m文件转化为c++文件，查看其中的编译过程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc Preson+Test.m</span><br></pre></td></tr></table></figure>
+<p>在分类转化为c++文件中可以看出_category_t结构体中，存放着类名，对象方法列表，类方法列表，协议列表，以及属性列表。</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;820&quot; height=&quot;177&quot;&gt;&lt;/svg" alt="c++文件中category_t结构体"></p>
+<p>紧接着，我们可以看到_method_list_t类型的结构体，如下图所示</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1179&quot; height=&quot;269&quot;&gt;&lt;/svg" alt="对象方法列表结构体"></p>
+<p>上图中我们发现这个结构体<code>_OBJC_$_CATEGORY_INSTANCE_METHODS_Preson_$_Test</code>从名称可以看出是INSTANCE_METHODS对象方法，并且一一对应为上面结构体内赋值。我们可以看到结构体中存储了方法占用的内存，方法数量，以及方法列表。并且从上图中找到分类中我们实现对应的对象方法，test , setAge, age三个方法</p>
+<p>接下来我们发现同样的_method_list_t类型的类方法结构体，如下图所示</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1135&quot; height=&quot;211&quot;&gt;&lt;/svg" alt="类对象方法列表"></p>
+<p>同上面对象方法列表一样，这个我们可以看出是类方法列表结构体 <code>_OBJC_$_CATEGORY_CLASS_METHODS_Preson_$_Test</code>，同对象方法结构体相同，同样可以看到我们实现的类方法，abc。</p>
+<p>接下来是协议方法列表</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1189&quot; height=&quot;823&quot;&gt;&lt;/svg" alt="协议方法列表"></p>
+<p>通过上述源码可以看到先将协议方法通过_method_list_t结构体存储，之后通过_protocol_t结构体存储在<code>_OBJC_CATEGORY_PROTOCOLS_$_Preson_$_Test</code>中同_protocol_list_t结构体一一对应，分别为protocol_count 协议数量以及存储了协议方法的_protocol_t结构体。</p>
+<p>最后我们可以看到属性列表</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;962&quot; height=&quot;216&quot;&gt;&lt;/svg" alt="属性列表结构体"></p>
+<p>属性列表结构体<code>_OBJC_$_PROP_LIST_Preson_$_Test</code>同_prop_list_t结构体对应，存储属性的占用空间，属性属性数量，以及属性列表，从上图中可以看到我们自己写的age属性。</p>
+<p>最后我们可以看到定义了<code>_OBJC_$_CATEGORY_Preson_$_Test</code>结构体，并且将我们上面着重分析的结构体一一赋值，我们通过两张图片对照一下。</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;689&quot; height=&quot;186&quot;&gt;&lt;/svg" alt="_category_t"></p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1194&quot; height=&quot;311&quot;&gt;&lt;/svg" alt="_OBJC_$_CATEGORY_Preson_$_Test"></p>
+<p>上下两张图一一对应，并且我们看到定义<code>_class_t</code>类型的<code>OBJC_CLASS_$_Preson</code>结构体，最后将<code>_OBJC_$_CATEGORY_Preson_$_Test</code>的<code>cls</code>指针指向<code>OBJC_CLASS_$_Preson</code>结构体地址。我们这里可以看出，<code>cls</code>指针指向的应该是分类的主类类对象的地址。</p>
+<p>通过以上分析我们发现。分类源码中确实是将我们定义的对象方法，类方法，属性等都存放在catagory_t结构体中。接下来我们在回到runtime源码查看catagory_t存储的方法，属性，协议等是如何存储在类对象中的。</p>
+<p>首先来到runtime初始化函数</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;812&quot; height=&quot;483&quot;&gt;&lt;/svg" alt="runtime初始化函数"></p>
+<p>接着我们来到 &amp;map_images读取模块（images这里代表模块），来到map_images_nolock函数中找到_read_images函数，在_read_images函数中我们找到分类相关代码</p>
+<p><img src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;866&quot; height=&quot;1250&quot;&gt;&lt;/svg" alt="Discover categories代码"></p>
+<p>从上述代码中我们可以知道这段代码是用来查找有没有分类的。通过_getObjc2CategoryList函数获取到分类列表之后，进行遍历，获取其中的方法，协议，属性等。可以看到最终都调用了remethodizeClass(cls);函数。我们来到remethodizeClass(cls);函数内部查看。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfd9a75d82b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="remethodizeClass函数内部"></p>
+<p>通过上述代码我们发现attachCategories函数接收了类对象cls和分类数组cats，如我们一开始写的代码所示，一个类可以有多个分类。之前我们说到分类信息存储在category_t结构体中，那么多个分类则保存在category_list中。</p>
+<p>我们来到attachCategories函数内部。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfda535671e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="attachCategories函数内部实现"></p>
+<p>上述源码中可以看出，首先根据方法列表，属性列表，协议列表，malloc分配内存，根据多少个分类以及每一块方法需要多少内存来分配相应的内存地址。之后从分类数组里面往三个数组里面存放分类数组里面存放的分类方法，属性以及协议放入对应mlist、proplists、protolosts数组中，这三个数组放着所有分类的方法，属性和协议。 之后通过类对象的data()方法，拿到类对象的class_rw_t结构体rw，在class结构中我们介绍过，class_rw_t中存放着类对象的方法，属性和协议等数据，rw结构体通过类对象的data方法获取，所以rw里面存放这类对象里面的数据。 之后分别通过rw调用方法列表、属性列表、协议列表的attachList函数，将所有的分类的方法、属性、协议列表数组传进去，我们大致可以猜想到在attachList方法内部将分类和本类相应的对象方法，属性，和协议进行了合并。</p>
+<p>我们来看一下attachLists函数内部。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdb406d9eb?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="attachLists函数内部实现"></p>
+<p><strong>上述源代码中有两个重要的数组</strong> <strong>array()-&gt;lists： 类对象原来的方法列表，属性列表，协议列表。</strong> <strong>addedLists：传入所有分类的方法列表，属性列表，协议列表。</strong></p>
+<p>attachLists函数中最重要的两个方法为memmove内存移动和memcpy内存拷贝。我们先来分别看一下这两个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// memmove ：内存移动。</span><br><span class="line">/*  __dst : 移动内存的目的地</span><br><span class="line">*   __src : 被移动的内存首地址</span><br><span class="line">*   __len : 被移动的内存长度</span><br><span class="line">*   将__src的内存移动__len块内存到__dst中</span><br><span class="line">*/</span><br><span class="line">void    *memmove(void *__dst, const void *__src, size_t __len);</span><br><span class="line"></span><br><span class="line">// memcpy ：内存拷贝。</span><br><span class="line">/*  __dst : 拷贝内存的拷贝目的地</span><br><span class="line">*   __src : 被拷贝的内存首地址</span><br><span class="line">*   __n : 被移动的内存长度</span><br><span class="line">*   将__src的内存拷贝__n块内存到__dst中</span><br><span class="line">*/</span><br><span class="line">void    *memcpy(void *__dst, const void *__src, size_t __n);</span><br></pre></td></tr></table></figure>
+<p>下面我们图示经过memmove和memcpy方法过后的内存变化。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdbc1e6342?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="未经过内存移动和拷贝时"></p>
+<p>经过memmove方法之后，内存变化为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// array()-&gt;lists 原来方法、属性、协议列表数组</span><br><span class="line">// addedCount 分类数组长度</span><br><span class="line">// oldCount * sizeof(array()-&gt;lists[0]) 原来数组占据的空间</span><br><span class="line">memmove(array()-&gt;lists + addedCount, array()-&gt;lists, </span><br><span class="line">                  oldCount * sizeof(array()-&gt;lists[0]));</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdd1c21a4f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="memmove方法之后内存变化"></p>
+<p>经过memmove方法之后，我们发现，虽然本类的方法，属性，协议列表会分别后移，但是本类的对应数组的指针依然指向原始位置。</p>
+<p>memcpy方法之后，内存变化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// array()-&gt;lists 原来方法、属性、协议列表数组</span><br><span class="line">// addedLists 分类方法、属性、协议列表数组</span><br><span class="line">// addedCount * sizeof(array()-&gt;lists[0]) 原来数组占据的空间</span><br><span class="line">memcpy(array()-&gt;lists, addedLists, </span><br><span class="line">               addedCount * sizeof(array()-&gt;lists[0]));</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdf2b67ad6?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="memmove方法之后，内存变化"></p>
+<p>我们发现原来指针并没有改变，至始至终指向开头的位置。并且经过memmove和memcpy方法之后，分类的方法，属性，协议列表被放在了类对象中原本存储的方法，属性，协议列表前面。</p>
+<p>那么为什么要将分类方法的列表追加到本来的对象方法前面呢，这样做的目的是为了保证分类方法优先调用，我们知道当分类重写本类的方法时，会覆盖本类的方法。 其实经过上面的分析我们知道本质上并不是覆盖，而是优先调用。本类的方法依然在内存中的。我们可以通过打印所有类的所有方法名来查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (void)printMethodNamesOfClass:(Class)cls</span><br><span class="line">&#123;</span><br><span class="line">    unsigned int count;</span><br><span class="line">    // 获得方法数组</span><br><span class="line">    Method *methodList = class_copyMethodList(cls, &amp;count);</span><br><span class="line">    // 存储方法名</span><br><span class="line">    NSMutableString *methodNames = [NSMutableString string];</span><br><span class="line">    // 遍历所有的方法</span><br><span class="line">    for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        // 获得方法</span><br><span class="line">        Method method = methodList[i];</span><br><span class="line">        // 获得方法名</span><br><span class="line">        NSString *methodName = NSStringFromSelector(method_getName(method));</span><br><span class="line">        // 拼接方法名</span><br><span class="line">        [methodNames appendString:methodName];</span><br><span class="line">        [methodNames appendString:@&quot;, &quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    // 释放</span><br><span class="line">    free(methodList);</span><br><span class="line">    // 打印方法名</span><br><span class="line">    NSLog(@&quot;%@ - %@&quot;, cls, methodNames);</span><br><span class="line">&#125;</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];    </span><br><span class="line">    Preson *p = [[Preson alloc] init];</span><br><span class="line">    [p run];</span><br><span class="line">    [self printMethodNamesOfClass:[Preson class]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过下图中打印内容可以发现，调用的是Test2中的run方法，并且Person类中存储着两个run方法。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfde1f6fd84?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="打印所有方法"></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>问： Category的实现原理，以及Category为什么只能加方法不能加属性?</p>
+<p>答：分类的实现原理是将category中的方法，属性，协议数据放在category_t结构体中，然后将结构体内的方法列表拷贝到类对象的方法列表中。 Category可以添加属性，但是并不会自动生成成员变量及set/get方法。因为category_t结构体中并不存在成员变量。通过之前对对象的分析我们知道成员变量是存放在实例对象中的，并且编译的那一刻就已经决定好了。而分类是在运行时才去加载的。那么我们就无法再程序运行时将分类的成员变量中添加到实例对象的结构体中。因此分类中不可以添加成员变量。</p>
+<h3 id="load-和-initialize"><a href="#load-和-initialize" class="headerlink" title="load 和 initialize"></a>load 和 initialize</h3><p>load方法会在程序启动就会调用，当装载类信息的时候就会调用。 调用顺序看一下源代码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe22408f93?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="load方法调用顺序"></p>
+<p>通过源码我们发现是优先调用类的load方法，之后调用分类的load方法。</p>
+<p>我们通过代码验证一下： 我们添加Student继承Presen类，并添加Student+Test分类，分别重写只+load方法，其他什么都不做通过打印发现</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe2225f850?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="load方法打印"></p>
+<p>确实是优先调用类的load方法之后调用分类的load方法，不过调用类的load方法之前会保证其父类已经调用过load方法。</p>
+<p>之后我们为Preson、Student 、Student+Test 添加initialize方法。 我们知道当类第一次接收到消息时，就会调用initialize，相当于第一次使用类的时候就会调用initialize方法。调用子类的initialize之前，会先保证调用父类的initialize方法。如果之前已经调用过initialize，就不会再调用initialize方法了。当分类重写initialize方法时会先调用分类的方法。但是load方法并不会被覆盖，首先我们来看一下initialize的源码。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfde1208b8c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="initialize调用源码"></p>
+<p>上图中我们发现，initialize是通过消息发送机制调用的，消息发送机制通过isa指针找到对应的方法与实现，因此先找到分类方法中的实现，会优先调用分类方法中的实现。</p>
+<p>我们再来看一下load方法的调用源码</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfdff879e66?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="load方法的调用源码"></p>
+<p>我们看到load方法中直接拿到load方法的内存地址直接调用方法，不在是通过消息发送机制调用。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/6/16335bfe32c1889c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="分类load方法的调用源码"></p>
+<p>我们可以看到分类中也是通过直接拿到load方法的地址进行调用。因此正如我们之前试验的一样，分类中重写load方法，并不会优先调用分类的load方法，而不调用本类中的load方法了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>问：Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</p>
+<p>答：Category中有load方法，load方法在程序启动装载类信息的时候就会调用。load方法可以继承。调用子类的load方法之前，会先调用父类的load方法</p>
+<p>问：load、initialize的区别，以及它们在category重写的时候的调用的次序。</p>
+<p>答：区别在于调用方式和调用时刻 调用方式：load是根据函数地址直接调用，initialize是通过objc_msgSend调用 调用时刻：load是runtime加载类、分类的时候调用（只会调用1次），initialize是类第一次接收到消息的时候调用，每一个类只会initialize一次（父类的initialize方法可能会被调用多次）</p>
+<p>调用顺序：先调用类的load方法，先编译那个类，就先调用load。在调用load之前会先调用父类的load方法。分类中load方法不会覆盖本类的load方法，先编译的分类优先调用load方法。initialize先初始化父类，之后再初始化子类。如果子类没有实现+initialize，会调用父类的+initialize（所以父类的+initialize可能会被调用多次），如果分类实现了+initialize，就覆盖类本身的+initialize调用。</p>
+<p>作者：xx_cc<br>链接：<a href="https://juejin.im/post/5aef0a3b518825670f7bc0f3" target="_blank" rel="noopener">https://juejin.im/post/5aef0a3b518825670f7bc0f3</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Category/" rel="tag"># Category</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/05/iOS底层原理总结-RunLoop/" rel="next" title="iOS底层原理总结 - RunLoop">
+                <i class="fa fa-chevron-left"></i> iOS底层原理总结 - RunLoop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/05/iOS底层原理总结-关联对象实现原理/" rel="prev" title="iOS底层原理总结 - 关联对象实现原理">
+                iOS底层原理总结 - 关联对象实现原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Han Liu</p>
+              <p class="site-description motion-element" itemprop="description">Think in Different</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS底层原理总结-Category的本质"><span class="nav-number">1.</span> <span class="nav-text">iOS底层原理总结 - Category的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试题"><span class="nav-number">1.1.</span> <span class="nav-text">面试题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category的本质"><span class="nav-number">1.2.</span> <span class="nav-text">Category的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类的底层结构"><span class="nav-number">1.3.</span> <span class="nav-text">分类的底层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">1.4.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-和-initialize"><span class="nav-number">1.5.</span> <span class="nav-text">load 和 initialize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Han Liu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://hanangellove.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/';
+          this.page.identifier = '2018/07/05/iOS底层原理总结-Category的本质/';
+          this.page.title = 'iOS底层原理总结 - Category的本质';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://hanangellove.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
