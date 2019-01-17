@@ -1,97 +1,95 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>第 5 页 | 寒流‘s Blog | 编程与生活</title>
-
   
-  <meta name="author" content="Han Liu">
   
-
+    <meta name="description" content="Think in Different">
   
-  <meta name="description" content="Think in Different">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    
+    寒流‘s Blog</title>
   
-
+    <link rel="shortcut icon" href="/favicon.ico">
   
-
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+  <link rel="stylesheet" href="/css/style.css">
   
-
-  <meta property="og:site_name" content="寒流‘s Blog"/>
-
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
   
-  <meta property="og:image" content="/favicon.ico"/>
-  
-
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="寒流‘s Blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <script src="/js/pace.min.js"></script>
 </head>
 
-
 <body>
-<div class="blog">
-  <div class="content">
-
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">寒流‘s Blog</a>
-    </h1>
-    <p class="site-description">编程与生活</p>
+<main class="content">
+  <section class="jumbotron">
+  <div class="video">
+    
+      <div class="video-frame">
+        <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
+      </div>
+    
+    <div class="video-media">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
+             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
+        <source src="/images/ocean/ocean.mp4" type="video/mp4">
+        <source src="/images/ocean/ocean.ogv" type="video/ogg">
+        <source src="/images/ocean/ocean.webm" type="video/webm">
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+    <div class="video-inner text-center text-white">
+      <h1><a href="/">寒流‘s Blog</a></h1>
+      <p>编程与生活</p>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="寒流‘s Blog"></div>
+    </div>
+    <div class="video-learn-more">
+      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+    </div>
   </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">首页</a></li>
-      
-        <li><a href="/categories/arch">架构</a></li>
-      
-        <li><a href="/categories/principle">原理</a></li>
-      
-        <li><a href="/categories/performance">性能</a></li>
-      
-        <li><a href="/categories/iOSInterview">面试集</a></li>
-      
-        <li><a href="/link">博客</a></li>
-      
-        <li><a href="/categories">分类</a></li>
-      
-        <li><a href="/about">关于</a></li>
-      
-    </ul>
-  </nav>
-</header>
+</section>
 
-    <main class="site-main posts-loop">
+<div id="landingpage">
+  <section class="outer">
+  <article class="articles">
     
-  <article>
+    <h1 class="page-type-title"></h1>
 
+    
+      
+        <article id="post-浅谈iOS中的userAgent" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/04/10/浅谈iOS中的userAgent/"><span>浅谈iOS中的userAgent</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/04/10/浅谈iOS中的userAgent/">浅谈iOS中的userAgent</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/04/10/浅谈iOS中的userAgent/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-04-10T14:33:37.000Z">
-          2016-04-10
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/04/10/浅谈iOS中的userAgent/" class="article-date">
+  <time datetime="2016-04-10T14:33:37.000Z" itemprop="datePublished">2016-04-10</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>User-Agent（用户代理）字符串是Web浏览器用于声明自身型号版本并随HTTP请求发送给Web服务器的字符串，在Web服务器上可以获取到该字符串。</p>
 <p>在公司产品中，在userAgent中增加了NetType字段，用于标识客户端当前的网络环境。</p>
@@ -99,694 +97,643 @@
 <li>NetType/WIFI</li>
 <li>NetType/3G<br>web服务器端根据NetType类型加载不同分辨率的商品图片。我们只有两种，WIFI下高清图，非WIFI低分辨率图。</li>
 </ul>
+        
+          <a class="article-more-link" href="/2016/04/10/浅谈iOS中的userAgent/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/04/10/浅谈iOS中的userAgent/" data-id="cjqpafa6k004nnjf0phb30szv"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/userAgent/">userAgent</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/userAgent/">userAgent</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/04/10/浅谈iOS中的userAgent/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-UIButton设置文字图片居中-论UI切图的重要性" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/"><span>UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/">UIButton设置文字图片居中、UIView相关方法以及UI切图的重要性</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-31T06:13:54.000Z">
-          2016-03-31
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" class="article-date">
+  <time datetime="2016-03-31T06:13:54.000Z" itemprop="datePublished">2016-03-31</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>又是一个老生常谈的问题，o(╯□╰)o。UIButton作为最最常用的控件，想必都是很熟悉的。如下图所示的控件中</p>
 <p><img src="/img/ordersButton.png" alt="Order Buttons"></p>
 <p>如此设计在很多电商客户端中都有涉及，也没有什么难度。</p>
 <p>但是我遇到的问题就是任凭如何设置边距，就是对不齐，其中还要考虑屏幕适配的问题。Orz…最后去工程里查看相应的图片大小，才发现每个图片的尺寸宽高都不同，很随意。</p>
 <p>这搞半天，原来是图片尺寸的问题，想想这UI，唉！<br>
+        
+          <a class="article-more-link" href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/" data-id="cjqpafa4q0024njf02yvq74wb"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIButton/">UIButton</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIView/">UIView</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/UIView/">UIView</a><a href="/tags/UIButton/">UIButton</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/31/UIButton设置文字图片居中-论UI切图的重要性/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-Effective-Objective-C-2-0-要点" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/23/Effective-Objective-C-2-0-要点/"><span>Effective-Objective C 2.0 要点</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/23/Effective-Objective-C-2-0-要点/">Effective-Objective C 2.0 要点</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/23/Effective-Objective-C-2-0-要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-23T08:10:35.000Z">
-          2016-03-23
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/23/Effective-Objective-C-2-0-要点/" class="article-date">
+  <time datetime="2016-03-23T08:10:35.000Z" itemprop="datePublished">2016-03-23</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>Effective-Ojective C 2.0 读书笔记</p>
 <p>第一章的内容比较基础，就没有列在笔记当中了。另外该笔记只记录每一个要点之后的总结，重点地方会另外探讨。</p>
+        
+          <a class="article-more-link" href="/2016/03/23/Effective-Objective-C-2-0-要点/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/23/Effective-Objective-C-2-0-要点/" data-id="cjqpafa32000bnjf055zzgc8o"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Effective-Ojective-C-2-0/">Effective-Ojective C 2.0</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Effective-Ojective-C-2-0/">Effective-Ojective C 2.0</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/23/Effective-Objective-C-2-0-要点/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-iOS-蓝牙4-0开发" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/08/iOS-蓝牙4-0开发/"><span>iOS 蓝牙4.0开发</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/08/iOS-蓝牙4-0开发/">iOS 蓝牙4.0开发</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/08/iOS-蓝牙4-0开发/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-08T12:19:39.000Z">
-          2016-03-08
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/08/iOS-蓝牙4-0开发/" class="article-date">
+  <time datetime="2016-03-08T12:19:39.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>iOS 蓝牙4.0开发</p>
 <h2>背景：</h2><br>1.iOS的蓝牙不能用来传输文件。<br>2.iOS与iOS设备之间进行数据通信，使用gameKit.framework<br>3.iOS与其他非iOS设备进行数据通信，使用coreBluetooth.framework<br><br>
+        
+          <a class="article-more-link" href="/2016/03/08/iOS-蓝牙4-0开发/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/08/iOS-蓝牙4-0开发/" data-id="cjqpafa5a002rnjf0qtzhm9gy"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoreBluetooth/">CoreBluetooth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/蓝牙/">蓝牙</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/蓝牙/">蓝牙</a><a href="/tags/CoreBluetooth/">CoreBluetooth</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/08/iOS-蓝牙4-0开发/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-SDWebImage内部实现过程" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/08/SDWebImage内部实现过程/"><span>SDWebImage内部实现过程</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/08/SDWebImage内部实现过程/">SDWebImage内部实现过程</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/08/SDWebImage内部实现过程/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-08T12:15:14.000Z">
-          2016-03-08
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/08/SDWebImage内部实现过程/" class="article-date">
+  <time datetime="2016-03-08T12:15:14.000Z" itemprop="datePublished">2016-03-08</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>SDWebImage内部实现过程(新版本在各方法前加上了sd_前缀，以区分UIImageView+AFNetworking中的方法)</p>
+        
+          <a class="article-more-link" href="/2016/03/08/SDWebImage内部实现过程/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/08/SDWebImage内部实现过程/" data-id="cjqpafa4l001xnjf03v5wd3fe"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDWebImage/">SDWebImage</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/SDWebImage/">SDWebImage</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/08/SDWebImage内部实现过程/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-QRCode的那些事儿" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/05/QRCode的那些事儿/"><span>QRCode与Core Image</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/05/QRCode的那些事儿/">QRCode与Core Image</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/05/QRCode的那些事儿/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-05T14:31:06.000Z">
-          2016-03-05
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/05/QRCode的那些事儿/" class="article-date">
+  <time datetime="2016-03-05T14:31:06.000Z" itemprop="datePublished">2016-03-05</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
 <h2>要讨论的问题</h2><br>在参考<a href="http://www.appcoda.com/qr-code-generator-tutorial/" target="_blank" rel="noopener">Building a QR Code Generator with Core Image Filters</a>这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<a href="https://github.com/koalahl/HLQRCode" target="_blank" rel="noopener">Github·HLQRCode</a>。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br>
+        
+          <a class="article-more-link" href="/2016/03/05/QRCode的那些事儿/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/05/QRCode的那些事儿/" data-id="cjqpafa47001hnjf0ii9pf222"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVFoundation/">AVFoundation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoreImage/">CoreImage</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QRCode/">QRCode</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/QRCode/">QRCode</a><a href="/tags/AVFoundation/">AVFoundation</a><a href="/tags/CoreImage/">CoreImage</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/05/QRCode的那些事儿/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-Xib与之关联的自定义Class" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/03/04/Xib与之关联的自定义Class/"><span>Xib与之关联的自定义Class</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/03/04/Xib与之关联的自定义Class/">Xib与之关联的自定义Class</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/03/04/Xib与之关联的自定义Class/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-03-04T01:37:46.000Z">
-          2016-03-04
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/03/04/Xib与之关联的自定义Class/" class="article-date">
+  <time datetime="2016-03-04T01:37:46.000Z" itemprop="datePublished">2016-03-04</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>最近遇到了一个问题：点击【猜你喜欢】视图进入商品详情后，再返回到首页时，没有原先的数据了。</p>
+        
+          <a class="article-more-link" href="/2016/03/04/Xib与之关联的自定义Class/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/03/04/Xib与之关联的自定义Class/" data-id="cjqpafa50002hnjf0lu99htbk"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/drawRect/">drawRect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xib/">xib</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/xib/">xib</a><a href="/tags/drawRect/">drawRect</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/03/04/Xib与之关联的自定义Class/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-移动IM开发要点" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/02/28/移动IM开发要点/"><span>移动IM开发要点</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/02/28/移动IM开发要点/">移动IM开发要点</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/02/28/移动IM开发要点/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-02-28T14:10:56.000Z">
-          2016-02-28
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/02/28/移动IM开发要点/" class="article-date">
+  <time datetime="2016-02-28T14:10:56.000Z" itemprop="datePublished">2016-02-28</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>个人对于IM开发中客户端与服务器之间的连接比较感兴趣，网搜一篇好文，记录下来。<br>转载于 <a href="http://xiangwangfeng.com/2015/05/20/%E7%A7%BB%E5%8A%A8IM%E5%BC%80%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_blank" rel="noopener">移动IM开发那些事</a></p>
+        
+          <a class="article-more-link" href="/2016/02/28/移动IM开发要点/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/02/28/移动IM开发要点/" data-id="cjqpafa6s0050njf0h082zpsx"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IM/">IM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xmpp/">xmpp</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/IM/">IM</a><a href="/tags/xmpp/">xmpp</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/02/28/移动IM开发要点/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-如何做一个圆形的音量旋钮" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/01/17/如何做一个圆形的音量旋钮/"><span>如何做一个圆形的音量旋钮</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/01/17/如何做一个圆形的音量旋钮/">如何做一个圆形的音量旋钮</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/01/17/如何做一个圆形的音量旋钮/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-01-17T13:47:14.000Z">
-          2016-01-17
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/01/17/如何做一个圆形的音量旋钮/" class="article-date">
+  <time datetime="2016-01-17T13:47:14.000Z" itemprop="datePublished">2016-01-17</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>最近在Medium上浏览一些国外的iOS开发相关的文章，看到感兴趣的便实践一番，记录下来。一来算是学习swift，另一方面则是为了拓宽技术面。</p>
 <p>这篇文章来自<a href="https://medium.com/@karthikkeyan" target="_blank" rel="noopener">Karthik Keyan Balan</a>的<a href="https://medium.com/@karthikkeyan/how-to-create-a-circular-seek-bar-in-ios-edc6e2871cd0#.yqla9v503" target="_blank" rel="noopener">How to create a circular seek bar in iOS</a><br>主要展示了一个圆形的类似音量旋钮的UI控件，用swift实现。如下图，<br><img src="/img/circle seek bar.gif" alt="circle seek bar"></p>
+        
+          <a class="article-more-link" href="/2016/01/17/如何做一个圆形的音量旋钮/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/01/17/如何做一个圆形的音量旋钮/" data-id="cjqpafa6h004knjf0yjp0p515"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift/">swift</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/swift/">swift</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/01/17/如何做一个圆形的音量旋钮/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-  <article>
+      
+        <article id="post-NSURLSession初探" class="article article-type-post" itemscope itemprop="blogPost">
 
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    
-    <h3 class="article-title"><a href="/2016/01/10/NSURLSession初探/"><span>NSURLSession初探</span></a></h3>
-    
+    <h2 itemprop="name">
+      <a class="article-title" href="/2016/01/10/NSURLSession初探/">NSURLSession初探</a>
+    </h2>
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/01/10/NSURLSession初探/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-01-10T14:04:06.000Z">
-          2016-01-10
-        </time>
-      </a>
-    </span>
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2016/01/10/NSURLSession初探/" class="article-date">
+  <time datetime="2016-01-10T14:04:06.000Z" itemprop="datePublished">2016-01-10</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
   </div>
 
+      </div>
+    
 
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
+      
+      
       
         <p>NSURLSession是Apple自iOS7.0之后加入到Cocoa SDK中，用以替代NSURLConnection。它拥有更简洁易懂的API方法。<br>iOS中常用的网络库例如AFNetworking在3.0版本中就全部替换为了NSURLSession。<br>
+        
+          <a class="article-more-link" href="/2016/01/10/NSURLSession初探/">Read More...</a>
+        
       
     </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2016/01/10/NSURLSession初探/" data-id="cjqpafa3u0010njf0jos8rzgg"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSURLSession/">NSURLSession</a></li></ul>
+
+    </footer>
 
   </div>
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+  
 
-    
-      
+  
 
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/iOS/">iOS</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/NSURLSession/">NSURLSession</a>
-    </span>
-    
-
-    </div>
-
-    
-    <div class="article-meta pull-right">
-      <span>
-        <i class="icon-comments"></i>
-        <span>
-          <a href="/2016/01/10/NSURLSession初探/#comment">评论</a>
-        </span>
-      </span>
-    </div>
-    
-  </div>
 </article>
 
 
 
-
-<nav class="pagination">
-  
-  <a href="/page/4/" class="pagination-prev">上一页</a>
+      
+  </article>
   
   
-  <a href="/page/6/" class="pagination-next">下一页</a>
+    <nav class="page-nav">
+      
+      <a class="extend prev" rel="prev" href="/page/4/">Newer posts</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Olde posts</a>
+    </nav>
   
-</nav>
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    <!--
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-  -->
-    
-    &copy; 2019 Han Liu
-    
-  </p>
-</footer>
-    
-  </div>
+</section>
 </div>
+
+  <footer class="footer">
+  
+  <div class="outer">
+    <ul class="list-inline">
+      <li>&copy; 2019 寒流‘s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://zhwangart.github.io">zhwangart</a></li>
+      <!--
+      <li><a href="/">Han Liu</a></li>
+      -->
+    </ul>
+  </div>
+</footer>
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="寒流‘s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Suche">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
 </body>
 </html>
