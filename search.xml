@@ -5,8 +5,12 @@
     <url>%2F2019%2F05%2F29%2F%E5%B0%8F%E6%97%B6%E9%92%9F%E4%BD%BF%E7%94%A8%E8%89%B2%E9%87%87App%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E8%89%B2%2F</url>
     <content type="text"><![CDATA[小时钟新版本核心功能强力上线啦！完全自由的主题配色，小时钟的颜值由你掌控！ 新版本的自定义配色功能可以和色采App配合使用。 1、 首先我们下载并打开色采App，从你身边的风景或者相册中制作一组配色 2、 点击某一组配色，进入编辑页面 3、 点击分享按钮 4、 系统分享组件中选择小时钟。如果没有，滑到最右侧，点击更多种选择。 5、 跳转到小时钟App的自定义配色页面，点击保存，完成啦~ 欢迎大家在即刻App分享自己创作的小时钟主题配色哟~❤️]]></content>
       <categories>
-        <category>App</category>
+        <category>app</category>
       </categories>
+      <tags>
+        <tag>小时钟</tag>
+        <tag>色采</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[隐私政策]]></title>
@@ -296,6 +300,7 @@
     <content type="text"><![CDATA[MVVM in Practice - RWDevCon Session - raywenderlich.com MVVM已经被谈论很多了，却一直没有深入理解和实践，本篇是在观看该视频后的小结。 该视频中讲解了MVC到MVVM的迁移重构和重点，并没有涉及到FRP，初学者可以很快进入MVVM中。 概念MVVM： Model-View-ViewModel。通过分离ViewController中逻辑代码到独立的ViewModel中，实现业务逻辑分离和VC瘦身。 重点：Data BindingiOS中的数据绑定方式： KVO Delegate Funtional Reactive Programming Property Observer 1234567 var str = "Hello, playground" &#123; didSet &#123; print("new str : \(str)") &#125;&#125;str = "hello swift" 实现一个Data Binding类:Box 123456789101112131415161718192021222324252627class Box&lt;T&gt; &#123; typealias Listener = (T) -&gt; Void var listener : Listener? var value:T &#123; didSet &#123; listener?(value) &#125; &#125; init(_ value:T) &#123; self.value = value &#125; func bind(listener:Listener?) &#123; self.listener = listener listener?(value) &#125;&#125;var bindedObj = Box("")bindedObj.bind &#123; print("new value:\($0)")&#125;bindedObj.value = "2017" 可以看出是使用了closure来实现bingding的。同理，Cocoa中的其他类都可以写一个extension实现绑定。 提问环节（只给出回答中的重点内容） 为什么ViewModel使用的是class而不是struct？ Ash：说是因为他认为这个ViewModel中不仅是数据逻辑，还包含有其他功能逻辑代码。 为什么dispatchAfter中使用weak self，而viewController中使用unowned self？ Ash：通常来说，weak修饰的变量有可能是为nil的，而unowned修饰的变量你会保证它不是optional的。 MVVM的Benifits和Limitation Benifits: Breaks up code by responsibility Simplifies Testing Code reusablibity Limitation: Requires binding(or other workarounds) Potential for boilerplate code Sometimes feels like overkill Doesn’t cover every case 延伸阅读 ReactiveCocoa/RxSwift Getting Started With RxSwift and RxCocoa]]></content>
       <categories>
         <category>iOS</category>
+        <category>arch</category>
       </categories>
       <tags>
         <tag>iOS</tag>
