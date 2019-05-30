@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -25,7 +25,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-Block实现原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <article id="post-Block实现原理" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -55,7 +55,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>Block一直是iOS开发中常用的技巧，类似于C语言中的指针函数。多用于参数回调，异步加载等。下面就来探究以下block是如何实现的。<br>这篇是记录根据网上的文章进行的实际操作。C函数的生成中间编译代码的编译方法是clang -rewrite-objc xxxx.c。由于编译文件中内容较多，这里我们只截取有关block的部分。</p>
 <p>首先，看看没有block的C函数以及编译后的结果：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main()&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -108,16 +110,17 @@
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
   <script type="text/javascript">
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: 'hanangellove',
-        admin: [''],
-        // id: location.pathname,      // Ensure uniqueness and length less than 50
-        id: md5(location.pathname),
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: 'hanangellove',
+      admin: [''],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
 
   gitalk.render('gitalk-container')
   </script>
@@ -132,16 +135,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -201,6 +209,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -218,8 +231,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>

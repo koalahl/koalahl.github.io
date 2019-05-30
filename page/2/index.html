@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -59,7 +59,7 @@
 
     
       
-        <article id="post-Runtime的运用和减少应用崩溃" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Runtime的运用和减少应用崩溃" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -89,7 +89,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>Objective-C 是一个动态语言，它需要一个运行时系统来动态的创建类和对象、进行消息传递和转发。关于Runtime的知识大家可以参看<a href="https://link.jianshu.com?t=https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="noopener">Apple开源的Runtime代码</a> 和<a href="https://link.jianshu.com?t=https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008048-CH1-SW1" target="_blank" rel="noopener">Rumtime编程指南</a> 。</p>
 <p>本文总结一些其常用的方法。<br>
@@ -117,7 +119,7 @@
 
 
       
-        <article id="post-老司机-iOS-周报-20-2018-05-21" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-老司机-iOS-周报-20-2018-05-21" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -147,7 +149,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p><img src="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" alt=""></p>
 <p>老司机 iOS 周报，只为你呈现有价值的信息。</p>
@@ -176,7 +180,7 @@
 
 
       
-        <article id="post-HTTP和HTTPS详解" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-HTTP和HTTPS详解" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -206,7 +210,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p><img src="https://user-gold-cdn.xitu.io/2018/5/11/1634e5e739628b16?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p>
 <h3 id="计算机通信原理"><a href="#计算机通信原理" class="headerlink" title="计算机通信原理"></a>计算机通信原理</h3><p>互联网的关键技术就是TCP/IP协议。两台计算机之间的通信是通过TCP/IP协议在因特网上进行的。实际上这个是两个协议：</p>
@@ -241,7 +247,7 @@
 
 
       
-        <article id="post-RunLoop与GCD-、Autorelease-Pool之间的关系" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-RunLoop与GCD-、Autorelease-Pool之间的关系" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -271,7 +277,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>如果在面试中问到RunLoop相关的知识，很有可能也会问到RunLoop与GCD、Autorelease Pool有没有关系，哪些地方用到了GCD、Autorelease Pool等。<br>So，本文就总结一下RunLoop与GCD和 Autorelease Pool 之间的关系，看看在RunLoop实现中，哪些地方间接或者直接使用、操作到了GCD 和Autorelease Pool。</p>
         
@@ -298,7 +306,7 @@
 
 
       
-        <article id="post-RunLoop总结：RunLoop的应用场景（四）App卡顿监测" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-RunLoop总结：RunLoop的应用场景（四）App卡顿监测" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -328,7 +336,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>今天要介绍的RunLoop使用场景很有意思，在做长期项目，需要跟踪解决用户问题非常有用。<br>使用RunLoop 监测主线程的卡顿，并将卡顿时的线程堆栈信息保存下来，下次上传到服务器。</p>
         
@@ -355,7 +365,7 @@
 
 
       
-        <article id="post-RunLoop总结：RunLoop的应用场景（一）保证线程长久存活" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-RunLoop总结：RunLoop的应用场景（一）保证线程长久存活" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -385,7 +395,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>在iOS开发过程中，有时候我们不希望一些花费时间比较长的操作阻塞主线程，导致界面卡顿，那么我们就会创建一个子线程，然后把这些花费时间比较长的操作放在子线程中来处理。可是当子线程中的任务执行完毕后，子线程就会被销毁掉。 </p>
 <p>当子线程中的任务执行完毕后，线程就被立刻销毁了。如果程序中，需要经常在子线程中执行任务，频繁的创建和销毁线程，会造成资源的浪费。这时候我们就可以使用RunLoop来让该线程长时间存活而不被销毁。</p>
@@ -413,7 +425,7 @@
 
 
       
-        <article id="post-iOS-APP-运行时防Crash工具XXShield练就" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-iOS-APP-运行时防Crash工具XXShield练就" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -443,7 +455,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>正在运行的 APP 突然 Crash，是一件令人不爽的事，会流失用户，影响公司发展，所以 APP 运行时拥有防 Crash 功能能有效降低 Crash 率，提升 APP 稳定性。但是有时候 APP Crash 是应有的表现，我们不让 APPCrash 可能会导致别的逻辑错误，不过我们可以抓取到应用当前的堆栈信息并上传至相关的服务器，分析并修复这些 BUG。</p>
 <p>所以本文介绍的 XXShield 库有两个重要的功能:</p>
@@ -476,7 +490,7 @@
 
 
       
-        <article id="post-SDWebImage4-0源码阅读" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-SDWebImage4-0源码阅读" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -506,7 +520,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <h3 id="参拜一下SDWebImage的源码。"><a href="#参拜一下SDWebImage的源码。" class="headerlink" title="参拜一下SDWebImage的源码。"></a>参拜一下SDWebImage的源码。</h3><p>并不是说一定要读如何如何、只是觉得源码的阅读是一种很好的学习方式。无论从架构还是技术点方面。</p>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
@@ -575,7 +591,7 @@
 
 
       
-        <article id="post-深入理解iOS-Rendering-Process" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-深入理解iOS-Rendering-Process" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -605,7 +621,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p><strong>前言</strong><br>iOS 最早名为 iPhone OS，是<a href="https://www.apple.com/" target="_blank" rel="noopener">Apple</a>公司专门为其硬件设备开发的操作系统，最初于 2007 年随第一代 iPhone 推出，后扩展为支持 Apple 公司旗下的其他硬件设备，如 iPod、iPad 等。<br>作为一名 iOS Developer，相信大多数人都有写出过造成 iOS 设备卡顿的代码经历，相应的也有过想方设法优化卡顿代码的经验。<br>本文将从 OpenGL 的角度结合 Apple 官方给出的部分资料，介绍 iOS Rendering Process 的概念及其整个底层渲染管道的各个流程。<br>相信在理解了 iOS Rendering Process 的底层各个阶段之后，我们可以在平日的开发工作之中写出性能更高的代码，在解决帧率不足的显示卡顿问题时也可以多一些思路~</p>
         
@@ -632,7 +650,7 @@
 
 
       
-        <article id="post-老司机-iOS-周报-15" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-老司机-iOS-周报-15" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -662,7 +680,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p><img src="https://user-gold-cdn.xitu.io/2018/4/16/162ccf8ac966f57a?imageView2/1/w/1304/h/734/q/85/format/webp/interlace/1" alt=""></p>
 <p>老司机 iOS 周报，只为你呈现有价值的信息。<br>你也可以为这个项目出一份力，如果发现有价值的信息、文章、工具等可以到 Issues 里提给我们，我们会尽快处理。记得写上推荐的理由哦。有建议和意见也欢迎到 Issues 提出。</p>
@@ -693,7 +713,7 @@
   
     <nav class="page-nav">
       
-      <a class="extend prev" rel="prev" href="/">Newer posts</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Olde posts</a>
+      <a class="extend prev" rel="prev" href="/">Prev page</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next page</a>
     </nav>
   
 </section>
@@ -702,16 +722,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -771,6 +796,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -788,8 +818,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -59,7 +59,7 @@
 
     
       
-        <article id="post-iOS中处理四舍五入的问题" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-iOS中处理四舍五入的问题" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -89,7 +89,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>处理四舍五入主要使用下面这个方法：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSString</span> *)notRounding:(<span class="keyword">float</span>)price afterPoint:(<span class="keyword">int</span>)position&#123;</span><br><span class="line">    <span class="built_in">NSDecimalNumberHandler</span>* roundingBehavior = [<span class="built_in">NSDecimalNumberHandler</span> decimalNumberHandlerWithRoundingMode:<span class="built_in">NSRoundDown</span> scale:position raiseOnExactness:<span class="literal">NO</span> raiseOnOverflow:<span class="literal">NO</span> raiseOnUnderflow:<span class="literal">NO</span> raiseOnDivideByZero:<span class="literal">NO</span>];</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *ouncesDecimal;</span><br><span class="line">    <span class="built_in">NSDecimalNumber</span> *roundedOunces;</span><br><span class="line">    </span><br><span class="line">    ouncesDecimal = [[<span class="built_in">NSDecimalNumber</span> alloc] initWithFloat:price];</span><br><span class="line">    roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];</span><br><span class="line">    [ouncesDecimal release];</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,roundedOunces];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>介绍一下参数：<br><code>price</code>:需要处理的数字，<br><code>position</code>：保留小数点第几位，<br>然后调用<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> s =<span class="number">0.126</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *sb = [<span class="keyword">self</span> notRounding:s afterPoint:<span class="number">2</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"sb = %@"</span>,sb);</span><br><span class="line">输出结果为：sb = <span class="number">0.12</span></span><br></pre></td></tr></table></figure></p>
 <p>接下来介绍NSDecimalNumberHandler初始化时的关键参数：decimalNumberHandlerWithRoundingMode：NSRoundDown，<br><code>NSRoundDown</code>代表的就是 只舍不入。<br>scale的参数<code>position</code>代表保留小数点后几位。</p>
@@ -117,7 +119,7 @@
 
 
       
-        <article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Category添加属性所想到的" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -147,7 +149,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>iOS中category和extension相辅相成，长得也很相似。category与extension的主要区别：</p>
 <p>Category：分类、类别</p>
@@ -186,7 +190,7 @@
 
 
       
-        <article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-常用排序算法" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -216,7 +220,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>在此总结一下常用排序算法的代码实现</p>
 <p><code>#include &lt;iostream&gt;</code><br><code>using namespace std;</code><br><code>typedef int ElemType;</code></p>
@@ -252,7 +258,7 @@
   
     <nav class="page-nav">
       
-      <a class="extend prev" rel="prev" href="/page/6/">Newer posts</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/">Prev page</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
     </nav>
   
 </section>
@@ -261,16 +267,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -330,6 +341,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -347,8 +363,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -25,7 +25,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-QRCode的那些事儿" class="article article-type-post" itemscope itemprop="blogPost">
+  <article id="post-QRCode的那些事儿" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -55,7 +55,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>网上已经有很多关于二维码方面的文章了，写这篇文章的目的是因为要记录一个关于保存二维码图片到相册的问题，顺便回顾一下iOS开发中使用二维码的历史。好了，废话少说，让我们开始吧！</p>
 <h2>要讨论的问题</h2><br>在参考<a href="http://www.appcoda.com/qr-code-generator-tutorial/" target="_blank" rel="noopener">Building a QR Code Generator with Core Image Filters</a>这篇文章，完成了二维码生成的栗子。<br>二维码的扫描则是用了AVFoundation框架来编写的<a href="https://github.com/koalahl/HLQRCode" target="_blank" rel="noopener">Github·HLQRCode</a>。最后想把生成的二维码图片保存到相册中却没有成功。<br>参考了网上的代码，使用了CIImag-&gt;CGImage-&gt;writeImageToAlbum的方式。<br><br><a id="more"></a><br>代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CIContext</span> * context = [<span class="built_in">CIContext</span> contextWithOptions:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">CGImageRef</span> cgimg = [context createCGImage:<span class="keyword">self</span>.qrcodeImg fromRect:[<span class="keyword">self</span>.qrcodeImg extent] ];</span><br><span class="line"></span><br><span class="line">ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];</span><br><span class="line">[library writeImageToSavedPhotosAlbum:cgimg metadata:[<span class="keyword">self</span>.qrcodeImg properties] completionBlock:^(<span class="built_in">NSURL</span> *assetURL, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(error != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        msg = <span class="string">@"保存图片失败"</span> ;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,assetURL);</span><br><span class="line">        msg = <span class="string">@"保存图片成功"</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIAlertView</span> *alert = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="literal">nil</span></span><br><span class="line">                                                    message:msg</span><br><span class="line">                                                   delegate:<span class="keyword">self</span></span><br><span class="line">                                          cancelButtonTitle:<span class="string">@"确定"</span></span><br><span class="line">                                          otherButtonTitles:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    [alert show];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure><br><br>但是这样无论怎么样都无法在相册中看到保存的二维码图片。还报错<code>message &quot;BSXPCMessage received error for message: Connection interrupted&quot;</code>。对比参考的代码都是一样的，却找不出原因。我就在文章评论中留言问了这个问题，后来一个朋友提出了解决方案，仔细一看顿时恍然大悟。<br><br><h2>解决方式及要点</h2>
@@ -122,16 +124,17 @@
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
   <script type="text/javascript">
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: 'hanangellove',
-        admin: [''],
-        // id: location.pathname,      // Ensure uniqueness and length less than 50
-        id: md5(location.pathname),
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: 'hanangellove',
+      admin: [''],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
 
   gitalk.render('gitalk-container')
   </script>
@@ -146,16 +149,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -215,6 +223,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -232,8 +245,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>

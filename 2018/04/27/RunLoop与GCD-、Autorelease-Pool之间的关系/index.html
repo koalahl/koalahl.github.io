@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -25,7 +25,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-RunLoop与GCD-、Autorelease-Pool之间的关系" class="article article-type-post" itemscope itemprop="blogPost">
+  <article id="post-RunLoop与GCD-、Autorelease-Pool之间的关系" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -55,7 +55,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>如果在面试中问到RunLoop相关的知识，很有可能也会问到RunLoop与GCD、Autorelease Pool有没有关系，哪些地方用到了GCD、Autorelease Pool等。<br>So，本文就总结一下RunLoop与GCD和 Autorelease Pool 之间的关系，看看在RunLoop实现中，哪些地方间接或者直接使用、操作到了GCD 和Autorelease Pool。</p>
 <a id="more"></a>
@@ -157,16 +159,17 @@
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
   <script type="text/javascript">
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: 'hanangellove',
-        admin: [''],
-        // id: location.pathname,      // Ensure uniqueness and length less than 50
-        id: md5(location.pathname),
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: 'hanangellove',
+      admin: [''],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
 
   gitalk.render('gitalk-container')
   </script>
@@ -181,16 +184,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -250,6 +258,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -267,8 +280,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>

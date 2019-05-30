@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   
@@ -25,7 +25,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-《程序员的自我修养》读书笔记-温故知新" class="article article-type-post" itemscope itemprop="blogPost">
+  <article id="post-《程序员的自我修养》读书笔记-温故知新" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -55,7 +55,9 @@
 
     <div class="article-entry" itemprop="articleBody">
       
+
       
+
       
         <p>基础篇回顾一下两个基础：<br>内存<br>线程</p>
 <h2 id="memory">内存</h2><br>早期的计算机，程序直接运行在物理内存上。那么久存在一个问题：如何尽可能的将有限的物理内存分配给多个程序使用。<br><br><br>内存使用存在的问题：<br>  1.地址空间不足<br>  2.内存使用效率低<br>  3.程序运行的地址不确定-重定位问题。<br><br>那么针对这三个问题，利用<code>中间层</code>,让程序间接的访问物理地址，来解决以上几个问题。<br><br><br><a id="more"></a><br><br>- 分段：（segment）将程序需要的地址空间映射到一段虚拟空间上。以此将程序间隔离。此方法解决第一个和第三个问题。<br>- 分页：（paging）将地址空间人为分为固定大小的页（page）。一般为4KB大小。虚拟内存的实现需要依靠硬件支持。通常采用<code>MMU(Memory Management Unit)</code>来进行page mapping，将CPU使用的虚拟地址映射为实际的物理地址。<br><br><img src="/img/VPandPP.jpg" alt="进程虚拟空间、物理空间的映射"><br><br><h2 id="thread">线程</h2>
@@ -143,16 +145,17 @@
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
   <script type="text/javascript">
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: 'hanangellove',
-        admin: [''],
-        // id: location.pathname,      // Ensure uniqueness and length less than 50
-        id: md5(location.pathname),
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: 'hanangellove',
+      admin: [''],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
 
   gitalk.render('gitalk-container')
   </script>
@@ -167,16 +170,21 @@
   <footer class="footer">
   
   <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
     <ul class="list-inline">
       <li>&copy; 2019 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
-      <!--
-      <li><a href="/">Han Liu</a></li>
-      -->
     </ul>
   </div>
 </footer>
+
 </main>
 <aside class="sidebar">
   <button class="navbar-toggle"></button>
@@ -236,6 +244,11 @@
 
 <nav class="navbar navbar-bottom">
   <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -253,8 +266,9 @@
 </div>
 </div>
 </aside>
-  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
 
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>
