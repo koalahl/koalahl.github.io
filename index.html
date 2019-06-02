@@ -59,6 +59,70 @@
 
     
       
+        <article id="post-iOS中的多线程和锁" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/06/02/iOS中的多线程和锁/">iOS中的多线程和锁</a>
+    </h2>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/06/02/iOS中的多线程和锁/" class="article-date">
+  <time datetime="2019-06-02T03:27:50.000Z" itemprop="datePublished">2019-06-02</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a> / <a class="article-category-link" href="/categories/iOS/interview/">interview</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>在 ibireme 的 不再安全的 OSSpinLock 一文中，有一张图简单比较了各种所的加锁性能 下面根据顺序分析每个加锁的实现原理。注意：加解锁速度并不表示锁的效率，只表示加解锁的操作在执行时的复杂度。</p>
+<p>锁之间的关系<br>忙等类<br>test_and_set -&gt; OSSpinLock -&gt; os_unfair_lock</p>
+<p>休眠类<br>lll_futex_wait -&gt; GCD信号量<br>lll_futex_wait -&gt; pthread_mutex<br>1.加上错误处理 -&gt; NSLock</p>
+<p>2.加上条件判断 -&gt; NSCondition + Value -&gt; NSConditionLock</p>
+<p>3.加上递归特性 -&gt; NSRecursiveLock</p>
+<p>4.加上递归特性、哈希特性 -&gt; @Synchronized(Obj)</p>
+        
+          <a class="article-more-link" href="/2019/06/02/iOS中的多线程和锁/">Read More...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hl1987.com/2019/06/02/iOS中的多线程和锁/" data-id="cjwef9jvg0033qzf0sanepuii"
+         class="article-share-link">Share</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-小时钟使用色采App进行自定义配色" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -102,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2019/05/29/小时钟使用色采App进行自定义配色/" data-id="cjw81wo3s006vmyf0cwj70lqw"
+      <a data-url="http://hl1987.com/2019/05/29/小时钟使用色采App进行自定义配色/" data-id="cjwef9jx20056qzf0d4r1wrxy"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小时钟/">小时钟</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/色采/">色采</a></li></ul>
@@ -163,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/11/11/隐私政策/" data-id="cjw81wo4y008bmyf0qi1gcqfh"
+      <a data-url="http://hl1987.com/2018/11/11/隐私政策/" data-id="cjwef9jxg005vqzf0hbtlkeyb"
          class="article-share-link">Share</a>
       
     </footer>
@@ -220,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/27/Mapkit基本开发指南/" data-id="cjw81wo0n000zmyf0lfxdsapx"
+      <a data-url="http://hl1987.com/2018/07/27/Mapkit基本开发指南/" data-id="cjwef9jtm000rqzf00mdp3yx0"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mapkit/">Mapkit</a></li></ul>
@@ -281,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/19/YYCache-源码解析/" data-id="cjw81wo1v002qmyf0qslvocfx"
+      <a data-url="http://hl1987.com/2018/07/19/YYCache-源码解析/" data-id="cjwef9jvc002xqzf02qa1eebe"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/YYCache/">YYCache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashmap/">hashmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/双向链表/">双向链表</a></li></ul>
@@ -346,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-关联对象实现原理/" data-id="cjw81wo1m002gmyf08aa4mg6u"
+      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-关联对象实现原理/" data-id="cjwef9jvj0036qzf09ofp0921"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/associate-object/">associate object</a></li></ul>
@@ -408,7 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/" data-id="cjw81wo1y002wmyf09x5d5zft"
+      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-Category的本质/" data-id="cjwef9jv8002qqzf0qqi2gpkv"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Category/">Category</a></li></ul>
@@ -476,7 +540,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-RunLoop/" data-id="cjw81wo20002zmyf0j8a4ta61"
+      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-RunLoop/" data-id="cjwef9jvo003eqzf05rciwehc"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/runloop/">runloop</a></li></ul>
@@ -542,7 +606,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻Class的本质/" data-id="cjw81wo1t002nmyf02lfmmss0"
+      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻Class的本质/" data-id="cjwef9jvl0039qzf0c2y3xgi1"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Class本质/">Class本质</a></li></ul>
@@ -606,69 +670,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/" data-id="cjw81wo2a003imyf09g4nptnt"
+      <a data-url="http://hl1987.com/2018/07/05/iOS底层原理总结-探寻OC对象的本质/" data-id="cjwef9jw7003qqzf0rlfzszv7"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object本质/">Object本质</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/isa/">isa</a></li></ul>
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/">[WWDC2018] - 图像最佳实践 Image and Graphics Best Practices</a>
-    </h2>
-  
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" class="article-date">
-  <time datetime="2018-06-21T10:22:40.000Z" itemprop="datePublished">2018-06-21</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/graphic/">graphic</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="Image-and-Graphics-Best-Practices"><a href="#Image-and-Graphics-Best-Practices" class="headerlink" title="Image and Graphics Best Practices"></a>Image and Graphics Best Practices</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#first" target="_blank" rel="noopener">1.UIImage and UIImageView</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#second" target="_blank" rel="noopener">2.Custom drawing with UIKit</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#third" target="_blank" rel="noopener">3.Advanced CPU and GPU</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#summary" target="_blank" rel="noopener">4.总结</a></p>
-        
-          <a class="article-more-link" href="/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/">Read More...</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" data-id="cjw81wo1a001zmyf0f60vdll6"
-         class="article-share-link">Share</a>
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rendering/">Rendering</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WWDC2018/">WWDC2018</a></li></ul>
 
     </footer>
 
@@ -761,7 +766,7 @@
       </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Suche">
+      <a class="nav-item-link nav-item-search" title="Search">
         <i class="fe fe-search"></i>
         Search
       </a>
