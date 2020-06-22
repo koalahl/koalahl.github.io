@@ -61,12 +61,13 @@
       
         <h1 id="Image-and-Graphics-Best-Practices"><a href="#Image-and-Graphics-Best-Practices" class="headerlink" title="Image and Graphics Best Practices"></a>Image and Graphics Best Practices</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#first" target="_blank" rel="noopener">1.UIImage and UIImageView</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#second" target="_blank" rel="noopener">2.Custom drawing with UIKit</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#third" target="_blank" rel="noopener">3.Advanced CPU and GPU</a><br><a href="https://techblog.toutiao.com/2018/06/19/untitled-42/#summary" target="_blank" rel="noopener">4.总结</a></p>
 <a id="more"></a>
-<h2 id="1-UIImage-and-UIImageView"><a href="#1-UIImage-and-UIImageView" class="headerlink" title="1. UIImage and UIImageView"></a>1. UIImage and UIImageView</h2><h3 id="1-1-渲染的过程"><a href="#1-1-渲染的过程" class="headerlink" title="1.1 渲染的过程"></a>1.1 渲染的过程</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-dbc20daa0ed66a4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.1modelandview.png"></p>
-<p>在经典的MVC框架中，UIImage扮演Model的角色，UIImageView则充当View，UIImage用于加载图片内容，UIImageView负责将图片内容渲染和显示，看似单向逻辑关系，但实际上为了衡量应用程序的性能，我们必须关注隐藏的Decode环节，如下图所示。但在讨论Decode环节前，我们得先明确buffers的概念。<img src="https://upload-images.jianshu.io/upload_images/11994763-a214783c092226fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.2renderprocess.png"></p>
+<h2 id="1-UIImage-and-UIImageView"><a href="#1-UIImage-and-UIImageView" class="headerlink" title="1. UIImage and UIImageView"></a>1. UIImage and UIImageView</h2><h3 id="1-1-渲染的过程"><a href="#1-1-渲染的过程" class="headerlink" title="1.1 渲染的过程"></a>1.1 渲染的过程</h3><p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9109258?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1.1modelandview.png"></p>
+<p>在经典的MVC框架中，UIImage扮演Model的角色，UIImageView则充当View，UIImage用于加载图片内容，UIImageView负责将图片内容渲染和显示，看似单向逻辑关系,但实际上为了衡量应用程序的性能，我们必须关注隐藏的Decode环节，如下图所示。但在讨论Decode环节前，我们得先明确buffers的概念。<br><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb4b7ad8f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1.2renderprocess.png"></p>
 <h3 id="1-2-Buffers"><a href="#1-2-Buffers" class="headerlink" title="1.2 Buffers"></a>1.2 Buffers</h3><p>imagebuffer中的每一个元素描述的是一个像素的颜色信息，buffer的size与图片的size为正相关关系。imagebuffer的一个典型例子便是framebuffer，framebuffer真正管理着屏幕的输出。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/11994763-147443bcb0ef2dfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.3buffers.png"></p>
-<p>在应用程序更新图层时，UIKit将window及其subviews渲染至framebuffer，这个framebuffer提供每个像素的信息以供显示硬件定时读取，读取的频率一般为60Hz，但在ipad上可提升至120Hz。 与imagebuffer不同，Data Buffer存储着一个图片文件的内容，通常为JPG,PNG等压缩格式，因此其内容不是直接与像素的信息一一对应。metadata存储着图片的尺寸。</p>
-<h3 id="1-3-Decode过程"><a href="#1-3-Decode过程" class="headerlink" title="1.3 Decode过程"></a>1.3 Decode过程</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-4114017b2cf9870b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.4decode.png"></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb922755f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1.3buffers.png"></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fbfadd78f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1.4framebuffer.png"></p>
+<p>在应用程序更新图层时，UIKit将window及其subviews渲染至framebuffer，这个framebuffer提供每个像素的信息以供显示硬件定时读取，读取的频率一般为60Hz，但在ipad上可提升至120Hz。 与imagebuffer不同，Data Buffer存储着一个图片文件的内容，通常为JPG,PNG等压缩格式，Data Buffers 代表了图片文件（Image file）在内存中的表示。这是图片的元数据，不同格式的图片文件有不同的编码格式。Data Buffers不直接描述像素点。 因此，Decode这一流程的引入，正是为了将Data Buffers转换为真正代表像素点的Image Buffer<br><img src="https://user-gold-cdn.xitu.io/2018/6/8/163df74fb9d5d691?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1.5databuffer.png"></p>
+<h3 id="1-3-Decode过程"><a href="#1-3-Decode过程" class="headerlink" title="1.3 Decode过程"></a>1.3 Decode过程</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-4114017b2cf9870b.png?imageMogr2%2Fauto-orient%2Fstrip%7CimageView2%2F2%2Fw%2F1240" alt="1.4decode.png"></p>
 <p>明确了buffers的概念后，我们便理解了Decode环节存在的必要性。如上图所示，在实际的渲染过程中，UIImage负责解压Data Buffer内容并申请buffer（Image Buffer）存储解压后的图片信息，然后UIImageView负责将Image Buffer 拷贝至 framebuffer，用于给显示硬件提供颜色信息。</p>
 <p>解压过程是一个大量占用CPU资源的工作，因此UIImage 会retain存储解压后信息的Image Buffer以便给重复的渲染工作提供信息，Image Buffer与图片的实际尺寸有关（理论值为height <em> width </em> 4 bytes），与图片文件大小无关。若是在TableView等列表中连续加载多张图片，便会引发连续的大块内存分配，这将对Memory和CPU带来沉重的负担。<br><img src="https://upload-images.jianshu.io/upload_images/11994763-751112ab9ab09dcc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.5largeallocation.png"></p>
 <h3 id="1-4-DownSampling"><a href="#1-4-DownSampling" class="headerlink" title="1.4 DownSampling"></a>1.4 DownSampling</h3><p><img src="https://upload-images.jianshu.io/upload_images/11994763-6803dcfb6f330383.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.6downsampling.png"></p>
@@ -108,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" data-id="cjwef9juz002iqzf058pmjhnx"
+      <a data-url="http://hl1987.com/2018/06/21/WWDC2018-图像最佳实践-Image-and-Graphics-Best-Practices/" data-id="ckbqpio7o001v6lf0uoe6c25e"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rendering/">Rendering</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WWDC2018/">WWDC2018</a></li></ul>
@@ -181,7 +182,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2019 寒流‘s Blog</li>
+      <li>&copy; 2020 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
     </ul>
@@ -237,7 +238,7 @@
       </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Suche">
+      <a class="nav-item-link nav-item-search" title="Buscar">
         <i class="fe fe-search"></i>
         Search
       </a>
@@ -254,7 +255,7 @@
       </li>
     <li class="nav-item">
       
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS">
           <i class="fe fe-feed"></i>
         </a>
       

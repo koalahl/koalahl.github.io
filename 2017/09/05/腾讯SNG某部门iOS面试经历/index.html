@@ -89,8 +89,7 @@
 <blockquote><p>Core Animation does the rest, handing most of the actual drawing work off to the onboard graphics hardware to accelerate the rendering. This automatic graphics acceleration results in high frame rates and smooth animations without burdening the CPU and slowing down your app.</p>
 </blockquote>
 <p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004514" target="_blank" rel="noopener">Core Animation Programming Guide</a></p>
-<p>动画执行过程中是否响应事件？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</span><br><span class="line">    <span class="built_in">UITouch</span> *touch = [touches anyObject];</span><br><span class="line">    <span class="built_in">CGPoint</span> point = [touch locationInView:<span class="keyword">self</span>.view];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGRectContainsPoint</span>(<span class="keyword">self</span>.colorLayer.presentationLayer.frame, point)) &#123;</span><br><span class="line">        [<span class="keyword">self</span> startAnimation];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGRectContainsPoint</span>(<span class="keyword">self</span>.myView.frame, point)) &#123;</span><br><span class="line">        [<span class="keyword">self</span> startUIViewAnimation:<span class="literal">nil</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>经过测试，CALayer是可以响应touch事件的,而UIView的block animation在执行过程中不能响应其自身的触摸事件。</p>
+<p>动画执行过程中是否响应事件？<br>UIView的block animation在执行过程中不能响应其自身的触摸事件。</p>
 <p><em>注意CALayer在动画执行过程中要是用presentationLayer属性才能获取到中间状态的layer</em><br><em>Core Animation 的removedOnCompletion 属性默认是YES，即动画结束之后会移除动画，CALayer会回到原来的状态</em></p>
 <p>可以查看Core Animation Programming Guide 的显式动画一章。</p>
 <p>另外附一篇有意思的文章 <a href="https://yalantis.com/blog/uidynamics-uikit-or-opengl-3-types-of-ios-animations-for-the-star-wars/" target="_blank" rel="noopener">UIDynamics, UIKit or OpenGL? 3 Types of iOS Animations for the Star Wars</a>,值得一读。</p>
@@ -118,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hl1987.com/2017/09/05/腾讯SNG某部门iOS面试经历/" data-id="cjwef9jxe005rqzf0fk2ryqc5"
+      <a data-url="http://hl1987.com/2017/09/05/腾讯SNG某部门iOS面试经历/" data-id="ckbqpio99005p6lf0xayyz929"
          class="article-share-link">Share</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/腾讯/">腾讯</a></li></ul>
@@ -191,7 +190,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2019 寒流‘s Blog</li>
+      <li>&copy; 2020 寒流‘s Blog</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
     </ul>
@@ -247,7 +246,7 @@
       </li>
     
     <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Suche">
+      <a class="nav-item-link nav-item-search" title="Buscar">
         <i class="fe fe-search"></i>
         Search
       </a>
@@ -264,7 +263,7 @@
       </li>
     <li class="nav-item">
       
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS">
           <i class="fe fe-feed"></i>
         </a>
       
